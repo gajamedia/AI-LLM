@@ -1,0 +1,15 @@
+# Runtime dependencies (Python 3.10, verified on Windows CPU-only).
+# Corpus tooling extras live in tools/requirements-corpus.txt and
+# tools/requirements-hf-corpus.txt — do NOT install those into this base env
+# unconditionally (requirements-hf-corpus.txt pins datasets==2.19.2).
+
+torch>=2.14.0
+numpy>=2.0
+pandas>=2.0
+tqdm>=4.70
+requests>=2.31
+lxml>=5.0
+mwparserfromhell>=0.6
+pyarrow>=15.0
+datasets>=2.19
+huggingface_hub>=0.23

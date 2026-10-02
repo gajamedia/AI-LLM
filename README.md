@@ -1,0 +1,254 @@
+# hai07-ocd
+
+Pipeline LLM gaya GPT (decoder-only) untuk teks berbahasa Indonesia:
+**korpus → tokenizer subword hibrida 32.768 → pretokenisasi biner → training → generasi**.
+
+Semua kode berjalan di **CPU-only** (diukur pada mesin ini) dan diuji otomatis dengan pytest.
+
+---
+
+## Status
+
+| Tahap | Isi | Status |
+|---|---|---|
+| 1A–1F | Korpus (Wikipedia ID + HPLT), tokenizer 32.768, pretokenisasi | **Selesai** |
+| 2A–2C | Koreksi konfigurasi, RMSNorm/CE numerik, scheduler LR | **Selesai** |
+| 3 | KV cache + `position_offset` benar pada generasi | **Selesai** |
+| 4 | Hygiene repo (.gitignore, README, pyproject, pytest) | **Selesai** |
+| — | Training penuh 421M token | **Belum** (lihat [Batas perangkat keras](#batas-perangkat-keras)) |
+
+Arsitektur model (production, tidak berubah): 8 layer, `d_model=384`, GQA 6 head / 3 KV head,
+SwiGLU (hidden 1024), RMSNorm, posisi learned, konteks 256, vocab 32.768,
+`tie_weights=True` → **25.663.872 parameter (25.66M)**.
+
+---
+
+## Persyaratan
+
+- Python 3.10 (dikembangkan pada 3.10.11, Windows)
+- `torch` build CPU maupun CUDA — perilaku terukur ada di
+  [Batas perangkat keras](#batas-perangkat-keras)
+
+```powershell
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt        # runtime
+pip install -r requirements-dev.txt    # + pytest
+```
+
+> `tools/requirements-hf-corpus.txt` memaksa `datasets==2.19.2` sementara env ini
+> memakai `datasets==5.0.1`. **Jangan** menginstallnya ke env dasar tanpa venv terpisah.
+
+---
+
+## Struktur repo
+
+```
+apps/        model & utilitas inti (bukan package; ditambahkan ke sys.path)
+  config.py            DevelopmentConfig / ProductionConfig / TestingConfig
+  gptModel.py          GPTModel (embedding, stack, LM head, weight tying)
+  transformerStack.py  TransformerStack + KV cache per layer
+  transformerBlock.py  attention + MLP (SwiGLU / FeedForward) + norm
+  attention.py         GQA, RoPE opsional, causal mask, KV cache
+  modules/rmsnorm.py   RMSNorm dengan akumulasi fp32
+  embedding.py         token + positional embedding
+  tokenizer2.py        HybridTokenizerLLM
+  dataset2.py          packed/sliding token dataset
+tools/       skrip CLI (korpus, tokenizer, training, generasi)
+tests/       pytest
+data/        artefak (~17 GB, TIDAK di-commit; lihat .gitignore)
+reports/     laporan JSON + checkpoint + log
+```
+
+---
+
+## Alur kerja
+
+Semua perintah di biasakan dijalankan dari root repo. Di Windows gunakan
+`venv\Scripts\python.exe` bila virtualenv tidak aktif.
+
+### 1. Korpus
+
+**Wikipedia Indonesia** (sumber utama):
+
+```bash
+python tools/download_wikimedia_dump.py --wiki idwiki --snapshot 20260901 \
+    --kind articles --output-dir data/corpus_dump_20260901/raw
+
+# --resume aman: melanjutkan dari sidecar .progress.json dan menghasilkan
+# byte yang identik dengan run penuh.
+python tools/parse_wikimedia_dump.py --wiki idwiki --snapshot 20260901 \
+    --input  data/corpus_dump_20260901/raw/idwiki-20260901-pages-articles-multistream.xml.bz2 \
+    --output data/corpus_dump_20260901/wiki.jsonl --resume
+```
+
+**HuggingFace HPLT (opsional, menambah ~51M token):**
+
+```bash
+python tools/import_hf_corpus.py --dataset HPLT/HPLT2.0_cleaned --split train \
+    --license cc0-1.0 --max-rows 8000 --output data/hf_hplt/hplt_all.jsonl
+python tools/filter_hf_corpus.py --input data/hf_hplt/hplt_all.jsonl \
+    --output data/hf_hplt/hplt_clean.jsonl --min-indonesian-stopwords 2
+```
+
+**Bersihkan + split:**
+
+```bash
+python tools/clean_jsonl_corpus.py \
+    --input data/corpus_dump_20260901/wiki.jsonl \
+    --input data/hf_hplt/hplt_clean.jsonl \
+    --output data/corpus_clean.jsonl
+
+# split deterministik per-hash sumber (source overlap = 0),
+# sekaligus mengirim teks & sampel untuk training tokenizer
+python tools/split_corpus_by_source_hash.py --input data/corpus_clean.jsonl \
+    --output-dir data/split --validation-every 50 \
+    --emit-text --tokenizer-sample 1500000 --tokenizer-sample-seed 17
+
+python tools/corpus_stats.py data/corpus_clean.jsonl \
+    --tokens-per-character 0.288262 --output reports/corpus_stats_clean.json
+```
+
+Hasil saat ini: **8.381.399 baris / 1.432.530.596 karakter / ±412,9M token estimasi**.
+
+> ⚠️ Aturan keras:
+> - `filter_hf_corpus.py` **hanya** untuk output `import_hf_*`. Pada baris Wikipedia ia
+>   menimpa `source_id` jadi `hf:None:...`.
+> - `merge_corpora.py` membuka output dengan mode `"w"` — **jangan merge in-place**.
+> - Wikimedia menolak request tanpa User-Agent (HTTP 403).
+> - `corpus_stats.py` memakai argumen **posisional**, bukan `--input`.
+
+### 2. Tokenizer
+
+`tools/train_tokenizer_progress.py` membaca korpus sebagai **teks baris biasa, bukan JSONL**,
+jadi harus diberi file `.txt`.
+
+```bash
+python tools/train_tokenizer_progress.py --env production --force \
+    --corpus-path data/split/tokenizer_sample.txt \
+    --output-dir data/prod --max-vocab-samples 1500000
+```
+
+Menghasilkan `data/prod/{vocab,token2id,id2token}_prod.json` (32.768 token).
+
+```bash
+python tools/evaluate_tokenizer_corpus.py --env production --sample-size 2000 \
+    --train data/split/train.jsonl --validation data/split/validation.jsonl \
+    --tokenizer-dir data/prod --output reports/evaluate_tokenizer_prod.json
+```
+
+Hasil: `roundtrip_exact_rate = 1.0`, `unknown_token_rate ≈ 0.003`,
+`tokens_per_character ≈ 0.279` (rata-rata global terukur **0.2883**).
+
+### 3. Pretokenisasi
+
+```bash
+python tools/dataset_pretokenizer_fast.py --env production \
+    --train data/split/train.txt --validation data/split/validation.txt \
+    --tokenizer-dir data/prod --output-dir data/prod --log-interval 500000
+```
+
+Menghasilkan `train_tokens.bin` (420.999.317 token), `validation_tokens.bin`
+(8.701.871 token), index `.docs.npy`, dan `pretokenization_manifest.json`.
+Encoder trie diuji setara dengan DP referensi `tokenizer2`.
+
+### 4. Training
+
+```bash
+python tools/train_gptV2.py --env production \
+    --token-file data/prod/train_tokens.bin \
+    --scheduler cosine --warmup-steps 500 --min-lr 2e-5 --no-amp \
+    --save-every 50 --log-every 20 \
+    --val-every 100 --val-token-file data/prod/validation_tokens.bin
+```
+
+Lanjutkan dari checkpoint (berlaku juga untuk `--scheduler`/`--lr` AdamW):
+
+```bash
+python tools/train_gptV2.py --env production \
+    --token-file data/prod/train_tokens.bin \
+    --resume reports/checkpoints/gpt_last.pt ...
+```
+
+- `--max-steps` bersifat **kumulatif** terhadap `global_step` hasil resume
+  (resume dari step 6 dengan `--max-steps 8` berhenti di total 8).
+- `--scheduler {cosine,plateau,none}`, `--warmup-steps`, `--min-lr` menimpa config;
+  `--plateau` / `--no-plateau` tetap tersedia untuk kompatibilitas lama.
+- `--amp` hanya efektif pada CUDA. Pada CPU, `bf16` autocast terbukti **>70× lebih lambat**
+  sehingga `TRAIN_AMP_ENABLED=False` adalah default yang benar untuk mesin ini.
+
+### 5. Generasi
+
+```bash
+python tools/generate_gpt.py --env production \
+    --checkpoint reports/checkpoints/gpt_last.pt \
+    --prompt "Indonesia adalah" --max-new-tokens 60 --seed 7
+```
+
+- KV cache **aktif by default** (±3.8–4.6× lebih cepat pada pengukuran).
+  `--no-cache` tersedia untuk debug/perbandingan.
+- Prompt lebih panjang dari konteks dipotong ke 256 token terakhir **dan dilaporkan**.
+- Generasi berhenti saat konteks penuh (embedding posisi learned tidak punya slot lagi).
+
+---
+
+## Konfigurasi
+
+Lingkungan: `development` | `production` | `testing` — dipilih dengan `--env`
+(pada `generate_gpt.py`, `--env` bisa di-omit bila checkpoint menyimpan env-nya).
+
+Sebagian besar hyperparameter bisa ditimpa dari CLI (`--lr`, `--batch-size`,
+`--block-size`, `--grad-accum`, `--epochs`, `--max-steps`, `--seed`, dst.).
+Lihat `python tools/train_gptV2.py --help`.
+
+Nilai penting (production): `TRAIN_LR=2e-4`, `DATASET_BATCH_SIZE=16`,
+`DATASET_BLOCK_SIZE=256`, `TRAIN_GRAD_ACCUM=8`, `TRAIN_MAX_STEPS=40000`,
+`TRAIN_SCHEDULER=cosine`, `TRAIN_WARMUP_STEPS=500`, `TRAIN_MIN_LR=2e-5`.
+
+---
+
+## Batas perangkat keras
+
+Pengukuran pada mesin ini (8 CPU, `torch 2.14.0+cpu`, `torch.cuda.is_available() == False`):
+
+| Metrik | Nilai |
+|---|---|
+| Forward 4.5 s + backward 8.3 s per micro-step (B=16, T=256) | **±12,8 s → ~320 tok/s** |
+| Thread 1 / 2 / 4 / 8 | 26,1 s / 15,8 s / 15,5 s / **11,5 s (~355 tok/s)** |
+| `bf16` autocast di CPU | **>70× lebih lambat** (2 micro-step tidak selesai dalam 900 s) |
+| Rasio token/param (421M / 25,66M) | **16,4 token/param** (Chinchilla ideal ~20) |
+| 1 epoch 421M token (±355 tok/s) | **±13–14 hari** |
+| `TRAIN_MAX_STEPS=40000` optimizer step (8 × 16 × 256 = 32.768 token/step) | **1.310.720.000 token ≈ 43 hari** |
+
+Satu optimizer step = `grad_accum × batch × block` = 8 × 16 × 256 = 32.768 token.
+`--max-steps` menghitung **optimizer step**, bukan micro-step.
+
+Konsekuensi: sebelum menjalankan training penuh, jalankan dulu **subset**
+(50–100M token) untuk memvalidasi pipeline. `TRAIN_SAVE_EVERY=2000` setara ±51 jam
+antara checkpoint — turunkan dengan `--save-every 50` (±76 menit) untuk run berbasis CPU.
+
+---
+
+## Test
+
+```bash
+python -m pytest
+```
+
+38 test menutup: RMSNorm fp32/dtype, plumbing konfigurasi (cfg menang atas
+global `CONFIG`), SwiGLU `mlp_ratio`, keseimbangan forward/backward,
+weight tying, matematika scheduler warmup+cosine, KV cache (setara dengan
+tanpa cache, batas konteks, potong prompt), dan roundtrip tokenizer produksi.
+
+---
+
+## Masalah config yang belum diperbaiki
+
+Tiga penyimpangan `ProductionConfig` yang diketahui — belum diubah agar tidak
+menyembunyikan perilaku lama:
+
+1. `DATASET_TOKEN_FILE = data/prod/tokens_prod.bin` tidak ada;
+   yang dihasilkan adalah `train_tokens.bin` / `validation_tokens.bin`
+   → wajib `--token-file`.
+2. `TRAIN_VAL_TOKEN_FILE = None` (validasi opt-in lewat `--val-token-file`).
+3. `CORPUS_FILE = data/corpus.txt` tidak ada; `REQUIRE_CORPUS_FILE = False` sehingga tidak error.

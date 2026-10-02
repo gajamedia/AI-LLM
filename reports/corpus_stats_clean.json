@@ -1,0 +1,67 @@
+{
+  "combined": {
+    "inputs": 1,
+    "rows": 8381399,
+    "rows_with_text": 8381399,
+    "characters": 1432530596,
+    "estimated_tokens": 412944135,
+    "duplicate_text_rows": 0,
+    "tokens_per_character_used": 0.288262,
+    "token_budget": null
+  },
+  "inputs": [
+    {
+      "path": "data\\corpus_clean.jsonl",
+      "format": "jsonl",
+      "rows": 8381399,
+      "rows_with_text": 8381399,
+      "rows_with_empty_text": 0,
+      "missing_fields": {
+        "text": 0,
+        "source_id": 0,
+        "source_title": 0,
+        "source_url": 0
+      },
+      "characters": 1432530596,
+      "whitespace_characters": 191051339,
+      "min_chars": 40,
+      "max_chars": 109660,
+      "mean_chars": 170.92,
+      "unique_source_ids": 666407,
+      "unique_texts": 8381399,
+      "duplicate_text_rows": 0,
+      "duplicate_rate": 0.0,
+      "length_histogram": {
+        "buckets": [
+          "0-0",
+          "1-40",
+          "41-80",
+          "81-120",
+          "121-160",
+          "161-240",
+          "241-320",
+          "321-480",
+          "481-640",
+          "641-1000",
+          "1001-2000",
+          ">2000"
+        ],
+        "counts": [
+          0,
+          26165,
+          1780200,
+          2344115,
+          1746690,
+          1635606,
+          459712,
+          203984,
+          52362,
+          44342,
+          43091,
+          45132
+        ]
+      },
+      "estimated_tokens": 412944135
+    }
+  ]
+}

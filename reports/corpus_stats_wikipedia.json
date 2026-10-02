@@ -1,0 +1,69 @@
+{
+  "combined": {
+    "inputs": 1,
+    "rows": 9456249,
+    "rows_with_text": 9456249,
+    "characters": 1470232124,
+    "estimated_tokens": 367558031,
+    "duplicate_text_rows": 600152,
+    "tokens_per_character_used": 0.25,
+    "token_budget": 100000000.0,
+    "reaches_token_budget": true
+  },
+  "inputs": [
+    {
+      "path": "data\\corpus_dump_20260901\\wiki.jsonl",
+      "format": "jsonl",
+      "rows": 9456249,
+      "rows_with_text": 9456249,
+      "rows_with_empty_text": 0,
+      "missing_fields": {
+        "text": 0,
+        "source_id": 0,
+        "source_title": 0,
+        "source_url": 0
+      },
+      "characters": 1470232124,
+      "whitespace_characters": 193136700,
+      "min_chars": 40,
+      "max_chars": 143066,
+      "mean_chars": 155.48,
+      "unique_source_ids": 660142,
+      "unique_texts": 8856097,
+      "duplicate_text_rows": 600152,
+      "duplicate_rate": 0.063466,
+      "length_histogram": {
+        "buckets": [
+          "0-0",
+          "1-40",
+          "41-80",
+          "81-120",
+          "121-160",
+          "161-240",
+          "241-320",
+          "321-480",
+          "481-640",
+          "641-1000",
+          "1001-2000",
+          ">2000"
+        ],
+        "counts": [
+          0,
+          34414,
+          2174750,
+          2576498,
+          1942270,
+          1752726,
+          511821,
+          254506,
+          75655,
+          67008,
+          47763,
+          18838
+        ]
+      },
+      "estimated_tokens": 367558031,
+      "reaches_token_budget": true
+    }
+  ]
+}

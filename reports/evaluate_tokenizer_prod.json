@@ -1,0 +1,36 @@
+{
+  "tokenizer_dir": "data\\prod",
+  "env": "production",
+  "vocab_size": 32768,
+  "sample_size_per_split": 2000,
+  "seed": 42,
+  "normalization": "collapse whitespace and strip for round-trip comparison",
+  "splits": {
+    "train": {
+      "input": "data\\split\\train.jsonl",
+      "eligible_documents": 8213212,
+      "sampled_documents": 2000,
+      "characters": 365084,
+      "tokens": 101923,
+      "unknown_tokens": 303,
+      "documents_roundtrip_exact_after_whitespace_normalization": 2000,
+      "tokens_per_character": 0.279177,
+      "unknown_token_rate": 0.00297283,
+      "roundtrip_exact_rate": 1.0,
+      "roundtrip_failure_examples": []
+    },
+    "validation": {
+      "input": "data\\split\\validation.jsonl",
+      "eligible_documents": 168187,
+      "sampled_documents": 2000,
+      "characters": 331031,
+      "tokens": 91032,
+      "unknown_tokens": 305,
+      "documents_roundtrip_exact_after_whitespace_normalization": 2000,
+      "tokens_per_character": 0.274995,
+      "unknown_token_rate": 0.00335047,
+      "roundtrip_exact_rate": 1.0,
+      "roundtrip_failure_examples": []
+    }
+  }
+}
