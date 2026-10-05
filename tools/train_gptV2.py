@@ -393,6 +393,12 @@ def main() -> None:
     parser.add_argument("--no-pin-memory", action="store_true")
     parser.add_argument("--persistent-workers", action="store_true")
     parser.add_argument("--no-persistent-workers", action="store_true")
+    parser.add_argument(
+        "--num-threads",
+        type=int,
+        default=None,
+        help="Torch intra-op threads untuk training CPU (default: nilai torch, biasanya setengah core).",
+    )
     args = parser.parse_args()
 
     if args.shuffle and args.no_shuffle:
@@ -405,6 +411,10 @@ def main() -> None:
         raise SystemExit("Choose only one of --plateau or --no-plateau.")
     if args.early_stop and args.no_early_stop:
         raise SystemExit("Choose only one of --early-stop or --no-early-stop.")
+    if args.num_threads is not None and int(args.num_threads) < 1:
+        raise SystemExit("--num-threads must be >= 1.")
+    if args.num_threads is not None:
+        torch.set_num_threads(int(args.num_threads))
 
     env = args.env or os.getenv("TOKENIZER_ENV", "production")
     cfg = get_config(env)
@@ -750,6 +760,7 @@ def main() -> None:
     print(f"early_stop_enabled={early_stop_enabled}")
     print(f"resume={args.resume if args.resume else 'none'}")
     print(f"mixed_precision={use_amp}")
+    print(f"num_threads={torch.get_num_threads()}")
     print(f"grad_accum={train_grad_accum}")
     print(f"effective_batch={train_grad_accum * dataloader.batch_size}")
     trainable_params = sum(parameter.numel() for parameter in model.parameters() if parameter.requires_grad)
