@@ -251,6 +251,7 @@ def _evaluate_validation_loss(
     device: torch.device,
     max_batches: int,
     use_amp: bool,
+    amp_dtype: torch.dtype = torch.bfloat16,
 ) -> float | None:
     model.eval()
     total_loss = 0.0
@@ -262,7 +263,7 @@ def _evaluate_validation_loss(
                 break
 
             batch = _to_device(batch, device)
-            with torch.amp.autocast(device_type=device.type, dtype=torch.bfloat16, enabled=use_amp):
+            with torch.amp.autocast(device_type=device.type, dtype=amp_dtype, enabled=use_amp):
                 out = model.forward_batch(batch)
             if not (isinstance(out, tuple) and len(out) >= 2):
                 raise RuntimeError("Model must return (loss, logits) during validation.")
@@ -630,11 +631,14 @@ def main() -> None:
     )
     amp_wanted = (bool(args.amp) or bool(getattr(cfg, "TRAIN_AMP_ENABLED", False))) and not args.no_amp
     use_amp = bool(amp_wanted) and device.type in ("cuda", "cpu")
-    if use_amp and device.type == "cuda" and not torch.cuda.is_bf16_supported():
-        use_amp = False
-        print("[train_gpt] bf16 tidak didukung device CUDA ini; mixed precision dimatikan.")
-    # bf16 tidak butuh loss scaling, jadi GradScaler selalu nonaktif.
+    amp_dtype = torch.bfloat16
     use_scaler = False
+    # is_bf16_supported() bernilai True di T4 karena emulasi (lambat); pakai compute capability >= 8.0.
+    if use_amp and device.type == "cuda" and torch.cuda.get_device_capability(device)[0] < 8:
+        # T4/P100 (Kaggle/Colab gratis): tanpa bf16 native -> fp16 + GradScaler.
+        amp_dtype = torch.float16
+        use_scaler = True
+        print("[train_gpt] bf16 tidak didukung; memakai fp16 autocast + GradScaler.")
     scaler = torch.amp.GradScaler("cuda", enabled=use_scaler)
 
     planned_updates = (
@@ -759,7 +763,7 @@ def main() -> None:
     print(f"plateau_enabled={plateau_enabled}")
     print(f"early_stop_enabled={early_stop_enabled}")
     print(f"resume={args.resume if args.resume else 'none'}")
-    print(f"mixed_precision={use_amp}")
+    print(f"mixed_precision={use_amp} dtype={amp_dtype}")
     print(f"num_threads={torch.get_num_threads()}")
     print(f"grad_accum={train_grad_accum}")
     print(f"effective_batch={train_grad_accum * dataloader.batch_size}")
@@ -798,7 +802,7 @@ def main() -> None:
                 training_sampler.mark_consumed(int(batch["input_ids"].shape[0]))
             batch = _to_device(batch, device)
 
-            with torch.amp.autocast(device_type=device.type, dtype=torch.bfloat16, enabled=use_amp):
+            with torch.amp.autocast(device_type=device.type, dtype=amp_dtype, enabled=use_amp):
                 out = model.forward_batch(batch)
             if not (isinstance(out, tuple) and len(out) >= 2):
                 raise RuntimeError("Model must return (loss, logits) during training.")
@@ -875,6 +879,7 @@ def main() -> None:
                     device=device,
                     max_batches=train_val_steps,
                     use_amp=use_amp,
+                    amp_dtype=amp_dtype,
                 )
                 best_validation_loss, early_bad_windows, val_stop = _update_validation_monitor(
                     loss=last_validation_loss,
@@ -1023,6 +1028,7 @@ def main() -> None:
                     device=device,
                     max_batches=train_val_steps,
                     use_amp=use_amp,
+                    amp_dtype=amp_dtype,
                 )
                 best_validation_loss, early_bad_windows, val_stop = _update_validation_monitor(
                     loss=last_validation_loss,

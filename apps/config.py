@@ -513,6 +513,27 @@ class ProductionConfig(Config):
     PRETOKENIZE_OUTPUT_PATH = DATASET_TOKEN_FILE
 
 
+class Production100MConfig(ProductionConfig):
+    """Model ~100M parameter untuk GPU (Kaggle/Colab T4).
+
+    Tokenizer & data identik dengan production (vocab 32.768, konteks 256),
+    jadi file token yang sama dipakai. Checkpoint TIDAK kompatibel dengan production.
+    Satu epoch 421M token = ~12.850 optimizer step (32.768 token/step).
+    """
+    EMBEDDING_DIM = 768
+    ATTENTION_NUM_HEADS = 12
+    ATTENTION_NUM_KV_HEADS = 4      # GQA 3:1
+    TRANSFORMER_NUM_LAYERS = 12
+    TRAIN_LR = 3e-4
+    TRAIN_MIN_LR = 3e-5
+    TRAIN_WARMUP_STEPS = 300
+    TRAIN_MAX_STEPS = 12800
+    TRAIN_SAVE_DIR = "reports/checkpoints_100m"
+    TRAIN_SAVE_EVERY = 500
+    TRAIN_GRAD_ACCUM = 4
+    DATASET_BATCH_SIZE = 32         # 32 x 4 x 256 = 32.768 token/step
+
+
 # ========================================
 # Testing Configuration
 # ========================================
@@ -603,6 +624,7 @@ def get_config(env: str = "development") -> Config:
     configs = {
         "development": DevelopmentConfig,
         "production": ProductionConfig,
+        "production_100m": Production100MConfig,
         "testing": TestingConfig,
     }
 

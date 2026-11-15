@@ -15,7 +15,7 @@ Semua kode berjalan di **CPU-only** (diukur pada mesin ini) dan diuji otomatis d
 | 2A–2C | Koreksi konfigurasi, RMSNorm/CE numerik, scheduler LR | **Selesai** |
 | 3 | KV cache + `position_offset` benar pada generasi | **Selesai** |
 | 4 | Hygiene repo (.gitignore, README, pyproject, pytest) | **Selesai** |
-| — | Training penuh 421M token | **Belum** (lihat [Batas perangkat keras](#batas-perangkat-keras)) |
+| — | Training penuh 421M token | **Selesai di GPU** (model 100M, Kaggle; lihat [Training GPU di Kaggle](#training-gpu-di-kaggle-model-100m)). CPU tidak layak. |
 
 Arsitektur model (production, tidak berubah): 8 layer, `d_model=384`, GQA 6 head / 3 KV head,
 SwiGLU (hidden 1024), RMSNorm, posisi learned, konteks 256, vocab 32.768,
@@ -189,6 +189,22 @@ python tools/generate_gpt.py --env production \
   `--no-cache` tersedia untuk debug/perbandingan.
 - Prompt lebih panjang dari konteks dipotong ke 256 token terakhir **dan dilaporkan**.
 - Generasi berhenti saat konteks penuh (embedding posisi learned tidak punya slot lagi).
+
+---
+
+## Training GPU di Kaggle (model 100M)
+
+Config `--env production_100m`: d_model 768, 12 layer, GQA 12/4 head, **100.879.104 parameter**.
+Tokenizer & data sama dengan production; checkpoint **tidak kompatibel** dengan production (25M).
+
+- Notebook: `kaggle/hai07_train_100m.ipynb` (T4, fp16 autocast + GradScaler otomatis bila GPU < compute capability 8.0).
+- Input Kaggle: dataset `hai07-prod-data` (isi `data/prod/`), `hai07-code` (zip `apps/` + `tools/`), dan `hai07-ckpt` untuk sesi lanjutan.
+- Data **wajib disalin ke disk lokal** sebelum training. Membaca `np.memmap` langsung dari `/kaggle/input`
+  mengakibatkan ~18,7 s/step; dengan salinan lokal ~2,1 s/step (~15 ribu token/s).
+- Resume memakai nomor step terbesar; `--max-steps` kumulatif dan jadwal cosine bergantung padanya, jangan diubah antar sesi.
+- Hasil run (25.600 step, 2 epoch, ~15 jam GPU): validation loss **3,275** (ppl ~26,4), vs 4,56 pada model 25M.
+  Kalimat lancar tetapi fakta sering salah (rasio ~4 token/parameter).
+- Unduhan Kaggle bisa mengekstrak file `.pt` menjadi folder; kemas ulang dengan zip tanpa kompresi (prefix folder `gpt_best/`).
 
 ---
 
