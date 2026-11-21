@@ -55,10 +55,63 @@ def parse_numbers(text, hyphen_is_separator=True):
     return out
 
 
+_UNITS = {"nol": 0, "satu": 1, "dua": 2, "tiga": 3, "empat": 4, "lima": 5, "enam": 6, "tujuh": 7, "delapan": 8, "sembilan": 9}
+_NUMBER_WORDS = list(_UNITS) + ["sepuluh", "sebelas", "belas", "puluh", "seratus", "ratus", "seribu", "ribu"]
+_RUN = re.compile(r"\b(?:" + "|".join(_NUMBER_WORDS) + r")\b(?:\s+(?:" + "|".join(_NUMBER_WORDS) + r")\b)*", re.I)
+
+
+def _parse_number_run(tokens):
+    """Ubah deret kata bilangan (mis. 'dua puluh lima', 'seratus tiga belas', 'tiga satu dua') menjadi daftar bilangan bulat."""
+    nums, total, sub, cur, last = [], 0, 0, None, None
+
+    def flush():
+        nonlocal total, sub, cur, last
+        if last is not None:
+            nums.append(total + sub + (cur or 0))
+        total, sub, cur, last = 0, 0, None, None
+
+    for t in tokens:
+        if t in _UNITS:
+            if last in ("unit", "teen"):
+                flush()
+            cur, last = _UNITS[t], "unit"
+        elif t in ("sepuluh", "sebelas"):
+            if last in ("unit", "teen", "tens"):
+                flush()
+            sub += 10 if t == "sepuluh" else 11
+            last = "teen"
+        elif t == "belas" and last == "unit":
+            sub, cur, last = sub + cur + 10, None, "teen"
+        elif t == "puluh" and last == "unit":
+            sub, cur, last = sub + cur * 10, None, "tens"
+        elif t == "seratus":
+            if last in ("unit", "teen", "tens"):
+                flush()
+            sub, last = sub + 100, "hundreds"
+        elif t == "ratus" and last == "unit":
+            sub, cur, last = sub + cur * 100, None, "hundreds"
+        elif t == "seribu":
+            if last is not None:
+                flush()
+            total, last = 1000, "thousand"
+        elif t == "ribu" and last in ("unit", "teen", "tens", "hundreds"):
+            total, sub, cur, last = (sub + (cur or 0)) * 1000, 0, None, "thousand"
+    flush()
+    return nums
+
+
+def words_to_digits(text):
+    """Ganti kata bilangan Indonesia dengan angka: 'dua puluh lima ditambah satu' -> '25 ditambah 1'."""
+    def repl(m):
+        nums = _parse_number_run(m.group(0).lower().split())
+        return " ".join(str(n) for n in nums) if nums else m.group(0)
+    return _RUN.sub(repl, text)
+
+
 def sort_tool(q):
     if not re.search(r"\b(urutkan|mengurutkan|sortir|sort)\b", q, re.I):
         return None
-    nums = parse_numbers(q)
+    nums = parse_numbers(words_to_digits(q))
     if len(nums) < 2:
         return None
     desc = bool(re.search(r"terbesar|besar\s*(?:ke|->|-)\s*kecil|menurun|turun|descending|dari yang besar", q, re.I))
@@ -102,7 +155,7 @@ _TRIGGER = re.compile(r"\b(hitung|hitunglah|berapa|berapakah|hasil|jumlahkan|kal
 
 
 def calc_tool(q):
-    t = q.lower().strip().rstrip("?= ")
+    t = words_to_digits(q.lower()).strip().rstrip("?= ")
     if re.search(r"\b\d{1,2}[-/]\d{1,2}[-/]\d{2,4}\b", t) or re.search(r"\b\d{3,}-\d{3,}", t):
         return None  # tanggal atau nomor telepon, bukan pengurangan
     expr_text = t
@@ -154,6 +207,28 @@ def date_tool(q):
         n = abs((ds[1] - ds[0]).days)
         return {"kind": "tool", "tool": "tanggal", "answer": f"{n} hari", "detail": f"Selisih antara {ds[0].isoformat()} dan {ds[1].isoformat()}."}
     return None
+
+
+# ---------- sapaan dan saran mengajar (dipakai CLI dan web) ----------
+INTRO = ("AI ini hanya tahu apa yang Anda ajarkan; ia tidak menjawab dari pengetahuan umum.\n"
+         "Mulai dengan:  ingat: Bu Rina tinggal di Jalan Mawar nomor 5.\n"
+         "Lalu tanya:    Di mana Bu Rina tinggal?")
+GREETING = re.compile(
+    r"^(?:(?:halo|hai|hi|hei|hello|selamat\s+(?:pagi|siang|sore|malam))(?:\s+(?:apa\s+kabar|semua|semuanya|teman|sobat|kak|kakak|pak|bu|mas|mbak|bro))?"
+    r"|assalamu\S*|apa\s+kabar|terima\s+kasih(?:\s+banyak)?|makasih|thanks?)\W*$", re.I)
+TABLE_HINT = "Tabel atau rumus tidak bisa dipelajari dari catatan. Untuk menghitung, ketik langsung, mis. 'hitung 12 x 5'."
+
+
+def greeting_reply(n_notes):
+    base = "Halo! Saya memori pribadi Anda: saya hanya tahu apa yang Anda ajarkan, bukan pengetahuan umum.\n"
+    if n_notes == 0:
+        return base + INTRO
+    return base + f"Saat ini ada {n_notes} catatan. Tanyakan dengan kalimat berakhiran '?', atau tambah catatan dengan 'ingat: ...'."
+
+
+def looks_like_table(text):
+    """Catatan berisi tabel/rumus hitung (mis. '1+1=2 1+2=3 ...'), yang tidak bisa dipelajari model."""
+    return len(re.findall(r"\d\s*[+\-x×*/]\s*\d\s*=\s*\d", text)) >= 2 or text.count("=") >= 3
 
 
 # ---------- perutean ----------

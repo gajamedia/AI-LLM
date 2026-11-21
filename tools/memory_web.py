@@ -22,7 +22,8 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "tools"))
 
-from memory_agent import MemoryAgent, MemoryStore, Reader
+import memory_tools
+from memory_agent import MemoryAgent, MemoryStore, Reader, parse_rule
 
 WEB_DIR = PROJECT_ROOT / "web" / "memory"
 MAX_BODY = 20_000
@@ -35,7 +36,11 @@ def note_hints(text):
     """Saran penulisan catatan agar mudah dibaca model kecil (bukan larangan)."""
     hints = []
     t = text.strip()
+    if parse_rule(t):  # aturan dikenali: tidak perlu saran gaya penulisan
+        return hints
     sentences = [s for s in re.split(r"(?<=[.!?])\s+", t) if s.strip()]
+    if memory_tools.looks_like_table(t):
+        hints.append(memory_tools.TABLE_HINT)
     if len(t) > 220:
         hints.append("Catatan cukup panjang. Model lebih akurat dengan satu fakta per kalimat; pertimbangkan memecahnya.")
     if len(sentences) >= 3:
@@ -143,7 +148,9 @@ def make_handler(state, port):
                     nid = state.store.teach(text)
                     if isinstance(replace_id, int):
                         state.store.forget(replace_id)
-                    return self._send(200, {"id": nid, "hints": note_hints(text), "notes": state.notes()})
+                    rule = parse_rule(text)
+                    return self._send(200, {"id": nid, "hints": note_hints(text), "notes": state.notes(),
+                                            "rule": {"trigger": rule[0], "reply": rule[1]} if rule else None})
             if self.path == "/api/ask":
                 q = str(body.get("question", "")).strip()
                 if not q:

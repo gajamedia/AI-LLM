@@ -80,10 +80,29 @@ Karena itu, aplikasi punya **alat kecil yang dikerjakan program, bukan model**. 
 | `hari apa 17 Agustus 2026` | `Senin` |
 | `berapa hari antara 1 Januari 2026 dan 1 Maret 2026` | `59 hari` |
 
-Catatan alat: angka desimal memakai koma (`3,5`), titik ribuan boleh (`1.000`), hanya tanggal lengkap dengan nama bulan yang dikenali, dan alat
-hanya mengenali pola di atas (bukan bahasa bebas). Permintaan lain ("terjemahkan…", "tuliskan…", "ringkaskan…") dijawab dengan penjelasan
-bahwa aplikasi tidak bisa mengerjakannya. Pertanyaan biasa tentang catatan tidak terpengaruh (mis. "Siapa yang lahir tanggal 12-03-1990?"
-tidak dianggap pengurangan).
+Catatan alat: angka boleh ditulis dengan kata (`berapa satu ditambah satu`, `urutkan tiga, satu, dua`, `dua puluh lima kali dua`), angka desimal
+memakai koma (`3,5`), titik ribuan boleh (`1.000`), hanya tanggal lengkap dengan nama bulan yang dikenali, dan alat hanya mengenali pola di atas
+(bukan bahasa bebas). Permintaan lain ("terjemahkan…", "tuliskan…", "ringkaskan…") dijawab dengan penjelasan bahwa aplikasi tidak bisa
+mengerjakannya. Pertanyaan biasa tentang catatan tidak terpengaruh (mis. "Siapa yang lahir tanggal 12-03-1990?" tidak dianggap pengurangan).
+Tabel atau rumus (mis. `1+1=2 1+2=3 …`) tidak bisa dipelajari dari catatan; ketik saja perhitungannya.
+
+## Aturan: jawaban tetap untuk kalimat tertentu
+
+Anda bisa mengajarkan **balasan tetap**: bila Anda mengetik kalimat tertentu, AI menjawab dengan balasan yang Anda tentukan. Tulis catatan
+berbentuk `jika … "pemicu" … jawab … "balasan"`:
+
+```
+ingat: jika ada yang menyapa "halo" jawab saja "halo"
+ingat: kalau ditanya "siapa kamu" jawab "Saya memori pribadi Andi."
+```
+
+Setelah itu `halo` dijawab `halo`, dan `siapa kamu` dijawab `Saya memori pribadi Andi.`. Jawabannya diberi label **Aturan**, lengkap dengan catatan
+sumbernya. Aturan dijalankan **program**, bukan model, jadi sifatnya kaku:
+
+- **Pemicu harus persis sama** dengan yang Anda ketik (huruf besar/kecil dan tanda baca diabaikan). `Halo apa kabar` **tidak** memicu aturan `"halo"`.
+- Pemicu dan balasan **wajib diberi tanda kutip** (`"…"`). Tanpa tanda kutip, catatan dianggap catatan biasa.
+- Aturan terbaru menang bila ada beberapa aturan dengan pemicu sama. Hapus catatan aturan untuk menonaktifkannya.
+- Aturan mengalahkan sapaan bawaan, dan hanya menjawab teks tetap: ia tidak bisa menalar atau menyusun jawaban baru.
 
 ## Kemampuan dan batasnya (angka sebenarnya)
 

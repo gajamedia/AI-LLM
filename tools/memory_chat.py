@@ -24,18 +24,16 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "tools"))
 
 import memory_tools
-from memory_agent import MemoryAgent, MemoryStore, Reader
+from memory_agent import MemoryAgent, MemoryStore, Reader, match_rule, parse_rule
 
 HELP = __doc__.split("Perintah:")[1].split("Contoh non-interaktif")[0]
 
-INTRO = ("AI ini hanya tahu apa yang Anda ajarkan; ia tidak menjawab dari pengetahuan umum.\n"
-         "Mulai dengan:  ingat: Bu Rina tinggal di Jalan Mawar nomor 5.\n"
-         "Lalu tanya:    Di mana Bu Rina tinggal?")
+INTRO = memory_tools.INTRO
+GREETING = memory_tools.GREETING
 EMPTY_MSG = ("Memori masih kosong, jadi saya belum bisa menjawab apa pun.\n"
              "Ajari saya dulu, misalnya:  ingat: Bu Rina tinggal di Jalan Mawar nomor 5.")
 QUESTION_WORDS = {"apa", "apakah", "siapa", "siapakah", "kapan", "kapankah", "dimana", "dimanakah", "mana", "manakah",
                   "bagaimana", "bagaimanakah", "berapa", "berapakah", "mengapa", "kenapa", "bilamana", "kemana", "darimana"}
-GREETING = re.compile(r"^(halo|hai|hi|hei|hello|selamat\s+(pagi|siang|sore|malam)|assalamu\S*|apa\s+kabar|terima\s+kasih|makasih|thanks?)\W*$", re.I)
 YES = {"y", "ya", "yes", "iya", "ok", "oke", "simpan"}
 
 
@@ -50,11 +48,19 @@ def is_question_like(s):
 
 
 def greeting_reply(agent):
-    n = len(agent.store.list())
-    base = "Halo! Saya memori pribadi Anda: saya hanya tahu apa yang Anda ajarkan, bukan pengetahuan umum.\n"
-    if n == 0:
-        return base + INTRO
-    return base + f"Saat ini ada {n} catatan. Tanyakan dengan kalimat berakhiran '?', atau tambah catatan dengan 'ingat: ...'."
+    return memory_tools.greeting_reply(len(agent.store.list()))
+
+
+def teach_message(agent, text):
+    """Simpan catatan, lalu beri tahu bila dikenali sebagai aturan atau berupa tabel/rumus."""
+    nid = agent.store.teach(text)
+    msg = f"Dicatat [{nid}]."
+    rule = parse_rule(text)
+    if rule:
+        msg += f' Dikenali sebagai aturan: bila Anda mengetik persis "{rule[0]}", saya menjawab "{rule[1]}".'
+    if memory_tools.looks_like_table(text):
+        msg += "\n  " + memory_tools.TABLE_HINT
+    return msg
 
 
 def format_tool(t):
@@ -87,8 +93,6 @@ def handle(line, agent, confirm=None):
     low = s.lower()
     if low in ("keluar", "exit", "quit"):
         return "__exit__"
-    if GREETING.match(s):
-        return greeting_reply(agent)
     if low in ("daftar", "/daftar"):
         rows = agent.store.list()
         return "\n".join(f"  [{i}] {t}" for i, t in rows) if rows else "  (memori masih kosong)"
@@ -97,8 +101,12 @@ def handle(line, agent, confirm=None):
         return f"Catatan [{m.group(1)}] dilupakan." if agent.store.forget(int(m.group(1))) else f"Tidak ada catatan aktif dengan nomor {m.group(1)}."
     m = re.match(r"^/?ingat\s*:\s*(.+)$", s, re.I | re.S)
     if m:
-        nid = agent.store.teach(m.group(1))
-        return f"Dicatat [{nid}]."
+        return teach_message(agent, m.group(1))
+    rule = match_rule(agent.store, s)  # aturan yang Anda ajarkan didahulukan (mengalahkan sapaan bawaan)
+    if rule:
+        return f"{rule['reply']}\n  (aturan dari catatan [{rule['id']}])"
+    if GREETING.match(s):
+        return greeting_reply(agent)
     m = re.match(r"^/?tanya\s*:\s*(.+)$", s, re.I | re.S)
     tool = memory_tools.route(m.group(1) if m else s)  # alat dan permintaan tugas diperiksa sebelum pertanyaan/pernyataan
     if tool:
@@ -117,7 +125,7 @@ def handle(line, agent, confirm=None):
                 "Untuk menyimpannya tulis:  ingat: " + s)
     reply = (confirm(f'Simpan sebagai catatan?  "{s}"  (y/n): ') or "").strip().lower()
     if reply in YES:
-        return f"Dicatat [{agent.store.teach(s)}]."
+        return teach_message(agent, s)
     return "Tidak disimpan. (Untuk bertanya, akhiri dengan '?'.)"
 
 

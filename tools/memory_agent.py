@@ -25,6 +25,29 @@ import rag_lib as R
 UNKNOWN = "Saya belum tahu; belum ada catatan yang menjawabnya."
 
 
+_RULE = re.compile(r'^\s*(?:jika|kalau|bila|apabila)\b.*?["“]([^"“”]{1,120})["”].*?\bjawab\w*\b[^"“”]*["“]([^"“”]{1,300})["”]\s*[.!]?\s*$',
+                   re.I | re.S)
+
+
+def parse_rule(text):
+    """Catatan berbentuk: jika ... "pemicu" ... jawab ... "balasan"  ->  (pemicu, balasan); selain itu None."""
+    m = _RULE.match(text)
+    return (m.group(1).strip(), m.group(2).strip()) if m else None
+
+
+def match_rule(store, text):
+    """Aturan dijalankan hanya bila masukan PERSIS sama dengan pemicu (tanpa membedakan huruf besar/tanda baca).
+    Bila beberapa aturan cocok, yang terbaru menang."""
+    key = R.norm(text)
+    if not key:
+        return None
+    for nid, note in reversed(store.list()):
+        rule = parse_rule(note)
+        if rule and R.norm(rule[0]) == key:
+            return {"id": nid, "text": note, "trigger": rule[0], "reply": rule[1]}
+    return None
+
+
 def refusal(a):
     return (not a.strip()) or bool(R.REFUSE.search(a))
 
@@ -174,6 +197,13 @@ class MemoryAgent:
         self.relevance_threshold = relevance_threshold
 
     def ask(self, question):
+        rule = match_rule(self.store, question)  # aturan yang diajarkan pengguna didahulukan (mengalahkan sapaan bawaan)
+        if rule:
+            return {"status": "rule", "answer": rule["reply"], "tool": None, "detail": "",
+                    "source": {"id": rule["id"], "text": rule["text"]}, "conflicts": [], "related": [], "retrieved": []}
+        if memory_tools.GREETING.match(question.strip()):
+            return {"status": "greeting", "answer": memory_tools.greeting_reply(len(self.store.list())), "tool": None,
+                    "detail": "", "source": None, "conflicts": [], "related": [], "retrieved": []}
         t = memory_tools.route(question)
         if t:  # alat deterministik / permintaan tugas: tidak memanggil model
             return {"status": t["kind"], "answer": t["answer"], "tool": t["tool"], "detail": t["detail"],

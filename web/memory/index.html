@@ -240,6 +240,7 @@ dialog li{margin:6px 0}
       <li><b>Memperbarui fakta:</b> hapus catatan lama (atau pakai “Ubah”), lalu simpan yang baru.</li>
       <li><b>Selalu cek sumber</b> yang ditampilkan di bawah jawaban.</li>
       <li><b>Bukan kalkulator atau asisten umum.</b> AI hanya membaca catatan. Tersedia alat kecil yang dikerjakan program (bukan model): <i>urutkan 5, 4, 3, 9</i>, <i>hitung 12 x 5</i>, <i>hari apa 17 Agustus 2026</i>. Hasilnya diberi label “Alat”.</li>
+      <li><b>Aturan jawaban tetap:</b> tulis <i>jika ada yang menyapa "halo" jawab saja "halo"</i> (pemicu dan balasan diberi tanda kutip). Dijalankan program bila Anda mengetik pemicu persis sama.</li>
     </ol>
     <div class="good-bad">
       <div class="g">✓ Bu Rina tinggal di Jalan Mawar nomor 5.</div>
@@ -320,7 +321,13 @@ function removeNote(id){api("/api/notes/"+id,{method:"DELETE"}).then(function(j)
 
 /* ajari */
 var noteEl=$("note");
+var RULE_RE=/^\s*(?:jika|kalau|bila|apabila)\b[\s\S]*?["“]([^"“”]{1,120})["”][\s\S]*?\bjawab\w*\b[^"“”]*["“]([^"“”]{1,300})["”]\s*[.!]?\s*$/i;
+function parseRule(t){var m=RULE_RE.exec(t);return m?{trigger:m[1].trim(),reply:m[2].trim()}:null;}
+function looksLikeTable(t){var m=t.match(/\d\s*[+\-x×*\/]\s*\d\s*=\s*\d/g);return (m&&m.length>=2)||(t.split("=").length-1)>=3;}
 function clientHints(t){var out=[];t=t.trim();if(!t)return out;
+  var rule=parseRule(t);
+  if(rule){out.push({good:true,text:"Dikenali sebagai aturan: bila Anda mengetik persis “"+rule.trigger+"”, AI menjawab “"+rule.reply+"”."});return out;}
+  if(looksLikeTable(t))out.push("Tabel atau rumus tidak bisa dipelajari dari catatan. Untuk menghitung, ketik langsung, mis. 'hitung 12 x 5'.");
   var sents=t.split(/[.!?]+\s+/).filter(Boolean);
   if(t.length>220)out.push("Catatan cukup panjang. Model lebih akurat dengan satu fakta per kalimat.");
   if(sents.length>=3)out.push("Ada beberapa kalimat sekaligus. Simpan satu fakta per catatan.");
@@ -330,7 +337,7 @@ function clientHints(t){var out=[];t=t.trim();if(!t)return out;
   return out;}
 function renderTeach(){var t=noteEl.value;$("counter").textContent=t.length+"/600";$("save").disabled=!t.trim();
   var ul=$("hints");ul.textContent="";var hs=clientHints(t);
-  hs.forEach(function(x){ul.appendChild(h("li",{text:x}))});
+  hs.forEach(function(x){if(typeof x==="string")ul.appendChild(h("li",{text:x}));else ul.appendChild(h("li",{class:"good",text:x.text}));});
   if(t.trim()&&!hs.length)ul.appendChild(h("li",{class:"good",text:"Catatan ini sudah jelas dan ringkas."}));}
 noteEl.addEventListener("input",renderTeach);
 noteEl.addEventListener("keydown",function(e){if((e.ctrlKey||e.metaKey)&&e.key==="Enter"){e.preventDefault();saveNote();}});
@@ -343,7 +350,7 @@ function saveNote(){var text=noteEl.value.trim();if(!text)return;$("save").disab
   api("/api/notes",{method:"POST",body:body}).then(function(j){
     if(j.error){toast(j.error);$("save").disabled=false;return;}
     S.newId=j.id;setNotes(j.notes);var wasEdit=S.editingId!=null;endEdit();noteEl.value="";renderTeach();
-    toast(wasEdit?"Catatan diperbarui.":"Dicatat sebagai #"+j.id+".");
+    toast(wasEdit?"Catatan diperbarui.":(j.rule?"Dicatat sebagai aturan #"+j.id+".":"Dicatat sebagai #"+j.id+"."));
     setTimeout(function(){S.newId=null},1800);});}
 $("save").addEventListener("click",saveNote);
 var exBox=$("examples");EXAMPLE_NOTES.slice(0,3).forEach(function(t){exBox.appendChild(h("button",{class:"chip",type:"button",text:t,onclick:function(){noteEl.value=t;renderTeach();noteEl.focus();}}));});
@@ -375,6 +382,16 @@ function relatedBox(out){if(!out.related||!out.related.length)return null;
   return h("div",{class:"callout"},h("strong",{text:out.source?"Perhatian — ada catatan lebih baru yang mirip tetapi tidak bisa saya baca; periksa sendiri:":"Catatan terkait yang tidak bisa saya jadikan jawaban:"}),ul);}
 function renderAnswer(out,question){
   var card=h("div",{class:"ans "+((out.status==="unknown"||out.status==="task")?"unknown":"ok")});
+  if(out.status==="rule"){
+    card.appendChild(h("div",{class:"lab"},h("span",{class:"badge",text:"Aturan"}),h("span",{text:"dari catatan #"+out.source.id})));
+    card.appendChild(h("div",{class:"big",text:out.answer}));
+    card.appendChild(h("div",{class:"src"},h("b",{text:"Aturan yang Anda ajarkan"}),document.createTextNode(out.source.text)));
+    card.appendChild(h("div",{class:"row-actions"},h("button",{class:"btn",type:"button",text:"Lihat di catatan",onclick:function(){focusNote(out.source.id)}})));
+    return card;}
+  if(out.status==="greeting"){
+    card.appendChild(h("div",{class:"lab"},h("span",{class:"badge muted",text:"Sapaan"})));
+    card.appendChild(h("div",{style:"white-space:pre-line",text:out.answer}));
+    return card;}
   if(out.status==="tool"){
     card.appendChild(h("div",{class:"lab"},h("span",{class:"badge",text:"Alat: "+out.tool}),h("span",{text:"dihitung program"})));
     card.appendChild(h("div",{class:"big",text:out.answer}));
