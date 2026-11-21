@@ -1,0 +1,2323 @@
+{
+ "summary": {
+  "n": 144,
+  "retrieval_recall": {
+   "@1": 0.2361111111111111,
+   "@3": 0.4513888888888889,
+   "@5": 0.5416666666666666,
+   "@10": 0.6319444444444444
+  },
+  "window_has_gold@3": 0.4444444444444444,
+  "reader_acc": {
+   "top1": 0.06944444444444445,
+   "sequential": 0.09722222222222222,
+   "oracle": 0.4166666666666667
+  }
+ },
+ "results": [
+  {
+   "q": "Apakah kuliner yang terkenal dari daerah surabaya ?",
+   "gold": "Lontong kupang",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "Kupang Keraton.",
+   "used_rank": 2,
+   "oracle": "Kupang Keraton.",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan Drs. K.H. Ahmad Syahiduddin lahir?",
+   "gold": "15 Maret 1956",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "15 Maret 1956",
+   "used_rank": 2,
+   "oracle": "15 Maret 1956",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": true,
+   "ok_oracle": true
+  },
+  {
+   "q": "Kapan Dragon Ball ditayangkan di TV pertama kali ?",
+   "gold": "25 April 1989",
+   "top1": "25 April 1989",
+   "sequential": "25 April 1989",
+   "used_rank": 1,
+   "oracle": "25 April 1989",
+   "window_has_gold": [
+    true,
+    true,
+    false
+   ],
+   "ok_top1": true,
+   "ok_sequential": true,
+   "ok_oracle": true
+  },
+  {
+   "q": "Apakah kepanjangan dari Nekolim?",
+   "gold": "Neokolonialisme-Kolonialisme-Imperialisme",
+   "top1": "Neokolonialisme",
+   "sequential": "Neokolonialisme",
+   "used_rank": 1,
+   "oracle": "Neokolonialisme",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan partai komunis pertama kali berdiri di Tiongkok ?",
+   "gold": "1921",
+   "top1": "1987",
+   "sequential": "1987",
+   "used_rank": 1,
+   "oracle": "1921",
+   "window_has_gold": [
+    false,
+    true,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Kapan Bank BCA mengeluarkan kartu debit?",
+   "gold": "2000-an",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Oktober 2007",
+   "used_rank": 2,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapankah Organisasi Pembebasan Palestina dibentuk?",
+   "gold": "1964",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "1993-1995",
+   "used_rank": 2,
+   "oracle": "1964",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "apakah mamalia yang terbesar didunia ?",
+   "gold": "Paus biru",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Paus biru",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Apa yang dimaksud dengan tokoh protagonis ?",
+   "gold": "tokoh utama dalam buku, film, permainan video, maupun teater",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "tokoh yang pada awal cerita ditampilkan sebagai tokoh utama, tetapi kemudian perannya sebagai protagonis menghilang, baik karena tokohnya dimatikan (sebagai bentuk pelintiran alur) maupun karena per",
+   "used_rank": 2,
+   "oracle": "tokoh utama dalam buku, film, permainan video, maupun teater",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Dari manakah asal kitah tentang Ratu Laut Selatan?",
+   "gold": "Pulau Jawa dan Bali",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "Tom Geister",
+   "used_rank": 2,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "kapankah HUT kota Balikpapan?",
+   "gold": "10 Februari",
+   "top1": "",
+   "sequential": "2nd",
+   "used_rank": 2,
+   "oracle": "10 Februari 1897",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Apakah pengertian matronimik?",
+   "gold": "Komomene sebuah nama yang berdasarkan pada nama ibu atau leluhur wanita",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    false,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "siapakah yang membangun Gedung Reichstag?",
+   "gold": "Paul Wallot",
+   "top1": "",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Paul Wallot",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Apa itu komunikasi interpersonal?",
+   "gold": "komunikasi yang terjadi antara dua orang atau lebih, yang biasanya tidak diatur secara formal",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "sebuah proses perkembangan yang terjadi melalui tahapan-tahapan",
+   "used_rank": 2,
+   "oracle": "komunikasi yang terjadi antara dua orang atau lebih, yang biasanya tidak diatur secara formal.",
+   "window_has_gold": [
+    false,
+    false,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Dimana Raja Ataulf meninggal?",
+   "gold": "istana Barcelona",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Dimana Pemilu di Palestina dilakukan?",
+   "gold": "tiga wilayah de facto yang menjadi wilayah kekuasaan Otoritas Palestina, yaitu Tepi Barat, Jerusalem Timur, dan Jalur Gaza",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Palestina",
+   "used_rank": 2,
+   "oracle": "Teks tidak menyebutkan hal itu.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Bahasa apa yang digunakan dalam Kitab Yesus bin Sirakh?",
+   "gold": "Ibrani",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "bahasa Yunani",
+   "used_rank": 2,
+   "oracle": "Informasi tersebut tidak ada dalam teks.",
+   "window_has_gold": [
+    false,
+    false,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apa yang dimaksud dengan homeostatis ?",
+   "gold": "ketahanan atau mekanisme pengaturan lingkungan kesetimbangan dinamis dalam (badan organisme) yang konstan",
+   "top1": "kelas perasaan seperti rasa haus, lelah, hasrat, sakit, tidak enak baik-baik saja",
+   "sequential": "kelas perasaan seperti rasa haus, lelah, hasrat, sakit, tidak enak baik-baik saja",
+   "used_rank": 1,
+   "oracle": "ketahanan atau mekanisme pengaturan lingkungan kesetimbangan dinamis dalam (badan organisme) yang konstan",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Bagaimanakah sistem pemerintahan di Jepang ?",
+   "gold": "monarki konstitusional yang di dalamnya terdapat kuasa dari seorang Kaisar yang masih dibatasi dan hanya diturunkan terutama ketika melakukan tugas resmi",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "monarki konstitusional yang di dalamnya terdapat kuasa dari seorang Kaisar yang masih dibatasi dan hanya diturunkan terutama ketika melakukan tugas resmi",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Siapa Raja Jerman pertama?",
+   "gold": "Wilhelm I",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Heinrich",
+   "used_rank": 3,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "kapankah SpongeBob pertama kali dirilis?",
+   "gold": "1999",
+   "top1": "20 Agustus 2020",
+   "sequential": "20 Agustus 2020",
+   "used_rank": 1,
+   "oracle": "1999",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Apakah fungsi utama pesawat Hercules?",
+   "gold": "pesawat angkut militer utama untuk pasukan militer di banyak bagian dunia",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "sebuah pesawat terbang bermesin empat turboprop sayap tinggi",
+   "used_rank": 2,
+   "oracle": "sebuah pesawat terbang bermesin empat turboprop sayap tinggi",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apa pengertian dari hewan herbivora ?",
+   "gold": "hewan yang hanya makan tumbuhan dan tidak memakan daging",
+   "top1": "+/- di mana hewan herbivora akan menerima keuntungan, sedangkan tumbuhan menjadi pihak yang dirugikan",
+   "sequential": "+/- di mana hewan herbivora akan menerima keuntungan, sedangkan tumbuhan menjadi pihak yang dirugikan",
+   "used_rank": 1,
+   "oracle": "hewan yang hanya makan tumbuhan dan tidak memakan daging",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "dimanakah Dipati Ukur meninggal?",
+   "gold": "Mataram",
+   "top1": "Batavia",
+   "sequential": "Batavia",
+   "used_rank": 1,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    true,
+    false,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan Bandar Udara Internasional José Martí pertama dibuka?",
+   "gold": "24 Februari 1930",
+   "top1": "1987",
+   "sequential": "1987",
+   "used_rank": 1,
+   "oracle": "24 Februari 1930",
+   "window_has_gold": [
+    false,
+    false,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Berapakah jumlah korban jiwa tsunami Sulawesi 2018?",
+   "gold": "2.045",
+   "top1": "1.777",
+   "sequential": "1.777",
+   "used_rank": 1,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Siapakah sultan pertama Brunei Darussalam ?",
+   "gold": "Muhammad",
+   "top1": "Sultan Brunei Darussalam",
+   "sequential": "Sultan Brunei Darussalam",
+   "used_rank": 1,
+   "oracle": "Sultan Muhammad Sharif Ali",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "siapakah pendiri Proton?",
+   "gold": "Mahathir Mohammad",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "Roket",
+   "used_rank": 2,
+   "oracle": "Mahathir Mohammad.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Apakah sistem politik Masyarakat Melayu?",
+   "gold": "musyawarah",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "monarki konstitusional",
+   "used_rank": 2,
+   "oracle": "musyawarah",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Siapakah Perdana menteri Israel sebelum Yitzhak Shamir?",
+   "gold": "Shimon Peres",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "Paula Ben-Gurion",
+   "used_rank": 2,
+   "oracle": "Shimon Peres",
+   "window_has_gold": [
+    false,
+    true,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Kapan Prof. dr. Lim Joey Thay menyelesaikan pendidikannya di luar negeri?",
+   "gold": "1960",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "1960",
+   "used_rank": 2,
+   "oracle": "1960",
+   "window_has_gold": [
+    true,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": true,
+   "ok_oracle": true
+  },
+  {
+   "q": "siapakah karakter utama Serial anime dand manga Eyeshield 21?",
+   "gold": "Sena",
+   "top1": "Yoichi Hiruma",
+   "sequential": "Yoichi Hiruma",
+   "used_rank": 1,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "dari manakah asal pohon Bidara ?",
+   "gold": "Asia Tengah",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "India",
+   "used_rank": 2,
+   "oracle": "AsiaTengah",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apa definisi dari frekuensi ?",
+   "gold": "ukuran jumlah putaran ulang per peristiwa dalam satuan detik dengan satuan Hz",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "ukuran frekuensi pusat adalah ukuran frekuensi pusat dengan frekuensi batas atas dan frekuensi batas atas suatu sistem pelewat pita atau sistem penahan pita.",
+   "used_rank": 3,
+   "oracle": "ukuran jumlah putaran ulang peristiwa dalam satuan detik dengan satuan Hz",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan perahu pertama dibuat ?",
+   "gold": "masa Neolitikum",
+   "top1": "1906",
+   "sequential": "1906",
+   "used_rank": 1,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "adakah mikroorganisme yang bisa bertahan di planet mars?",
+   "gold": "ekstremofil",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "dimanakah kantor pusat Djisamsoe?",
+   "gold": "Surabaya, Jawa Timur",
+   "top1": "",
+   "sequential": "Kantor Pusat Operasional",
+   "used_rank": 2,
+   "oracle": "Surabaya, Jawa Timur",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "berapakah luas Kota Pasuruan?",
+   "gold": "76,79 Km2",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "8",
+   "used_rank": 2,
+   "oracle": "76,79 Km2",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Dimanakah letak delta mahakam?",
+   "gold": "Kabupaten Kutai Kartanegara, tepatnya berada di Kecamatan Anggana, Muara Jawa, dan Sanga-Sanga",
+   "top1": "daratan seluas 100.000 ha",
+   "sequential": "daratan seluas 100.000 ha",
+   "used_rank": 1,
+   "oracle": "Kabupaten Kutai Kartanegara",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Siapa pendiri Gereja Bethany?",
+   "gold": "Prof. DR. Abraham Alex Tanuseputra",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Pdt. Prof. DR. Abraham Alex Tanuseputra",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Dimana Johnny Hiromu Kitagawa lahir?",
+   "gold": "Los Angeles, California, Amerika Serikat",
+   "top1": "Los Angeles, California",
+   "sequential": "Los Angeles, California",
+   "used_rank": 1,
+   "oracle": "Teks tidak menyebutkan hal itu.",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Dari negara mana Hergé berasal ?",
+   "gold": "Belgia",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "Albania",
+   "used_rank": 3,
+   "oracle": "Georgia",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan Lothar II lahir?",
+   "gold": "9 Juni 1075",
+   "top1": "",
+   "sequential": "18 April 1115",
+   "used_rank": 2,
+   "oracle": "1137",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "dimanakah Dipati Ukur meninggal?",
+   "gold": "Mataram",
+   "top1": "Batavia",
+   "sequential": "Batavia",
+   "used_rank": 1,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    true,
+    false,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "adakah mikroorganisme yang bisa bertahan di planet mars?",
+   "gold": "ekstremofil",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "apakah yang dimaksud dengan dunia maya?",
+   "gold": "media elektronik dalam jaringan komputer yang banyak dipakai untuk keperluan komunikasi satu arah maupun timbal-balik secara online (terhubung langsung)",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "media elektronik dalam jaringan komputer yang banyak dipakai untuk keperluan komunikasi satu arah maupun timbal-balik secara online (terhubung langsung).",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "dimanakah Squidward Tentacles bekerja?",
+   "gold": "Krusty Krab",
+   "top1": "rumah berbentuk moai.",
+   "sequential": "rumah berbentuk moai.",
+   "used_rank": 1,
+   "oracle": "rumah berbentuk moai.",
+   "window_has_gold": [
+    true,
+    false,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Dimana Pelemparan di Praha terjadi?",
+   "gold": "Bohemia",
+   "top1": "Praha",
+   "sequential": "Praha",
+   "used_rank": 1,
+   "oracle": "Bohemia dan menjadi alasan terjadinya Perang Tiga Puluh Tahun",
+   "window_has_gold": [
+    true,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "berapakah luas Abu Dhabi?",
+   "gold": "67.340 kilometer persegi",
+   "top1": "84.340 km<UNK>",
+   "sequential": "84.340 km<UNK>",
+   "used_rank": 1,
+   "oracle": "73.340 kilometer persegi",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "siapakah penemu televisi?",
+   "gold": "John Logie Baird",
+   "top1": "John Logie Baird",
+   "sequential": "John Logie Baird",
+   "used_rank": 1,
+   "oracle": "John Logie Baird",
+   "window_has_gold": [
+    true,
+    false,
+    true
+   ],
+   "ok_top1": true,
+   "ok_sequential": true,
+   "ok_oracle": true
+  },
+  {
+   "q": "dimanakah kantor pusat Kemenperin RI?",
+   "gold": "Jalan Jenderal Gatot Subroto, Jakarta, Indonesia",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "Indonesia",
+   "used_rank": 3,
+   "oracle": "Jakarta",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan Francis Fukuyama lahir ?",
+   "gold": "27 Oktober 1952",
+   "top1": "27 Oktober 1953",
+   "sequential": "27 Oktober 1953",
+   "used_rank": 1,
+   "oracle": "27 Oktober 1953",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apakah yang dimaksud dengan kelainan genetik ?",
+   "gold": "sebuah kondisi yang disebabkan oleh kelainan oleh satu atau lebih gen yang menyebabkan sebuah kondisi fenotipe klinis",
+   "top1": "kondisi ya disebabkan oleh kelainan oleh satu atau lebih gen yang menyebabkan sebuah kondisi fenotipe klinis",
+   "sequential": "kondisi ya disebabkan oleh kelainan oleh satu atau lebih gen yang menyebabkan sebuah kondisi fenotipe klinis",
+   "used_rank": 1,
+   "oracle": "kondisi ya disebabkan oleh kelainan oleh satu atau lebih gen yang menyebabkan sebuah kondisi fenotipe klinis",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Berapakah luas Pulau Sumbawa?",
+   "gold": "14.386 km2",
+   "top1": "",
+   "sequential": "2.000 hektar",
+   "used_rank": 2,
+   "oracle": "14386 km2",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Bagaimana proses pembentukan jamur?",
+   "gold": "melakukan reproduksi secara aseksual dan seksual",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "goreng basah dibuat dengan cara jamur tiram",
+   "used_rank": 2,
+   "oracle": "seksual",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Dari manakah wangsa Komnenos berasal ?",
+   "gold": "Konstantinopel",
+   "top1": "",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Konstantinopel, kota ini menjadi yang terdepan dalam segi kebudayaan dan kesejahteraan",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Apa itu Penghargaan Nobel?",
+   "gold": "dianugerahkan setiap tahun kepada mereka yang telah melakukan penelitian yang luar biasa, menemukan teknik atau peralatan yang baru, atau telah melakukan kontribusi luar biasa ke masyarakat",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "penghargaan Nobel Fisika",
+   "used_rank": 2,
+   "oracle": "penghargaan tertinggi bagi mereka yang mempunyai jasa besar terhadap dunia.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apa itu arsitektur Mughal ?",
+   "gold": "gaya arsitektur yang dikembangkan oleh Mughal pada abad ke-16 hingga ke-18 sepanjang kerajaan yang terus berubah di India Abad Pertengahan",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "Mughal",
+   "used_rank": 2,
+   "oracle": "gaya arsitektur yang dikembangkan oleh Mughal pada abad ke-16 hingga ke-18 sepanjang kerajaan yang terus berubah di India Abad Pertengahan",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Apakah pengertian dari frasa ?",
+   "gold": "rupakan satuan linguistik yang lebih besar dari kata dan lebih kecil dari klausa dan",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "pengertian",
+   "used_rank": 3,
+   "oracle": "Informasi tersebut tidak ada dalam teks.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan Padre Pio lahir?",
+   "gold": "25 Mei 1887",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "3 Mei 1923",
+   "used_rank": 3,
+   "oracle": "25 Mei 1887",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Kapan The Washington Post berdiri ?",
+   "gold": "1877",
+   "top1": "15 Februari 2009",
+   "sequential": "15 Februari 2009",
+   "used_rank": 1,
+   "oracle": "1877",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Apa penyebab kematian Islam Abduganiyevich Karimov?",
+   "gold": "menderita stroke",
+   "top1": "stroke",
+   "sequential": "stroke",
+   "used_rank": 1,
+   "oracle": "Teks tidak menyebutkan hal itu.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "apakah yang definisi psikopatologi?",
+   "gold": "studi tentang penyakit mental, tekanan mental, dan abnormal/perilaku maladaptif",
+   "top1": "studi tentang penyakit mental, tekanan mental, dan abnormal/perilaku maladaptif",
+   "sequential": "studi tentang penyakit mental, tekanan mental, dan abnormal/perilaku maladaptif",
+   "used_rank": 1,
+   "oracle": "studi tentang penyakit mental, tekanan mental, dan abnormal/perilaku maladaptif",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": true,
+   "ok_sequential": true,
+   "ok_oracle": true
+  },
+  {
+   "q": "Apakah nama pesawat Indonesia pertama ?",
+   "gold": "Dakota RI-001 Seulawah",
+   "top1": "Convair990",
+   "sequential": "Convair990",
+   "used_rank": 1,
+   "oracle": "Dakota RI-001",
+   "window_has_gold": [
+    false,
+    false,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apakah yang dimaksud dengan ilmu astrologi ?",
+   "gold": "sistem pengetahuan untuk mengerti, dan menterjemahkan tentang kenyataan dan keberadaan manusiawi, berdasarkan posisi dan gerak-gerik relatif berbagai benda langit, terutama Matahari, Bulan, planet, dan lunar node",
+   "top1": "Astrologi Horary",
+   "sequential": "Astrologi Horary",
+   "used_rank": 1,
+   "oracle": "Teks tidak menyebutkan hal itu.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan Komputer mikro mulai dikembangkan ?",
+   "gold": "1959",
+   "top1": "1950",
+   "sequential": "1950",
+   "used_rank": 1,
+   "oracle": "1959",
+   "window_has_gold": [
+    true,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Kapan PDRM dibentuk ?",
+   "gold": "1963",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "2007",
+   "used_rank": 2,
+   "oracle": "24 Juli 1958",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Siapa penemu teori stimulus?",
+   "gold": "Thorndike",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Thorndike",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "siapakah aktivis Feminisme indonesia yang pertama?",
+   "gold": "Raden Ajeng Kartini",
+   "top1": "Solidaritas Perempuan, Yayasan Jurnal Perempuan, dan Koalisi Perempuan",
+   "sequential": "Solidaritas Perempuan, Yayasan Jurnal Perempuan, dan Koalisi Perempuan",
+   "used_rank": 1,
+   "oracle": "Mary Wollstonecraft yang berjudul A Vindication of The Rights of Woman dianggap sebagai salah satu karya tulis feminis awal yang berisi kritik terhadap Revolusi Prancis yang",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan The Best Damn Thing dirilis?",
+   "gold": "Amerika Utara dan sebagian negara-negara Eropa pada tanggal 17 April 2007, serta di Inggris dan Australia tepat satu hari sebelumnya",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "17 April 2007",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apa lambang dari perusahaan Paramount Pictures?",
+   "gold": "gunung dengan lingkaran dari puluhan bintang",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Berapa frekuensi Radio Pelita Kasih?",
+   "gold": "FM 96,30MHz",
+   "top1": "12 Februari 1989",
+   "sequential": "12 Februari 1989",
+   "used_rank": 1,
+   "oracle": "3 slogan yang diperkenalkan pada ulang tahun Radio Pelita Kasih (RPK) di yang dapat di dengarkan oleh seluruh masyarakat belahan dunia dengan menggunakan perangkat radio, atau melalui akses",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "tahun berapakah Kesultanan Aceh didirikan?",
+   "gold": "1496",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "1528",
+   "used_rank": 2,
+   "oracle": "1524",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apa nama badan PBB yang mengurus tentang perlindungan anak ?",
+   "gold": "UNICEF",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Juan Miguel Petit",
+   "used_rank": 2,
+   "oracle": "UNICEF",
+   "window_has_gold": [
+    false,
+    false,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Kapan Yoweri Kaguta Museveni lahir?",
+   "gold": "1944",
+   "top1": "1977",
+   "sequential": "1977",
+   "used_rank": 1,
+   "oracle": "29 Januari 1976",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan Dr. George Habash terlibat dalam politik Palestina?",
+   "gold": "1948",
+   "top1": "1977",
+   "sequential": "1977",
+   "used_rank": 1,
+   "oracle": "1948",
+   "window_has_gold": [
+    false,
+    true,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Dimanakah proklamasi dibacakan ?",
+   "gold": "Jalan Pegangsaan Timur 56, Jakarta Pusat",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "17 Agustus 1945",
+   "used_rank": 3,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "apakah yang dimaksudkan dengan Tsarevich?",
+   "gold": "gelar bagi putra tsar",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "gelar Slavia yang diberikan kepada anak Tsarevich",
+   "used_rank": 2,
+   "oracle": "Teks tidak menyebutkan hal itu.",
+   "window_has_gold": [
+    false,
+    false,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apa maksud kata Whataboutisme?",
+   "gold": "teknik propaganda yang pernah digunakan oleh Uni Soviet saat berinteraksi dengan dunia Barat, kemudian menjadi bentuk propaganda di Rusia pasca-Soviet",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "teknik propaganda yang pernah digunakan oleh Uni Soviet saat berinteraksi dengan dunia Barat, kemudian menjadi bentuk propaganda di Rusia pasca-Soviet",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Dimanakah tumbuhan kaktus sering dijumpai ?",
+   "gold": "daerah beriklim tropis dan subtropis",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "daerah semi-gurun, padang rumput",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apakah ajaran inti agama Bahá'í?",
+   "gold": "asas-asas keesaan Tuhan, kesatuan agama, dan persatuan umat manusia",
+   "top1": "",
+   "sequential": "Kesatuan umat manusia dan persatuan dunia lainnya tidak memiliki implikasi etis atau keyakinan yang berasal dari sumber yang sama.",
+   "used_rank": 3,
+   "oracle": "Teks tidak menyebutkan hal itu.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apakah gereja terbesar di Swedia?",
+   "gold": "Gereja Swedia",
+   "top1": "Gereja Swedia",
+   "sequential": "Gereja Swedia",
+   "used_rank": 1,
+   "oracle": "Gereja Swedia",
+   "window_has_gold": [
+    true,
+    true,
+    false
+   ],
+   "ok_top1": true,
+   "ok_sequential": true,
+   "ok_oracle": true
+  },
+  {
+   "q": "Darimanakah asal Marc Márquez?",
+   "gold": "Spanyol",
+   "top1": "",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Informasi tersebut tidak ada dalam teks.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "siapakah karakter utama serial anime dan manga Eyeshield 21?",
+   "gold": "Sena",
+   "top1": "Shueish",
+   "sequential": "Shueish",
+   "used_rank": 1,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Di umur berapa Michael Trent Reznor mulai belajar musik?",
+   "gold": "lima",
+   "top1": "17 Mei 1965",
+   "sequential": "17 Mei 1965",
+   "used_rank": 1,
+   "oracle": "lima",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "berapakah luas Bendung Katulampa?",
+   "gold": "5.000 hektare",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "5.000 hektare",
+   "used_rank": 2,
+   "oracle": "5.000 hektare",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": true,
+   "ok_oracle": true
+  },
+  {
+   "q": "dimanakah letak samudera pasifik?",
+   "gold": "di antara Asia dan Australia di sebelah barat, Amerika di sebelah timur, Antartika di sebelah selatan dan Samudra Arktik di sebelah utara",
+   "top1": "antara dua benua Asia dan Australia dan dua Samudera besar yaitu Samudera India",
+   "sequential": "antara dua benua Asia dan Australia dan dua Samudera besar yaitu Samudera India",
+   "used_rank": 1,
+   "oracle": "Selat Malaka",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apakah bahan bakar mesin jet?",
+   "gold": "aviation turbine fuel",
+   "top1": "Berdasarkan teks tersebut, jawaba",
+   "sequential": "Berdasarkan teks tersebut, jawaba",
+   "used_rank": 1,
+   "oracle": "Teks tidak menyebutkan hal itu.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Siapa yang merumuskan naskah proklamasi Indonesia?",
+   "gold": "Tadashi Maeda, Tomegoro Yoshizumi, S. Nishijima, S. Miyoshi, Mohammad Hatta, Soekarno, dan Achmad Soebardjo",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "Soekarno",
+   "used_rank": 3,
+   "oracle": "Teks tidak menyebutkan hal itu.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "siapakah karakter utama serial anime dan manga Eyeshield 21?",
+   "gold": "Sena",
+   "top1": "Shueish",
+   "sequential": "Shueish",
+   "used_rank": 1,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "berapakah luas Bendung Katulampa?",
+   "gold": "5.000 hektare",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "5.000 hektare",
+   "used_rank": 2,
+   "oracle": "5.000 hektare",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": true,
+   "ok_oracle": true
+  },
+  {
+   "q": "Apakah nama rumah adat suku Banjar?",
+   "gold": "Rumah Baanjung",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Banjar",
+   "used_rank": 2,
+   "oracle": "Rumah Bahari",
+   "window_has_gold": [
+    false,
+    false,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan Teori hubungan internasional diciptakan?",
+   "gold": "1939",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "1939",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "apakah arti dari antifungal?",
+   "gold": "golongan obat yang bersifat fungisida atau fungistatik yang dapat digunakan untuk mengobati dan mencegah mikosis seperti kutu air, kurap, kandidiasis, infeksi sistemik serius seperti meningitis kriptokokus, dan lain-lain",
+   "top1": "antijamur yang penting untuk pengobatan, termasuk nistatin (dari S. Berdasarkan teks tersebut, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "monooksigenasi",
+   "used_rank": 2,
+   "oracle": "suatu kelompok obat yang brsifatfungisida atau fungisida atau fungisida atau fungisida",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan film animasi Monster,Inc dirilis?",
+   "gold": "2001",
+   "top1": "21 Juni 2013",
+   "sequential": "21 Juni 2013",
+   "used_rank": 1,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan film James Bond pertama dirilis ?",
+   "gold": "1962",
+   "top1": "14 November 2006",
+   "sequential": "14 November 2006",
+   "used_rank": 1,
+   "oracle": "1962",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Dimana letak pabrik Italia Alfa Romeo?",
+   "gold": "Milan",
+   "top1": "Pabrik Cassino",
+   "sequential": "Pabrik Cassino",
+   "used_rank": 1,
+   "oracle": "Milan",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Apakah buku pertama dari novel \"The Chronicles of Narnia\"?",
+   "gold": "Sang Singa, sang Penyihir, dan Lemari",
+   "top1": "The Lion, The Witch and the Wardrobe",
+   "sequential": "The Lion, The Witch and the Wardrobe",
+   "used_rank": 1,
+   "oracle": "Informasi tersebut tidak ada dalam teks.",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "apakah warna ular Bakas?",
+   "gold": "merah atau merah tua",
+   "top1": "hitam",
+   "sequential": "hitam",
+   "used_rank": 1,
+   "oracle": "merah atau merah",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Siapa bapak politik Indonesia?",
+   "gold": "Mohammad Hatta",
+   "top1": "Soediono Soeriwisastro",
+   "sequential": "Soediono Soeriwisastro",
+   "used_rank": 1,
+   "oracle": "Informasi tersebut tidak ada dalam teks.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan Gereja Bethany didirikan?",
+   "gold": "17 Januari 2003",
+   "top1": "1978",
+   "sequential": "1978",
+   "used_rank": 1,
+   "oracle": "17 Januari 2003.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Dimana letak Orléans?",
+   "gold": "muara Sungai Mississippi",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Louisiana",
+   "used_rank": 2,
+   "oracle": "Teks tidak menyebutkan hal itu.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Siapa sutradara film Sleeping Beauty?",
+   "gold": "Les Clark, Eric Larson, dan Wolfgang Reitherman",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Charles Perrault",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan Alfonso VI lahir?",
+   "gold": "Juni 1040",
+   "top1": "1091",
+   "sequential": "1091",
+   "used_rank": 1,
+   "oracle": "960",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "kapankah HUT kota Balikpapan?",
+   "gold": "10 Februari",
+   "top1": "",
+   "sequential": "2nd",
+   "used_rank": 2,
+   "oracle": "10 Februari 1897",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "apakah yang dimaksud dengan polimer ?",
+   "gold": "sejumlah molekul besar yang terdiri dari unit unit yang berulang yang disebut monomer",
+   "top1": "polimer teknik meliputi nilon, polimer penghantar arus listrik dan foton, polimer penghantar arus listrik dan foton, polimer penghantar arus listrik dan foton, polimer penghantar arus listri",
+   "sequential": "polimer teknik meliputi nilon, polimer penghantar arus listrik dan foton, polimer penghantar arus listrik dan foton, polimer penghantar arus listrik dan foton, polimer penghantar arus listri",
+   "used_rank": 1,
+   "oracle": "organik (memiliki rantai karbon), ada juga banyak polimer inorganik yang terdiri dari unit yang berulang yang disebut monomer",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "mengapa Paus Yohanes Paulus I menjabat sebagai Paus hanya 33 hari?",
+   "gold": "meninggal dunia",
+   "top1": "",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    false,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "kapan Sunan Giri lahir ?",
+   "gold": "1442",
+   "top1": "1442",
+   "sequential": "1442",
+   "used_rank": 1,
+   "oracle": "1442",
+   "window_has_gold": [
+    true,
+    false,
+    true
+   ],
+   "ok_top1": true,
+   "ok_sequential": true,
+   "ok_oracle": true
+  },
+  {
+   "q": "di tim apakah Marc Márquez Alenta mendapatkan gelar juara dunia kelas 125cc pertama kali?",
+   "gold": "KTM",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "MotoGP",
+   "used_rank": 2,
+   "oracle": "Teks tidak menyebutkan hal itu.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan Thomas Arkidiakonus lahir ?",
+   "gold": "awal abad ke-13",
+   "top1": "abad ke-14",
+   "sequential": "abad ke-14",
+   "used_rank": 1,
+   "oracle": "abad ke-13",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "berapakah luas Kebun Binatang Siantar?",
+   "gold": "4.5 hektare",
+   "top1": "4.5 hektare",
+   "sequential": "4.5 hektare",
+   "used_rank": 1,
+   "oracle": "4.5 hektare",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": true,
+   "ok_sequential": true,
+   "ok_oracle": true
+  },
+  {
+   "q": "Apakah fungsi utama seorang pemimpin dalam komunitas?",
+   "gold": "membantu kelompok untuk belajar memutuskan dan bekerja secara lebih efisien dalam peranannya sebagai pelatih seorang pemimpin dapat memberikan bantuan-bantuan yang khas",
+   "top1": "membantu kelompok untuk belajar memutuskan dan bekerja secara lebih efisien dalam peranannya sebagai pelatih seorang pemimpin",
+   "sequential": "membantu kelompok untuk belajar memutuskan dan bekerja secara lebih efisien dalam peranannya sebagai pelatih seorang pemimpin",
+   "used_rank": 1,
+   "oracle": "membantu kelompok untuk belajar memutuskan dan bekerja secara lebih efisien dalam peranannya sebagai pelatih seorang pemimpin",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Siapa yang menciptakan alat Megafon?",
+   "gold": "Athanasius Kircher",
+   "top1": "Athnasius Kircher",
+   "sequential": "Athnasius Kircher",
+   "used_rank": 1,
+   "oracle": "Teks tidak menyebutkan hal itu.",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Bagaimana Porifera berkembangbiak?",
+   "gold": "seksual atau aseksual",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "seksual",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apakah definisi dari femininitas?",
+   "gold": "sebuah kata sifat, adjektif yang berarti \"kewanitaan\" atau menunjukkan sifat perempuan",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "kewanitaan",
+   "used_rank": 3,
+   "oracle": "kewanitaan",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "siapakah Puteri Indonesia yang ke 18?",
+   "gold": "Sonia Fergina Citra",
+   "top1": "Lovely Debora Tolembo",
+   "sequential": "Lovely Debora Tolembo",
+   "used_rank": 1,
+   "oracle": "Informasi tersebut tidak ada dalam teks.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apakah kepanjangan dari KKI?",
+   "gold": "Konsil Kedokteran Indonesia",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Konsil Kedokteran Indonesia",
+   "window_has_gold": [
+    false,
+    false,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Abad keberapakah zaman feodal Jepang?",
+   "gold": "ke-12 hingga abad ke-19",
+   "top1": "abad ke-12",
+   "sequential": "abad ke-12",
+   "used_rank": 1,
+   "oracle": "abad ke-12",
+   "window_has_gold": [
+    true,
+    false,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Dari manakah adal club CONMEBOL?",
+   "gold": "Amerika Selatan",
+   "top1": "",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "siapakah penerus Asyurbanipal?",
+   "gold": "Asur-etillu-ili",
+   "top1": "Ashur-hamat",
+   "sequential": "Ashur-hamat",
+   "used_rank": 1,
+   "oracle": "Sinsharishkun, jenderal Sinsharishkun, jenderal Sinsharishkun, jenderal Sinsharishkun, jenderal Sinsharishkun, jenderal Sinsharishkun,",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "dimanakah kantor pusat Djisamsoe?",
+   "gold": "Surabaya, Jawa Timur",
+   "top1": "",
+   "sequential": "Kantor Pusat Operasional",
+   "used_rank": 2,
+   "oracle": "Surabaya, Jawa Timur",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Apa bahasa mayoritas penduduk Australia ?",
+   "gold": "Bahasa Inggris Australia",
+   "top1": "Bahasa Indonesia",
+   "sequential": "Bahasa Indonesia",
+   "used_rank": 1,
+   "oracle": "Inggris",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan Christiaan Snouck Hurgronje meninggal ?",
+   "gold": "1936",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "1937",
+   "used_rank": 2,
+   "oracle": "1926",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apa nama bandara di Penang?",
+   "gold": "Bandar Udara Internasional Penang",
+   "top1": "Banda Aceh",
+   "sequential": "Banda Aceh",
+   "used_rank": 1,
+   "oracle": "Bandar Udara Internasional Penang (IATA: PEN, ICAO: WMKP",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Apa yang membuat posisi Ferdinand sebagai pewaris tahta tidak menguntungkan?",
+   "gold": "haknya berkuasa dalam pemerintahan di hapus oleh orang tuanya dan Godoy",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Apakah bilangan bulat?",
+   "gold": "bilangan cacah (0, 1, 2, 3, ...) dan negatifnya (-1, -2, -3, ...; -0 adalah sama dengan 0 sehingga tidak lagi dimasukkan secara terpisah)",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "gelanggang bilangan bulat dari medan bilangan aljabar adalah akar dari polinomial monik",
+   "used_rank": 3,
+   "oracle": "0,12, 3, ..., dan negatifnya (-1, -3, ...; -0 adalah sama dengan 0 sehingga tidak lagi dimasukkan secara terpisah).",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Siapa pendiri Institut Leimena?",
+   "gold": "Jakob Tobing, Mangara Tambunan, Matius Ho, Radja Kami Sembiring Meliala, dan Viveka Nanda Leimena",
+   "top1": "Jakob Tobing, Mangara Tambunan, Matius Ho, Radja Kami Sembiring Meliala, dan Viveka Nanda Leimena",
+   "sequential": "Jakob Tobing, Mangara Tambunan, Matius Ho, Radja Kami Sembiring Meliala, dan Viveka Nanda Leimena",
+   "used_rank": 1,
+   "oracle": "Jakob Tobing, Mangara Tambunan, Matius Ho, Radja Kami Sembiring Meliala, dan Viveka Nanda Leimena",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": true,
+   "ok_sequential": true,
+   "ok_oracle": true
+  },
+  {
+   "q": "Kapankah Gempa bumi dan tsunami Sulawesi 2018 terjadi ?",
+   "gold": "28 September 2018, pukul 18.02 WITA",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "28km utara Donggala dan 80km barat laut kota Palu",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan tayangan pertama acara Hikmah Fajar?",
+   "gold": "12 Februari 1994",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "12 Februari 1994",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Kapan Walt Disney Animation Studios berdiri ?",
+   "gold": "16 Oktober 1923",
+   "top1": "16 Oktober 1923",
+   "sequential": "16 Oktober 1923",
+   "used_rank": 1,
+   "oracle": "16 Oktober 1923",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": true,
+   "ok_sequential": true,
+   "ok_oracle": true
+  },
+  {
+   "q": "berapakah jumlah kabupaten di Indonesia?",
+   "gold": "415",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "3",
+   "used_rank": 2,
+   "oracle": "45",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "kapankah Sony PlayStation 3 dirilis?",
+   "gold": "11 November 2006",
+   "top1": "4 Maret 2001",
+   "sequential": "4 Maret 2001",
+   "used_rank": 1,
+   "oracle": "11 November 2006",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Berapa jumlah anggota dari G7?",
+   "gold": "tujuh",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "tujuh",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Berapa berat Mesin kepung?",
+   "gold": "180 ton",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "14 dan 15",
+   "used_rank": 2,
+   "oracle": "120 ton",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan situs Multiply tutup layanan ?",
+   "gold": "Maret 2013",
+   "top1": "Maret 2013",
+   "sequential": "Maret 2013",
+   "used_rank": 1,
+   "oracle": "Maret 2013",
+   "window_has_gold": [
+    true,
+    true,
+    false
+   ],
+   "ok_top1": true,
+   "ok_sequential": true,
+   "ok_oracle": true
+  },
+  {
+   "q": "Siapa produser film Lilo & Stitch?",
+   "gold": "Clark Spencer",
+   "top1": "Lilo & Stitch",
+   "sequential": "Lilo & Stitch",
+   "used_rank": 1,
+   "oracle": "Clark Spencer",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "kapan musik hip hop pertama kali muncul ?",
+   "gold": "1970",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "90-an",
+   "used_rank": 2,
+   "oracle": "1970an",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Di siaran tv apa Hikmah Fajar ditayangkan?",
+   "gold": "RCTI",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Berapa luas Las Vegas?",
+   "gold": "131.3 mil persegi",
+   "top1": "",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "131.3 mil persegi",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": true
+  },
+  {
+   "q": "Siapa bapak Teknik industri?",
+   "gold": "Frederick Winslow Taylor",
+   "top1": "Heny Towne",
+   "sequential": "Heny Towne",
+   "used_rank": 1,
+   "oracle": "Adam Smith",
+   "window_has_gold": [
+    false,
+    true,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Siapa itu keluarga Korawa?",
+   "gold": "\"keturunan (raja)",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Informasi tersebut tidak ada dalam teks.",
+   "window_has_gold": [
+    false,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Siapa sutradara film Sleeping Beauty?",
+   "gold": "Les Clark, Eric Larson, dan Wolfgang Reitherman",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "sequential": "Informasi tersebut tidak ada dalam teks.",
+   "used_rank": null,
+   "oracle": "Charles Perrault",
+   "window_has_gold": [
+    true,
+    false,
+    false
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Berapa lama Teungku Ilyas Leube menjadi Perdana Menteri Aceh Merdeka ke-2?",
+   "gold": "1980-1982",
+   "top1": "1976",
+   "sequential": "1976",
+   "used_rank": 1,
+   "oracle": "1978",
+   "window_has_gold": [
+    true,
+    false,
+    true
+   ],
+   "ok_top1": false,
+   "ok_sequential": false,
+   "ok_oracle": false
+  },
+  {
+   "q": "Kapan Johann Ludwig Tieck lahir ?",
+   "gold": "31 Mei 1773",
+   "top1": "31 Mei 1773",
+   "sequential": "31 Mei 1773",
+   "used_rank": 1,
+   "oracle": "31 Mei 1773",
+   "window_has_gold": [
+    true,
+    true,
+    true
+   ],
+   "ok_top1": true,
+   "ok_sequential": true,
+   "ok_oracle": true
+  }
+ ]
+}

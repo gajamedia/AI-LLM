@@ -1,0 +1,1304 @@
+{
+ "20": {
+  "notes": 20,
+  "answerable": 20,
+  "unanswerable": 30,
+  "retrieval_recall@1": 0.85,
+  "retrieval_recall@3": 1.0,
+  "acc_oracle": 0.8,
+  "acc_top1": 0.7,
+  "acc_top3": 0.45,
+  "refusal_unknown_top1": 0.5333333333333333,
+  "refusal_unknown_top3": 0.6666666666666666,
+  "rows": [
+   {
+    "q": "Apa warna mobil Ketut Gelati?",
+    "gold": "merah",
+    "note": "Ketut Gelati mengendarai mobil berwarna merah.",
+    "hit1": true,
+    "oracle": "Merah",
+    "top1": "Merah",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Pada tahun berapa Nur Munopa dilahirkan?",
+    "gold": "1966",
+    "note": "Nur Munopa lahir pada tahun 1966.",
+    "hit1": true,
+    "oracle": "1966",
+    "top1": "1966",
+    "top3": "1966"
+   },
+   {
+    "q": "Kapan batas waktu Proyek Raja-28?",
+    "gold": "8 Mei",
+    "note": "Tenggat Proyek Raja-28 jatuh pada tanggal 8 Mei.",
+    "hit1": true,
+    "oracle": "8 Mei.",
+    "top1": "8 Mei.",
+    "top3": "7 November 1942"
+   },
+   {
+    "q": "Berapa harga satu kotak Sakake?",
+    "gold": "49",
+    "note": "Harga satu kotak Sakake adalah 49 ribu rupiah.",
+    "hit1": true,
+    "oracle": "49 ribu rupiah",
+    "top1": "49 ribu rupiah",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Pada tahun berapa Putri Wiraja dilahirkan?",
+    "gold": "1958",
+    "note": "Putri Wiraja lahir pada tahun 1958.",
+    "hit1": false,
+    "oracle": "1948",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "1958"
+   },
+   {
+    "q": "Berapa harga satu kotak Wimudi?",
+    "gold": "13",
+    "note": "Harga satu kotak Wimudi adalah 13 ribu rupiah.",
+    "hit1": true,
+    "oracle": "13 ribu rupiah",
+    "top1": "13 ribu rupiah",
+    "top3": "13ribu rupiah"
+   },
+   {
+    "q": "Berapa harga satu kotak Subaja?",
+    "gold": "6",
+    "note": "Harga satu kotak Subaja adalah 6 ribu rupiah.",
+    "hit1": true,
+    "oracle": "6 ribu rupiah",
+    "top1": "6 ribu rupiah",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Pada tahun berapa Agus Supalu dilahirkan?",
+    "gold": "2001",
+    "note": "Agus Supalu lahir pada tahun 2001.",
+    "hit1": true,
+    "oracle": "2001",
+    "top1": "2001",
+    "top3": "2001"
+   },
+   {
+    "q": "Pada tahun berapa Putri Kagema dilahirkan?",
+    "gold": "1952",
+    "note": "Putri Kagema lahir pada tahun 1952.",
+    "hit1": true,
+    "oracle": "1952",
+    "top1": "1952",
+    "top3": "1952"
+   },
+   {
+    "q": "Siapa ketua tim Laludi?",
+    "gold": "Taufik Roluma",
+    "note": "Taufik Roluma adalah ketua tim Laludi.",
+    "hit1": true,
+    "oracle": "Teks tidak menyebutkan hal itu.",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Kapan batas waktu Proyek Maka-73?",
+    "gold": "7 November",
+    "note": "Tenggat Proyek Maka-73 jatuh pada tanggal 7 November.",
+    "hit1": true,
+    "oracle": "7 November 20",
+    "top1": "7 November 20",
+    "top3": "7 Mei."
+   },
+   {
+    "q": "Berapa harga satu kotak Mapano?",
+    "gold": "76",
+    "note": "Harga satu kotak Mapano adalah 76 ribu rupiah.",
+    "hit1": true,
+    "oracle": "76 ribu rupiah",
+    "top1": "76 ribu rupiah",
+    "top3": "76 ribu rupiah"
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Ketut Gelati?",
+    "gold": "Keti",
+    "note": "Ketut Gelati memelihara seekor burung bernama Keti.",
+    "hit1": false,
+    "oracle": "Keti",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Di kota mana Surya Nobamu dilahirkan?",
+    "gold": "Lageba",
+    "note": "Surya Nobamu lahir di kota Lageba.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Apa pekerjaan Putri Wiraja?",
+    "gold": "juru masak",
+    "note": "Putri Wiraja bekerja sebagai juru masak.",
+    "hit1": false,
+    "oracle": "juru masak.",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Surya Nobamu?",
+    "gold": "4",
+    "note": "Ruang kerja Surya Nobamu berada di lantai 4.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Pada tahun berapa Ketut Gelati dilahirkan?",
+    "gold": "1960",
+    "note": "Ketut Gelati lahir pada tahun 1960.",
+    "hit1": true,
+    "oracle": "1960",
+    "top1": "1960",
+    "top3": "1960"
+   },
+   {
+    "q": "Apa makanan kesukaan Putri Kagema?",
+    "gold": "ayam betutu",
+    "note": "Makanan favorit Putri Kagema adalah ayam betutu.",
+    "hit1": true,
+    "oracle": "ayam betutu",
+    "top1": "ayam betutu",
+    "top3": "gado-gado"
+   },
+   {
+    "q": "Apa makanan kesukaan Nur Munopa?",
+    "gold": "gado-gado",
+    "note": "Makanan favorit Nur Munopa adalah gado-gado.",
+    "hit1": true,
+    "oracle": "gado-gado",
+    "top1": "gado-gado",
+    "top3": "gado-gado."
+   },
+   {
+    "q": "Di kota mana Putri Wiraja dilahirkan?",
+    "gold": "Rapage",
+    "note": "Putri Wiraja lahir di kota Rapage.",
+    "hit1": true,
+    "oracle": "Rapage",
+    "top1": "Rapage",
+    "top3": "Rapage."
+   }
+  ]
+ },
+ "200": {
+  "notes": 200,
+  "answerable": 60,
+  "unanswerable": 30,
+  "retrieval_recall@1": 0.75,
+  "retrieval_recall@3": 1.0,
+  "acc_oracle": 0.65,
+  "acc_top1": 0.48333333333333334,
+  "acc_top3": 0.38333333333333336,
+  "refusal_unknown_top1": 0.5333333333333333,
+  "refusal_unknown_top3": 0.3333333333333333,
+  "rows": [
+   {
+    "q": "Siapa nama hewan peliharaan Yusuf Mumamu?",
+    "gold": "Muka",
+    "note": "Yusuf Mumamu memelihara seekor kucing bernama Muka.",
+    "hit1": false,
+    "oracle": "Yusuf Muma",
+    "top1": "Yusuf Mumamu",
+    "top3": "Yusuf Mumamu"
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Indah Dimula?",
+    "gold": "Nowi",
+    "note": "Indah Dimula memelihara seekor kura-kura bernama Nowi.",
+    "hit1": false,
+    "oracle": "Nowi",
+    "top1": "Indah Dimula",
+    "top3": "Nowi"
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Fajar Suramu?",
+    "gold": "22",
+    "note": "Ruang kerja Fajar Suramu berada di lantai 22.",
+    "hit1": true,
+    "oracle": "lantai 22.",
+    "top1": "lantai 22.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Apa pekerjaan Surya Mulura?",
+    "gold": "nelayan",
+    "note": "Surya Mulura bekerja sebagai nelayan.",
+    "hit1": true,
+    "oracle": "nelayan",
+    "top1": "nelayan",
+    "top3": "ayam betutu"
+   },
+   {
+    "q": "Di kota mana Joko Wijano dilahirkan?",
+    "gold": "Mabaja",
+    "note": "Joko Wijano lahir di kota Mabaja.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Pada tahun berapa Nur Basuno dilahirkan?",
+    "gold": "1955",
+    "note": "Nur Basuno lahir pada tahun 1955.",
+    "hit1": false,
+    "oracle": "1955",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "1955"
+   },
+   {
+    "q": "Siapa ketua tim Wigedi?",
+    "gold": "Sari Ramula",
+    "note": "Sari Ramula adalah ketua tim Wigedi.",
+    "hit1": true,
+    "oracle": "Sari Ramula",
+    "top1": "Sari Ramula",
+    "top3": "Sari Ramula"
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Tuti Kajaja?",
+    "gold": "24",
+    "note": "Ruang kerja Tuti Kajaja berada di lantai 24.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Berapa harga satu kotak Dilaja?",
+    "gold": "41",
+    "note": "Harga satu kotak Dilaja adalah 41 ribu rupiah.",
+    "hit1": true,
+    "oracle": "41 ribu rupiah",
+    "top1": "41 ribu rupiah",
+    "top3": "41 ribu rupiah"
+   },
+   {
+    "q": "Pada tahun berapa Rahmat Manolu dilahirkan?",
+    "gold": "1998",
+    "note": "Rahmat Manolu lahir pada tahun 1998.",
+    "hit1": true,
+    "oracle": "1998",
+    "top1": "1998",
+    "top3": "1998"
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Dewi Gepaja?",
+    "gold": "Rowi",
+    "note": "Dewi Gepaja memelihara seekor kucing bernama Rowi.",
+    "hit1": false,
+    "oracle": "Rowi",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Rowi"
+   },
+   {
+    "q": "Siapa ketua tim Kemura?",
+    "gold": "Ketut Laroge",
+    "note": "Ketut Laroge adalah ketua tim Kemura.",
+    "hit1": true,
+    "oracle": "ketua tim Kemura",
+    "top1": "ketua tim Kemura",
+    "top3": "Informasi tersebut tidak ada dalam teks."
+   },
+   {
+    "q": "Berapa harga satu kotak Wikema?",
+    "gold": "65",
+    "note": "Harga satu kotak Wikema adalah 65 ribu rupiah.",
+    "hit1": true,
+    "oracle": "65 ribu rupiah",
+    "top1": "65 ribu rupiah",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Pada tahun berapa Surya Magera dilahirkan?",
+    "gold": "2000",
+    "note": "Surya Magera lahir pada tahun 2000.",
+    "hit1": true,
+    "oracle": "2000",
+    "top1": "2000",
+    "top3": "2001"
+   },
+   {
+    "q": "Kapan batas waktu Proyek Maro-31?",
+    "gold": "21 Mei",
+    "note": "Tenggat Proyek Maro-31 jatuh pada tanggal 21 Mei.",
+    "hit1": true,
+    "oracle": "21 Mei.",
+    "top1": "21 Mei.",
+    "top3": "11 November"
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Lestari Mutiwi?",
+    "gold": "27",
+    "note": "Ruang kerja Lestari Mutiwi berada di lantai 27.",
+    "hit1": true,
+    "oracle": "lantai 27.",
+    "top1": "lantai 27.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Di kota mana Ketut Laroge dilahirkan?",
+    "gold": "Wipati",
+    "note": "Ketut Laroge lahir di kota Wipati.",
+    "hit1": true,
+    "oracle": "Wipati",
+    "top1": "Wipati",
+    "top3": "Wipatii"
+   },
+   {
+    "q": "Apa pekerjaan Dewi Luwira?",
+    "gold": "juru masak",
+    "note": "Dewi Luwira bekerja sebagai juru masak.",
+    "hit1": true,
+    "oracle": "juru masak.",
+    "top1": "juru masak.",
+    "top3": "juru masak"
+   },
+   {
+    "q": "Berapa harga satu kotak Papaba?",
+    "gold": "42",
+    "note": "Harga satu kotak Papaba adalah 42 ribu rupiah.",
+    "hit1": true,
+    "oracle": "42 ribu rupiah",
+    "top1": "42 ribu rupiah",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Indah Dimula?",
+    "gold": "14",
+    "note": "Ruang kerja Indah Dimula berada di lantai 14.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Yusuf Disuja?",
+    "gold": "9",
+    "note": "Ruang kerja Yusuf Disuja berada di lantai 9.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "lantai 10"
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Rudi Kadiro?",
+    "gold": "Wisa",
+    "note": "Rudi Kadiro memelihara seekor kelinci bernama Wisa.",
+    "hit1": false,
+    "oracle": "Wisa",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Wisa"
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Andi Wibaja?",
+    "gold": "Roma",
+    "note": "Andi Wibaja memelihara seekor kucing bernama Roma.",
+    "hit1": false,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Andi Wibaja",
+    "top3": "Andi Wibaja"
+   },
+   {
+    "q": "Di kota mana Dewi Gepaja dilahirkan?",
+    "gold": "Sumudi",
+    "note": "Dewi Gepaja lahir di kota Sumudi.",
+    "hit1": true,
+    "oracle": "Sumudi",
+    "top1": "Sumudi",
+    "top3": "Sumudi"
+   },
+   {
+    "q": "Apa pekerjaan Budi Dirapa?",
+    "gold": "tukang kayu",
+    "note": "Budi Dirapa bekerja sebagai tukang kayu.",
+    "hit1": false,
+    "oracle": "Teks tidak menyebutkan hal itu.",
+    "top1": "Informasi tersebut tidak ada dalam teks.",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Apa pekerjaan Rina Titiba?",
+    "gold": "guru olahraga",
+    "note": "Rina Titiba bekerja sebagai guru olahraga.",
+    "hit1": false,
+    "oracle": "Teks tidak menyebutkan hal itu.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "rawon. Rina Rowino"
+   },
+   {
+    "q": "Apa pekerjaan Indah Baluma?",
+    "gold": "tukang kayu",
+    "note": "Indah Baluma bekerja sebagai tukang kayu.",
+    "hit1": true,
+    "oracle": "Teks tidak menyebutkan hal itu.",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Pada tahun berapa Eko Diluge dilahirkan?",
+    "gold": "1965",
+    "note": "Eko Diluge lahir pada tahun 1965.",
+    "hit1": false,
+    "oracle": "1965",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "1965"
+   },
+   {
+    "q": "Apa warna mobil Eko Diluge?",
+    "gold": "putih",
+    "note": "Eko Diluge mengendarai mobil berwarna putih.",
+    "hit1": true,
+    "oracle": "putih",
+    "top1": "putih",
+    "top3": "putih"
+   },
+   {
+    "q": "Berapa harga satu kotak Norawi?",
+    "gold": "55",
+    "note": "Harga satu kotak Norawi adalah 55 ribu rupiah.",
+    "hit1": true,
+    "oracle": "55 ribu rupiah",
+    "top1": "55 ribu rupiah",
+    "top3": "55 ribu rupiah"
+   },
+   {
+    "q": "Pada tahun berapa Lestari Lurati dilahirkan?",
+    "gold": "1952",
+    "note": "Lestari Lurati lahir pada tahun 1952.",
+    "hit1": false,
+    "oracle": "1952",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "1952"
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Joko Dijaka?",
+    "gold": "18",
+    "note": "Ruang kerja Joko Dijaka berada di lantai 18.",
+    "hit1": true,
+    "oracle": "lantai 18.",
+    "top1": "lantai 18.",
+    "top3": "lantai 18"
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Taufik Suwima?",
+    "gold": "29",
+    "note": "Ruang kerja Taufik Suwima berada di lantai 29.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Apa makanan kesukaan Yusuf Disuja?",
+    "gold": "rawon",
+    "note": "Makanan favorit Yusuf Disuja adalah rawon.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Apa warna mobil Andi Disuma?",
+    "gold": "kuning",
+    "note": "Andi Disuma mengendarai mobil berwarna kuning.",
+    "hit1": true,
+    "oracle": "kuning",
+    "top1": "kuning",
+    "top3": "kuning"
+   },
+   {
+    "q": "Pada tahun berapa Maya Timano dilahirkan?",
+    "gold": "1964",
+    "note": "Maya Timano lahir pada tahun 1964.",
+    "hit1": false,
+    "oracle": "1964",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "1965"
+   },
+   {
+    "q": "Apa pekerjaan Eko Diluti?",
+    "gold": "nelayan",
+    "note": "Eko Diluti bekerja sebagai nelayan.",
+    "hit1": true,
+    "oracle": "Teks tidak menyebutkan hal itu.",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "ketua tim Wima"
+   },
+   {
+    "q": "Pada tahun berapa Dewi Gepaja dilahirkan?",
+    "gold": "1972",
+    "note": "Dewi Gepaja lahir pada tahun 1972.",
+    "hit1": true,
+    "oracle": "1972",
+    "top1": "1972",
+    "top3": "1972"
+   },
+   {
+    "q": "Pada tahun berapa Fajar Sulage dilahirkan?",
+    "gold": "1988",
+    "note": "Fajar Sulage lahir pada tahun 1988.",
+    "hit1": true,
+    "oracle": "1987",
+    "top1": "1987",
+    "top3": "1987"
+   },
+   {
+    "q": "Pada tahun berapa Yusuf Disuja dilahirkan?",
+    "gold": "1952",
+    "note": "Yusuf Disuja lahir pada tahun 1952.",
+    "hit1": false,
+    "oracle": "1952",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "1952"
+   },
+   {
+    "q": "Kapan batas waktu Proyek Baka-95?",
+    "gold": "13 Juli",
+    "note": "Tenggat Proyek Baka-95 jatuh pada tanggal 13 Juli.",
+    "hit1": true,
+    "oracle": "13 Juli 1955",
+    "top1": "13 Juli 1955",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Berapa harga satu kotak Jageba?",
+    "gold": "40",
+    "note": "Harga satu kotak Jageba adalah 40 ribu rupiah.",
+    "hit1": true,
+    "oracle": "40ribu",
+    "top1": "40ribu",
+    "top3": "41 ribu rupiah"
+   },
+   {
+    "q": "Kapan batas waktu Proyek Wilu-6?",
+    "gold": "10 Januari",
+    "note": "Tenggat Proyek Wilu-6 jatuh pada tanggal 10 Januari.",
+    "hit1": true,
+    "oracle": "10 Januar",
+    "top1": "10 Januar",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Kapan batas waktu Proyek Bage-79?",
+    "gold": "5 Januari",
+    "note": "Tenggat Proyek Bage-79 jatuh pada tanggal 5 Januari.",
+    "hit1": true,
+    "oracle": "5 Januari",
+    "top1": "5 Januari",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Surya Magera?",
+    "gold": "Rati",
+    "note": "Surya Magera memelihara seekor kelinci bernama Rati.",
+    "hit1": false,
+    "oracle": "Rati",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Rati"
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Maya Timano?",
+    "gold": "10",
+    "note": "Ruang kerja Maya Timano berada di lantai 10.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Sari Ramula?",
+    "gold": "Muro",
+    "note": "Sari Ramula memelihara seekor anjing bernama Muro.",
+    "hit1": false,
+    "oracle": "Muro.",
+    "top1": "Sari Ramula",
+    "top3": "Muro."
+   },
+   {
+    "q": "Apa warna mobil Ani Notimu?",
+    "gold": "oranye",
+    "note": "Ani Notimu mengendarai mobil berwarna oranye.",
+    "hit1": true,
+    "oracle": "oranye",
+    "top1": "oranye",
+    "top3": "oranye"
+   },
+   {
+    "q": "Apa warna mobil Dewi Sujapa?",
+    "gold": "ungu",
+    "note": "Dewi Sujapa mengendarai mobil berwarna ungu.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "ung"
+   },
+   {
+    "q": "Siapa ketua tim Sulaka?",
+    "gold": "Andi Wibaja",
+    "note": "Andi Wibaja adalah ketua tim Sulaka.",
+    "hit1": true,
+    "oracle": "Andi Wibaja",
+    "top1": "Andi Wibaja",
+    "top3": "Informasi tersebut tidak ada dalam teks."
+   },
+   {
+    "q": "Siapa ketua tim Rawige?",
+    "gold": "Fajar Suramu",
+    "note": "Fajar Suramu adalah ketua tim Rawige.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Informasi tersebut tidak ada dalam teks."
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Yusuf Sudika?",
+    "gold": "10",
+    "note": "Ruang kerja Yusuf Sudika berada di lantai 10.",
+    "hit1": true,
+    "oracle": "lantai 10.",
+    "top1": "lantai 10.",
+    "top3": "lantai 10."
+   },
+   {
+    "q": "Apa warna mobil Surya Malara?",
+    "gold": "putih",
+    "note": "Surya Malara mengendarai mobil berwarna putih.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Apa makanan kesukaan Ani Gebadi?",
+    "gold": "rawon",
+    "note": "Makanan favorit Ani Gebadi adalah rawon.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Berapa harga satu kotak Roluba?",
+    "gold": "12",
+    "note": "Harga satu kotak Roluba adalah 12 ribu rupiah.",
+    "hit1": true,
+    "oracle": "12ribu",
+    "top1": "12ribu",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Berapa harga satu kotak Mukeno?",
+    "gold": "38",
+    "note": "Harga satu kotak Mukeno adalah 38 ribu rupiah.",
+    "hit1": true,
+    "oracle": "38 ribu rupiah",
+    "top1": "38 ribu rupiah",
+    "top3": "31 ribu rupiah"
+   },
+   {
+    "q": "Berapa harga satu kotak Latiti?",
+    "gold": "51",
+    "note": "Harga satu kotak Latiti adalah 51 ribu rupiah.",
+    "hit1": true,
+    "oracle": "51 ribu rupiah",
+    "top1": "51 ribu rupiah",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Yusuf Kejasu?",
+    "gold": "Roka",
+    "note": "Yusuf Kejasu memelihara seekor burung bernama Roka.",
+    "hit1": false,
+    "oracle": "Yusuf Kejasu",
+    "top1": "Yusuf Kejasu",
+    "top3": "Yusuf Kejasu"
+   },
+   {
+    "q": "Apa makanan kesukaan Taufik Sudila?",
+    "gold": "soto betawi",
+    "note": "Makanan favorit Taufik Sudila adalah soto betawi.",
+    "hit1": true,
+    "oracle": "soto betawi.",
+    "top1": "soto betawi.",
+    "top3": "soto betawi"
+   },
+   {
+    "q": "Di kota mana Dedi Norala dilahirkan?",
+    "gold": "Robano",
+    "note": "Dedi Norala lahir di kota Robano.",
+    "hit1": true,
+    "oracle": "Robano adalah kota Robano.",
+    "top1": "Robano adalah kota Robano.",
+    "top3": "kota Kejaja"
+   }
+  ]
+ },
+ "2000": {
+  "notes": 2000,
+  "answerable": 60,
+  "unanswerable": 30,
+  "retrieval_recall@1": 0.7,
+  "retrieval_recall@3": 1.0,
+  "acc_oracle": 0.5833333333333334,
+  "acc_top1": 0.4,
+  "acc_top3": 0.3333333333333333,
+  "refusal_unknown_top1": 0.5333333333333333,
+  "refusal_unknown_top3": 0.5,
+  "rows": [
+   {
+    "q": "Siapa ketua tim Gelura?",
+    "gold": "Fajar Lanoba",
+    "note": "Fajar Lanoba adalah ketua tim Gelura.",
+    "hit1": true,
+    "oracle": "Informasi tersebut tidak ada dalam teks.",
+    "top1": "Informasi tersebut tidak ada dalam teks.",
+    "top3": "Wati Rasaja"
+   },
+   {
+    "q": "Siapa ketua tim Kadilu?",
+    "gold": "Eko Timala",
+    "note": "Eko Timala adalah ketua tim Kadilu.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Pada tahun berapa Tuti Mutila dilahirkan?",
+    "gold": "1994",
+    "note": "Tuti Mutila lahir pada tahun 1994.",
+    "hit1": true,
+    "oracle": "1994",
+    "top1": "1994",
+    "top3": "1994"
+   },
+   {
+    "q": "Berapa harga satu kotak Wiwima?",
+    "gold": "56",
+    "note": "Harga satu kotak Wiwima adalah 56 ribu rupiah.",
+    "hit1": true,
+    "oracle": "56 ribu rupiah",
+    "top1": "56 ribu rupiah",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Maya Ropasu?",
+    "gold": "20",
+    "note": "Ruang kerja Maya Ropasu berada di lantai 20.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Apa makanan kesukaan Joko Jajawi?",
+    "gold": "gudeg",
+    "note": "Makanan favorit Joko Jajawi adalah gudeg.",
+    "hit1": true,
+    "oracle": "gudeg.",
+    "top1": "gudeg.",
+    "top3": "rendang"
+   },
+   {
+    "q": "Pada tahun berapa Surya Sujala dilahirkan?",
+    "gold": "1966",
+    "note": "Surya Sujala lahir pada tahun 1966.",
+    "hit1": true,
+    "oracle": "1966",
+    "top1": "1966",
+    "top3": "1966"
+   },
+   {
+    "q": "Di kota mana Agus Norala dilahirkan?",
+    "gold": "Dikewi",
+    "note": "Agus Norala lahir di kota Dikewi.",
+    "hit1": true,
+    "oracle": "Dikewi.",
+    "top1": "Dikewi.",
+    "top3": "Dikewi."
+   },
+   {
+    "q": "Kapan batas waktu Proyek Kake-46?",
+    "gold": "27 November",
+    "note": "Tenggat Proyek Kake-46 jatuh pada tanggal 27 November.",
+    "hit1": true,
+    "oracle": "26 November",
+    "top1": "26 November",
+    "top3": "17 September"
+   },
+   {
+    "q": "Apa pekerjaan Ani Bababa?",
+    "gold": "arsitek",
+    "note": "Ani Bababa bekerja sebagai arsitek.",
+    "hit1": true,
+    "oracle": "Teks tidak menyebutkan hal itu.",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "sebagai arsitek"
+   },
+   {
+    "q": "Apa pekerjaan Eko Susapa?",
+    "gold": "dokter gigi",
+    "note": "Eko Susapa bekerja sebagai dokter gigi.",
+    "hit1": false,
+    "oracle": "Teks tidak menyebutkan hal itu.",
+    "top1": "mengemudikan mobil berwarna putih",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Ayu Keladi?",
+    "gold": "Ludi",
+    "note": "Ayu Keladi memelihara seekor anjing bernama Ludi.",
+    "hit1": false,
+    "oracle": "Ludi",
+    "top1": "Ayu Keladi",
+    "top3": "Ludi"
+   },
+   {
+    "q": "Di kota mana Wati Sujadi dilahirkan?",
+    "gold": "Jaluja",
+    "note": "Wati Sujadi lahir di kota Jaluja.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Maya Timalu?",
+    "gold": "17",
+    "note": "Ruang kerja Maya Timalu berada di lantai 17.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Kapan batas waktu Proyek Kaka-3?",
+    "gold": "18 Maret",
+    "note": "Tenggat Proyek Kaka-3 jatuh pada tanggal 18 Maret.",
+    "hit1": false,
+    "oracle": "18 Maret",
+    "top1": "22 September",
+    "top3": "Informasi tersebut tidak ada dalam teks."
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Tuti Tikepa?",
+    "gold": "Rowi",
+    "note": "Tuti Tikepa memelihara seekor burung bernama Rowi.",
+    "hit1": false,
+    "oracle": "Rowi",
+    "top1": "Tuti Tikepa",
+    "top3": "Rowi"
+   },
+   {
+    "q": "Berapa harga satu kotak Robasu?",
+    "gold": "85",
+    "note": "Harga satu kotak Robasu adalah 85 ribu rupiah.",
+    "hit1": true,
+    "oracle": "85 ribu",
+    "top1": "85 ribu",
+    "top3": "71 ribu rupiah"
+   },
+   {
+    "q": "Siapa ketua tim Ketija?",
+    "gold": "Putri Balapa",
+    "note": "Putri Balapa adalah ketua tim Ketija.",
+    "hit1": true,
+    "oracle": "Putri Balapa",
+    "top1": "Putri Balapa",
+    "top3": "Wati Rasaja"
+   },
+   {
+    "q": "Apa pekerjaan Putri Pawidi?",
+    "gold": "guru olahraga",
+    "note": "Putri Pawidi bekerja sebagai guru olahraga.",
+    "hit1": false,
+    "oracle": "Teks tidak menyebutkan hal itu.",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "mengendarai mobil berwarna hitam"
+   },
+   {
+    "q": "Apa makanan kesukaan Fajar Norola?",
+    "gold": "soto betawi",
+    "note": "Makanan favorit Fajar Norola adalah soto betawi.",
+    "hit1": true,
+    "oracle": "soto betawi.",
+    "top1": "soto betawi.",
+    "top3": "soto betawi."
+   },
+   {
+    "q": "Kapan batas waktu Proyek Make-5?",
+    "gold": "16 November",
+    "note": "Tenggat Proyek Make-5 jatuh pada tanggal 16 November.",
+    "hit1": true,
+    "oracle": "16 November",
+    "top1": "16 November",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Maya Gesuro?",
+    "gold": "22",
+    "note": "Ruang kerja Maya Gesuro berada di lantai 22.",
+    "hit1": true,
+    "oracle": "lantai 22.",
+    "top1": "lantai 22.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Pada tahun berapa Ayu Mudiba dilahirkan?",
+    "gold": "1956",
+    "note": "Ayu Mudiba lahir pada tahun 1956.",
+    "hit1": false,
+    "oracle": "1956",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "1956"
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Bayu Suroge?",
+    "gold": "Lusa",
+    "note": "Bayu Suroge memelihara seekor kura-kura bernama Lusa.",
+    "hit1": false,
+    "oracle": "Lusa",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Lusa"
+   },
+   {
+    "q": "Apa pekerjaan Tuti Kanolu?",
+    "gold": "pilot",
+    "note": "Tuti Kanolu bekerja sebagai pilot.",
+    "hit1": true,
+    "oracle": "pilot.",
+    "top1": "pilot.",
+    "top3": "pilot"
+   },
+   {
+    "q": "Kapan batas waktu Proyek Tipa-36?",
+    "gold": "8 Juli",
+    "note": "Tenggat Proyek Tipa-36 jatuh pada tanggal 8 Juli.",
+    "hit1": true,
+    "oracle": "8 Juli",
+    "top1": "8 Juli",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Nur Sutidi?",
+    "gold": "Romu",
+    "note": "Nur Sutidi memelihara seekor kelinci bernama Romu.",
+    "hit1": false,
+    "oracle": "Romu.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Romu."
+   },
+   {
+    "q": "Apa pekerjaan Tuti Salati?",
+    "gold": "penjahit",
+    "note": "Tuti Salati bekerja sebagai penjahit.",
+    "hit1": true,
+    "oracle": "menjahit",
+    "top1": "menjahit",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Kapan batas waktu Proyek Kasa-11?",
+    "gold": "5 November",
+    "note": "Tenggat Proyek Kasa-11 jatuh pada tanggal 5 November.",
+    "hit1": true,
+    "oracle": "5 November 20",
+    "top1": "5 November 20",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Dewi Nodipa?",
+    "gold": "Gera",
+    "note": "Dewi Nodipa memelihara seekor kelinci bernama Gera.",
+    "hit1": false,
+    "oracle": "Gera.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Gera. Dewi Nodipa"
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Agus Diroge?",
+    "gold": "Basu",
+    "note": "Agus Diroge memelihara seekor kura-kura bernama Basu.",
+    "hit1": false,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Informasi tersebut tidak ada dalam teks."
+   },
+   {
+    "q": "Siapa ketua tim Masano?",
+    "gold": "Dewi Kamala",
+    "note": "Dewi Kamala adalah ketua tim Masano.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Apa pekerjaan Tuti Kasuka?",
+    "gold": "juru masak",
+    "note": "Tuti Kasuka bekerja sebagai juru masak.",
+    "hit1": false,
+    "oracle": "juru masak.",
+    "top1": "gudeg.",
+    "top3": "gudeg."
+   },
+   {
+    "q": "Di kota mana Surya Kejadi dilahirkan?",
+    "gold": "Bawiro",
+    "note": "Surya Kejadi lahir di kota Bawiro.",
+    "hit1": true,
+    "oracle": "Bawiro.",
+    "top1": "Bawiro.",
+    "top3": "Kebar"
+   },
+   {
+    "q": "Apa warna mobil Indah Lajala?",
+    "gold": "kuning",
+    "note": "Indah Lajala mengendarai mobil berwarna kuning.",
+    "hit1": true,
+    "oracle": "kuning",
+    "top1": "kuning",
+    "top3": "kuning"
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Hendra Jamalu?",
+    "gold": "7",
+    "note": "Ruang kerja Hendra Jamalu berada di lantai 7.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Berapa harga satu kotak Mubaro?",
+    "gold": "11",
+    "note": "Harga satu kotak Mubaro adalah 11 ribu rupiah.",
+    "hit1": true,
+    "oracle": "11 ribu rupiah",
+    "top1": "11 ribu rupiah",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Pada tahun berapa Tuti Sumasa dilahirkan?",
+    "gold": "1996",
+    "note": "Tuti Sumasa lahir pada tahun 1996.",
+    "hit1": false,
+    "oracle": "1996",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "1996"
+   },
+   {
+    "q": "Berapa harga satu kotak Nosaba?",
+    "gold": "62",
+    "note": "Harga satu kotak Nosaba adalah 62 ribu rupiah.",
+    "hit1": true,
+    "oracle": "62 ribu rupiah",
+    "top1": "62 ribu rupiah",
+    "top3": "61 ribu rupiah"
+   },
+   {
+    "q": "Siapa ketua tim Timuno?",
+    "gold": "Fajar Parasa",
+    "note": "Fajar Parasa adalah ketua tim Timuno.",
+    "hit1": true,
+    "oracle": "Teks tidak menyebutkan hal itu.",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "Wati Rasaja"
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Maya Surola?",
+    "gold": "25",
+    "note": "Ruang kerja Maya Surola berada di lantai 25.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Berapa harga satu kotak Titidi?",
+    "gold": "87",
+    "note": "Harga satu kotak Titidi adalah 87 ribu rupiah.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "71 ribu rupiah"
+   },
+   {
+    "q": "Siapa ketua tim Romaro?",
+    "gold": "Mega Luwika",
+    "note": "Mega Luwika adalah ketua tim Romaro.",
+    "hit1": true,
+    "oracle": "Mega Luwika",
+    "top1": "Mega Luwika",
+    "top3": "Teks tidak menyebutkan hal itu."
+   },
+   {
+    "q": "Apa makanan kesukaan Hendra Laditi?",
+    "gold": "gudeg",
+    "note": "Makanan favorit Hendra Laditi adalah gudeg.",
+    "hit1": true,
+    "oracle": "gudeg.",
+    "top1": "gudeg.",
+    "top3": "gudeg"
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Sari Sapasa?",
+    "gold": "Muro",
+    "note": "Sari Sapasa memelihara seekor kura-kura bernama Muro.",
+    "hit1": false,
+    "oracle": "Muro",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Siapa ketua tim Rodija?",
+    "gold": "Wati Rasaja",
+    "note": "Wati Rasaja adalah ketua tim Rodija.",
+    "hit1": true,
+    "oracle": "Wati Rasaja",
+    "top1": "Wati Rasaja",
+    "top3": "Informasi tersebut tidak ada dalam teks."
+   },
+   {
+    "q": "Pada tahun berapa Ketut Muwisa dilahirkan?",
+    "gold": "1957",
+    "note": "Ketut Muwisa lahir pada tahun 1957.",
+    "hit1": false,
+    "oracle": "Teks tidak menyebutkan hal itu.",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "1957"
+   },
+   {
+    "q": "Apa makanan kesukaan Taufik Bakala?",
+    "gold": "bakso",
+    "note": "Makanan favorit Taufik Bakala adalah bakso.",
+    "hit1": true,
+    "oracle": "bakso.",
+    "top1": "bakso.",
+    "top3": "bakso"
+   },
+   {
+    "q": "Apa makanan kesukaan Taufik Jasula?",
+    "gold": "rawon",
+    "note": "Makanan favorit Taufik Jasula adalah rawon.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "bakso"
+   },
+   {
+    "q": "Apa warna mobil Putri Jakama?",
+    "gold": "kuning",
+    "note": "Putri Jakama mengendarai mobil berwarna kuning.",
+    "hit1": true,
+    "oracle": "kuning",
+    "top1": "kuning",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Berapa harga satu kotak Ditimu?",
+    "gold": "91",
+    "note": "Harga satu kotak Ditimu adalah 91 ribu rupiah.",
+    "hit1": true,
+    "oracle": "99 ribu",
+    "top1": "99 ribu",
+    "top3": "71 ribu rupiah"
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Rina Dijalu?",
+    "gold": "Mamu",
+    "note": "Rina Dijalu memelihara seekor kura-kura bernama Mamu.",
+    "hit1": false,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Informasi tersebut tidak ada dalam teks.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Berapa harga satu kotak Wikemu?",
+    "gold": "20",
+    "note": "Harga satu kotak Wikemu adalah 20 ribu rupiah.",
+    "hit1": true,
+    "oracle": "20ribu",
+    "top1": "20ribu",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Bayu Malasu?",
+    "gold": "Raba",
+    "note": "Bayu Malasu memelihara seekor anjing bernama Raba.",
+    "hit1": false,
+    "oracle": "Raba",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Raba"
+   },
+   {
+    "q": "Apa pekerjaan Dewi Kelupa?",
+    "gold": "guru olahraga",
+    "note": "Dewi Kelupa bekerja sebagai guru olahraga.",
+    "hit1": false,
+    "oracle": "Teks tidak menyebutkan hal itu.",
+    "top1": "ketua tim Noroka",
+    "top3": "ketua tim Noroka"
+   },
+   {
+    "q": "Pada tahun berapa Yusuf Lalano dilahirkan?",
+    "gold": "1993",
+    "note": "Yusuf Lalano lahir pada tahun 1993.",
+    "hit1": false,
+    "oracle": "1994",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "1993."
+   },
+   {
+    "q": "Kapan batas waktu Proyek Gera-10?",
+    "gold": "26 Januari",
+    "note": "Tenggat Proyek Gera-10 jatuh pada tanggal 26 Januari.",
+    "hit1": true,
+    "oracle": "26 Januari 2021",
+    "top1": "26 Januari 2021",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Di kota mana Tuti Salati dilahirkan?",
+    "gold": "Jakero",
+    "note": "Tuti Salati lahir di kota Jakero.",
+    "hit1": true,
+    "oracle": "Jakerero",
+    "top1": "Jakerero",
+    "top3": "Jakero."
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Eko Kanoja?",
+    "gold": "21",
+    "note": "Ruang kerja Eko Kanoja berada di lantai 21.",
+    "hit1": true,
+    "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+    "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+   },
+   {
+    "q": "Apa pekerjaan Wati Rasaja?",
+    "gold": "tukang kayu",
+    "note": "Wati Rasaja bekerja sebagai tukang kayu.",
+    "hit1": true,
+    "oracle": "Teks tidak menyebutkan hal itu.",
+    "top1": "Teks tidak menyebutkan hal itu.",
+    "top3": "ketua tim Rodija"
+   }
+  ]
+ }
+}

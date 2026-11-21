@@ -1,0 +1,80 @@
+{
+  "checkpoint": "reports\\checkpoints_100m_v2\\gpt_best.pt",
+  "step": 42000,
+  "validation": {
+    "loss": 2.5688946317036945,
+    "ppl": 13.051389872059584,
+    "tokens": 384000,
+    "blocks": 1500
+  },
+  "generation": {
+    "distinct_1": 0.5278276481149012,
+    "distinct_2": 0.9389038634321654,
+    "distinct_3": 0.987410071942446,
+    "repetition_ratio": 0.1357547691518447,
+    "avg_words": 30.944444444444443,
+    "samples": 36
+  },
+  "outputs": {
+    "Indonesia adalah negara": [
+      " yang terkenal dengan keindahan alamnya. Bagi Anda yang ingin berkunjung ke Nusantara, pastikan Anda datang ke tempat ini karena Indonesia adalah negara yang menjadi salah satu tujuan wisata yang terbaik. Di negara ini, Anda bisa menemukan berbagai macam objek-objek wisata yang wajib dikunjungi. Anda pasti akan menemukan banyak sekali objek wisata menarik untuk dikunjungi. Berikut ini adalah beberapa hal",
+      " yang paling terkenal karena sejarahnya dan berbagai budayanya. Berikut ini adalah 10 tempat wisata di indonesia yang bisa anda kunjungi dengan mudah. 1. Nusa Tenggara Timur 2. Becak Bali 3. Batu Tapak Tunggal 5. Gili Trawangan 6. Bukit Barus 6. Keris Bunga 7. Agam Bekasi Selatan 7. Air Terjun Kaliurang Wisata Batu Tapak adalah salah",
+      " yang memiliki keindahan alam yang mempesona. Tidak terkecuali, Indonesia memiliki beragam bentuk dan fungsi wisata yang tidak hanya dapat dinikmati oleh wisatawan, namun juga wisatawan dari luar negeri."
+    ],
+    "Cara membuat nasi goreng yang enak adalah": [
+      " dengan menggunakan resep berikut ini: - Resep Masakan Nasi Goreng Bahan-bahan yang diperlukan untuk membuat masakan nasi goreng adalah bahan-bahan dan bumbu-bumbu sebagai berikut: - Siapkan wadah kecil atau bumbu rempah - Siapkan 1/2 sdt - Tambahkan 400 gram gula dan gula pasir - Masukkan semua bahan tersebut secara mer",
+      " dengan mengolahnya berbagai jenis topping, telur, dan daging ayam, sambil menambahkan sedikitnya air dan garam. Cara Membuat nasi goreng yang enak, mudah dan simple dan praktis adalah mencampurkan 2 sachet dengan air, kemudian campurkan dengan 1 sendok teh gula merah, aduk hingga rata lalu aduk. Kemudian barulah masukkan sejumlah kecil sachet. La",
+      " dengan cara menggoreng dengan cara membuat beras ketan di adonan dengan menggunakan santan dan minyak telon."
+    ],
+    "Pemerintah Indonesia hari ini mengumumkan bahwa": [
+      " Pemerintah telah melaporkan kasus penipuan yang bisa saja berdampak pada pemerataan pembangunan fasilitas pendidikan yang ada. Dengan demikian, Pemerintah Indonesia menyebutkan, dengan adanya laporan keuangan pemerintah maka akan berdampak terhadap kebijakan luar negeri. Namun, hal ini tidak terlepas dari pernyataan Menteri Perindustrian dan UMKM Marx dan Engels. Menurut dia,",
+      " pembentukan Persatuan Sepak Bola Indonesia (Persepak bola) Indonesia (PSSI) telah berakhir dengan hasil yang memuaskan. Apalagi, dari hasil survei yang dilakukan setidaknya ada 35 klub sepak bola Indonesia yang berasal dari berbagai daerah di Indonesia mulai sejak tahun 1980-an hingga sekarang. Hasil survei tersebut juga mencerminkan komitmen bersama PSSI dalam",
+      " pemerintah Indonesia telah memberlakukan sanksi terhadap kasus korupsi proyek pinjaman kepada PT MDGs. Kebijakan ini berdasarkan putusan nomor 35/PUU-XVIII/2014 yang diterbitkan melalui Pasal 136 ayat 2 Perubahan Pasal 5 Undang-Undang Nomor 24 Tahun 2009 tentang Perbankan Negara dan Peraturan Pemerintah Nomor 32 Tahun 19"
+    ],
+    "Sejarah kerajaan Majapahit dimulai pada": [
+      " saat Kerajaan Batanghari diambil alih oleh Sultan Mangkubumi pada tahun 1509–1565.",
+      " tahun yang sama dengan keberadaan gelar Raja Nainggolan.",
+      " Juni 1134 Masehi dengan rajanya yaitu Daeng Sindu Mangkubumi, yang bergelar Raja Mpu Tayan yang meninggal pada bulan Ramadhan 1298."
+    ],
+    "Ibu kota Indonesia adalah": [
+      " Jakarta, yaitu Pusat Jasa Marga (PJM) yang berada di Provinsi DKI Jakarta.",
+      " Jakarta Timur. Dengan segala kepentingan dan kebutuhan-kebutuhan yang telah terpenuhi. Untuk mencapai semua impian dan keinginan kita, kita harus selalu bersinergi dengan berbagai pihak untuk mendukung keberhasilan dan kemajuan bangsa kita. Perlu adanya kerja sama yang merata di sini agar tidak ada lagi perubahan dalam hidup kita dalam kehidupan kita sehari-hari, sehingga kita bisa menjadi orang",
+      " Jakarta, Indonesia."
+    ],
+    "Manfaat olahraga secara teratur bagi kesehatan antara lain": [
+      ": - Penelitian mengenai efek antioksidan dalam makanan dapat menyebabkan peningkatan risiko penyakit jantung. - Menjaga kesehatan ginjal - Meningkatkan kesehatan pencernaan - Menjaga kesuburan organ hati yang sehat - Mencegah obesitas - Mengurangi penyakit jantung koroner - Penurunan berat badan dan obesitas - Mencegah kelainan darah tinggi dan menimbulkan b",
+      ": Meningkatkan kebugaran fisik dan mental - Mengatasi gangguan pencernaan yang terkait dengan stres - Meningkatkan daya tahan tubuh, memperkuat sistem kekebalan tubuh dan menjaga daya tahan tubuh dan mencegah terjadinya penuaan dini.",
+      ": - Meningkatkan fungsi sel tubuh - Membantu meningkatkan sistem kekebalan tubuh - Membantu menurunkan risiko terjadinya penyakit jantung koroner - Penurunan denyut jantung - Meningkatkan stamina dan kesehatan mental - Sebagai antioksidan yang melindungi tubuh dari radikal bebas - Meningkatkan kesehatan jantung - Menurunkan risiko penyakit jantung Kandungan protein dalam"
+    ],
+    "Pada pertandingan sepak bola semalam, tim nasional": [
+      " sepak bola indonesia tidak bermain di stadion karena alasan kurangnya penggunaan kendaraan untuk fasilitas umum. Namun demikian, timnas sepak bola Indonesia masih belum menemukan solusi tepat untuk mengatasinya. Kondisi ini memang sudah terjadi sejak lama, namun harus segera ditangani. Timnas akan mengetahui jika situasi dan kondisi seperti ini akan menjadi solusi permasalahan ketika timnas",
+      " sepak bola Indonesia mulai menjuarai Liga 1, yaitu Liga 1 Indonesia 2018.",
+      " sepak bola Portugal menduduki peringkat kedua klasemen dengan 57 poin dan hanya unggulan satu poin dari tim-tim sepak bola Eropa lainnya."
+    ],
+    "Untuk mengajukan permohonan kartu tanda penduduk, warga harus": [
+      " mengisi formulir daftar pemilik kartu.",
+      " membayar biaya sebesar Rp 100.000 per kg pada awal bulan pertama, dengan menggunakan uang muka yang diberikan oleh Bupati Karo.",
+      " memenuhi syarat fisik dan non-fisik. Jika mereka benar-benar telah mendapatkan sertifikat visa, mereka akan menerima identitas diri mereka melalui email atau nomor telepon rumah tangga. Namun, dengan catatan lain, mereka akan mendapatkan akses ke layanan surat keterangan ahli waris yang dapat diakses secara online. Jika Anda melakukan proses verifikasi yang lebih cepat, seperti verifikas"
+    ],
+    "Fotosintesis adalah proses": [
+      " kimia yang terjadi pada organisme yang tidak mengalami pertumbuhan pada suhu tinggi (misalnya bakteri, alga, serbuk, lumut, atau spora).",
+      " pembentukan sel-sel tubuh yang dihasilkan oleh tubuh berupa sel-sel berukuran besar dan juga bertugas memproses cairan yang terdapat dalam tubuh melalui aliran darah. Beberapa jenis sel yang dapat tumbuh di antaranya adalah: - Karbohidrat (Karbohidrat) - Kalsium (Ca), - Kolagen - Serat - Berat - Mineral - Nutrisi - Protein - Bu",
+      " penguraian kotoran dari bahan organik yang terkonsentrasi dengan cepat dan tidak terganggu, yang dapat mengakibatkan hilangnya oksigen dari air melalui reaksi fotosinaps."
+    ],
+    "Harga kebutuhan pokok di pasar tradisional minggu ini": [
+      " masih tetap terjangkau, tidak hanya bagi produsen pesawat tetapi juga pengguna maskapai lokal. Selain itu, ada pula beberapa penyedia jasa pelayanan pasokan khusus bagi para pelanggan. Untuk mendapatkan pelayanan yang baik, kami menyarankan Anda untuk memilih maskapai yang memenuhi syarat dan ketentuan yang berlaku. Oleh karenanya, kami akan memberikan informasi lebih detail tentang maskapai ter",
+      " Rp. 300 ribu per kg untuk ukuran 2 liter yang diperoleh dari harga pasar lokal dan untuk kualitas bahan pangan untuk kebutuhan pangan sehari-hari Rp. 700 ribu per kg. Harga pangan yang tadinya ditanggung oleh pembeli dan penjual sedang dalam pengawasan. Untuk biaya produksi pangan Rp. 500 ribu per kg, harganya lebih murah dibanding harga pasar g",
+      " (10/10) mencapai 3,6 juta rupiah, dengan harga rata-rata Rp 2,8 juta per kilogram. Sementara itu, perincian harga adalah: - Jumlah kebutuhan pokok harian yang harus dipenuhi. - Jenis produk yang harus dikonsumsi bagi usaha kecil atau menengah agar dapat hidup sehat. - Distribusi barang dan jasa yang termasuk dalam kategori usaha mikro, yaitu produk"
+    ],
+    "Dalam bahasa pemrograman Python, fungsi digunakan untuk": [
+      " mengukur kemampuan suatu browser atau jaringan untuk memahami konten atau file dalam program.",
+      " menghasilkan sebuah karakter dari file berdasarkan urutan kode yang telah ditentukan sebelumnya.",
+      " memproses atau membuat multiple color."
+    ],
+    "Banjir yang melanda kota tersebut menyebabkan": [
+      " tiga orang tewas.",
+      " warga yang sedang bepergian jauh dari pusat kota untuk mencari makanan yang diinginkannya.",
+      " puluhan ribu orang meninggal dan puluhan lainnya dievakuasi secara bersama."
+    ]
+  }
+}

@@ -369,6 +369,9 @@ def main() -> None:
     parser.add_argument("--early-stop-patience", type=int, default=None, help="Early stop patience in eval windows.")
     parser.add_argument("--early-stop-min-delta", type=float, default=None, help="Minimum delta to count as improvement.")
     parser.add_argument("--resume", default=None, help="Checkpoint path to resume from (e.g. reports/checkpoints/gpt_last.pt).")
+    parser.add_argument("--init-from", default=None,
+                        help="Checkpoint untuk warm start: hanya BOBOT model dimuat; optimizer, scheduler, step, "
+                             "dan sampler mulai baru. Tidak boleh dipakai bersama --resume.")
     parser.add_argument("--seed", type=int, default=None, help="Seed for model initialization and data order.")
     parser.add_argument("--vocab-path", default=None, help="Override vocab JSON path for isolated experiments.")
     parser.add_argument("--token2id-path", default=None, help="Override token2id JSON path for isolated experiments.")
@@ -691,6 +694,22 @@ def main() -> None:
     stop_training = False
     model.train()
 
+    if args.init_from:
+        if args.resume:
+            raise SystemExit("--init-from dan --resume tidak boleh dipakai bersamaan.")
+        init_path = Path(args.init_from)
+        if not init_path.exists():
+            raise SystemExit(f"--init-from checkpoint not found: {init_path}")
+        init_payload = torch.load(str(init_path), map_location="cpu")
+        if not isinstance(init_payload, dict) or not isinstance(init_payload.get("model_state_dict"), dict):
+            raise SystemExit("--init-from checkpoint missing 'model_state_dict'.")
+        validate_checkpoint_metadata(payload=init_payload, model=model, tokenizer=tokenizer, cfg=cfg, strict=False)
+        model.load_compatible_state_dict(init_payload["model_state_dict"], strict=True)
+        print(f"[train_gpt] warm start: bobot dimuat dari {init_path} "
+              f"(checkpoint_epoch={init_payload.get('epoch')}, checkpoint_step={init_payload.get('step')}); "
+              "optimizer/scheduler/sampler baru.")
+        del init_payload
+
     if args.resume:
         resume_info = _load_resume_checkpoint(
             path=Path(args.resume),
@@ -763,6 +782,7 @@ def main() -> None:
     print(f"plateau_enabled={plateau_enabled}")
     print(f"early_stop_enabled={early_stop_enabled}")
     print(f"resume={args.resume if args.resume else 'none'}")
+    print(f"init_from={args.init_from if args.init_from else 'none'}")
     print(f"mixed_precision={use_amp} dtype={amp_dtype}")
     print(f"num_threads={torch.get_num_threads()}")
     print(f"grad_accum={train_grad_accum}")

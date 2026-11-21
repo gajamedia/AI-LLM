@@ -1,0 +1,80 @@
+{
+  "checkpoint": "reports\\checkpoints_100m\\gpt_best.pt",
+  "step": 25500,
+  "validation": {
+    "loss": 2.876064615885417,
+    "ppl": 17.744304938182502,
+    "tokens": 384000,
+    "blocks": 1500
+  },
+  "generation": {
+    "distinct_1": 0.6438127090301003,
+    "distinct_2": 0.9564489112227805,
+    "distinct_3": 0.9932885906040269,
+    "repetition_ratio": 0.07275212998041826,
+    "avg_words": 16.61111111111111,
+    "samples": 36
+  },
+  "outputs": {
+    "Indonesia adalah negara": [
+      " bagian yang memiliki luas wilayah sebesar 22,87 km<UNK> dan populasi 1,52% dari total luas wilayah Pekanbaru.",
+      " yang paling terdampak gempa bumi besar di dunia.",
+      " yang didirikan pada tahun 1960 oleh pemerintah Belanda dan kemudian oleh para mantan presiden Indonesia yang menjadi pemimpin dunia untuk persatuan masyarakat Indonesia."
+    ],
+    "Cara membuat nasi goreng yang enak adalah": [
+      " dengan mencampurkan gula merah dengan gula kental manis, kemudian dicampurkan sedikit garam dan garam untuk mengganti kunyit atau gula merah sehingga mudah dicerna dan juga berwarna putih, lalu ditumbuk.",
+      " dengan mengoleskan air garam, dan mengoleskan mentega hingga rata, lalu menggorengnya.",
+      " dengan cara menggoreng, seperti halnya panggang, dicampur dengan bahan lain seperti cabai rawit, bawang merah, garam, dan bawang putih."
+    ],
+    "Pemerintah Indonesia hari ini mengumumkan bahwa": [
+      " Pemerintah Indonesia memiliki hak untuk melakukan proses peradilan pidana penjara atas dasar proklamasi kemerdekaan yang telah diberikan kepada semua pihak dan menuntut agar penyidik tetap terlibat dalam penyelidikan pemerintah.",
+      " \"setelah Jepang menyerah.\" Selama tiga bulan berikutnya mereka harus berhenti menggunakan telegraf untuk mendapatkan pengalaman internasional.",
+      " pemerintah Indonesia telah memberlakukan sanksi terhadap kasus korupsi dan penipuan, yang terdiri dari 10% dari total seluruh perusahaan yang memiliki hak prerogatif untuk korupsi dan kredit pajak."
+    ],
+    "Sejarah kerajaan Majapahit dimulai pada": [
+      " saat Kerajaan Singaraja dikuasai oleh Kesultanan Demak pada masa Sultan Kasim II (1613-1628).",
+      " saat Kerajaan Sumedang Larang didirikan dan diwarisi oleh seorang putera yang bergelar Panembahan Sambaspati bernama Raden Adipati Brawijaya VIII.",
+      " Juni 1634 saat Pangeran Mangkubumi berusia empat belas tahun, dan kemudian raja-raja terakhir Majapahit."
+    ],
+    "Ibu kota Indonesia adalah": [
+      " kotamadya yang berada di wilayah perkotaan yang terletak di pegunungan antara Kabupaten Kuantan Singingi dengan Kota Baubau atau Kabupaten Kampar.",
+      " Kecamatan Cempaka.",
+      " Jakarta, Indonesia."
+    ],
+    "Manfaat olahraga secara teratur bagi kesehatan antara lain": [
+      ": (1) Menjaga kebersihan lingkungan dengan menjaga kelembapan, (2) mengontrol proses produksi, (3) meningkatkan produktivitas, (3) menjaga kondisi kesehatan dengan mengurangi hilangnya kandungan air dan produktivitasnya; (2) memberikan nilai tambah terhadap konsentrasi (3) mengatur suhu tubuh (5) mempercepat pertumbuhan, (3) stabilitas produksi, dan (4) meningkatkan",
+      ": Meningkatkan efektivitas pembuluh darah selama kehamilan.",
+      ": Obat batuk, obat kanker prostat, karbohidrat, dan obat psikotropika."
+    ],
+    "Pada pertandingan sepak bola semalam, tim nasional": [
+      " sepak bola wanita Indonesia yang diwakili oleh pasangan H.",
+      " sepak bola pantai Australia diharuskan menggunakan taktik tendangan penalti untuk menentukan pemenangnya.",
+      " sepak bola wanita Indonesia yang mewakili Indonesia adalah Timnas Indonesia U-19 yang memiliki timnas senior yang terdiri dari tim nasional senior dan tim nasional yang bermain pada edisi perdana pada tahun 2017 dan 2020."
+    ],
+    "Untuk mengajukan permohonan kartu tanda penduduk, warga harus": [
+      " mengembalikan nilai uang ganti rugi Rp1.000 per kg, untuk menghindari penjualan tidak berizin. Namun demikian, tidak ada pengecualian ketika pihak-pihak yang masih hidup tersebut melakukan kontrak dengan badan usaha tertentu dan sudah menetapkan pembayaran uang tersebut. “Kita akan memberikan jaminan kepada warga negara kita untuk melunasi potongan-potongan yang berlaku",
+      " memanggil dengan kata \"de facto\" untuk meminta izin agar mereka bisa menggunakan nama \"Bapak\".",
+      " mematuhi syarat dan ketentuan yang ditetapkan dalam Undang-Undang Nomor 18 Tahun 2001 tentang Tata Cara Pengelolaan sampah dan sertifikasi lahan milik masyarakat secara berkelanjutan."
+    ],
+    "Fotosintesis adalah proses": [
+      " penyelesaian kembali sel bakteri.",
+      " pembekuan darah (biasanya di bawah sinar matahari) dalam air laut.",
+      " yang dimulai dengan mengeluarkan sebuah protein pengendap dengan cepat secara bersamaan, yang menghasilkan hasil yang serupa."
+    ],
+    "Harga kebutuhan pokok di pasar tradisional minggu ini": [
+      " masih tetap terjaga dengan baik hingga akhir tahun 2017, setelah hampir 30 tahun tidak ada lagi program yang dilaksanakan khusus untuk perempuan atau keluarga.",
+      " Rp5.000/liter, tapi harganya pun Rp.6.500.000 per bulannya. Nah, kalau anda mendaftarkan diri pada minggu ini ya!",
+      " mencapai <UNK>25 juta, yang diberikan oleh produsen di Indonesia."
+    ],
+    "Dalam bahasa pemrograman Python, fungsi digunakan untuk": [
+      " menghitung sebuah metadata dari sebuah database yang dapat dibaca secara langsung untuk tujuan lain.",
+      " menghasilkan perangkat lunak yang dapat dioperasikan secara berulang.",
+      " menghasilkan banyak komponen."
+    ],
+    "Banjir yang melanda kota tersebut menyebabkan": [
+      " tiga korban jiwa yang meninggal dunia, termasuk 8 orang perempuan dan 7 orang bayi.",
+      " warga yang sedang tertimpa banjir karena cuaca yang terbakar.",
+      " lebih dari 3.000 orang tewas."
+    ]
+  }
+}

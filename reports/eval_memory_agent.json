@@ -1,0 +1,6914 @@
+{
+ "handwritten": {
+  "n_terjawab": 20,
+  "n_tak_terjawab": 8,
+  "kebijakan": {
+   "raw_top1": {
+    "benar": 10,
+    "salah": 4,
+    "abstain_ans": 6,
+    "abstain_un": 5,
+    "mengarang_un": 3
+   },
+   "seq_nonrefuse": {
+    "benar": 10,
+    "salah": 5,
+    "abstain_ans": 5,
+    "abstain_un": 4,
+    "mengarang_un": 4
+   },
+   "verified": {
+    "benar": 8,
+    "salah": 6,
+    "abstain_ans": 6,
+    "abstain_un": 5,
+    "mengarang_un": 3
+   },
+   "verified+ent": {
+    "benar": 10,
+    "salah": 4,
+    "abstain_ans": 6,
+    "abstain_un": 5,
+    "mengarang_un": 3
+   },
+   "verified+ent+rel": {
+    "benar": 10,
+    "salah": 4,
+    "abstain_ans": 6,
+    "abstain_un": 5,
+    "mengarang_un": 3
+   }
+  },
+  "reads": [
+   {
+    "q": "Kapan rapat evaluasi bulanan diadakan?",
+    "gold": "Kamis",
+    "reads": [
+     [
+      1,
+      "Rapat evaluasi bulanan dipindahkan ke hari Kamis pukul 10.00 di ruang Melati.",
+      "10.00 di ruang Melati"
+     ],
+     [
+      10,
+      "Festival layang-layang tahun ini diadakan di pantai Parangtritis pada bulan Agustus.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Di ruang mana rapat evaluasi bulanan berlangsung?",
+    "gold": "Melati",
+    "reads": [
+     [
+      1,
+      "Rapat evaluasi bulanan dipindahkan ke hari Kamis pukul 10.00 di ruang Melati.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      74,
+      "Lantai ruang kerja Rahmat Sudiwi adalah 4.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      120,
+      "Lantai ruang kerja Andi Mususa adalah 9.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa yang dititipi kunci gudang oleh Bu Hartini?",
+    "gold": "Slamet",
+    "reads": [
+     [
+      2,
+      "Bu Hartini menitipkan kunci gudang kepada Pak Slamet sebelum berangkat ke Medan.",
+      "Pak Slamet"
+     ],
+     [
+      5,
+      "Pengiriman barang dari gudang Surabaya biasanya tiba dalam tiga hari kerja.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      15,
+      "Pelatih tim voli putri sekolah kami adalah Bu Nuraini, mantan atlet nasional.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Ke kota mana Bu Hartini berangkat?",
+    "gold": "Medan",
+    "reads": [
+     [
+      2,
+      "Bu Hartini menitipkan kunci gudang kepada Pak Slamet sebelum berangkat ke Medan.",
+      "Medan"
+     ],
+     [
+      13,
+      "Bus antar kota jurusan Bandung berangkat dari terminal Pulogebang pukul enam pagi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      15,
+      "Pelatih tim voli putri sekolah kami adalah Bu Nuraini, mantan atlet nasional.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa kata sandi wifi kantor sekarang?",
+    "gold": "biruLangit77",
+    "reads": [
+     [
+      3,
+      "Kata sandi wifi kantor sudah diganti menjadi biruLangit77.",
+      "biruLangit77"
+     ],
+     [
+      4,
+      "Anak bungsu Pak Wayan bernama Komang dan sekarang duduk di kelas lima SD.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      73,
+      "Kantor Yusuf Rodige terletak di lantai 3.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Anak Pak Wayan yang paling kecil siapa namanya?",
+    "gold": "Komang",
+    "reads": [
+     [
+      4,
+      "Anak bungsu Pak Wayan bernama Komang dan sekarang duduk di kelas lima SD.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      95,
+      "Andi Sasuwi paling suka makan lontong sayur.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      280,
+      "Dewi Pamapa paling suka makan soto betawi.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Komang duduk di kelas berapa?",
+    "gold": "lima",
+    "reads": [
+     [
+      4,
+      "Anak bungsu Pak Wayan bernama Komang dan sekarang duduk di kelas lima SD.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa lama pengiriman dari Surabaya sampai?",
+    "gold": "tiga hari",
+    "reads": [
+     [
+      5,
+      "Pengiriman barang dari gudang Surabaya biasanya tiba dalam tiga hari kerja.",
+      "tiga hari kerja"
+     ],
+     [
+      6,
+      "Dokter Anindya membuka praktik setiap Senin sampai Rabu mulai pukul 16.00.",
+      "1600"
+     ]
+    ]
+   },
+   {
+    "q": "Pada hari apa saja Dokter Anindya praktik?",
+    "gold": "Senin sampai Rabu",
+    "reads": [
+     [
+      6,
+      "Dokter Anindya membuka praktik setiap Senin sampai Rabu mulai pukul 16.00.",
+      "pukul 16.00"
+     ],
+     [
+      48,
+      "Bagus Rotisu bekerja sebagai dokter gigi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      167,
+      "Pekerjaan Eko Bakama adalah dokter gigi.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Jam berapa praktik Dokter Anindya dimulai?",
+    "gold": "16.00",
+    "reads": [
+     [
+      6,
+      "Dokter Anindya membuka praktik setiap Senin sampai Rabu mulai pukul 16.00.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      48,
+      "Bagus Rotisu bekerja sebagai dokter gigi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      167,
+      "Pekerjaan Eko Bakama adalah dokter gigi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga kopi arabika Kerinci per kilogram?",
+    "gold": "85",
+    "reads": [
+     [
+      7,
+      "Kopi arabika dari lereng Gunung Kerinci dibeli koperasi dengan harga 85 ribu per kilogram.",
+      "85"
+     ],
+     [
+      303,
+      "Agus Nehoma bekerja sebagai petani kopi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      282,
+      "Tipasa per kotak harganya 78 ribu rupiah.",
+      "78"
+     ]
+    ]
+   },
+   {
+    "q": "Kapan teknisi akan memperbaiki mesin cetak?",
+    "gold": "Jumat",
+    "reads": [
+     [
+      8,
+      "Mesin cetak lantai dua rusak sejak Selasa dan teknisi baru datang hari Jumat.",
+      "Jumat"
+     ]
+    ]
+   },
+   {
+    "q": "Atas nama siapa rekening koperasi desa?",
+    "gold": "Koperasi Maju Bersama",
+    "reads": [
+     [
+      9,
+      "Nomor rekening koperasi desa adalah 1234567890 atas nama Koperasi Maju Bersama.",
+      "Koperasi Maju Bersama"
+     ],
+     [
+      7,
+      "Kopi arabika dari lereng Gunung Kerinci dibeli koperasi dengan harga 85 ribu per kilogram.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      23,
+      "Nama hewan peliharaan Eko Bagera adalah Nepa.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di mana festival layang-layang tahun ini diadakan?",
+    "gold": "Parangtritis",
+    "reads": [
+     [
+      10,
+      "Festival layang-layang tahun ini diadakan di pantai Parangtritis pada bulan Agustus.",
+      "pantai Parangtritis"
+     ]
+    ]
+   },
+   {
+    "q": "Pada bulan apa festival layang-layang berlangsung?",
+    "gold": "Agustus",
+    "reads": [
+     [
+      10,
+      "Festival layang-layang tahun ini diadakan di pantai Parangtritis pada bulan Agustus.",
+      "Agustus"
+     ]
+    ]
+   },
+   {
+    "q": "Makanan apa yang membuat Pak Darmawan alergi?",
+    "gold": "udang",
+    "reads": [
+     [
+      11,
+      "Pak Darmawan alergi terhadap udang dan kacang tanah sehingga tidak boleh makan hidangan itu.",
+      "ayang dan kacang tanah sehingga tidak boleh makan hidangan"
+     ],
+     [
+      2,
+      "Bu Hartini menitipkan kunci gudang kepada Pak Slamet sebelum berangkat ke Medan.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      4,
+      "Anak bungsu Pak Wayan bernama Komang dan sekarang duduk di kelas lima SD.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Kepada siapa laporan triwulan ketiga diserahkan?",
+    "gold": "Ratna",
+    "reads": [
+     [
+      12,
+      "Laporan keuangan triwulan ketiga diserahkan kepada Ibu Ratna oleh bagian akuntansi.",
+      "Bagi akuntansi"
+     ],
+     [
+      2,
+      "Bu Hartini menitipkan kunci gudang kepada Pak Slamet sebelum berangkat ke Medan.",
+      "Pak Slamet"
+     ]
+    ]
+   },
+   {
+    "q": "Dari terminal mana bus jurusan Bandung berangkat?",
+    "gold": "Pulogebang",
+    "reads": [
+     [
+      13,
+      "Bus antar kota jurusan Bandung berangkat dari terminal Pulogebang pukul enam pagi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      2,
+      "Bu Hartini menitipkan kunci gudang kepada Pak Slamet sebelum berangkat ke Medan.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga beras premium lima kilogram di Toko Sumber Rejeki?",
+    "gold": "78",
+    "reads": [
+     [
+      14,
+      "Toko Sumber Rejeki menjual beras premium lima kilogram seharga 78 ribu rupiah.",
+      "78"
+     ],
+     [
+      7,
+      "Kopi arabika dari lereng Gunung Kerinci dibeli koperasi dengan harga 85 ribu per kilogram.",
+      "85"
+     ],
+     [
+      4,
+      "Anak bungsu Pak Wayan bernama Komang dan sekarang duduk di kelas lima SD.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa pelatih tim voli putri sekolah?",
+    "gold": "Nuraini",
+    "reads": [
+     [
+      15,
+      "Pelatih tim voli putri sekolah kami adalah Bu Nuraini, mantan atlet nasional.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      251,
+      "Putri Kegeti punya mobil merah.",
+      "Putri Kegeti"
+     ],
+     [
+      231,
+      "Nomor telepon Putri Samuwi adalah 087495440995.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa direktur utama koperasi desa?",
+    "gold": null,
+    "reads": [
+     [
+      9,
+      "Nomor rekening koperasi desa adalah 1234567890 atas nama Koperasi Maju Bersama.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      7,
+      "Kopi arabika dari lereng Gunung Kerinci dibeli koperasi dengan harga 85 ribu per kilogram.",
+      "Kopi Arabika"
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga gula pasir di Toko Sumber Rejeki?",
+    "gold": null,
+    "reads": [
+     [
+      14,
+      "Toko Sumber Rejeki menjual beras premium lima kilogram seharga 78 ribu rupiah.",
+      "78"
+     ],
+     [
+      36,
+      "Harga satu kotak Majaho adalah 8 ribu rupiah.",
+      "8"
+     ],
+     [
+      51,
+      "Harga satu kotak Tiroti adalah 72 ribu rupiah.",
+      "72"
+     ]
+    ]
+   },
+   {
+    "q": "Kapan Dokter Anindya berhenti praktik?",
+    "gold": null,
+    "reads": [
+     [
+      6,
+      "Dokter Anindya membuka praktik setiap Senin sampai Rabu mulai pukul 16.00.",
+      "pukul 16.00"
+     ],
+     [
+      48,
+      "Bagus Rotisu bekerja sebagai dokter gigi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      167,
+      "Pekerjaan Eko Bakama adalah dokter gigi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Di mana Pak Slamet tinggal?",
+    "gold": null,
+    "reads": [
+     [
+      2,
+      "Bu Hartini menitipkan kunci gudang kepada Pak Slamet sebelum berangkat ke Medan.",
+      "Jalan Medan"
+     ],
+     [
+      4,
+      "Anak bungsu Pak Wayan bernama Komang dan sekarang duduk di kelas lima SD.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      11,
+      "Pak Darmawan alergi terhadap udang dan kacang tanah sehingga tidak boleh makan hidangan itu.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa juara festival layang-layang tahun lalu?",
+    "gold": null,
+    "reads": [
+     [
+      10,
+      "Festival layang-layang tahun ini diadakan di pantai Parangtritis pada bulan Agustus.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa nama istri Pak Darmawan?",
+    "gold": null,
+    "reads": [
+     [
+      11,
+      "Pak Darmawan alergi terhadap udang dan kacang tanah sehingga tidak boleh makan hidangan itu.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      2,
+      "Bu Hartini menitipkan kunci gudang kepada Pak Slamet sebelum berangkat ke Medan.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      4,
+      "Anak bungsu Pak Wayan bernama Komang dan sekarang duduk di kelas lima SD.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa jumlah karyawan bagian akuntansi?",
+    "gold": null,
+    "reads": [
+     [
+      12,
+      "Laporan keuangan triwulan ketiga diserahkan kepada Ibu Ratna oleh bagian akuntansi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Jam berapa bus jurusan Surabaya berangkat?",
+    "gold": null,
+    "reads": [
+     [
+      13,
+      "Bus antar kota jurusan Bandung berangkat dari terminal Pulogebang pukul enam pagi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      5,
+      "Pengiriman barang dari gudang Surabaya biasanya tiba dalam tiga hari kerja.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      2,
+      "Bu Hartini menitipkan kunci gudang kepada Pak Slamet sebelum berangkat ke Medan.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   }
+  ]
+ },
+ "sintetis_200": {
+  "n_terjawab": 100,
+  "n_tak_terjawab": 50,
+  "kebijakan": {
+   "raw_top1": {
+    "benar": 79,
+    "salah": 2,
+    "abstain_ans": 19,
+    "abstain_un": 43,
+    "mengarang_un": 7
+   },
+   "seq_nonrefuse": {
+    "benar": 98,
+    "salah": 2,
+    "abstain_ans": 0,
+    "abstain_un": 36,
+    "mengarang_un": 14
+   },
+   "verified": {
+    "benar": 92,
+    "salah": 8,
+    "abstain_ans": 0,
+    "abstain_un": 36,
+    "mengarang_un": 14
+   },
+   "verified+ent": {
+    "benar": 97,
+    "salah": 3,
+    "abstain_ans": 0,
+    "abstain_un": 50,
+    "mengarang_un": 0
+   },
+   "verified+ent+rel": {
+    "benar": 100,
+    "salah": 0,
+    "abstain_ans": 0,
+    "abstain_un": 50,
+    "mengarang_un": 0
+   }
+  },
+  "reads": [
+   {
+    "q": "Siapa nama hewan peliharaan Yusuf Mumamu?",
+    "gold": "Muka",
+    "reads": [
+     [
+      17,
+      "Yusuf Mumamu bekerja sebagai pilot.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      16,
+      "Yusuf Mumamu memelihara seekor kucing bernama Muka.",
+      "Muka"
+     ],
+     [
+      110,
+      "Yusuf Kejasu mengendarai mobil berwarna hitam.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Indah Dimula?",
+    "gold": "Nowi",
+    "reads": [
+     [
+      55,
+      "Indah Dimula lahir di kota Kanoma.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      56,
+      "Ruang kerja Indah Dimula berada di lantai 14.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      57,
+      "Indah Dimula memelihara seekor kura-kura bernama Nowi.",
+      "Nowi"
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Fajar Suramu?",
+    "gold": "22",
+    "reads": [
+     [
+      194,
+      "Ruang kerja Fajar Suramu berada di lantai 22.",
+      "22"
+     ],
+     [
+      193,
+      "Makanan favorit Fajar Suramu adalah gudeg.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      195,
+      "Fajar Suramu adalah ketua tim Rawige.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Surya Mulura?",
+    "gold": "nelayan",
+    "reads": [
+     [
+      178,
+      "Surya Mulura bekerja sebagai nelayan.",
+      "nelayan"
+     ],
+     [
+      180,
+      "Surya Mulura lahir di kota Karara.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      179,
+      "Makanan favorit Surya Mulura adalah ayam betutu.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Joko Wijano dilahirkan?",
+    "gold": "Mabaja",
+    "reads": [
+     [
+      121,
+      "Joko Wijano lahir di kota Mabaja.",
+      "Mabaja"
+     ],
+     [
+      123,
+      "Makanan favorit Joko Wijano adalah gado-gado.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      13,
+      "Joko Bapala bekerja sebagai montir.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Nur Basuno dilahirkan?",
+    "gold": "1955",
+    "reads": [
+     [
+      7,
+      "Nur Basuno adalah ketua tim Rapaba.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      9,
+      "Nur Basuno lahir pada tahun 1955.",
+      "1955"
+     ],
+     [
+      8,
+      "Ruang kerja Nur Basuno berada di lantai 22.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Wigedi?",
+    "gold": "Sari Ramula",
+    "reads": [
+     [
+      128,
+      "Sari Ramula adalah ketua tim Wigedi.",
+      "Sari Ramula"
+     ],
+     [
+      7,
+      "Nur Basuno adalah ketua tim Rapaba.",
+      "Nur Basuno"
+     ],
+     [
+      19,
+      "Dewi Lumasu adalah ketua tim Nolano.",
+      "Dewi Lumasu"
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Tuti Kajaja?",
+    "gold": "24",
+    "reads": [
+     [
+      37,
+      "Ruang kerja Tuti Kajaja berada di lantai 24.",
+      "24"
+     ],
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      39,
+      "Tuti Kajaja lahir di kota Lanoti.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Dilaja?",
+    "gold": "41",
+    "reads": [
+     [
+      97,
+      "Harga satu kotak Dilaja adalah 41 ribu rupiah.",
+      "41"
+     ],
+     [
+      15,
+      "Harga satu kotak Latiti adalah 51 ribu rupiah.",
+      "51"
+     ],
+     [
+      23,
+      "Harga satu kotak Mukeno adalah 38 ribu rupiah.",
+      "38"
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Rahmat Manolu dilahirkan?",
+    "gold": "1998",
+    "reads": [
+     [
+      151,
+      "Rahmat Manolu lahir pada tahun 1998.",
+      "1998"
+     ],
+     [
+      153,
+      "Rahmat Manolu lahir di kota Mulala.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      152,
+      "Ruang kerja Rahmat Manolu berada di lantai 21.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Dewi Gepaja?",
+    "gold": "Rowi",
+    "reads": [
+     [
+      25,
+      "Dewi Gepaja lahir pada tahun 1972.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      26,
+      "Dewi Gepaja lahir di kota Sumudi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      27,
+      "Dewi Gepaja memelihara seekor kucing bernama Rowi.",
+      "Rowi"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Kemura?",
+    "gold": "Ketut Laroge",
+    "reads": [
+     [
+      63,
+      "Ketut Laroge adalah ketua tim Kemura.",
+      "Ketut Laroge"
+     ],
+     [
+      7,
+      "Nur Basuno adalah ketua tim Rapaba.",
+      "Nur Basuno"
+     ],
+     [
+      19,
+      "Dewi Lumasu adalah ketua tim Nolano.",
+      "Dewi Lumasu"
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Wikema?",
+    "gold": "65",
+    "reads": [
+     [
+      85,
+      "Harga satu kotak Wikema adalah 65 ribu rupiah.",
+      "65"
+     ],
+     [
+      15,
+      "Harga satu kotak Latiti adalah 51 ribu rupiah.",
+      "51"
+     ],
+     [
+      23,
+      "Harga satu kotak Mukeno adalah 38 ribu rupiah.",
+      "38"
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Surya Magera dilahirkan?",
+    "gold": "2000",
+    "reads": [
+     [
+      101,
+      "Surya Magera lahir pada tahun 2000.",
+      "2000"
+     ],
+     [
+      102,
+      "Surya Magera memelihara seekor kelinci bernama Rati.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      178,
+      "Surya Mulura bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Kapan batas waktu Proyek Maro-31?",
+    "gold": "21 Mei",
+    "reads": [
+     [
+      104,
+      "Tenggat Proyek Maro-31 jatuh pada tanggal 21 Mei.",
+      "21 Mei"
+     ],
+     [
+      100,
+      "Harga satu kotak Sanoro adalah 31 ribu rupiah.",
+      "31"
+     ],
+     [
+      3,
+      "Tenggat Proyek Dike-27 jatuh pada tanggal 11 November.",
+      "11 November"
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Lestari Mutiwi?",
+    "gold": "27",
+    "reads": [
+     [
+      6,
+      "Ruang kerja Lestari Mutiwi berada di lantai 27.",
+      "27"
+     ],
+     [
+      155,
+      "Ruang kerja Lestari Lurati berada di lantai 23.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      5,
+      "Lestari Mutiwi lahir di kota Kejaja.",
+      "Kejaja"
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Ketut Laroge dilahirkan?",
+    "gold": "Wipati",
+    "reads": [
+     [
+      61,
+      "Ketut Laroge lahir di kota Wipati.",
+      "Wipati"
+     ],
+     [
+      62,
+      "Ketut Laroge bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      63,
+      "Ketut Laroge adalah ketua tim Kemura.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Dewi Luwira?",
+    "gold": "juru masak",
+    "reads": [
+     [
+      177,
+      "Dewi Luwira bekerja sebagai juru masak.",
+      "juru masak"
+     ],
+     [
+      175,
+      "Makanan favorit Dewi Luwira adalah gado-gado.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      49,
+      "Dewi Sujapa bekerja sebagai pilot.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Papaba?",
+    "gold": "42",
+    "reads": [
+     [
+      124,
+      "Harga satu kotak Papaba adalah 42 ribu rupiah.",
+      "42"
+     ],
+     [
+      15,
+      "Harga satu kotak Latiti adalah 51 ribu rupiah.",
+      "51"
+     ],
+     [
+      23,
+      "Harga satu kotak Mukeno adalah 38 ribu rupiah.",
+      "38"
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Indah Dimula?",
+    "gold": "14",
+    "reads": [
+     [
+      56,
+      "Ruang kerja Indah Dimula berada di lantai 14.",
+      "14"
+     ],
+     [
+      55,
+      "Indah Dimula lahir di kota Kanoma.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      57,
+      "Indah Dimula memelihara seekor kura-kura bernama Nowi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Yusuf Disuja?",
+    "gold": "9",
+    "reads": [
+     [
+      196,
+      "Ruang kerja Yusuf Disuja berada di lantai 9.",
+      "9"
+     ],
+     [
+      113,
+      "Ruang kerja Yusuf Sudika berada di lantai 10.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      197,
+      "Makanan favorit Yusuf Disuja adalah rawon.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Rudi Kadiro?",
+    "gold": "Wisa",
+    "reads": [
+     [
+      139,
+      "Rudi Kadiro lahir pada tahun 1999.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      140,
+      "Rudi Kadiro adalah ketua tim Ludike.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      141,
+      "Rudi Kadiro memelihara seekor kelinci bernama Wisa.",
+      "Wisa"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Andi Wibaja?",
+    "gold": "Roma",
+    "reads": [
+     [
+      137,
+      "Andi Wibaja adalah ketua tim Sulaka.",
+      "Andi Wibaja"
+     ],
+     [
+      138,
+      "Andi Wibaja lahir di kota Roludi.",
+      "Andi Wibaja"
+     ],
+     [
+      136,
+      "Andi Wibaja memelihara seekor kucing bernama Roma.",
+      "Roma"
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Dewi Gepaja dilahirkan?",
+    "gold": "Sumudi",
+    "reads": [
+     [
+      26,
+      "Dewi Gepaja lahir di kota Sumudi.",
+      "Sumudi"
+     ],
+     [
+      25,
+      "Dewi Gepaja lahir pada tahun 1972.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      27,
+      "Dewi Gepaja memelihara seekor kucing bernama Rowi.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Budi Dirapa?",
+    "gold": "tukang kayu",
+    "reads": [
+     [
+      34,
+      "Budi Dirapa mengendarai mobil berwarna oranye.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      35,
+      "Budi Dirapa bekerja sebagai tukang kayu.",
+      "tukang kayu"
+     ],
+     [
+      36,
+      "Budi Dirapa adalah ketua tim Sapara.",
+      "ketua tim Sapara"
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Rina Titiba?",
+    "gold": "guru olahraga",
+    "reads": [
+     [
+      131,
+      "Makanan favorit Rina Titiba adalah rawon.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      132,
+      "Rina Titiba bekerja sebagai guru olahraga.",
+      "guru olahraga"
+     ],
+     [
+      185,
+      "Rina Rowino lahir pada tahun 1956.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Indah Baluma?",
+    "gold": "tukang kayu",
+    "reads": [
+     [
+      200,
+      "Indah Baluma bekerja sebagai tukang kayu.",
+      "tukang kayu"
+     ],
+     [
+      55,
+      "Indah Dimula lahir di kota Kanoma.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      73,
+      "Indah Jarala adalah ketua tim Nokero.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Eko Diluge dilahirkan?",
+    "gold": "1965",
+    "reads": [
+     [
+      31,
+      "Eko Diluge bekerja sebagai dokter gigi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      32,
+      "Eko Diluge mengendarai mobil berwarna putih.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      33,
+      "Eko Diluge lahir pada tahun 1965.",
+      "1965"
+     ]
+    ]
+   },
+   {
+    "q": "Apa warna mobil Eko Diluge?",
+    "gold": "putih",
+    "reads": [
+     [
+      32,
+      "Eko Diluge mengendarai mobil berwarna putih.",
+      "putih"
+     ],
+     [
+      31,
+      "Eko Diluge bekerja sebagai dokter gigi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      33,
+      "Eko Diluge lahir pada tahun 1965.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Norawi?",
+    "gold": "55",
+    "reads": [
+     [
+      90,
+      "Harga satu kotak Norawi adalah 55 ribu rupiah.",
+      "55"
+     ],
+     [
+      15,
+      "Harga satu kotak Latiti adalah 51 ribu rupiah.",
+      "51"
+     ],
+     [
+      23,
+      "Harga satu kotak Mukeno adalah 38 ribu rupiah.",
+      "38"
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Lestari Lurati dilahirkan?",
+    "gold": "1952",
+    "reads": [
+     [
+      154,
+      "Lestari Lurati adalah ketua tim Sulasu.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      156,
+      "Lestari Lurati lahir pada tahun 1952.",
+      "1952"
+     ],
+     [
+      155,
+      "Ruang kerja Lestari Lurati berada di lantai 23.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Joko Dijaka?",
+    "gold": "18",
+    "reads": [
+     [
+      148,
+      "Ruang kerja Joko Dijaka berada di lantai 18.",
+      "18"
+     ],
+     [
+      149,
+      "Joko Dijaka memelihara seekor kelinci bernama Pano.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Taufik Suwima?",
+    "gold": "29",
+    "reads": [
+     [
+      181,
+      "Ruang kerja Taufik Suwima berada di lantai 29.",
+      "29"
+     ],
+     [
+      183,
+      "Taufik Suwima adalah ketua tim Kadilu.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Yusuf Disuja?",
+    "gold": "rawon",
+    "reads": [
+     [
+      197,
+      "Makanan favorit Yusuf Disuja adalah rawon.",
+      "rawon"
+     ],
+     [
+      198,
+      "Yusuf Disuja lahir pada tahun 1952.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      196,
+      "Ruang kerja Yusuf Disuja berada di lantai 9.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Apa warna mobil Andi Disuma?",
+    "gold": "kuning",
+    "reads": [
+     [
+      12,
+      "Andi Disuma mengendarai mobil berwarna kuning.",
+      "kuning"
+     ],
+     [
+      10,
+      "Andi Disuma bekerja sebagai petani kopi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      11,
+      "Andi Disuma lahir pada tahun 1963.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Maya Timano dilahirkan?",
+    "gold": "1964",
+    "reads": [
+     [
+      166,
+      "Maya Timano lahir di kota Rokera.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      168,
+      "Maya Timano lahir pada tahun 1964.",
+      "1964"
+     ],
+     [
+      167,
+      "Ruang kerja Maya Timano berada di lantai 10.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Eko Diluti?",
+    "gold": "nelayan",
+    "reads": [
+     [
+      120,
+      "Eko Diluti bekerja sebagai nelayan.",
+      "nelayan"
+     ],
+     [
+      119,
+      "Eko Diluti adalah ketua tim Wimaka.",
+      "ketua tim Wimaka"
+     ],
+     [
+      118,
+      "Ruang kerja Eko Diluti berada di lantai 23.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Dewi Gepaja dilahirkan?",
+    "gold": "1972",
+    "reads": [
+     [
+      25,
+      "Dewi Gepaja lahir pada tahun 1972.",
+      "1972"
+     ],
+     [
+      26,
+      "Dewi Gepaja lahir di kota Sumudi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      27,
+      "Dewi Gepaja memelihara seekor kucing bernama Rowi.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Fajar Sulage dilahirkan?",
+    "gold": "1988",
+    "reads": [
+     [
+      170,
+      "Fajar Sulage lahir pada tahun 1988.",
+      "1988"
+     ],
+     [
+      77,
+      "Makanan favorit Fajar Rasaja adalah pempek.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      78,
+      "Fajar Rasaja lahir di kota Kamaro.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Yusuf Disuja dilahirkan?",
+    "gold": "1952",
+    "reads": [
+     [
+      197,
+      "Makanan favorit Yusuf Disuja adalah rawon.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      198,
+      "Yusuf Disuja lahir pada tahun 1952.",
+      "1952"
+     ],
+     [
+      196,
+      "Ruang kerja Yusuf Disuja berada di lantai 9.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Kapan batas waktu Proyek Baka-95?",
+    "gold": "13 Juli",
+    "reads": [
+     [
+      184,
+      "Tenggat Proyek Baka-95 jatuh pada tanggal 13 Juli.",
+      "13 Juli"
+     ],
+     [
+      3,
+      "Tenggat Proyek Dike-27 jatuh pada tanggal 11 November.",
+      "11 November"
+     ],
+     [
+      18,
+      "Tenggat Proyek Wilu-6 jatuh pada tanggal 10 Januari.",
+      "10 Januari"
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Jageba?",
+    "gold": "40",
+    "reads": [
+     [
+      158,
+      "Harga satu kotak Jageba adalah 40 ribu rupiah.",
+      "40"
+     ],
+     [
+      15,
+      "Harga satu kotak Latiti adalah 51 ribu rupiah.",
+      "51"
+     ],
+     [
+      23,
+      "Harga satu kotak Mukeno adalah 38 ribu rupiah.",
+      "38"
+     ]
+    ]
+   },
+   {
+    "q": "Kapan batas waktu Proyek Wilu-6?",
+    "gold": "10 Januari",
+    "reads": [
+     [
+      18,
+      "Tenggat Proyek Wilu-6 jatuh pada tanggal 10 Januari.",
+      "10 Januari"
+     ],
+     [
+      3,
+      "Tenggat Proyek Dike-27 jatuh pada tanggal 11 November.",
+      "11 November"
+     ],
+     [
+      24,
+      "Tenggat Proyek Disu-4 jatuh pada tanggal 28 September.",
+      "28 September"
+     ]
+    ]
+   },
+   {
+    "q": "Kapan batas waktu Proyek Bage-79?",
+    "gold": "5 Januari",
+    "reads": [
+     [
+      171,
+      "Tenggat Proyek Bage-79 jatuh pada tanggal 5 Januari.",
+      "5 Januari"
+     ],
+     [
+      3,
+      "Tenggat Proyek Dike-27 jatuh pada tanggal 11 November.",
+      "11 November"
+     ],
+     [
+      18,
+      "Tenggat Proyek Wilu-6 jatuh pada tanggal 10 Januari.",
+      "10 Januari"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Surya Magera?",
+    "gold": "Rati",
+    "reads": [
+     [
+      101,
+      "Surya Magera lahir pada tahun 2000.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      102,
+      "Surya Magera memelihara seekor kelinci bernama Rati.",
+      "Rati"
+     ],
+     [
+      178,
+      "Surya Mulura bekerja sebagai nelayan.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Maya Timano?",
+    "gold": "10",
+    "reads": [
+     [
+      167,
+      "Ruang kerja Maya Timano berada di lantai 10.",
+      "10"
+     ],
+     [
+      166,
+      "Maya Timano lahir di kota Rokera.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      168,
+      "Maya Timano lahir pada tahun 1964.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Sari Ramula?",
+    "gold": "Muro",
+    "reads": [
+     [
+      128,
+      "Sari Ramula adalah ketua tim Wigedi.",
+      "Sari Ramula"
+     ],
+     [
+      129,
+      "Sari Ramula mengendarai mobil berwarna ungu.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      127,
+      "Sari Ramula memelihara seekor anjing bernama Muro.",
+      "Muro"
+     ]
+    ]
+   },
+   {
+    "q": "Apa warna mobil Ani Notimu?",
+    "gold": "oranye",
+    "reads": [
+     [
+      187,
+      "Ani Notimu mengendarai mobil berwarna oranye.",
+      "oranye"
+     ],
+     [
+      189,
+      "Ani Notimu adalah ketua tim Sukesa.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      28,
+      "Ani Nojara adalah ketua tim Jakewi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Apa warna mobil Dewi Sujapa?",
+    "gold": "ungu",
+    "reads": [
+     [
+      51,
+      "Dewi Sujapa mengendarai mobil berwarna ungu.",
+      "ungu"
+     ],
+     [
+      49,
+      "Dewi Sujapa bekerja sebagai pilot.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      19,
+      "Dewi Lumasu adalah ketua tim Nolano.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Sulaka?",
+    "gold": "Andi Wibaja",
+    "reads": [
+     [
+      137,
+      "Andi Wibaja adalah ketua tim Sulaka.",
+      "Andi Wibaja"
+     ],
+     [
+      7,
+      "Nur Basuno adalah ketua tim Rapaba.",
+      "Nur Basuno"
+     ],
+     [
+      19,
+      "Dewi Lumasu adalah ketua tim Nolano.",
+      "Dewi Lumasu"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Rawige?",
+    "gold": "Fajar Suramu",
+    "reads": [
+     [
+      195,
+      "Fajar Suramu adalah ketua tim Rawige.",
+      "Fajar Suramu"
+     ],
+     [
+      7,
+      "Nur Basuno adalah ketua tim Rapaba.",
+      "Nur Basuno"
+     ],
+     [
+      19,
+      "Dewi Lumasu adalah ketua tim Nolano.",
+      "Dewi Lumasu"
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Yusuf Sudika?",
+    "gold": "10",
+    "reads": [
+     [
+      113,
+      "Ruang kerja Yusuf Sudika berada di lantai 10.",
+      "10"
+     ],
+     [
+      196,
+      "Ruang kerja Yusuf Disuja berada di lantai 9.",
+      "9"
+     ],
+     [
+      112,
+      "Yusuf Sudika adalah ketua tim Diluge.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Apa warna mobil Surya Malara?",
+    "gold": "putih",
+    "reads": [
+     [
+      162,
+      "Surya Malara mengendarai mobil berwarna putih.",
+      "putih"
+     ],
+     [
+      160,
+      "Surya Malara memelihara seekor anjing bernama Tija.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      161,
+      "Makanan favorit Surya Malara adalah sate padang.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Ani Gebadi?",
+    "gold": "rawon",
+    "reads": [
+     [
+      165,
+      "Makanan favorit Ani Gebadi adalah rawon.",
+      "rawon"
+     ],
+     [
+      163,
+      "Ani Gebadi lahir pada tahun 1995.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      164,
+      "Ani Gebadi adalah ketua tim Ralamu.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Roluba?",
+    "gold": "12",
+    "reads": [
+     [
+      95,
+      "Harga satu kotak Roluba adalah 12 ribu rupiah.",
+      "12"
+     ],
+     [
+      15,
+      "Harga satu kotak Latiti adalah 51 ribu rupiah.",
+      "51"
+     ],
+     [
+      23,
+      "Harga satu kotak Mukeno adalah 38 ribu rupiah.",
+      "38"
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Mukeno?",
+    "gold": "38",
+    "reads": [
+     [
+      23,
+      "Harga satu kotak Mukeno adalah 38 ribu rupiah.",
+      "38"
+     ],
+     [
+      15,
+      "Harga satu kotak Latiti adalah 51 ribu rupiah.",
+      "51"
+     ],
+     [
+      29,
+      "Harga satu kotak Kenopa adalah 64 ribu rupiah.",
+      "64"
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Latiti?",
+    "gold": "51",
+    "reads": [
+     [
+      15,
+      "Harga satu kotak Latiti adalah 51 ribu rupiah.",
+      "51"
+     ],
+     [
+      23,
+      "Harga satu kotak Mukeno adalah 38 ribu rupiah.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      29,
+      "Harga satu kotak Kenopa adalah 64 ribu rupiah.",
+      "64"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Yusuf Kejasu?",
+    "gold": "Roka",
+    "reads": [
+     [
+      110,
+      "Yusuf Kejasu mengendarai mobil berwarna hitam.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      111,
+      "Yusuf Kejasu memelihara seekor burung bernama Roka.",
+      "Roka"
+     ],
+     [
+      17,
+      "Yusuf Mumamu bekerja sebagai pilot.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Taufik Sudila?",
+    "gold": "soto betawi",
+    "reads": [
+     [
+      87,
+      "Makanan favorit Taufik Sudila adalah soto betawi.",
+      "soto betawi"
+     ],
+     [
+      86,
+      "Taufik Sudila lahir pada tahun 1979.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      72,
+      "Makanan favorit Taufik Lulusa adalah rawon.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Dedi Norala dilahirkan?",
+    "gold": "Robano",
+    "reads": [
+     [
+      159,
+      "Dedi Norala lahir di kota Robano.",
+      "Robano"
+     ],
+     [
+      157,
+      "Dedi Norala bekerja sebagai pilot.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      5,
+      "Lestari Mutiwi lahir di kota Kejaja.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Lasulu?",
+    "gold": "Hendra Nokara",
+    "reads": [
+     [
+      64,
+      "Hendra Nokara adalah ketua tim Lasulu.",
+      "Hendra Nokara"
+     ],
+     [
+      7,
+      "Nur Basuno adalah ketua tim Rapaba.",
+      "Nur Basuno"
+     ],
+     [
+      19,
+      "Dewi Lumasu adalah ketua tim Nolano.",
+      "Dewi Lumasu"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Wipasa?",
+    "gold": "Andi Ramara",
+    "reads": [
+     [
+      47,
+      "Andi Ramara adalah ketua tim Wipasa.",
+      "Andi Ramara"
+     ],
+     [
+      7,
+      "Nur Basuno adalah ketua tim Rapaba.",
+      "Nur Basuno"
+     ],
+     [
+      19,
+      "Dewi Lumasu adalah ketua tim Nolano.",
+      "Dewi Lumasu"
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Ketut Kamage?",
+    "gold": "juru masak",
+    "reads": [
+     [
+      45,
+      "Ketut Kamage bekerja sebagai juru masak.",
+      "juru masak"
+     ],
+     [
+      43,
+      "Makanan favorit Ketut Kamage adalah tahu campur.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      62,
+      "Ketut Laroge bekerja sebagai nelayan.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Kapan batas waktu Proyek Dike-27?",
+    "gold": "11 November",
+    "reads": [
+     [
+      3,
+      "Tenggat Proyek Dike-27 jatuh pada tanggal 11 November.",
+      "11 November"
+     ],
+     [
+      6,
+      "Ruang kerja Lestari Mutiwi berada di lantai 27.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      18,
+      "Tenggat Proyek Wilu-6 jatuh pada tanggal 10 Januari.",
+      "10 Januari"
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Lapama?",
+    "gold": "93",
+    "reads": [
+     [
+      146,
+      "Harga satu kotak Lapama adalah 93 ribu rupiah.",
+      "93"
+     ],
+     [
+      15,
+      "Harga satu kotak Latiti adalah 51 ribu rupiah.",
+      "51"
+     ],
+     [
+      23,
+      "Harga satu kotak Mukeno adalah 38 ribu rupiah.",
+      "38"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Tirake?",
+    "gold": "Bayu Romaro",
+    "reads": [
+     [
+      67,
+      "Bayu Romaro adalah ketua tim Tirake.",
+      "Bayu Romaro"
+     ],
+     [
+      7,
+      "Nur Basuno adalah ketua tim Rapaba.",
+      "Nur Basuno"
+     ],
+     [
+      19,
+      "Dewi Lumasu adalah ketua tim Nolano.",
+      "Dewi Lumasu"
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Ketut Bapage?",
+    "gold": "arsitek",
+    "reads": [
+     [
+      99,
+      "Ketut Bapage bekerja sebagai arsitek.",
+      "arsitek"
+     ],
+     [
+      98,
+      "Ketut Bapage lahir pada tahun 1978.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      62,
+      "Ketut Laroge bekerja sebagai nelayan.",
+      "nelayan"
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Ayu Tinoge?",
+    "gold": "penjahit",
+    "reads": [
+     [
+      89,
+      "Ayu Tinoge bekerja sebagai penjahit.",
+      "penjahit"
+     ],
+     [
+      88,
+      "Ayu Tinoge lahir di kota Malati.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      60,
+      "Ayu Karomu bekerja sebagai nelayan.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Maya Timano dilahirkan?",
+    "gold": "Rokera",
+    "reads": [
+     [
+      166,
+      "Maya Timano lahir di kota Rokera.",
+      "Rokera"
+     ],
+     [
+      168,
+      "Maya Timano lahir pada tahun 1964.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      167,
+      "Ruang kerja Maya Timano berada di lantai 10.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Nokero?",
+    "gold": "Indah Jarala",
+    "reads": [
+     [
+      73,
+      "Indah Jarala adalah ketua tim Nokero.",
+      "Indah Jarala"
+     ],
+     [
+      7,
+      "Nur Basuno adalah ketua tim Rapaba.",
+      "Nur Basuno"
+     ],
+     [
+      19,
+      "Dewi Lumasu adalah ketua tim Nolano.",
+      "Dewi Lumasu"
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Sanoro?",
+    "gold": "31",
+    "reads": [
+     [
+      100,
+      "Harga satu kotak Sanoro adalah 31 ribu rupiah.",
+      "31"
+     ],
+     [
+      15,
+      "Harga satu kotak Latiti adalah 51 ribu rupiah.",
+      "51"
+     ],
+     [
+      23,
+      "Harga satu kotak Mukeno adalah 38 ribu rupiah.",
+      "38"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Sulasu?",
+    "gold": "Lestari Lurati",
+    "reads": [
+     [
+      154,
+      "Lestari Lurati adalah ketua tim Sulasu.",
+      "Lestari Lurati"
+     ],
+     [
+      7,
+      "Nur Basuno adalah ketua tim Rapaba.",
+      "Nur Basuno"
+     ],
+     [
+      19,
+      "Dewi Lumasu adalah ketua tim Nolano.",
+      "Dewi Lumasu"
+     ]
+    ]
+   },
+   {
+    "q": "Apa warna mobil Indah Jarala?",
+    "gold": "hijau",
+    "reads": [
+     [
+      74,
+      "Indah Jarala mengendarai mobil berwarna hijau.",
+      "hijau"
+     ],
+     [
+      73,
+      "Indah Jarala adalah ketua tim Nokero.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      75,
+      "Indah Jarala bekerja sebagai petani kopi.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Ketut Kanomu dilahirkan?",
+    "gold": "2005",
+    "reads": [
+     [
+      134,
+      "Ketut Kanomu lahir pada tahun 2005.",
+      "2005"
+     ],
+     [
+      133,
+      "Makanan favorit Ketut Kanomu adalah soto betawi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      135,
+      "Ketut Kanomu memelihara seekor kucing bernama Kaja.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Fajar Suramu?",
+    "gold": "gudeg",
+    "reads": [
+     [
+      193,
+      "Makanan favorit Fajar Suramu adalah gudeg.",
+      "gudeg"
+     ],
+     [
+      195,
+      "Fajar Suramu adalah ketua tim Rawige.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      194,
+      "Ruang kerja Fajar Suramu berada di lantai 22.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Andi Disuma dilahirkan?",
+    "gold": "1963",
+    "reads": [
+     [
+      10,
+      "Andi Disuma bekerja sebagai petani kopi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      11,
+      "Andi Disuma lahir pada tahun 1963.",
+      "1963"
+     ],
+     [
+      12,
+      "Andi Disuma mengendarai mobil berwarna kuning.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Ketut Kanomu?",
+    "gold": "Kaja",
+    "reads": [
+     [
+      134,
+      "Ketut Kanomu lahir pada tahun 2005.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      133,
+      "Makanan favorit Ketut Kanomu adalah soto betawi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      135,
+      "Ketut Kanomu memelihara seekor kucing bernama Kaja.",
+      "Kaja"
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Indah Dimula dilahirkan?",
+    "gold": "Kanoma",
+    "reads": [
+     [
+      55,
+      "Indah Dimula lahir di kota Kanoma.",
+      "Kanoma"
+     ],
+     [
+      56,
+      "Ruang kerja Indah Dimula berada di lantai 14.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      57,
+      "Indah Dimula memelihara seekor kura-kura bernama Nowi.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Hendra Nokara dilahirkan?",
+    "gold": "Musuge",
+    "reads": [
+     [
+      65,
+      "Hendra Nokara lahir di kota Musuge.",
+      "Musuge"
+     ],
+     [
+      66,
+      "Hendra Nokara bekerja sebagai penjahit.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      64,
+      "Hendra Nokara adalah ketua tim Lasulu.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Tuti Gebasu?",
+    "gold": "4",
+    "reads": [
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "4"
+     ],
+     [
+      37,
+      "Ruang kerja Tuti Kajaja berada di lantai 24.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      2,
+      "Tuti Gebasu bekerja sebagai dokter gigi.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Andi Ramara?",
+    "gold": "rendang",
+    "reads": [
+     [
+      46,
+      "Makanan favorit Andi Ramara adalah rendang.",
+      "rendang"
+     ],
+     [
+      47,
+      "Andi Ramara adalah ketua tim Wipasa.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      48,
+      "Andi Ramara lahir pada tahun 1981.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Surya Malara?",
+    "gold": "sate padang",
+    "reads": [
+     [
+      161,
+      "Makanan favorit Surya Malara adalah sate padang.",
+      "sate padang"
+     ],
+     [
+      162,
+      "Surya Malara mengendarai mobil berwarna putih.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      160,
+      "Surya Malara memelihara seekor anjing bernama Tija.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Tuti Kajaja?",
+    "gold": "Geti",
+    "reads": [
+     [
+      39,
+      "Tuti Kajaja lahir di kota Lanoti.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      38,
+      "Tuti Kajaja memelihara seekor anjing bernama Geti.",
+      "Geti"
+     ],
+     [
+      37,
+      "Ruang kerja Tuti Kajaja berada di lantai 24.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Eko Wimaja dilahirkan?",
+    "gold": "1988",
+    "reads": [
+     [
+      80,
+      "Eko Wimaja lahir pada tahun 1988.",
+      "1988"
+     ],
+     [
+      79,
+      "Eko Wimaja memelihara seekor kelinci bernama Suka.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      120,
+      "Eko Diluti bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Larasu?",
+    "gold": "64",
+    "reads": [
+     [
+      199,
+      "Harga satu kotak Larasu adalah 64 ribu rupiah.",
+      "64"
+     ],
+     [
+      15,
+      "Harga satu kotak Latiti adalah 51 ribu rupiah.",
+      "51"
+     ],
+     [
+      23,
+      "Harga satu kotak Mukeno adalah 38 ribu rupiah.",
+      "38"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Lina Muraba?",
+    "gold": "Jano",
+    "reads": [
+     [
+      52,
+      "Lina Muraba mengendarai mobil berwarna hijau.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      53,
+      "Lina Muraba memelihara seekor kucing bernama Jano.",
+      "Jano"
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Ayu Noluba dilahirkan?",
+    "gold": "1964",
+    "reads": [
+     [
+      191,
+      "Ayu Noluba lahir pada tahun 1964.",
+      "1964"
+     ],
+     [
+      190,
+      "Ruang kerja Ayu Noluba berada di lantai 8.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      60,
+      "Ayu Karomu bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Dedi Norala?",
+    "gold": "pilot",
+    "reads": [
+     [
+      157,
+      "Dedi Norala bekerja sebagai pilot.",
+      "pilot"
+     ],
+     [
+      159,
+      "Dedi Norala lahir di kota Robano.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Mega Sanoba?",
+    "gold": "29",
+    "reads": [
+     [
+      126,
+      "Ruang kerja Mega Sanoba berada di lantai 29.",
+      "29"
+     ],
+     [
+      125,
+      "Makanan favorit Mega Sanoba adalah rendang.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa warna mobil Rahmat Kemusu?",
+    "gold": "putih",
+    "reads": [
+     [
+      108,
+      "Rahmat Kemusu mengendarai mobil berwarna putih.",
+      "putih"
+     ],
+     [
+      107,
+      "Makanan favorit Rahmat Kemusu adalah bakso.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      151,
+      "Rahmat Manolu lahir pada tahun 1998.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Surya Mulura?",
+    "gold": "ayam betutu",
+    "reads": [
+     [
+      179,
+      "Makanan favorit Surya Mulura adalah ayam betutu.",
+      "ayam betutu"
+     ],
+     [
+      178,
+      "Surya Mulura bekerja sebagai nelayan.",
+      "nelayan"
+     ],
+     [
+      180,
+      "Surya Mulura lahir di kota Karara.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Eko Wimaja?",
+    "gold": "Suka",
+    "reads": [
+     [
+      80,
+      "Eko Wimaja lahir pada tahun 1988.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      79,
+      "Eko Wimaja memelihara seekor kelinci bernama Suka.",
+      "Suka"
+     ],
+     [
+      120,
+      "Eko Diluti bekerja sebagai nelayan.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Bayu Romaro dilahirkan?",
+    "gold": "1989",
+    "reads": [
+     [
+      67,
+      "Bayu Romaro adalah ketua tim Tirake.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      69,
+      "Bayu Romaro lahir pada tahun 1989.",
+      "1989"
+     ],
+     [
+      68,
+      "Bayu Romaro memelihara seekor anjing bernama Muti.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Timasu?",
+    "gold": "Andi Tikela",
+    "reads": [
+     [
+      93,
+      "Andi Tikela adalah ketua tim Timasu.",
+      "Andi Tikela"
+     ],
+     [
+      7,
+      "Nur Basuno adalah ketua tim Rapaba.",
+      "Nur Basuno"
+     ],
+     [
+      19,
+      "Dewi Lumasu adalah ketua tim Nolano.",
+      "Dewi Lumasu"
+     ]
+    ]
+   },
+   {
+    "q": "Kapan batas waktu Proyek Suge-71?",
+    "gold": "14 November",
+    "reads": [
+     [
+      130,
+      "Tenggat Proyek Suge-71 jatuh pada tanggal 14 November.",
+      "14 November"
+     ],
+     [
+      3,
+      "Tenggat Proyek Dike-27 jatuh pada tanggal 11 November.",
+      "11 November"
+     ],
+     [
+      18,
+      "Tenggat Proyek Wilu-6 jatuh pada tanggal 10 Januari.",
+      "10 Januari"
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Ayu Karomu?",
+    "gold": "nelayan",
+    "reads": [
+     [
+      60,
+      "Ayu Karomu bekerja sebagai nelayan.",
+      "nelayan"
+     ],
+     [
+      59,
+      "Ayu Karomu mengendarai mobil berwarna oranye.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      89,
+      "Ayu Tinoge bekerja sebagai penjahit.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Ayu Tinoge dilahirkan?",
+    "gold": "Malati",
+    "reads": [
+     [
+      88,
+      "Ayu Tinoge lahir di kota Malati.",
+      "Malati"
+     ],
+     [
+      89,
+      "Ayu Tinoge bekerja sebagai penjahit.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      60,
+      "Ayu Karomu bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa warna mobil Ayu Karomu?",
+    "gold": "oranye",
+    "reads": [
+     [
+      59,
+      "Ayu Karomu mengendarai mobil berwarna oranye.",
+      "oranye"
+     ],
+     [
+      60,
+      "Ayu Karomu bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      89,
+      "Ayu Tinoge bekerja sebagai penjahit.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Rina Rowino dilahirkan?",
+    "gold": "1956",
+    "reads": [
+     [
+      185,
+      "Rina Rowino lahir pada tahun 1956.",
+      "1956"
+     ],
+     [
+      186,
+      "Rina Rowino memelihara seekor anjing bernama Gesu.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      131,
+      "Makanan favorit Rina Titiba adalah rawon.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Samasu?",
+    "gold": "61",
+    "reads": [
+     [
+      103,
+      "Harga satu kotak Samasu adalah 61 ribu rupiah.",
+      "61"
+     ],
+     [
+      15,
+      "Harga satu kotak Latiti adalah 51 ribu rupiah.",
+      "51"
+     ],
+     [
+      23,
+      "Harga satu kotak Mukeno adalah 38 ribu rupiah.",
+      "38"
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Fajar Gegera?",
+    "gold": null,
+    "reads": [
+     [
+      194,
+      "Ruang kerja Fajar Suramu berada di lantai 22.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "4"
+     ],
+     [
+      6,
+      "Ruang kerja Lestari Mutiwi berada di lantai 27.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Fajar Gepaja dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      26,
+      "Dewi Gepaja lahir di kota Sumudi.",
+      "Sumudi"
+     ],
+     [
+      78,
+      "Fajar Rasaja lahir di kota Kamaro.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      25,
+      "Dewi Gepaja lahir pada tahun 1972.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Rudi Masuro?",
+    "gold": null,
+    "reads": [
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      6,
+      "Ruang kerja Lestari Mutiwi berada di lantai 27.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      8,
+      "Ruang kerja Nur Basuno berada di lantai 22.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Andi Winosa?",
+    "gold": null,
+    "reads": [
+     [
+      46,
+      "Makanan favorit Andi Ramara adalah rendang.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      10,
+      "Andi Disuma bekerja sebagai petani kopi.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      11,
+      "Andi Disuma lahir pada tahun 1963.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Joko Pasalu dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      121,
+      "Joko Wijano lahir di kota Mabaja.",
+      "Mabaja"
+     ],
+     [
+      13,
+      "Joko Bapala bekerja sebagai montir.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      14,
+      "Makanan favorit Joko Bapala adalah rendang.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Dewi Tijamu?",
+    "gold": null,
+    "reads": [
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      6,
+      "Ruang kerja Lestari Mutiwi berada di lantai 27.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      8,
+      "Ruang kerja Nur Basuno berada di lantai 22.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Dedi Lapama?",
+    "gold": null,
+    "reads": [
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      6,
+      "Ruang kerja Lestari Mutiwi berada di lantai 27.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      8,
+      "Ruang kerja Nur Basuno berada di lantai 22.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Yusuf Titige?",
+    "gold": null,
+    "reads": [
+     [
+      197,
+      "Makanan favorit Yusuf Disuja adalah rawon.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      17,
+      "Yusuf Mumamu bekerja sebagai pilot.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      110,
+      "Yusuf Kejasu mengendarai mobil berwarna hitam.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Taufik Timudi?",
+    "gold": null,
+    "reads": [
+     [
+      72,
+      "Makanan favorit Taufik Lulusa adalah rawon.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      87,
+      "Makanan favorit Taufik Sudila adalah soto betawi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      70,
+      "Taufik Lulusa bekerja sebagai arsitek.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Dewi Diladi?",
+    "gold": null,
+    "reads": [
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      6,
+      "Ruang kerja Lestari Mutiwi berada di lantai 27.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      8,
+      "Ruang kerja Nur Basuno berada di lantai 22.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Wati Mugege?",
+    "gold": null,
+    "reads": [
+     [
+      173,
+      "Wati Nosuwi adalah ketua tim Mumulu.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      40,
+      "Wati Basuno memelihara seekor kura-kura bernama Witi.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      41,
+      "Ruang kerja Wati Basuno berada di lantai 22.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Maya Kesusa?",
+    "gold": null,
+    "reads": [
+     [
+      96,
+      "Maya Ratike mengendarai mobil berwarna kuning.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      105,
+      "Maya Basuge adalah ketua tim Pawila.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      166,
+      "Maya Timano lahir di kota Rokera.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Nur Jasula?",
+    "gold": null,
+    "reads": [
+     [
+      7,
+      "Nur Basuno adalah ketua tim Rapaba.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      9,
+      "Nur Basuno lahir pada tahun 1955.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      8,
+      "Ruang kerja Nur Basuno berada di lantai 22.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Agus Wiwisu?",
+    "gold": null,
+    "reads": [
+     [
+      145,
+      "Ruang kerja Agus Sasapa berada di lantai 8.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Indah Jabala?",
+    "gold": null,
+    "reads": [
+     [
+      55,
+      "Indah Dimula lahir di kota Kanoma.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      73,
+      "Indah Jarala adalah ketua tim Nokero.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      74,
+      "Indah Jarala mengendarai mobil berwarna hijau.",
+      "hijau"
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Yusuf Pakaro dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      17,
+      "Yusuf Mumamu bekerja sebagai pilot.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      110,
+      "Yusuf Kejasu mengendarai mobil berwarna hitam.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      112,
+      "Yusuf Sudika adalah ketua tim Diluge.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Ayu Tiroge dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      88,
+      "Ayu Tinoge lahir di kota Malati.",
+      "Malati"
+     ],
+     [
+      60,
+      "Ayu Karomu bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      89,
+      "Ayu Tinoge bekerja sebagai penjahit.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Wati Robadi dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      173,
+      "Wati Nosuwi adalah ketua tim Mumulu.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      40,
+      "Wati Basuno memelihara seekor kura-kura bernama Witi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      41,
+      "Ruang kerja Wati Basuno berada di lantai 22.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Dewi Rasaba?",
+    "gold": null,
+    "reads": [
+     [
+      49,
+      "Dewi Sujapa bekerja sebagai pilot.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      19,
+      "Dewi Lumasu adalah ketua tim Nolano.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      20,
+      "Dewi Lumasu bekerja sebagai guru olahraga.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Eko Mamati dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      120,
+      "Eko Diluti bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      31,
+      "Eko Diluge bekerja sebagai dokter gigi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      32,
+      "Eko Diluge mengendarai mobil berwarna putih.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Dewi Gesulu dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      21,
+      "Dewi Lumasu lahir di kota Rosupa.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      26,
+      "Dewi Gepaja lahir di kota Sumudi.",
+      "Sumudi"
+     ],
+     [
+      49,
+      "Dewi Sujapa bekerja sebagai pilot.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Hendra Dinowi?",
+    "gold": null,
+    "reads": [
+     [
+      66,
+      "Hendra Nokara bekerja sebagai penjahit.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      64,
+      "Hendra Nokara adalah ketua tim Lasulu.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      65,
+      "Hendra Nokara lahir di kota Musuge.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Maya Kepara?",
+    "gold": null,
+    "reads": [
+     [
+      96,
+      "Maya Ratike mengendarai mobil berwarna kuning.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      105,
+      "Maya Basuge adalah ketua tim Pawila.",
+      "ketua tim Pawila"
+     ],
+     [
+      166,
+      "Maya Timano lahir di kota Rokera.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Wati Magedi?",
+    "gold": null,
+    "reads": [
+     [
+      41,
+      "Ruang kerja Wati Basuno berada di lantai 22.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      172,
+      "Ruang kerja Wati Nosuwi berada di lantai 22.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Mega Pamaka?",
+    "gold": null,
+    "reads": [
+     [
+      125,
+      "Makanan favorit Mega Sanoba adalah rendang.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      116,
+      "Makanan favorit Mega Lunosu adalah ayam betutu.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      115,
+      "Mega Lunosu mengendarai mobil berwarna hijau.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Ani Wibasa?",
+    "gold": null,
+    "reads": [
+     [
+      165,
+      "Makanan favorit Ani Gebadi adalah rawon.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      22,
+      "Makanan favorit Ani Nokake adalah gado-gado.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      28,
+      "Ani Nojara adalah ketua tim Jakewi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Surya Kemasu dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      180,
+      "Surya Mulura lahir di kota Karara.",
+      "Karara"
+     ],
+     [
+      178,
+      "Surya Mulura bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      101,
+      "Surya Magera lahir pada tahun 2000.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Ayu Pakero?",
+    "gold": null,
+    "reads": [
+     [
+      190,
+      "Ruang kerja Ayu Noluba berada di lantai 8.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      6,
+      "Ruang kerja Lestari Mutiwi berada di lantai 27.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Budi Romusa?",
+    "gold": null,
+    "reads": [
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      6,
+      "Ruang kerja Lestari Mutiwi berada di lantai 27.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      8,
+      "Ruang kerja Nur Basuno berada di lantai 22.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Nur Sajala?",
+    "gold": null,
+    "reads": [
+     [
+      7,
+      "Nur Basuno adalah ketua tim Rapaba.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      9,
+      "Nur Basuno lahir pada tahun 1955.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      8,
+      "Ruang kerja Nur Basuno berada di lantai 22.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Surya Sageka dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      180,
+      "Surya Mulura lahir di kota Karara.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      178,
+      "Surya Mulura bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      101,
+      "Surya Magera lahir pada tahun 2000.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Rahmat Rarasu dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      153,
+      "Rahmat Manolu lahir di kota Mulala.",
+      "Mulala"
+     ],
+     [
+      107,
+      "Makanan favorit Rahmat Kemusu adalah bakso.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      108,
+      "Rahmat Kemusu mengendarai mobil berwarna putih.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Nur Rodila?",
+    "gold": null,
+    "reads": [
+     [
+      8,
+      "Ruang kerja Nur Basuno berada di lantai 22.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      6,
+      "Ruang kerja Lestari Mutiwi berada di lantai 27.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Ayu Tirawi?",
+    "gold": null,
+    "reads": [
+     [
+      60,
+      "Ayu Karomu bekerja sebagai nelayan.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      89,
+      "Ayu Tinoge bekerja sebagai penjahit.",
+      "penjahit"
+     ],
+     [
+      59,
+      "Ayu Karomu mengendarai mobil berwarna oranye.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Mega Mukedi?",
+    "gold": null,
+    "reads": [
+     [
+      125,
+      "Makanan favorit Mega Sanoba adalah rendang.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      116,
+      "Makanan favorit Mega Lunosu adalah ayam betutu.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      115,
+      "Mega Lunosu mengendarai mobil berwarna hijau.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Surya Jatiwi?",
+    "gold": null,
+    "reads": [
+     [
+      161,
+      "Makanan favorit Surya Malara adalah sate padang.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      179,
+      "Makanan favorit Surya Mulura adalah ayam betutu.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      178,
+      "Surya Mulura bekerja sebagai nelayan.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Andi Musuma dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      91,
+      "Andi Tikela lahir di kota Kebake.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      138,
+      "Andi Wibaja lahir di kota Roludi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      10,
+      "Andi Disuma bekerja sebagai petani kopi.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Rina Disuno?",
+    "gold": null,
+    "reads": [
+     [
+      131,
+      "Makanan favorit Rina Titiba adalah rawon.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      132,
+      "Rina Titiba bekerja sebagai guru olahraga.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      185,
+      "Rina Rowino lahir pada tahun 1956.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Eko Nodisu?",
+    "gold": null,
+    "reads": [
+     [
+      118,
+      "Ruang kerja Eko Diluti berada di lantai 23.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      6,
+      "Ruang kerja Lestari Mutiwi berada di lantai 27.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Ani Nomuma?",
+    "gold": null,
+    "reads": [
+     [
+      165,
+      "Makanan favorit Ani Gebadi adalah rawon.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      22,
+      "Makanan favorit Ani Nokake adalah gado-gado.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      28,
+      "Ani Nojara adalah ketua tim Jakewi.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Agus Winosa?",
+    "gold": null,
+    "reads": [
+     [
+      145,
+      "Ruang kerja Agus Sasapa berada di lantai 8.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      14,
+      "Makanan favorit Joko Bapala adalah rendang.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      46,
+      "Makanan favorit Andi Ramara adalah rendang.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Surya Sakelu?",
+    "gold": null,
+    "reads": [
+     [
+      161,
+      "Makanan favorit Surya Malara adalah sate padang.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      179,
+      "Makanan favorit Surya Mulura adalah ayam betutu.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      178,
+      "Surya Mulura bekerja sebagai nelayan.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Indah Mamaja?",
+    "gold": null,
+    "reads": [
+     [
+      56,
+      "Ruang kerja Indah Dimula berada di lantai 14.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      6,
+      "Ruang kerja Lestari Mutiwi berada di lantai 27.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Rudi Padipa?",
+    "gold": null,
+    "reads": [
+     [
+      139,
+      "Rudi Kadiro lahir pada tahun 1999.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      140,
+      "Rudi Kadiro adalah ketua tim Ludike.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      141,
+      "Rudi Kadiro memelihara seekor kelinci bernama Wisa.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Fajar Rowiwi?",
+    "gold": null,
+    "reads": [
+     [
+      194,
+      "Ruang kerja Fajar Suramu berada di lantai 22.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      6,
+      "Ruang kerja Lestari Mutiwi berada di lantai 27.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Dewi Mabasa?",
+    "gold": null,
+    "reads": [
+     [
+      1,
+      "Ruang kerja Tuti Gebasu berada di lantai 4.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      6,
+      "Ruang kerja Lestari Mutiwi berada di lantai 27.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      8,
+      "Ruang kerja Nur Basuno berada di lantai 22.",
+      "22"
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Taufik Ramuti?",
+    "gold": null,
+    "reads": [
+     [
+      70,
+      "Taufik Lulusa bekerja sebagai arsitek.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      72,
+      "Makanan favorit Taufik Lulusa adalah rawon.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      86,
+      "Taufik Sudila lahir pada tahun 1979.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Yusuf Tisadi?",
+    "gold": null,
+    "reads": [
+     [
+      17,
+      "Yusuf Mumamu bekerja sebagai pilot.",
+      "pilot"
+     ],
+     [
+      110,
+      "Yusuf Kejasu mengendarai mobil berwarna hitam.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      112,
+      "Yusuf Sudika adalah ketua tim Diluge.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Andi Karara dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      180,
+      "Surya Mulura lahir di kota Karara.",
+      "Karara"
+     ],
+     [
+      91,
+      "Andi Tikela lahir di kota Kebake.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      138,
+      "Andi Wibaja lahir di kota Roludi.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Lestari Bakeba dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      5,
+      "Lestari Mutiwi lahir di kota Kejaja.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      82,
+      "Lestari Jamuke lahir di kota Romaba.",
+      "Romaba"
+     ],
+     [
+      83,
+      "Lestari Jamuke mengendarai mobil berwarna putih.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   }
+  ]
+ },
+ "sintetis_2000": {
+  "n_terjawab": 100,
+  "n_tak_terjawab": 50,
+  "kebijakan": {
+   "raw_top1": {
+    "benar": 74,
+    "salah": 5,
+    "abstain_ans": 21,
+    "abstain_un": 33,
+    "mengarang_un": 17
+   },
+   "seq_nonrefuse": {
+    "benar": 93,
+    "salah": 6,
+    "abstain_ans": 1,
+    "abstain_un": 24,
+    "mengarang_un": 26
+   },
+   "verified": {
+    "benar": 81,
+    "salah": 18,
+    "abstain_ans": 1,
+    "abstain_un": 24,
+    "mengarang_un": 26
+   },
+   "verified+ent": {
+    "benar": 90,
+    "salah": 8,
+    "abstain_ans": 2,
+    "abstain_un": 50,
+    "mengarang_un": 0
+   },
+   "verified+ent+rel": {
+    "benar": 98,
+    "salah": 0,
+    "abstain_ans": 2,
+    "abstain_un": 50,
+    "mengarang_un": 0
+   }
+  },
+  "reads": [
+   {
+    "q": "Siapa ketua tim Gelura?",
+    "gold": "Fajar Lanoba",
+    "reads": [
+     [
+      247,
+      "Fajar Lanoba adalah ketua tim Gelura.",
+      "Fajar Lanoba"
+     ],
+     [
+      3,
+      "Wati Rasaja adalah ketua tim Rodija.",
+      "Wati Rasaja"
+     ],
+     [
+      7,
+      "Ketut Titiwi adalah ketua tim Pagemu.",
+      "Ketut Titiwi"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Kadilu?",
+    "gold": "Eko Timala",
+    "reads": [
+     [
+      92,
+      "Eko Timala adalah ketua tim Kadilu.",
+      "Eko Timala"
+     ],
+     [
+      3,
+      "Wati Rasaja adalah ketua tim Rodija.",
+      "Wati Rasaja"
+     ],
+     [
+      7,
+      "Ketut Titiwi adalah ketua tim Pagemu.",
+      "Ketut Titiwi"
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Tuti Mutila dilahirkan?",
+    "gold": "1994",
+    "reads": [
+     [
+      804,
+      "Tuti Mutila lahir pada tahun 1994.",
+      "1994"
+     ],
+     [
+      803,
+      "Ruang kerja Tuti Mutila berada di lantai 3.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      746,
+      "Surya Mutila bekerja sebagai dokter gigi.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Wiwima?",
+    "gold": "56",
+    "reads": [
+     [
+      437,
+      "Harga satu kotak Wiwima adalah 56 ribu rupiah.",
+      "56"
+     ],
+     [
+      2,
+      "Harga satu kotak Wimulu adalah 7 ribu rupiah.",
+      "7"
+     ],
+     [
+      6,
+      "Harga satu kotak Kejalu adalah 61 ribu rupiah.",
+      "61"
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Maya Ropasu?",
+    "gold": "20",
+    "reads": [
+     [
+      1771,
+      "Ruang kerja Maya Ropasu berada di lantai 20.",
+      "20"
+     ],
+     [
+      1773,
+      "Maya Ropasu adalah ketua tim Sujadi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      70,
+      "Ruang kerja Maya Timalu berada di lantai 17.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Joko Jajawi?",
+    "gold": "gudeg",
+    "reads": [
+     [
+      69,
+      "Makanan favorit Joko Jajawi adalah gudeg.",
+      "gudeg"
+     ],
+     [
+      68,
+      "Joko Jajawi lahir di kota Rasasu.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1082,
+      "Makanan favorit Joko Jajaba adalah rendang.",
+      "rendang"
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Surya Sujala dilahirkan?",
+    "gold": "1966",
+    "reads": [
+     [
+      1838,
+      "Surya Sujala lahir pada tahun 1966.",
+      "1966"
+     ],
+     [
+      1839,
+      "Surya Sujala mengendarai mobil berwarna merah.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      207,
+      "Surya Geromu bekerja sebagai penjahit.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Agus Norala dilahirkan?",
+    "gold": "Dikewi",
+    "reads": [
+     [
+      1269,
+      "Agus Norala lahir di kota Dikewi.",
+      "Dikewi"
+     ],
+     [
+      1267,
+      "Agus Norala adalah ketua tim Rabati.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1268,
+      "Agus Norala lahir pada tahun 1969.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Kapan batas waktu Proyek Kake-46?",
+    "gold": "27 November",
+    "reads": [
+     [
+      1386,
+      "Tenggat Proyek Kake-46 jatuh pada tanggal 27 November.",
+      "27 November"
+     ],
+     [
+      1699,
+      "Tenggat Proyek Nolu-46 jatuh pada tanggal 17 September.",
+      "17 September"
+     ],
+     [
+      1968,
+      "Tenggat Proyek Malu-46 jatuh pada tanggal 19 Mei.",
+      "19 Mei"
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Ani Bababa?",
+    "gold": "arsitek",
+    "reads": [
+     [
+      817,
+      "Ani Bababa bekerja sebagai arsitek.",
+      "arsitek"
+     ],
+     [
+      819,
+      "Ruang kerja Ani Bababa berada di lantai 27.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      996,
+      "Ani Kasapa bekerja sebagai penjahit.",
+      "penjahit"
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Eko Susapa?",
+    "gold": "dokter gigi",
+    "reads": [
+     [
+      1054,
+      "Eko Susapa mengendarai mobil berwarna putih.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1055,
+      "Eko Susapa bekerja sebagai dokter gigi.",
+      "dokter gigi"
+     ],
+     [
+      1056,
+      "Eko Susapa lahir pada tahun 1976.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Ayu Keladi?",
+    "gold": "Ludi",
+    "reads": [
+     [
+      1685,
+      "Ayu Keladi bekerja sebagai nelayan.",
+      "Ayu Keladi"
+     ],
+     [
+      1684,
+      "Ayu Keladi memelihara seekor anjing bernama Ludi.",
+      "Ludi"
+     ],
+     [
+      1686,
+      "Ruang kerja Ayu Keladi berada di lantai 20.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Wati Sujadi dilahirkan?",
+    "gold": "Jaluja",
+    "reads": [
+     [
+      1680,
+      "Wati Sujadi lahir di kota Jaluja.",
+      "Jaluja"
+     ],
+     [
+      1679,
+      "Makanan favorit Wati Sujadi adalah gudeg.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1773,
+      "Maya Ropasu adalah ketua tim Sujadi.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Maya Timalu?",
+    "gold": "17",
+    "reads": [
+     [
+      70,
+      "Ruang kerja Maya Timalu berada di lantai 17.",
+      "17"
+     ],
+     [
+      71,
+      "Maya Timalu memelihara seekor burung bernama Rora.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      344,
+      "Ruang kerja Maya Tibaba berada di lantai 7.",
+      "7"
+     ]
+    ]
+   },
+   {
+    "q": "Kapan batas waktu Proyek Kaka-3?",
+    "gold": "18 Maret",
+    "reads": [
+     [
+      86,
+      "Tenggat Proyek Kaka-27 jatuh pada tanggal 22 September.",
+      "22 September"
+     ],
+     [
+      366,
+      "Tenggat Proyek Kaka-3 jatuh pada tanggal 18 Maret.",
+      "18 Maret"
+     ],
+     [
+      1615,
+      "Tenggat Proyek Kaka-11 jatuh pada tanggal 17 Januari.",
+      "17 Januar"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Tuti Tikepa?",
+    "gold": "Rowi",
+    "reads": [
+     [
+      1270,
+      "Tuti Tikepa bekerja sebagai guru olahraga.",
+      "Tuti Tikepa"
+     ],
+     [
+      1271,
+      "Tuti Tikepa memelihara seekor burung bernama Rowi.",
+      "Rowi"
+     ],
+     [
+      1272,
+      "Makanan favorit Tuti Tikepa adalah ayam betutu.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Robasu?",
+    "gold": "85",
+    "reads": [
+     [
+      185,
+      "Harga satu kotak Robasu adalah 85 ribu rupiah.",
+      "85"
+     ],
+     [
+      2,
+      "Harga satu kotak Wimulu adalah 7 ribu rupiah.",
+      "7"
+     ],
+     [
+      6,
+      "Harga satu kotak Kejalu adalah 61 ribu rupiah.",
+      "61"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Ketija?",
+    "gold": "Putri Balapa",
+    "reads": [
+     [
+      1128,
+      "Putri Balapa adalah ketua tim Ketija.",
+      "Putri Balapa"
+     ],
+     [
+      3,
+      "Wati Rasaja adalah ketua tim Rodija.",
+      "Wati Rasaja"
+     ],
+     [
+      7,
+      "Ketut Titiwi adalah ketua tim Pagemu.",
+      "Ketut Titiwi"
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Putri Pawidi?",
+    "gold": "guru olahraga",
+    "reads": [
+     [
+      1396,
+      "Putri Pawidi mengendarai mobil berwarna hitam.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1398,
+      "Putri Pawidi bekerja sebagai guru olahraga.",
+      "guru olahraga"
+     ],
+     [
+      1397,
+      "Putri Pawidi memelihara seekor kura-kura bernama Roke.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Fajar Norola?",
+    "gold": "soto betawi",
+    "reads": [
+     [
+      25,
+      "Makanan favorit Fajar Norola adalah soto betawi.",
+      "soto betawi"
+     ],
+     [
+      26,
+      "Fajar Norola mengendarai mobil berwarna kuning.",
+      "kuning"
+     ],
+     [
+      27,
+      "Fajar Norola memelihara seekor kura-kura bernama Mamu.",
+      "kura-kura"
+     ]
+    ]
+   },
+   {
+    "q": "Kapan batas waktu Proyek Make-5?",
+    "gold": "16 November",
+    "reads": [
+     [
+      1032,
+      "Tenggat Proyek Make-5 jatuh pada tanggal 16 November.",
+      "16 November"
+     ],
+     [
+      10,
+      "Tenggat Proyek Wino-84 jatuh pada tanggal 27 Mei.",
+      "27 Mei"
+     ],
+     [
+      32,
+      "Tenggat Proyek Kemu-15 jatuh pada tanggal 22 Maret.",
+      "22 Maret"
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Maya Gesuro?",
+    "gold": "22",
+    "reads": [
+     [
+      1051,
+      "Ruang kerja Maya Gesuro berada di lantai 22.",
+      "22"
+     ],
+     [
+      70,
+      "Ruang kerja Maya Timalu berada di lantai 17.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      344,
+      "Ruang kerja Maya Tibaba berada di lantai 7.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Ayu Mudiba dilahirkan?",
+    "gold": "1956",
+    "reads": [
+     [
+      1150,
+      "Ayu Mudiba adalah ketua tim Bajama.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1152,
+      "Ayu Mudiba lahir pada tahun 1956.",
+      "1956"
+     ],
+     [
+      315,
+      "Ayu Ragesa bekerja sebagai penjahit.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Bayu Suroge?",
+    "gold": "Lusa",
+    "reads": [
+     [
+      1069,
+      "Bayu Suroge mengendarai mobil berwarna biru.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1071,
+      "Bayu Suroge memelihara seekor kura-kura bernama Lusa.",
+      "Lusa"
+     ],
+     [
+      475,
+      "Bayu Katika bekerja sebagai nelayan.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Tuti Kanolu?",
+    "gold": "pilot",
+    "reads": [
+     [
+      526,
+      "Tuti Kanolu bekerja sebagai pilot.",
+      "pilot"
+     ],
+     [
+      527,
+      "Tuti Kanolu adalah ketua tim Wijaja.",
+      "ketua tim Wijaja"
+     ],
+     [
+      528,
+      "Tuti Kanolu memelihara seekor kucing bernama Tiro.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Kapan batas waktu Proyek Tipa-36?",
+    "gold": "8 Juli",
+    "reads": [
+     [
+      1181,
+      "Tenggat Proyek Tipa-36 jatuh pada tanggal 8 Juli.",
+      "8 Juli"
+     ],
+     [
+      1155,
+      "Tenggat Proyek Mawi-36 jatuh pada tanggal 9 Januari.",
+      "9 Januari"
+     ],
+     [
+      1750,
+      "Tenggat Proyek Luma-36 jatuh pada tanggal 15 November.",
+      "15 November"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Nur Sutidi?",
+    "gold": "Romu",
+    "reads": [
+     [
+      398,
+      "Nur Sutidi mengendarai mobil berwarna ungu.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      399,
+      "Nur Sutidi lahir pada tahun 1978.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      397,
+      "Nur Sutidi memelihara seekor kelinci bernama Romu.",
+      "Romu"
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Tuti Salati?",
+    "gold": "penjahit",
+    "reads": [
+     [
+      393,
+      "Tuti Salati bekerja sebagai penjahit.",
+      "penjahit"
+     ],
+     [
+      392,
+      "Tuti Salati lahir di kota Jakero.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      391,
+      "Makanan favorit Tuti Salati adalah gado-gado.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Kapan batas waktu Proyek Kasa-11?",
+    "gold": "5 November",
+    "reads": [
+     [
+      1945,
+      "Tenggat Proyek Kasa-11 jatuh pada tanggal 5 November.",
+      "5 November"
+     ],
+     [
+      1182,
+      "Rahmat Kerodi memelihara seekor kelinci bernama Kasa.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      619,
+      "Tenggat Proyek Romu-33 jatuh pada tanggal 11 September.",
+      "11 September"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Dewi Nodipa?",
+    "gold": "Gera",
+    "reads": [
+     [
+      1572,
+      "Dewi Nodipa lahir di kota Winoti.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      1571,
+      "Dewi Nodipa memelihara seekor kelinci bernama Gera.",
+      "Gera"
+     ],
+     [
+      523,
+      "Dewi Wisasa bekerja sebagai nelayan.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Agus Diroge?",
+    "gold": "Basu",
+    "reads": [
+     [
+      1334,
+      "Agus Diroge mengendarai mobil berwarna ungu.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      1333,
+      "Agus Diroge memelihara seekor kura-kura bernama Basu.",
+      "Basu"
+     ],
+     [
+      456,
+      "Agus Kabano bekerja sebagai nelayan.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Masano?",
+    "gold": "Dewi Kamala",
+    "reads": [
+     [
+      896,
+      "Dewi Kamala adalah ketua tim Masano.",
+      "Dewi Kamala"
+     ],
+     [
+      3,
+      "Wati Rasaja adalah ketua tim Rodija.",
+      "Wati Rasaja"
+     ],
+     [
+      7,
+      "Ketut Titiwi adalah ketua tim Pagemu.",
+      "Ketut Titiwi"
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Tuti Kasuka?",
+    "gold": "juru masak",
+    "reads": [
+     [
+      1745,
+      "Makanan favorit Tuti Kasuka adalah gudeg.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1746,
+      "Tuti Kasuka bekerja sebagai juru masak.",
+      "juru masak"
+     ],
+     [
+      393,
+      "Tuti Salati bekerja sebagai penjahit.",
+      "penjahit"
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Surya Kejadi dilahirkan?",
+    "gold": "Bawiro",
+    "reads": [
+     [
+      1577,
+      "Surya Kejadi lahir di kota Bawiro.",
+      "Bawiro"
+     ],
+     [
+      1576,
+      "Surya Kejadi adalah ketua tim Ketima.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      255,
+      "Surya Gewimu lahir di kota Kebaro.",
+      "Kebaro"
+     ]
+    ]
+   },
+   {
+    "q": "Apa warna mobil Indah Lajala?",
+    "gold": "kuning",
+    "reads": [
+     [
+      306,
+      "Indah Lajala mengendarai mobil berwarna kuning.",
+      "kuning"
+     ],
+     [
+      1000,
+      "Indah Makema mengendarai mobil berwarna putih.",
+      "putih"
+     ],
+     [
+      1290,
+      "Indah Wijadi mengendarai mobil berwarna kuning.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Hendra Jamalu?",
+    "gold": "7",
+    "reads": [
+     [
+      33,
+      "Ruang kerja Hendra Jamalu berada di lantai 7.",
+      "7"
+     ],
+     [
+      31,
+      "Hendra Jamalu bekerja sebagai dokter gigi.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      219,
+      "Ruang kerja Hendra Sasusu berada di lantai 21.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Mubaro?",
+    "gold": "11",
+    "reads": [
+     [
+      256,
+      "Harga satu kotak Mubaro adalah 11 ribu rupiah.",
+      "11"
+     ],
+     [
+      2,
+      "Harga satu kotak Wimulu adalah 7 ribu rupiah.",
+      "7"
+     ],
+     [
+      6,
+      "Harga satu kotak Kejalu adalah 61 ribu rupiah.",
+      "61"
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Tuti Sumasa dilahirkan?",
+    "gold": "1996",
+    "reads": [
+     [
+      682,
+      "Tuti Sumasa adalah ketua tim Mararo.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      683,
+      "Tuti Sumasa lahir pada tahun 1996.",
+      "1996"
+     ],
+     [
+      684,
+      "Ruang kerja Tuti Sumasa berada di lantai 5.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Nosaba?",
+    "gold": "62",
+    "reads": [
+     [
+      920,
+      "Harga satu kotak Nosaba adalah 62 ribu rupiah.",
+      "62"
+     ],
+     [
+      2,
+      "Harga satu kotak Wimulu adalah 7 ribu rupiah.",
+      "7"
+     ],
+     [
+      6,
+      "Harga satu kotak Kejalu adalah 61 ribu rupiah.",
+      "61"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Timuno?",
+    "gold": "Fajar Parasa",
+    "reads": [
+     [
+      214,
+      "Fajar Parasa adalah ketua tim Timuno.",
+      "Fajar Parasa"
+     ],
+     [
+      3,
+      "Wati Rasaja adalah ketua tim Rodija.",
+      "Wati Rasaja"
+     ],
+     [
+      7,
+      "Ketut Titiwi adalah ketua tim Pagemu.",
+      "Ketut Titiwi"
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Maya Surola?",
+    "gold": "25",
+    "reads": [
+     [
+      1319,
+      "Ruang kerja Maya Surola berada di lantai 25.",
+      "25"
+     ],
+     [
+      1320,
+      "Maya Surola lahir di kota Tiluka.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1318,
+      "Maya Surola memelihara seekor burung bernama Rodi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Titidi?",
+    "gold": "87",
+    "reads": [
+     [
+      1783,
+      "Harga satu kotak Titidi adalah 87 ribu rupiah.",
+      "87"
+     ],
+     [
+      2,
+      "Harga satu kotak Wimulu adalah 7 ribu rupiah.",
+      "7"
+     ],
+     [
+      6,
+      "Harga satu kotak Kejalu adalah 61 ribu rupiah.",
+      "61"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Romaro?",
+    "gold": "Mega Luwika",
+    "reads": [
+     [
+      1229,
+      "Mega Luwika adalah ketua tim Romaro.",
+      "Mega Luwika"
+     ],
+     [
+      3,
+      "Wati Rasaja adalah ketua tim Rodija.",
+      "Wati Rasaja"
+     ],
+     [
+      7,
+      "Ketut Titiwi adalah ketua tim Pagemu.",
+      "Ketut Titiwi"
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Hendra Laditi?",
+    "gold": "gudeg",
+    "reads": [
+     [
+      1280,
+      "Makanan favorit Hendra Laditi adalah gudeg.",
+      "gudeg"
+     ],
+     [
+      1279,
+      "Hendra Laditi lahir pada tahun 2004.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      380,
+      "Makanan favorit Hendra Susasa adalah gado-gado.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Sari Sapasa?",
+    "gold": "Muro",
+    "reads": [
+     [
+      990,
+      "Makanan favorit Sari Sapasa adalah gado-gado.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      988,
+      "Sari Sapasa memelihara seekor kura-kura bernama Muro.",
+      "Muro"
+     ],
+     [
+      95,
+      "Sari Satiba bekerja sebagai arsitek.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Rodija?",
+    "gold": "Wati Rasaja",
+    "reads": [
+     [
+      3,
+      "Wati Rasaja adalah ketua tim Rodija.",
+      "Wati Rasaja"
+     ],
+     [
+      7,
+      "Ketut Titiwi adalah ketua tim Pagemu.",
+      "Ketut Titiwi"
+     ],
+     [
+      14,
+      "Rina Bakadi adalah ketua tim Digela.",
+      "Rina Bakadi"
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Ketut Muwisa dilahirkan?",
+    "gold": "1957",
+    "reads": [
+     [
+      1946,
+      "Ketut Muwisa adalah ketua tim Gekela.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1947,
+      "Ketut Muwisa lahir pada tahun 1957.",
+      "1957"
+     ],
+     [
+      1875,
+      "Harga satu kotak Muwisa adalah 5 ribu rupiah.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Taufik Bakala?",
+    "gold": "bakso",
+    "reads": [
+     [
+      980,
+      "Makanan favorit Taufik Bakala adalah bakso.",
+      "bakso"
+     ],
+     [
+      979,
+      "Taufik Bakala lahir pada tahun 1961.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      63,
+      "Makanan favorit Taufik Jasula adalah rawon.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Taufik Jasula?",
+    "gold": "rawon",
+    "reads": [
+     [
+      63,
+      "Makanan favorit Taufik Jasula adalah rawon.",
+      "rawon"
+     ],
+     [
+      145,
+      "Makanan favorit Taufik Lakemu adalah bakso.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      564,
+      "Makanan favorit Taufik Sulati adalah bakso.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa warna mobil Putri Jakama?",
+    "gold": "kuning",
+    "reads": [
+     [
+      553,
+      "Putri Jakama mengendarai mobil berwarna kuning.",
+      "kuning"
+     ],
+     [
+      554,
+      "Makanan favorit Putri Jakama adalah pempek.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      555,
+      "Putri Jakama lahir di kota Sunopa.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Ditimu?",
+    "gold": "91",
+    "reads": [
+     [
+      478,
+      "Harga satu kotak Ditimu adalah 91 ribu rupiah.",
+      "91"
+     ],
+     [
+      2,
+      "Harga satu kotak Wimulu adalah 7 ribu rupiah.",
+      "7"
+     ],
+     [
+      6,
+      "Harga satu kotak Kejalu adalah 61 ribu rupiah.",
+      "61"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Rina Dijalu?",
+    "gold": "Mamu",
+    "reads": [
+     [
+      1939,
+      "Rina Dijalu adalah ketua tim Disulu.",
+      "Rina Dijalu"
+     ],
+     [
+      1940,
+      "Rina Dijalu memelihara seekor kura-kura bernama Mamu.",
+      "Mamu"
+     ],
+     [
+      1941,
+      "Ruang kerja Rina Dijalu berada di lantai 28.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Wikemu?",
+    "gold": "20",
+    "reads": [
+     [
+      773,
+      "Harga satu kotak Wikemu adalah 20 ribu rupiah.",
+      "20"
+     ],
+     [
+      2,
+      "Harga satu kotak Wimulu adalah 7 ribu rupiah.",
+      "7"
+     ],
+     [
+      6,
+      "Harga satu kotak Kejalu adalah 61 ribu rupiah.",
+      "61"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Bayu Malasu?",
+    "gold": "Raba",
+    "reads": [
+     [
+      1784,
+      "Bayu Malasu lahir pada tahun 2001.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1785,
+      "Bayu Malasu memelihara seekor anjing bernama Raba.",
+      "Raba"
+     ],
+     [
+      475,
+      "Bayu Katika bekerja sebagai nelayan.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Dewi Kelupa?",
+    "gold": "guru olahraga",
+    "reads": [
+     [
+      883,
+      "Dewi Kelupa adalah ketua tim Noroka.",
+      "ketua tim Noroka"
+     ],
+     [
+      885,
+      "Dewi Kelupa bekerja sebagai guru olahraga.",
+      "guru olahraga"
+     ],
+     [
+      884,
+      "Makanan favorit Dewi Kelupa adalah sate padang.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Yusuf Lalano dilahirkan?",
+    "gold": "1993",
+    "reads": [
+     [
+      1822,
+      "Yusuf Lalano bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1824,
+      "Yusuf Lalano lahir pada tahun 1993.",
+      "1993"
+     ],
+     [
+      1823,
+      "Yusuf Lalano memelihara seekor burung bernama Suba.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Kapan batas waktu Proyek Gera-10?",
+    "gold": "26 Januari",
+    "reads": [
+     [
+      413,
+      "Tenggat Proyek Gera-10 jatuh pada tanggal 26 Januari.",
+      "26 Januari 2021"
+     ],
+     [
+      1571,
+      "Dewi Nodipa memelihara seekor kelinci bernama Gera.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      387,
+      "Tenggat Proyek Mapa-10 jatuh pada tanggal 9 November.",
+      "9 November"
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Tuti Salati dilahirkan?",
+    "gold": "Jakero",
+    "reads": [
+     [
+      392,
+      "Tuti Salati lahir di kota Jakero.",
+      "Jakero"
+     ],
+     [
+      393,
+      "Tuti Salati bekerja sebagai penjahit.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      391,
+      "Makanan favorit Tuti Salati adalah gado-gado.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Eko Kanoja?",
+    "gold": "21",
+    "reads": [
+     [
+      1515,
+      "Ruang kerja Eko Kanoja berada di lantai 21.",
+      "21"
+     ],
+     [
+      1513,
+      "Eko Kanoja bekerja sebagai montir.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      91,
+      "Ruang kerja Eko Timala berada di lantai 6.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Wati Rasaja?",
+    "gold": "tukang kayu",
+    "reads": [
+     [
+      1,
+      "Wati Rasaja bekerja sebagai tukang kayu.",
+      "tukang kayu"
+     ],
+     [
+      3,
+      "Wati Rasaja adalah ketua tim Rodija.",
+      "ketua tim Rodija"
+     ],
+     [
+      230,
+      "Wati Sabalu bekerja sebagai pilot.",
+      "pilot"
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Geraro?",
+    "gold": "75",
+    "reads": [
+     [
+      703,
+      "Harga satu kotak Geraro adalah 75 ribu rupiah.",
+      "75"
+     ],
+     [
+      2,
+      "Harga satu kotak Wimulu adalah 7 ribu rupiah.",
+      "7"
+     ],
+     [
+      6,
+      "Harga satu kotak Kejalu adalah 61 ribu rupiah.",
+      "61"
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Putri Tikero?",
+    "gold": "nelayan",
+    "reads": [
+     [
+      1752,
+      "Putri Tikero bekerja sebagai nelayan.",
+      "nelayan"
+     ],
+     [
+      283,
+      "Putri Ramuwi bekerja sebagai penjahit.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      1059,
+      "Putri Tirasu bekerja sebagai nelayan.",
+      "nelayan"
+     ]
+    ]
+   },
+   {
+    "q": "Apa warna mobil Bayu Rakati?",
+    "gold": "ungu",
+    "reads": [
+     [
+      459,
+      "Bayu Rakati mengendarai mobil berwarna ungu.",
+      "ungu"
+     ],
+     [
+      457,
+      "Bayu Rakati lahir di kota Lurapa.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      458,
+      "Makanan favorit Bayu Rakati adalah rendang.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Jasara?",
+    "gold": "Dedi Muluno",
+    "reads": [
+     [
+      126,
+      "Dedi Muluno adalah ketua tim Jasara.",
+      "Dedi Muluno"
+     ],
+     [
+      3,
+      "Wati Rasaja adalah ketua tim Rodija.",
+      "Wati Rasaja"
+     ],
+     [
+      7,
+      "Ketut Titiwi adalah ketua tim Pagemu.",
+      "Ketut Titiwi"
+     ]
+    ]
+   },
+   {
+    "q": "Kapan batas waktu Proyek Kama-93?",
+    "gold": "18 Januari",
+    "reads": [
+     [
+      1002,
+      "Tenggat Proyek Kama-93 jatuh pada tanggal 18 Januari.",
+      "18 Januari"
+     ],
+     [
+      797,
+      "Tenggat Proyek Kama-92 jatuh pada tanggal 23 Juli.",
+      "23 Juli"
+     ],
+     [
+      1535,
+      "Tenggat Proyek Kama-80 jatuh pada tanggal 1 Januari.",
+      "1 Januari"
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Andi Tirage dilahirkan?",
+    "gold": "1991",
+    "reads": [
+     [
+      1642,
+      "Andi Tirage adalah ketua tim Pararo.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1643,
+      "Andi Tirage lahir pada tahun 1991.",
+      "1991"
+     ],
+     [
+      1644,
+      "Andi Tirage memelihara seekor kelinci bernama Sara.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Sabaja?",
+    "gold": "53",
+    "reads": [
+     [
+      945,
+      "Harga satu kotak Sabaja adalah 53 ribu rupiah.",
+      "53"
+     ],
+     [
+      2,
+      "Harga satu kotak Wimulu adalah 7 ribu rupiah.",
+      "7"
+     ],
+     [
+      6,
+      "Harga satu kotak Kejalu adalah 61 ribu rupiah.",
+      "61"
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Indah Kerake?",
+    "gold": "6",
+    "reads": [
+     [
+      1596,
+      "Ruang kerja Indah Kerake berada di lantai 6.",
+      "6"
+     ],
+     [
+      1595,
+      "Indah Kerake adalah ketua tim Rasawi.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      1594,
+      "Indah Kerake memelihara seekor burung bernama Kake.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Balala?",
+    "gold": "Lestari Pagela",
+    "reads": [
+     [
+      349,
+      "Lestari Pagela adalah ketua tim Balala.",
+      "Lestari Pagela"
+     ],
+     [
+      878,
+      "Mega Balala bekerja sebagai guru olahraga.",
+      "Mega Balala"
+     ],
+     [
+      879,
+      "Mega Balala lahir di kota Nokeba.",
+      "Mega Balala"
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Mega Luwika dilahirkan?",
+    "gold": "2000",
+    "reads": [
+     [
+      1228,
+      "Mega Luwika lahir pada tahun 2000.",
+      "2000"
+     ],
+     [
+      1229,
+      "Mega Luwika adalah ketua tim Romaro.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      202,
+      "Mega Luramu bekerja sebagai penjahit.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa warna mobil Ani Nogewi?",
+    "gold": "putih",
+    "reads": [
+     [
+      1800,
+      "Ani Nogewi mengendarai mobil berwarna putih.",
+      "putih"
+     ],
+     [
+      1799,
+      "Ani Nogewi lahir pada tahun 1999.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1798,
+      "Ruang kerja Ani Nogewi berada di lantai 18.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa warna mobil Fajar Masati?",
+    "gold": "oranye",
+    "reads": [
+     [
+      1079,
+      "Fajar Masati mengendarai mobil berwarna oranye.",
+      "oranye"
+     ],
+     [
+      1078,
+      "Makanan favorit Fajar Masati adalah bakso.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      1080,
+      "Fajar Masati lahir di kota Karoge.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Ani Lajara dilahirkan?",
+    "gold": "Jasadi",
+    "reads": [
+     [
+      142,
+      "Ani Lajara lahir di kota Jasadi.",
+      "Jasadi"
+     ],
+     [
+      143,
+      "Makanan favorit Ani Lajara adalah tahu campur.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      144,
+      "Ruang kerja Ani Lajara berada di lantai 13.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Hendra Paparo dilahirkan?",
+    "gold": "1958",
+    "reads": [
+     [
+      481,
+      "Hendra Paparo bekerja sebagai petani kopi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      483,
+      "Hendra Paparo lahir pada tahun 1958.",
+      "1958"
+     ],
+     [
+      482,
+      "Hendra Paparo memelihara seekor kucing bernama Roti.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Ani Nogewi?",
+    "gold": "18",
+    "reads": [
+     [
+      1798,
+      "Ruang kerja Ani Nogewi berada di lantai 18.",
+      "18"
+     ],
+     [
+      1799,
+      "Ani Nogewi lahir pada tahun 1999.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1800,
+      "Ani Nogewi mengendarai mobil berwarna putih.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Surya Lasamu?",
+    "gold": "gado-gado",
+    "reads": [
+     [
+      446,
+      "Makanan favorit Surya Lasamu adalah gado-gado.",
+      "gado-gado"
+     ],
+     [
+      445,
+      "Surya Lasamu lahir pada tahun 1967.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      447,
+      "Surya Lasamu adalah ketua tim Pakati.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Agus Kabano?",
+    "gold": "sate padang",
+    "reads": [
+     [
+      454,
+      "Makanan favorit Agus Kabano adalah sate padang.",
+      "sate padang"
+     ],
+     [
+      456,
+      "Agus Kabano bekerja sebagai nelayan.",
+      "nelayan"
+     ],
+     [
+      455,
+      "Agus Kabano lahir pada tahun 1974.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Bayu Kajama?",
+    "gold": "Pati",
+    "reads": [
+     [
+      1205,
+      "Bayu Kajama adalah ketua tim Basama.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1206,
+      "Bayu Kajama lahir pada tahun 2000.",
+      "Bayu Kajama"
+     ],
+     [
+      1204,
+      "Bayu Kajama memelihara seekor kura-kura bernama Pati.",
+      "Pati"
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Nur Nokege dilahirkan?",
+    "gold": "1970",
+    "reads": [
+     [
+      947,
+      "Nur Nokege lahir pada tahun 1970.",
+      "1970"
+     ],
+     [
+      948,
+      "Nur Nokege memelihara seekor burung bernama Rake.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      16,
+      "Nur Barosu bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Rudi Noromu dilahirkan?",
+    "gold": "1988",
+    "reads": [
+     [
+      1250,
+      "Rudi Noromu lahir pada tahun 1988.",
+      "1988"
+     ],
+     [
+      1251,
+      "Rudi Noromu lahir di kota Jalala.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1950,
+      "Rudi Jatiba bekerja sebagai penjahit.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Dedi Kenosu?",
+    "gold": "pilot",
+    "reads": [
+     [
+      977,
+      "Dedi Kenosu bekerja sebagai pilot.",
+      "pilot"
+     ],
+     [
+      976,
+      "Dedi Kenosu lahir pada tahun 1964.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      978,
+      "Ruang kerja Dedi Kenosu berada di lantai 28.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Dewi Mubapa?",
+    "gold": "7",
+    "reads": [
+     [
+      926,
+      "Ruang kerja Dewi Mubapa berada di lantai 7.",
+      "7"
+     ],
+     [
+      927,
+      "Dewi Mubapa bekerja sebagai penjahit.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      925,
+      "Makanan favorit Dewi Mubapa adalah pempek.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Samaba?",
+    "gold": "Andi Wipage",
+    "reads": [
+     [
+      950,
+      "Andi Wipage adalah ketua tim Samaba.",
+      "Andi Wipage"
+     ],
+     [
+      3,
+      "Wati Rasaja adalah ketua tim Rodija.",
+      "Wati Rasaja"
+     ],
+     [
+      7,
+      "Ketut Titiwi adalah ketua tim Pagemu.",
+      "Ketut Titiwi"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Mukesa?",
+    "gold": "Rahmat Pamuti",
+    "reads": [
+     [
+      1179,
+      "Rahmat Pamuti adalah ketua tim Mukesa.",
+      "Rahmat Pamuti"
+     ],
+     [
+      3,
+      "Wati Rasaja adalah ketua tim Rodija.",
+      "Wati Rasaja"
+     ],
+     [
+      7,
+      "Ketut Titiwi adalah ketua tim Pagemu.",
+      "Ketut Titiwi"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Matiro?",
+    "gold": "Ketut Dipala",
+    "reads": [
+     [
+      1130,
+      "Ketut Dipala adalah ketua tim Matiro.",
+      "Ketut Dipala adalah ketua tim Matiro"
+     ],
+     [
+      41,
+      "Harga satu kotak Matiro adalah 70 ribu rupiah.",
+      "Harga satu kotak Matiro"
+     ],
+     [
+      3,
+      "Wati Rasaja adalah ketua tim Rodija.",
+      "Wati Rasaja"
+     ]
+    ]
+   },
+   {
+    "q": "Siapa ketua tim Raluba?",
+    "gold": "Mega Bajapa",
+    "reads": [
+     [
+      486,
+      "Mega Bajapa adalah ketua tim Raluba.",
+      "Mega Bajapa"
+     ],
+     [
+      3,
+      "Wati Rasaja adalah ketua tim Rodija.",
+      "Wati Rasaja"
+     ],
+     [
+      7,
+      "Ketut Titiwi adalah ketua tim Pagemu.",
+      "Ketut Titiwi"
+     ]
+    ]
+   },
+   {
+    "q": "Apa warna mobil Eko Marowi?",
+    "gold": "kuning",
+    "reads": [
+     [
+      531,
+      "Eko Marowi mengendarai mobil berwarna kuning.",
+      "kuning"
+     ],
+     [
+      530,
+      "Eko Marowi lahir pada tahun 1973.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      529,
+      "Ruang kerja Eko Marowi berada di lantai 7.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Sari Jadiro?",
+    "gold": "petani kopi",
+    "reads": [
+     [
+      1645,
+      "Sari Jadiro lahir di kota Jamaja.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1646,
+      "Sari Jadiro bekerja sebagai petani kopi.",
+      "petani kopi"
+     ],
+     [
+      1647,
+      "Sari Jadiro mengendarai mobil berwarna hijau.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Nur Mumuge?",
+    "gold": "rawon",
+    "reads": [
+     [
+      275,
+      "Makanan favorit Nur Mumuge adalah rawon.",
+      "rawon"
+     ],
+     [
+      274,
+      "Nur Mumuge lahir di kota Sujaba.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      1086,
+      "Yusuf Mumuge lahir di kota Nogeno.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Indah Susage?",
+    "gold": "29",
+    "reads": [
+     [
+      942,
+      "Ruang kerja Indah Susage berada di lantai 29.",
+      "29"
+     ],
+     [
+      940,
+      "Indah Susage adalah ketua tim Pakedi.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      941,
+      "Indah Susage lahir pada tahun 1957.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa warna mobil Taufik Barati?",
+    "gold": "oranye",
+    "reads": [
+     [
+      1018,
+      "Taufik Barati mengendarai mobil berwarna oranye.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      1019,
+      "Ruang kerja Taufik Barati berada di lantai 20.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1020,
+      "Taufik Barati memelihara seekor kura-kura bernama Geno.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Maya Jaraka?",
+    "gold": "pempek",
+    "reads": [
+     [
+      846,
+      "Makanan favorit Maya Jaraka adalah pempek.",
+      "pempek"
+     ],
+     [
+      844,
+      "Maya Jaraka mengendarai mobil berwarna oranye.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      845,
+      "Maya Jaraka adalah ketua tim Mabamu.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Citra Rasapa dilahirkan?",
+    "gold": "Radira",
+    "reads": [
+     [
+      113,
+      "Citra Rasapa lahir di kota Radira.",
+      "Radira"
+     ],
+     [
+      114,
+      "Citra Rasapa adalah ketua tim Surowi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      112,
+      "Ruang kerja Citra Rasapa berada di lantai 27.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Lestari Lujawi dilahirkan?",
+    "gold": "Lukalu",
+    "reads": [
+     [
+      1195,
+      "Lestari Lujawi lahir di kota Lukalu.",
+      "Lukalu"
+     ],
+     [
+      47,
+      "Lestari Lupalu lahir di kota Matima.",
+      "Matima"
+     ],
+     [
+      265,
+      "Lestari Japamu lahir di kota Jawilu.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Siapa nama hewan peliharaan Eko Babati?",
+    "gold": "Rono",
+    "reads": [
+     [
+      1705,
+      "Eko Babati lahir di kota Palaja.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1707,
+      "Eko Babati memelihara seekor burung bernama Rono.",
+      "Rono"
+     ],
+     [
+      1706,
+      "Ruang kerja Eko Babati berada di lantai 29.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Hendra Lasama dilahirkan?",
+    "gold": "1958",
+    "reads": [
+     [
+      1666,
+      "Hendra Lasama lahir pada tahun 1958.",
+      "1958"
+     ],
+     [
+      1667,
+      "Hendra Lasama memelihara seekor anjing bernama Noja.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1021,
+      "Hendra Lusawi bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Tigewi?",
+    "gold": "87",
+    "reads": [
+     [
+      21,
+      "Harga satu kotak Tigewi adalah 87 ribu rupiah.",
+      "87"
+     ],
+     [
+      1254,
+      "Taufik Tigewi mengendarai mobil berwarna kuning.",
+      "kuning"
+     ],
+     [
+      2,
+      "Harga satu kotak Wimulu adalah 7 ribu rupiah.",
+      "7"
+     ]
+    ]
+   },
+   {
+    "q": "Berapa harga satu kotak Nolupa?",
+    "gold": "37",
+    "reads": [
+     [
+      321,
+      "Harga satu kotak Nolupa adalah 37 ribu rupiah.",
+      "37"
+     ],
+     [
+      2,
+      "Harga satu kotak Wimulu adalah 7 ribu rupiah.",
+      "7"
+     ],
+     [
+      6,
+      "Harga satu kotak Kejalu adalah 61 ribu rupiah.",
+      "61"
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Andi Sabasu dilahirkan?",
+    "gold": "1965",
+    "reads": [
+     [
+      1957,
+      "Andi Sabasu bekerja sebagai arsitek.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1958,
+      "Andi Sabasu lahir pada tahun 1965.",
+      "1965"
+     ],
+     [
+      1959,
+      "Ruang kerja Andi Sabasu berada di lantai 5.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Pada tahun berapa Citra Rakasu dilahirkan?",
+    "gold": "1953",
+    "reads": [
+     [
+      648,
+      "Citra Rakasu bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      647,
+      "Citra Rakasu lahir pada tahun 1953.",
+      "1953"
+     ],
+     [
+      646,
+      "Ruang kerja Citra Rakasu berada di lantai 6.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Eko Masapa dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      137,
+      "Eko Robadi lahir di kota Nowipa.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      261,
+      "Eko Ronono lahir di kota Dirasu.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      435,
+      "Eko Lukeba lahir di kota Jatidi.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Lestari Digedi?",
+    "gold": null,
+    "reads": [
+     [
+      1321,
+      "Harga satu kotak Digedi adalah 50 ribu rupiah.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      78,
+      "Lestari Gesasa bekerja sebagai penjahit.",
+      "penjahit"
+     ],
+     [
+      1095,
+      "Lestari Makamu bekerja sebagai penjahit.",
+      "penjahit"
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Wati Tibasu?",
+    "gold": null,
+    "reads": [
+     [
+      490,
+      "Makanan favorit Wati Dirati adalah pempek.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1679,
+      "Makanan favorit Wati Sujadi adalah gudeg.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      34,
+      "Makanan favorit Wati Rosage adalah gado-gado.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Hendra Batige?",
+    "gold": null,
+    "reads": [
+     [
+      33,
+      "Ruang kerja Hendra Jamalu berada di lantai 7.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      219,
+      "Ruang kerja Hendra Sasusu berada di lantai 21.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      506,
+      "Ruang kerja Hendra Rawika berada di lantai 8.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Hendra Kadidi?",
+    "gold": null,
+    "reads": [
+     [
+      1280,
+      "Makanan favorit Hendra Laditi adalah gudeg.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      380,
+      "Makanan favorit Hendra Susasa adalah gado-gado.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      973,
+      "Makanan favorit Hendra Wisano adalah sate padang.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Ayu Ludira?",
+    "gold": null,
+    "reads": [
+     [
+      104,
+      "Ruang kerja Ayu Genoti berada di lantai 9.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      135,
+      "Ruang kerja Ayu Makaro berada di lantai 29.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      724,
+      "Ruang kerja Ayu Notino berada di lantai 25.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Wati Tikawi dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      352,
+      "Wati Didipa lahir di kota Gemama.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      584,
+      "Wati Rokaro lahir di kota Kalura.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      788,
+      "Wati Rakeka lahir di kota Rabalu.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Ayu Bagelu dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      24,
+      "Ayu Wiluba lahir di kota Wisudi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      134,
+      "Ayu Makaro lahir di kota Mugewi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      278,
+      "Ayu Murara lahir di kota Lagege.",
+      "Lagege"
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Rudi Mubaka?",
+    "gold": null,
+    "reads": [
+     [
+      1821,
+      "Surya Rosura adalah ketua tim Mubaka.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      186,
+      "Makanan favorit Rudi Nodidi adalah rawon.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1184,
+      "Makanan favorit Rudi Noropa adalah rendang.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Yusuf Lusuge?",
+    "gold": null,
+    "reads": [
+     [
+      547,
+      "Ruang kerja Taufik Lusuge berada di lantai 4.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      901,
+      "Yusuf Saketi bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1015,
+      "Yusuf Tinomu bekerja sebagai nelayan.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Andi Diwisa?",
+    "gold": null,
+    "reads": [
+     [
+      1957,
+      "Andi Sabasu bekerja sebagai arsitek.",
+      "arsitek"
+     ],
+     [
+      189,
+      "Andi Sarodi mengendarai mobil berwarna biru.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      291,
+      "Andi Bageke bekerja sebagai dokter gigi.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Citra Winoro?",
+    "gold": null,
+    "reads": [
+     [
+      637,
+      "Citra Dikadi bekerja sebagai arsitek.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      648,
+      "Citra Rakasu bekerja sebagai nelayan.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      842,
+      "Citra Bajake bekerja sebagai arsitek.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Yusuf Sawira?",
+    "gold": null,
+    "reads": [
+     [
+      55,
+      "Ruang kerja Yusuf Matisu berada di lantai 17.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      582,
+      "Ruang kerja Yusuf Muwika berada di lantai 20.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      833,
+      "Ruang kerja Yusuf Kamula berada di lantai 28.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Mega Jasuke?",
+    "gold": null,
+    "reads": [
+     [
+      60,
+      "Ruang kerja Mega Rabasu berada di lantai 5.",
+      "5"
+     ],
+     [
+      158,
+      "Ruang kerja Mega Romadi berada di lantai 28.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      183,
+      "Ruang kerja Mega Nodija berada di lantai 4.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Rahmat Sawija dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      320,
+      "Rahmat Sululu lahir di kota Mamuti.",
+      "Mamuti"
+     ],
+     [
+      415,
+      "Rahmat Ludika lahir di kota Kakaro.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      469,
+      "Rahmat Rosaro lahir di kota Sujasa.",
+      "Sujasa"
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Rahmat Munoma dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      320,
+      "Rahmat Sululu lahir di kota Mamuti.",
+      "Mamuti"
+     ],
+     [
+      415,
+      "Rahmat Ludika lahir di kota Kakaro.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      469,
+      "Rahmat Rosaro lahir di kota Sujasa.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Indah Wimuja?",
+    "gold": null,
+    "reads": [
+     [
+      1231,
+      "Indah Gesaro bekerja sebagai pilot.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      75,
+      "Indah Basaro lahir pada tahun 1964.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      107,
+      "Indah Wiluke adalah ketua tim Wipaka.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Ani Larasa?",
+    "gold": null,
+    "reads": [
+     [
+      144,
+      "Ruang kerja Ani Lajara berada di lantai 13.",
+      "13"
+     ],
+     [
+      171,
+      "Ruang kerja Ani Rarati berada di lantai 19.",
+      "19"
+     ],
+     [
+      618,
+      "Ruang kerja Ani Tikemu berada di lantai 4.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Andi Noroka dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      883,
+      "Dewi Kelupa adalah ketua tim Noroka.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      449,
+      "Andi Samuba lahir di kota Muraka.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      611,
+      "Andi Jajasu lahir di kota Susaja.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Hendra Jagemu?",
+    "gold": null,
+    "reads": [
+     [
+      1004,
+      "Harga satu kotak Jagemu adalah 18 ribu rupiah.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1280,
+      "Makanan favorit Hendra Laditi adalah gudeg.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      380,
+      "Makanan favorit Hendra Susasa adalah gado-gado.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Ayu Rokasu?",
+    "gold": null,
+    "reads": [
+     [
+      279,
+      "Makanan favorit Ayu Murara adalah rawon.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      723,
+      "Makanan favorit Ayu Baluba adalah rawon.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      953,
+      "Makanan favorit Ayu Baludi adalah rawon.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Tuti Lasapa?",
+    "gold": null,
+    "reads": [
+     [
+      393,
+      "Tuti Salati bekerja sebagai penjahit.",
+      "penjahit"
+     ],
+     [
+      526,
+      "Tuti Kanolu bekerja sebagai pilot.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      644,
+      "Tuti Dikeka bekerja sebagai penjahit.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Rudi Sakera dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      235,
+      "Rudi Robaja lahir di kota Nosage.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      661,
+      "Rudi Nonowi lahir di kota Karadi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1183,
+      "Rudi Noropa lahir di kota Tipawi.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Bayu Sutiba dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      438,
+      "Taufik Wikesa lahir di kota Sutiba.",
+      "Sutiba"
+     ],
+     [
+      457,
+      "Bayu Rakati lahir di kota Lurapa.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      477,
+      "Bayu Katika lahir di kota Lukati.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Sari Jakela?",
+    "gold": null,
+    "reads": [
+     [
+      132,
+      "Ruang kerja Sari Lamano berada di lantai 3.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      985,
+      "Ruang kerja Sari Sudilu berada di lantai 17.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1175,
+      "Ruang kerja Sari Rawidi berada di lantai 19.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Surya Sumawi?",
+    "gold": null,
+    "reads": [
+     [
+      207,
+      "Surya Geromu bekerja sebagai penjahit.",
+      "penjahit"
+     ],
+     [
+      659,
+      "Surya Sawiba bekerja sebagai arsitek.",
+      "arsitek"
+     ],
+     [
+      675,
+      "Surya Kenora bekerja sebagai penjahit.",
+      "penjahit"
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Ayu Kabaka?",
+    "gold": null,
+    "reads": [
+     [
+      315,
+      "Ayu Ragesa bekerja sebagai penjahit.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      765,
+      "Ayu Lawila bekerja sebagai nelayan.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1089,
+      "Ayu Tilula bekerja sebagai montir.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Surya Babala dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      1613,
+      "Nur Babala lahir di kota Gelaja.",
+      "Gelaja"
+     ],
+     [
+      1614,
+      "Nur Babala adalah ketua tim Rajama.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1612,
+      "Nur Babala memelihara seekor kucing bernama Maja.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Ketut Ladidi?",
+    "gold": null,
+    "reads": [
+     [
+      914,
+      "Ketut Papamu bekerja sebagai montir.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1362,
+      "Ketut Lawipa bekerja sebagai montir.",
+      "montir"
+     ],
+     [
+      1599,
+      "Ketut Rakawi bekerja sebagai penjahit.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Eko Jadima?",
+    "gold": null,
+    "reads": [
+     [
+      93,
+      "Makanan favorit Eko Timala adalah rawon.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      301,
+      "Makanan favorit Eko Diwige adalah rawon.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      1261,
+      "Makanan favorit Eko Satiba adalah rawon.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Surya Gesati?",
+    "gold": null,
+    "reads": [
+     [
+      205,
+      "Makanan favorit Surya Geromu adalah rawon.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1858,
+      "Makanan favorit Surya Marake adalah rendang.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      49,
+      "Makanan favorit Surya Surowi adalah ayam betutu.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Andi Mumuka?",
+    "gold": null,
+    "reads": [
+     [
+      336,
+      "Ruang kerja Andi Mukero berada di lantai 15.",
+      "15"
+     ],
+     [
+      448,
+      "Ruang kerja Andi Samuba berada di lantai 18.",
+      "18"
+     ],
+     [
+      853,
+      "Ruang kerja Andi Tisusu berada di lantai 24.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Rudi Sakelu?",
+    "gold": null,
+    "reads": [
+     [
+      1185,
+      "Ruang kerja Rudi Noropa berada di lantai 2.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1390,
+      "Ruang kerja Rudi Sabapa berada di lantai 28.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1461,
+      "Ruang kerja Rudi Dimupa berada di lantai 6.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Nur Rajaro dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      98,
+      "Nur Lababa lahir di kota Basage.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      233,
+      "Nur Bamake lahir di kota Wilasa.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      239,
+      "Nur Diromu lahir di kota Lajadi.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Indah Mumasu?",
+    "gold": null,
+    "reads": [
+     [
+      847,
+      "Ruang kerja Indah Mukeke berada di lantai 7.",
+      "7"
+     ],
+     [
+      900,
+      "Ruang kerja Indah Muroke berada di lantai 23.",
+      "23"
+     ],
+     [
+      942,
+      "Ruang kerja Indah Susage berada di lantai 29.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Rahmat Winodi dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      320,
+      "Rahmat Sululu lahir di kota Mamuti.",
+      "Mamuti"
+     ],
+     [
+      415,
+      "Rahmat Ludika lahir di kota Kakaro.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      469,
+      "Rahmat Rosaro lahir di kota Sujasa.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Rina Rasasa?",
+    "gold": null,
+    "reads": [
+     [
+      733,
+      "Rina Wiwino bekerja sebagai arsitek.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      931,
+      "Rina Jasamu bekerja sebagai penjahit.",
+      "penjahit"
+     ],
+     [
+      1845,
+      "Rina Keramu bekerja sebagai pilot.",
+      "pilot"
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Eko Bamala dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      137,
+      "Eko Robadi lahir di kota Nowipa.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      261,
+      "Eko Ronono lahir di kota Dirasu.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      435,
+      "Eko Lukeba lahir di kota Jatidi.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Joko Wikaba?",
+    "gold": null,
+    "reads": [
+     [
+      439,
+      "Joko Tidiba bekerja sebagai penjahit.",
+      "penjahit"
+     ],
+     [
+      68,
+      "Joko Jajawi lahir di kota Rasasu.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      69,
+      "Makanan favorit Joko Jajawi adalah gudeg.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Dewi Jawidi?",
+    "gold": null,
+    "reads": [
+     [
+      523,
+      "Dewi Wisasa bekerja sebagai nelayan.",
+      "nelayan"
+     ],
+     [
+      687,
+      "Dewi Kelala bekerja sebagai penjahit.",
+      "penjahit"
+     ],
+     [
+      927,
+      "Dewi Mubapa bekerja sebagai penjahit.",
+      "penjahit"
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Ketut Kesati dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      630,
+      "Ketut Lujasa lahir di kota Muwiba.",
+      "Muwiba"
+     ],
+     [
+      1129,
+      "Ketut Dipala lahir di kota Pagedi.",
+      "Pagedi"
+     ],
+     [
+      1293,
+      "Ketut Kakake lahir di kota Kebama.",
+      "Kebama"
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Mega Mumura?",
+    "gold": null,
+    "reads": [
+     [
+      58,
+      "Makanan favorit Mega Rabasu adalah rawon.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1190,
+      "Makanan favorit Mega Gemuja adalah pempek.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1480,
+      "Makanan favorit Mega Karake adalah bakso.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Putri Sasuma dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      555,
+      "Putri Jakama lahir di kota Sunopa.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      916,
+      "Putri Kelalu lahir di kota Kesadi.",
+      "Kesadi"
+     ],
+     [
+      1603,
+      "Putri Mulara lahir di kota Muwiti.",
+      "Informasi tersebut tidak ada dalam teks."
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Dedi Sabaro?",
+    "gold": null,
+    "reads": [
+     [
+      125,
+      "Dedi Muluno bekerja sebagai pilot.",
+      "pilot"
+     ],
+     [
+      641,
+      "Dedi Kakera bekerja sebagai arsitek.",
+      "arsitek"
+     ],
+     [
+      977,
+      "Dedi Kenosu bekerja sebagai pilot.",
+      "pilot"
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Surya Gesusu?",
+    "gold": null,
+    "reads": [
+     [
+      207,
+      "Surya Geromu bekerja sebagai penjahit.",
+      "penjahit"
+     ],
+     [
+      659,
+      "Surya Sawiba bekerja sebagai arsitek.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      675,
+      "Surya Kenora bekerja sebagai penjahit.",
+      "Teks tidak menyebutkan hal itu."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Dedi Madipa?",
+    "gold": null,
+    "reads": [
+     [
+      101,
+      "Ruang kerja Dedi Raroge berada di lantai 29.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      385,
+      "Ruang kerja Dedi Rawike berada di lantai 29.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      640,
+      "Ruang kerja Dedi Kakera berada di lantai 26.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ]
+    ]
+   },
+   {
+    "q": "Di lantai berapa ruang kerja Dewi Wirage?",
+    "gold": null,
+    "reads": [
+     [
+      83,
+      "Ruang kerja Dewi Noradi berada di lantai 30.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      286,
+      "Ruang kerja Dewi Ditika berada di lantai 14.",
+      "Informasi tersebut tidak ada dalam teks."
+     ],
+     [
+      574,
+      "Ruang kerja Dewi Lumadi berada di lantai 12.",
+      "12"
+     ]
+    ]
+   },
+   {
+    "q": "Apa makanan kesukaan Lestari Murawi?",
+    "gold": null,
+    "reads": [
+     [
+      76,
+      "Makanan favorit Lestari Gesasa adalah gudeg.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      281,
+      "Makanan favorit Lestari Kawimu adalah rawon.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      453,
+      "Makanan favorit Lestari Mubapa adalah rendang.",
+      "rendang"
+     ]
+    ]
+   },
+   {
+    "q": "Apa pekerjaan Ketut Jasuke?",
+    "gold": null,
+    "reads": [
+     [
+      914,
+      "Ketut Papamu bekerja sebagai montir.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      1362,
+      "Ketut Lawipa bekerja sebagai montir.",
+      "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+     ],
+     [
+      1599,
+      "Ketut Rakawi bekerja sebagai penjahit.",
+      "penjahit"
+     ]
+    ]
+   },
+   {
+    "q": "Di kota mana Taufik Sukesu dilahirkan?",
+    "gold": null,
+    "reads": [
+     [
+      4,
+      "Taufik Rokage lahir di kota Barowi.",
+      "Teks tidak menyebutkan hal itu."
+     ],
+     [
+      438,
+      "Taufik Wikesa lahir di kota Sutiba.",
+      "Sutiba"
+     ],
+     [
+      664,
+      "Taufik Nopati lahir di kota Kaluge.",
+      "Kaluge"
+     ]
+    ]
+   }
+  ]
+ }
+}

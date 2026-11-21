@@ -1,0 +1,1615 @@
+{
+ "summary": {
+  "checkpoint": "reports\\checkpoints_100m_sft_qa\\gpt_sft_best.pt",
+  "step": null,
+  "n": 200,
+  "answerable_n": 144,
+  "contains_acc": 0.4097222222222222,
+  "token_f1": 0.4813530858822815,
+  "false_refusal_rate": 0.20833333333333334,
+  "unanswerable_n": 56,
+  "refusal_rate_on_unanswerable": 0.6607142857142857
+ },
+ "results": [
+  {
+   "q": "Apakah kuliner yang terkenal dari daerah surabaya ?",
+   "gold": "Lontong kupang",
+   "answerable": true,
+   "out": "Kupang Keraton.",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan Drs. K.H. Ahmad Syahiduddin lahir?",
+   "gold": "15 Maret 1956",
+   "answerable": true,
+   "out": "15 Maret 1956",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Siapakah yang menghilangkan benua Amerika ?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Kolumbus",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "Kapan Dragon Ball ditayangkan di TV pertama kali ?",
+   "gold": "25 April 1989",
+   "answerable": true,
+   "out": "1989",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Apakah kepanjangan dari Nekolim?",
+   "gold": "Neokolonialisme-Kolonialisme-Imperialisme",
+   "answerable": true,
+   "out": "Neokolonialisme-Imperialisme.",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Siapakah orang tua tiri Harry Potter?",
+   "gold": "Teks tidak menyebutkan hal itu.",
+   "answerable": false,
+   "out": "James Potter",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "Kapan partai komunis pertama kali berdiri di Tiongkok ?",
+   "gold": "1921",
+   "answerable": true,
+   "out": "1921",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Kapan Bank BCA mengeluarkan kartu debit?",
+   "gold": "2000-an",
+   "answerable": true,
+   "out": "2000-an",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Kapankah Organisasi Pembebasan Palestina dibentuk?",
+   "gold": "1964",
+   "answerable": true,
+   "out": "1964",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Kapan Adobe Illustrator dihapus?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Desember 1986",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "apakah mamalia yang terbesar didunia ?",
+   "gold": "Paus biru",
+   "answerable": true,
+   "out": "Paus biru",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Siapa ibu al-Ikhshīd?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Informasi tersebut tidak ada dalam teks",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Apa yang dimaksud dengan tokoh protagonis ?",
+   "gold": "tokoh utama dalam buku, film, permainan video, maupun teater",
+   "answerable": true,
+   "out": "tokoh utama dalam buku, film, permainan video, maupun teater",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apakah bahasa yang digunakan suku Pemahaman?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Bahasa Pekal",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "Dari manakah asal kitah tentang Ratu Laut Selatan?",
+   "gold": "Pulau Jawa dan Bali",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Shogun apa yang dipertahankan oleh Shogun Tokugawa?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "kapankah HUT kota Balikpapan?",
+   "gold": "10 Februari",
+   "answerable": true,
+   "out": "10 Februari 1887",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apakah pengertian matronimik?",
+   "gold": "Komomene sebuah nama yang berdasarkan pada nama ibu atau leluhur wanita",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "siapakah yang membangun Gedung Reichstag?",
+   "gold": "Paul Wallot",
+   "answerable": true,
+   "out": "Paul Wallot",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apa itu komunikasi interpersonal?",
+   "gold": "komunikasi yang terjadi antara dua orang atau lebih, yang biasanya tidak diatur secara formal",
+   "answerable": true,
+   "out": "komunikasi yang terjadi antara dua orang atau lebih, yang biasanya tidak diatur secara formal.",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apakah yang dimaksud dengan desa menurut Wikipedia?",
+   "gold": "Teks tidak menyebutkan hal itu.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Dimana Raja Ataulf meninggal?",
+   "gold": "istana Barcelona",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Kapan TVRI ditutup?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Dimana Pemilu di Palestina dilakukan?",
+   "gold": "tiga wilayah de facto yang menjadi wilayah kekuasaan Otoritas Palestina, yaitu Tepi Barat, Jerusalem Timur, dan Jalur Gaza",
+   "answerable": true,
+   "out": "Palestina",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Bahasa apa yang digunakan dalam Kitab Yesus bin Sirakh?",
+   "gold": "Ibrani",
+   "answerable": true,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Kapan Hydatius meninggal?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "400",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "Apa yang dimaksud dengan homeostatis ?",
+   "gold": "ketahanan atau mekanisme pengaturan lingkungan kesetimbangan dinamis dalam (badan organisme) yang konstan",
+   "answerable": true,
+   "out": "ketahanan atau mekanisme pengaturan lingkungan kesetimbangan dinamis dalam (badan organisme yang konstan) yang konstan",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Bagaimanakah sistem pemerintahan di Jepang ?",
+   "gold": "monarki konstitusional yang di dalamnya terdapat kuasa dari seorang Kaisar yang masih dibatasi dan hanya diturunkan terutama ketika melakukan tugas resmi",
+   "answerable": true,
+   "out": "monarki konstitusional yang di dalamnya terdapat kuasa dari seorang Kaisar yang masih dibatasi dan hanya diturunkan terutama ketika melakukan tugas resmi",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Siapa Raja Jerman pertama?",
+   "gold": "Wilhelm I",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "kapankah SpongeBob pertama kali dirilis?",
+   "gold": "1999",
+   "answerable": true,
+   "out": "1999",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apakah fungsi utama pesawat Hercules?",
+   "gold": "pesawat angkut militer utama untuk pasukan militer di banyak bagian dunia",
+   "answerable": true,
+   "out": "mengangkut tentara dan pesawat kargo yang sekarang ini digunakan untuk berbagai macam peran, termasuk infantri airborne, pengamatan cuaca, pengamatan cuaca, pengamatan cuaca, pengamatan",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Apa pengertian dari hewan herbivora ?",
+   "gold": "hewan yang hanya makan tumbuhan dan tidak memakan daging",
+   "answerable": true,
+   "out": "hewan yang hanya makan tumbuhan dan tidak memakan daging",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apa arti nama ilmiah tumbuhan rumput?",
+   "gold": "Teks tidak menyebutkan hal itu.",
+   "answerable": false,
+   "out": "Teks tidak menyebutkan hal itu.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "dimanakah Dipati Ukur meninggal?",
+   "gold": "Mataram",
+   "answerable": true,
+   "out": "Pasundan",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan Bandar Udara Internasional José Martí pertama dibuka?",
+   "gold": "24 Februari 1930",
+   "answerable": true,
+   "out": "Maret 1930",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Berapakah jumlah korban jiwa tsunami Sulawesi 2018?",
+   "gold": "2.045",
+   "answerable": true,
+   "out": "1.636",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Apa nama tempat bersejarah yang paling dikenal pemimpin Jerman?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Teks tidak menyebutkan hal itu.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Siapakah sultan pertama Brunei Darussalam ?",
+   "gold": "Muhammad",
+   "answerable": true,
+   "out": "Abdul Jalilul Akbar",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "siapakah pendiri Proton?",
+   "gold": "Mahathir Mohammad",
+   "answerable": true,
+   "out": "Mahathir Mohabid.",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan partai komunis pertama kali berdiri di Afrika Selatan?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "1921",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "Siapa yang bukan raja pertama Kesultanan Kacerobunan?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Sultan Kanoman",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "Dari manakah tarian Angin Mamiri Modern berasal?",
+   "gold": "Teks tidak menyebutkan hal itu.",
+   "answerable": false,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Apakah sistem politik Masyarakat Melayu?",
+   "gold": "musyawarah",
+   "answerable": true,
+   "out": "musyawarah",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "siapakah anak Pandu dalam wiracarita Mahabharata?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Widura",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "Siapakah Perdana menteri Israel sebelum Yitzhak Shamir?",
+   "gold": "Shimon Peres",
+   "answerable": true,
+   "out": "Shimon Peres",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Kapan Prof. dr. Lim Joey Thay menyelesaikan pendidikannya di luar negeri?",
+   "gold": "1960",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Di mana HootSuite didirikan?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Teks tidak menyebutkan hal itu.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "siapakah karakter utama Serial anime dand manga Eyeshield 21?",
+   "gold": "Sena",
+   "answerable": true,
+   "out": "Mamori Anezaki",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "dari manakah asal pohon Bidara ?",
+   "gold": "Asia Tengah",
+   "answerable": true,
+   "out": "Asia Tengah.",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apa definisi dari frekuensi ?",
+   "gold": "ukuran jumlah putaran ulang per peristiwa dalam satuan detik dengan satuan Hz",
+   "answerable": true,
+   "out": "ukuran jumlah putaran ulang peristiwa dalam satuan detik dengan satuan Hz",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan perahu pertama dibuat ?",
+   "gold": "masa Neolitikum",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "adakah mikroorganisme yang bisa bertahan di planet mars?",
+   "gold": "ekstremofil",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "dimanakah kantor pusat Djisamsoe?",
+   "gold": "Surabaya, Jawa Timur",
+   "answerable": true,
+   "out": "Surabaya, Jawa Timur",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "berapakah luas Kota Pasuruan?",
+   "gold": "76,79 Km2",
+   "answerable": true,
+   "out": "76,79 Km2",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Dimanakah letak delta mahakam?",
+   "gold": "Kabupaten Kutai Kartanegara, tepatnya berada di Kecamatan Anggana, Muara Jawa, dan Sanga-Sanga",
+   "answerable": true,
+   "out": "Kabupaten Kutai Kartanegara",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Siapa yang mengkonsepkan Kanal Banjir Atlantik?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Siapa pendiri Gereja Bethany?",
+   "gold": "Prof. DR. Abraham Alex Tanuseputra",
+   "answerable": true,
+   "out": "Pdt. Prof. DR. Abraham Alex Tanuseputra",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Di mana kantor pemasaran Sony Entertainment Television?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Dimana Johnny Hiromu Kitagawa lahir?",
+   "gold": "Los Angeles, California, Amerika Serikat",
+   "answerable": true,
+   "out": "Teks tidak menyebutkan hal itu.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Kapan Adobe Illustrator yang paling bagus dirilis?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Desember 1986",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "Dari negara mana Hergé berasal ?",
+   "gold": "Belgia",
+   "answerable": true,
+   "out": "Georges Prosper Remi",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan Lothar II lahir?",
+   "gold": "9 Juni 1075",
+   "answerable": true,
+   "out": "113",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "dimanakah Dipati Ukur meninggal?",
+   "gold": "Mataram",
+   "answerable": true,
+   "out": "Pasundan",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "adakah mikroorganisme yang bisa bertahan di planet mars?",
+   "gold": "ekstremofil",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Apa yang dimaksud dengan kritikus seni?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "apakah yang dimaksud dengan dunia maya?",
+   "gold": "media elektronik dalam jaringan komputer yang banyak dipakai untuk keperluan komunikasi satu arah maupun timbal-balik secara online (terhubung langsung)",
+   "answerable": true,
+   "out": "media elektronik dalam jaringan komputer yang banyak dipakai untuk keperluan komunikasi satu arah maupun timbal-balik secara online (terhubung langsung).",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apakah yang dimaksud dengan demografi berdasarkan ensiklopedia?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Apakah cara berkembang biak ular Bakas?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Apakah yang masuk jenis psikopatologi?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Siapa penulis novel \"The Chronicles of Narnia\"?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Teks tidak menyebutkan hal itu.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Apa yang dimaksud dengan diler seni yang kontemporer?",
+   "gold": "Teks tidak menyebutkan hal itu.",
+   "answerable": false,
+   "out": "orang atau perusahaan yang menjual dan membeli karya seni.",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "dimanakah Squidward Tentacles bekerja?",
+   "gold": "Krusty Krab",
+   "answerable": true,
+   "out": "rumah berbentuk moai.",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Dimana Pelemparan di Praha terjadi?",
+   "gold": "Bohemia",
+   "answerable": true,
+   "out": "Bohemia dan menjadi alasan terjadinya Perang Tiga Puluh Tahun",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "berapakah luas Abu Dhabi?",
+   "gold": "67.340 kilometer persegi",
+   "answerable": true,
+   "out": "7.340 kilometer persegi",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "siapakah penemu televisi?",
+   "gold": "John Logie Baird",
+   "answerable": true,
+   "out": "John Logie Baird",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "dimanakah kantor pusat Kemenperin RI?",
+   "gold": "Jalan Jenderal Gatot Subroto, Jakarta, Indonesia",
+   "answerable": true,
+   "out": "JalanJenderal Gatot Subroto, Jakarta, Indonesia",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan Francis Fukuyama lahir ?",
+   "gold": "27 Oktober 1952",
+   "answerable": true,
+   "out": "28 Oktober 1953",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Apakah yang dimaksud dengan kelainan genetik ?",
+   "gold": "sebuah kondisi yang disebabkan oleh kelainan oleh satu atau lebih gen yang menyebabkan sebuah kondisi fenotipe klinis",
+   "answerable": true,
+   "out": "kondisi yang disebabkan oleh kelainan oleh satu atau lebih gen yang menyebabkan sebuah kondisi fenotipe klinis",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Berapakah luas Pulau Sumbawa?",
+   "gold": "14.386 km2",
+   "answerable": true,
+   "out": "14386 km2",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Bagaimana proses pembentukan jamur?",
+   "gold": "melakukan reproduksi secara aseksual dan seksual",
+   "answerable": true,
+   "out": "Teks tidak menyebutkan hal itu.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Dari manakah wangsa Komnenos berasal ?",
+   "gold": "Konstantinopel",
+   "answerable": true,
+   "out": "Konstantinopel, kota ini menjadi yang terdepan dalam segi kebudayaan dan kesejahteraan, utamanya pada masa Wangsa Komnenos.",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Berapa Gedung Reichstag yang dibangun?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Kapan upacara Belian Sentiu dilakukan?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Apa itu Penghargaan Nobel?",
+   "gold": "dianugerahkan setiap tahun kepada mereka yang telah melakukan penelitian yang luar biasa, menemukan teknik atau peralatan yang baru, atau telah melakukan kontribusi luar biasa ke masyarakat",
+   "answerable": true,
+   "out": "penghargaan tertinggi bagi mereka yang mempunyai jasa besar terhadap dunia.",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan Bank BCA menghapuskan kartu debit edisi khusus?",
+   "gold": "Teks tidak menyebutkan hal itu.",
+   "answerable": false,
+   "out": "2000-an",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "Berapakah jumlah poster Clannad?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Apa itu arsitektur Mughal ?",
+   "gold": "gaya arsitektur yang dikembangkan oleh Mughal pada abad ke-16 hingga ke-18 sepanjang kerajaan yang terus berubah di India Abad Pertengahan",
+   "answerable": true,
+   "out": "gaya arsitektur yang dikembangkan oleh Mughal pada abad ke-16 hingga ke-18 sepanjang kerajaan yang terus berubah di India Abad Pertengahan",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apakah pengertian dari frasa ?",
+   "gold": "rupakan satuan linguistik yang lebih besar dari kata dan lebih kecil dari klausa dan",
+   "answerable": true,
+   "out": "linguistik",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan Padre Pio lahir?",
+   "gold": "25 Mei 1887",
+   "answerable": true,
+   "out": "25 Mei 1887",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Kapan The Washington Post berdiri ?",
+   "gold": "1877",
+   "answerable": true,
+   "out": "1877",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apa penyebab kematian Islam Abduganiyevich Karimov?",
+   "gold": "menderita stroke",
+   "answerable": true,
+   "out": "Teks tidak menyebutkan hal itu.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "apakah yang definisi psikopatologi?",
+   "gold": "studi tentang penyakit mental, tekanan mental, dan abnormal/perilaku maladaptif",
+   "answerable": true,
+   "out": "studi tentang penyakit mental, tekanan mental, dan abnormal/perilaku maladaptif",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apakah nama pesawat Indonesia pertama ?",
+   "gold": "Dakota RI-001 Seulawah",
+   "answerable": true,
+   "out": "Dakota RI-001 Seulawah",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apakah yang dimaksud dengan ilmu astrologi ?",
+   "gold": "sistem pengetahuan untuk mengerti, dan menterjemahkan tentang kenyataan dan keberadaan manusiawi, berdasarkan posisi dan gerak-gerik relatif berbagai benda langit, terutama Matahari, Bulan, planet, dan lunar node",
+   "answerable": true,
+   "out": "pengetahuan untuk mengerti, dan menterjemahkan tentang kenyataan dan keberadaan manusiawi, berdasarkan posisi dan gerak-gerik relatif berbagai benda langit, terutama Matahari, Bulan, p",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan Komputer mikro mulai dikembangkan ?",
+   "gold": "1959",
+   "answerable": true,
+   "out": "1959",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Kapan PDRM dibentuk ?",
+   "gold": "1963",
+   "answerable": true,
+   "out": "24 Juli 1955",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Siapa penemu teori stimulus?",
+   "gold": "Thorndike",
+   "answerable": true,
+   "out": "Thorndike",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "siapakah aktivis Feminisme indonesia yang pertama?",
+   "gold": "Raden Ajeng Kartini",
+   "answerable": true,
+   "out": "Mary Wollstonecraft yang berjudul A Vindication of The Rights of Woman dianggap sebagai salah satu karya tulis feminis awal yang berisi kritik terhadap Revolusi Prancis yang",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan The Best Damn Thing dirilis?",
+   "gold": "Amerika Utara dan sebagian negara-negara Eropa pada tanggal 17 April 2007, serta di Inggris dan Australia tepat satu hari sebelumnya",
+   "answerable": true,
+   "out": "17 April 2007",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Apa lambang dari perusahaan Paramount Pictures?",
+   "gold": "gunung dengan lingkaran dari puluhan bintang",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Berapa frekuensi Radio Pelita Kasih?",
+   "gold": "FM 96,30MHz",
+   "answerable": true,
+   "out": "3 slogan yang diperkenalkan pada ulang tahun Radio Pelita Kasih (RPK) di yang dapat di dengarkan oleh seluruh masyarakat belahan dunia dengan menggunakan perangkat radio, atau melalui akses",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Berapa minggu masa kehamilan minggu tengah?",
+   "gold": "Teks tidak menyebutkan hal itu.",
+   "answerable": false,
+   "out": "4 minggu antara waktu menstruasi",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "tahun berapakah Kesultanan Aceh didirikan?",
+   "gold": "1496",
+   "answerable": true,
+   "out": "1524",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Apa nama badan PBB yang mengurus tentang perlindungan anak ?",
+   "gold": "UNICEF",
+   "answerable": true,
+   "out": "UNICEF",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Kapan Yoweri Kaguta Museveni lahir?",
+   "gold": "1944",
+   "answerable": true,
+   "out": "29 Februari 1986",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan Dr. George Habash terlibat dalam politik Palestina?",
+   "gold": "1948",
+   "answerable": true,
+   "out": "1948",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Dimanakah proklamasi dibacakan ?",
+   "gold": "Jalan Pegangsaan Timur 56, Jakarta Pusat",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "apakah yang dimaksudkan dengan Tsarevich?",
+   "gold": "gelar bagi putra tsar",
+   "answerable": true,
+   "out": "Tsarevich, gelar bagi putri tsarevich",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Apa maksud kata Whataboutisme?",
+   "gold": "teknik propaganda yang pernah digunakan oleh Uni Soviet saat berinteraksi dengan dunia Barat, kemudian menjadi bentuk propaganda di Rusia pasca-Soviet",
+   "answerable": true,
+   "out": "teknik propaganda yang pernah digunakan oleh Uni Soviet saat berinteraksi dengan dunia Barat, kemudian menjadi bentuk propaganda di Rusia pasca-Soviet",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Dimanakah tumbuhan kaktus sering dijumpai ?",
+   "gold": "daerah beriklim tropis dan subtropis",
+   "answerable": true,
+   "out": "daerah semi-gurun",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Apakah ajaran inti agama Bahá'í?",
+   "gold": "asas-asas keesaan Tuhan, kesatuan agama, dan persatuan umat manusia",
+   "answerable": true,
+   "out": "asas-asas keesaan Tuhan, kesatuan agama, dan persatuan umat manusia.",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apakah gereja terbesar di Swedia?",
+   "gold": "Gereja Swedia",
+   "answerable": true,
+   "out": "Gereja Swedia",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Darimanakah asal Marc Márquez?",
+   "gold": "Spanyol",
+   "answerable": true,
+   "out": "Spanyol, kelas Moto2 pada tahun 2011",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "siapakah karakter utama serial anime dan manga Eyeshield 21?",
+   "gold": "Sena",
+   "answerable": true,
+   "out": "Mamori Anezaki",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Di umur berapa Michael Trent Reznor mulai belajar musik?",
+   "gold": "lima",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Apa yang dimaksud dengan kritikus sastra menurut buku teori sastra?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Di negara manakah Meihaddam Joesosef Ronodipoero menjadi duta besar?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "berapakah luas Bendung Katulampa?",
+   "gold": "5.000 hektare",
+   "answerable": true,
+   "out": "5.000 hektare",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "dimanakah letak samudera pasifik?",
+   "gold": "di antara Asia dan Australia di sebelah barat, Amerika di sebelah timur, Antartika di sebelah selatan dan Samudra Arktik di sebelah utara",
+   "answerable": true,
+   "out": "Selat Malaka",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Apakah bahan bakar mesin jet?",
+   "gold": "aviation turbine fuel",
+   "answerable": true,
+   "out": "Teks tidak menyebutkan hal itu.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Siapa yang merumuskan naskah proklamasi Indonesia?",
+   "gold": "Tadashi Maeda, Tomegoro Yoshizumi, S. Nishijima, S. Miyoshi, Mohammad Hatta, Soekarno, dan Achmad Soebardjo",
+   "answerable": true,
+   "out": "Teks tidak menyebutkan hal itu.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "siapakah karakter utama serial anime dan manga Eyeshield 21?",
+   "gold": "Sena",
+   "answerable": true,
+   "out": "Mamori Anezaki",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "berapakah luas Bendung Katulampa?",
+   "gold": "5.000 hektare",
+   "answerable": true,
+   "out": "5.000 hektare",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apakah nama rumah adat suku Banjar?",
+   "gold": "Rumah Baanjung",
+   "answerable": true,
+   "out": "Rumah Baanjung",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Kapan Teori hubungan internasional diciptakan?",
+   "gold": "1939",
+   "answerable": true,
+   "out": "1939",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Tentang apakah cerita Blue Pi?",
+   "gold": "Teks tidak menyebutkan hal itu.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "apakah arti dari antifungal?",
+   "gold": "golongan obat yang bersifat fungisida atau fungistatik yang dapat digunakan untuk mengobati dan mencegah mikosis seperti kutu air, kurap, kandidiasis, infeksi sistemik serius seperti meningitis kriptokokus, dan lain-lain",
+   "answerable": true,
+   "out": "suatu kelompok obat yang berasal dari tanaman yang bersifat fungisida atau fungisida atau fungisida atau fungisida",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan film animasi Monster,Inc dirilis?",
+   "gold": "2001",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Apakah perusahaan produksi roti terkecil di luar Inggris?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "PT Nippo Indsari Corpindo Tbk",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "Kapan film James Bond pertama dirilis ?",
+   "gold": "1962",
+   "answerable": true,
+   "out": "1962",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Mengapa Gereja Kebangunan Allah Afrika didirikan?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Dimana letak pabrik Italia Alfa Romeo?",
+   "gold": "Milan",
+   "answerable": true,
+   "out": "Milan",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apakah buku pertama dari novel \"The Chronicles of Narnia\"?",
+   "gold": "Sang Singa, sang Penyihir, dan Lemari",
+   "answerable": true,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "apakah warna ular Bakas?",
+   "gold": "merah atau merah tua",
+   "answerable": true,
+   "out": "merah atau merah",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Siapa yang melantik Raden Say Soekanto Tojokrodiatmodji sebagai Kepala Kepolisian Selatan?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Siapa bapak politik Indonesia?",
+   "gold": "Mohammad Hatta",
+   "answerable": true,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Kapan Gereja Bethany didirikan?",
+   "gold": "17 Januari 2003",
+   "answerable": true,
+   "out": "17 Januari 2003.",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Mengapa Faisal bin Musaid menyelamatkan Raja Afrika Faisal Bin 'Abdul 'Aziz?",
+   "gold": "Teks tidak menyebutkan hal itu.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Dimana letak Orléans?",
+   "gold": "muara Sungai Mississippi",
+   "answerable": true,
+   "out": "Amerika Serikat",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Siapa sutradara film Sleeping Beauty?",
+   "gold": "Les Clark, Eric Larson, dan Wolfgang Reitherman",
+   "answerable": true,
+   "out": "Charles Perrault",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan ayah Muslim Abdul Hamid kendal lahir?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "1915 M",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "Apa yang dimaksud dengan tokoh antagonis?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "tokoh utama dalam buku, film, permainan video, maupun teater",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "Kapan Alfonso VI lahir?",
+   "gold": "Juni 1040",
+   "answerable": true,
+   "out": "1065",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "kapankah HUT kota Balikpapan?",
+   "gold": "10 Februari",
+   "answerable": true,
+   "out": "10 Februari 1887",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "apakah yang dimaksud dengan polimer ?",
+   "gold": "sejumlah molekul besar yang terdiri dari unit unit yang berulang yang disebut monomer",
+   "answerable": true,
+   "out": "sejumlah molekul besar yang terdiri dari unit unit yang berulang yang disebut monomer",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apa definisi dari investasi ekuitas menurut buku saham?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "mengapa Paus Yohanes Paulus I menjabat sebagai Paus hanya 33 hari?",
+   "gold": "meninggal dunia",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "kapan Sunan Giri lahir ?",
+   "gold": "1442",
+   "answerable": true,
+   "out": "1442",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "di tim apakah Marc Márquez Alenta mendapatkan gelar juara dunia kelas 125cc pertama kali?",
+   "gold": "KTM",
+   "answerable": true,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Kapan Thomas Arkidiakonus lahir ?",
+   "gold": "awal abad ke-13",
+   "answerable": true,
+   "out": "abad ke-13",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Apakah kandungan molekul yang jarang terdapat dalam lemak?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "berapakah luas Kebun Binatang Siantar?",
+   "gold": "4.5 hektare",
+   "answerable": true,
+   "out": "4.5 hektare",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apakah fungsi utama seorang pemimpin dalam komunitas?",
+   "gold": "membantu kelompok untuk belajar memutuskan dan bekerja secara lebih efisien dalam peranannya sebagai pelatih seorang pemimpin dapat memberikan bantuan-bantuan yang khas",
+   "answerable": true,
+   "out": "membantu kelompok untuk belajar memutuskan dan bekerja secara lebih efisien dalam peranannya sebagai pelatih seorang pemimpin",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Siapa yang menciptakan alat Megafon?",
+   "gold": "Athanasius Kircher",
+   "answerable": true,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Bagaimana Porifera berkembangbiak?",
+   "gold": "seksual atau aseksual",
+   "answerable": true,
+   "out": "Teks tidak menyebutkan hal itu.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Apakah definisi dari femininitas?",
+   "gold": "sebuah kata sifat, adjektif yang berarti \"kewanitaan\" atau menunjukkan sifat perempuan",
+   "answerable": true,
+   "out": "kewanitaan",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Apa nama PT yang memproduksi bir Bintang varian yang paling populer?",
+   "gold": "Teks tidak menyebutkan hal itu.",
+   "answerable": false,
+   "out": "Teks tidak menyebutkan hal itu.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Kapankah nabi Musa dihapus sebagai nabi ?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "1450 SM.",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "Apa nama seni bela diri yang modern dari Nusantara?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Teks tidak menyebutkan hal itu.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "siapakah Puteri Indonesia yang ke 18?",
+   "gold": "Sonia Fergina Citra",
+   "answerable": true,
+   "out": "Maria Fitryanti Herlambang dari Kalimantan Barat",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Apakah kepanjangan dari KKI?",
+   "gold": "Konsil Kedokteran Indonesia",
+   "answerable": true,
+   "out": "Konsil Kedokteran Indonesia",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Abad keberapakah zaman feodal Jepang?",
+   "gold": "ke-12 hingga abad ke-19",
+   "answerable": true,
+   "out": "abad ke-19",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Dari manakah adal club CONMEBOL?",
+   "gold": "Amerika Selatan",
+   "answerable": true,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "siapakah penerus Asyurbanipal?",
+   "gold": "Asur-etillu-ili",
+   "answerable": true,
+   "out": "Ashur-etilu-iliul-ilani, saudara laki-lakinya Sinsharishkun, jenderal Sinsharishkun, jenderal Sinsharishkun, jenderal Sinsharishk",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Dari manakah asal kata Perayaan Ekaristi?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Siapakah tokoh dalam wiracarita Mahabharata yang memiliki banyak ilmu kesaktian?",
+   "gold": "Teks tidak menyebutkan hal itu.",
+   "answerable": false,
+   "out": "Dretarasta, sedangkan adiknya Widura",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "dimanakah kantor pusat Djisamsoe?",
+   "gold": "Surabaya, Jawa Timur",
+   "answerable": true,
+   "out": "Surabaya, Jawa Timur",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apa bahasa mayoritas penduduk Australia ?",
+   "gold": "Bahasa Inggris Australia",
+   "answerable": true,
+   "out": "Inggris",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan Christiaan Snouck Hurgronje meninggal ?",
+   "gold": "1936",
+   "answerable": true,
+   "out": "1926",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Apa nama bandara di Penang?",
+   "gold": "Bandar Udara Internasional Penang",
+   "answerable": true,
+   "out": "Bandar Udara Internasional Penang (IATA: PEN, ICAO: WMKP)",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Kapan Yahoo! Koprol mulai diboikot di Indonesia?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Apa yang membuat posisi Ferdinand sebagai pewaris tahta tidak menguntungkan?",
+   "gold": "haknya berkuasa dalam pemerintahan di hapus oleh orang tuanya dan Godoy",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Apakah bilangan bulat?",
+   "gold": "bilangan cacah (0, 1, 2, 3, ...) dan negatifnya (-1, -2, -3, ...; -0 adalah sama dengan 0 sehingga tidak lagi dimasukkan secara terpisah)",
+   "answerable": true,
+   "out": "0,12, 3, ..., dan negatifnya (-1, -2, ...; -0 adalah sama dengan 0 sehingga tidak lagi dimasukkan secara terpisah).",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Siapa orang tua Lestrangulisme?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Siapa pendiri Institut Leimena?",
+   "gold": "Jakob Tobing, Mangara Tambunan, Matius Ho, Radja Kami Sembiring Meliala, dan Viveka Nanda Leimena",
+   "answerable": true,
+   "out": "Jakob Tobing, Mangara Tambunan, Matius Ho, Radja Kami Sembiring Meliala, dan Viveka Nanda Leimena",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Kapankah Gempa bumi dan tsunami Sulawesi 2018 terjadi ?",
+   "gold": "28 September 2018, pukul 18.02 WITA",
+   "answerable": true,
+   "out": "28km utara Donggala dan 80km barat laut kota Palu",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan tayangan pertama acara Hikmah Fajar?",
+   "gold": "12 Februari 1994",
+   "answerable": true,
+   "out": "12 Maret 1994",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan Walt Disney Animation Studios berdiri ?",
+   "gold": "16 Oktober 1923",
+   "answerable": true,
+   "out": "16 Oktober 1923",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Buah apa yang berkulit halus?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "berapakah jumlah kabupaten di Indonesia?",
+   "gold": "415",
+   "answerable": true,
+   "out": "45",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "kapankah Sony PlayStation 3 dirilis?",
+   "gold": "11 November 2006",
+   "answerable": true,
+   "out": "11 November 2006",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Berapa jumlah anggota dari G7?",
+   "gold": "tujuh",
+   "answerable": true,
+   "out": "Teks tidak menyebutkan hal itu.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Berapa berat Mesin kepung?",
+   "gold": "180 ton",
+   "answerable": true,
+   "out": "150 ton",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan situs Multiply tutup layanan ?",
+   "gold": "Maret 2013",
+   "answerable": true,
+   "out": "Maret 2013",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Kapan Toko Gunung Agung ditutup?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Teks tidak menyebutkan hal itu.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Abad keberapakah zaman modern Jepang?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "abad ke-12",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "Apa nama PT yang melarang produksi bir Bintang?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "PT Multi Bintang Indonesia",
+   "refused": false,
+   "hit": null
+  },
+  {
+   "q": "Siapa produser film Lilo & Stitch?",
+   "gold": "Clark Spencer",
+   "answerable": true,
+   "out": "Clark Spencer",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "kapan musik hip hop pertama kali muncul ?",
+   "gold": "1970",
+   "answerable": true,
+   "out": "1970an",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Di siaran tv apa Hikmah Fajar ditayangkan?",
+   "gold": "RCTI",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Berapa harga tiket Museum Louvre?",
+   "gold": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Siapakah yang melakukan perbudakan di Amerika Serikat?",
+   "gold": "Teks tidak menyebutkan hal itu.",
+   "answerable": false,
+   "out": "Teks tidak menyebutkan hal itu.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Jamur apa yang tidak dapat dikonsumsi oleh manusia, tetapi boleh dikonsumsi babi?",
+   "gold": "Informasi tersebut tidak ada dalam teks.",
+   "answerable": false,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Berapa luas Las Vegas?",
+   "gold": "131.3 mil persegi",
+   "answerable": true,
+   "out": "131.3 mil persegi",
+   "refused": false,
+   "hit": true
+  },
+  {
+   "q": "Apakah jenis hiu terkecil di dunia?",
+   "gold": "Teks tidak menyebutkan hal itu.",
+   "answerable": false,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": null
+  },
+  {
+   "q": "Siapa bapak Teknik industri?",
+   "gold": "Frederick Winslow Taylor",
+   "answerable": true,
+   "out": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Siapa itu keluarga Korawa?",
+   "gold": "\"keturunan (raja)",
+   "answerable": true,
+   "out": "Informasi tersebut tidak ada dalam teks.",
+   "refused": true,
+   "hit": false
+  },
+  {
+   "q": "Siapa sutradara film Sleeping Beauty?",
+   "gold": "Les Clark, Eric Larson, dan Wolfgang Reitherman",
+   "answerable": true,
+   "out": "Charles Perrault",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Berapa lama Teungku Ilyas Leube menjadi Perdana Menteri Aceh Merdeka ke-2?",
+   "gold": "1980-1982",
+   "answerable": true,
+   "out": "1978",
+   "refused": false,
+   "hit": false
+  },
+  {
+   "q": "Kapan Johann Ludwig Tieck lahir ?",
+   "gold": "31 Mei 1773",
+   "answerable": true,
+   "out": "31 Mei 1773",
+   "refused": false,
+   "hit": true
+  }
+ ]
+}

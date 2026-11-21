@@ -1,0 +1,261 @@
+{
+ "seen_attrs_phrasing_A": {
+  "answerable": {
+   "benar": 58,
+   "n": 143,
+   "rasio": 0.40559440559440557
+  },
+  "correction": {
+   "benar": 1,
+   "n": 14,
+   "rasio": 0.07142857142857142
+  },
+  "unanswerable_attr": {
+   "benar": 16,
+   "n": 19,
+   "rasio": 0.8421052631578947
+  },
+  "unanswerable_person": {
+   "benar": 12,
+   "n": 24,
+   "rasio": 0.5
+  }
+ },
+ "seen_attrs_phrasing_B": {
+  "answerable": {
+   "benar": 60,
+   "n": 143,
+   "rasio": 0.4195804195804196
+  },
+  "correction": {
+   "benar": 1,
+   "n": 14,
+   "rasio": 0.07142857142857142
+  },
+  "unanswerable_attr": {
+   "benar": 14,
+   "n": 19,
+   "rasio": 0.7368421052631579
+  },
+  "unanswerable_person": {
+   "benar": 11,
+   "n": 24,
+   "rasio": 0.4583333333333333
+  }
+ },
+ "unseen_attrs_A": {
+  "answerable": {
+   "benar": 21,
+   "n": 73,
+   "rasio": 0.2876712328767123
+  },
+  "unanswerable_attr": {
+   "benar": 9,
+   "n": 13,
+   "rasio": 0.6923076923076923
+  },
+  "correction": {
+   "benar": 0,
+   "n": 2,
+   "rasio": 0.0
+  },
+  "unanswerable_person": {
+   "benar": 2,
+   "n": 12,
+   "rasio": 0.16666666666666666
+  }
+ },
+ "unseen_attrs_B": {
+  "answerable": {
+   "benar": 14,
+   "n": 74,
+   "rasio": 0.1891891891891892
+  },
+  "correction": {
+   "benar": 0,
+   "n": 7,
+   "rasio": 0.0
+  },
+  "unanswerable_attr": {
+   "benar": 7,
+   "n": 8,
+   "rasio": 0.875
+  },
+  "unanswerable_person": {
+   "benar": 6,
+   "n": 11,
+   "rasio": 0.5454545454545454
+  }
+ },
+ "handwritten": {
+  "n": 20,
+  "recall@3": 1.0,
+  "acc_oracle": 0.2,
+  "acc_top1": 0.2,
+  "acc_top3": 0.1,
+  "refusal_unanswerable_top3": 1.0,
+  "unanswerable_n": 8
+ },
+ "handwritten_rows": [
+  {
+   "q": "Kapan rapat evaluasi bulanan diadakan?",
+   "gold": "Kamis",
+   "hit_top3": true,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+  },
+  {
+   "q": "Di ruang mana rapat evaluasi bulanan berlangsung?",
+   "gold": "Melati",
+   "hit_top3": true,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+  },
+  {
+   "q": "Siapa yang dititipi kunci gudang oleh Bu Hartini?",
+   "gold": "Slamet",
+   "hit_top3": true,
+   "oracle": "Informasi tersebut tidak ada dalam teks.",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "top3": "Informasi tersebut tidak ada dalam teks."
+  },
+  {
+   "q": "Ke kota mana Bu Hartini berangkat?",
+   "gold": "Medan",
+   "hit_top3": true,
+   "oracle": "Medan",
+   "top1": "Medan",
+   "top3": "Informasi tersebut tidak ada dalam teks."
+  },
+  {
+   "q": "Apa kata sandi wifi kantor sekarang?",
+   "gold": "biruLangit77",
+   "hit_top3": true,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+  },
+  {
+   "q": "Anak Pak Wayan yang paling kecil siapa namanya?",
+   "gold": "Komang",
+   "hit_top3": true,
+   "oracle": "Informasi tersebut tidak ada dalam teks.",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "top3": "Informasi tersebut tidak ada dalam teks."
+  },
+  {
+   "q": "Komang duduk di kelas berapa?",
+   "gold": "lima",
+   "hit_top3": true,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+  },
+  {
+   "q": "Berapa lama pengiriman dari Surabaya sampai?",
+   "gold": "tiga hari",
+   "hit_top3": true,
+   "oracle": "tiga hari kerja",
+   "top1": "tiga hari kerja",
+   "top3": "tiga hari kerja"
+  },
+  {
+   "q": "Pada hari apa saja Dokter Anindya praktik?",
+   "gold": "Senin sampai Rabu",
+   "hit_top3": true,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+  },
+  {
+   "q": "Jam berapa praktik Dokter Anindya dimulai?",
+   "gold": "16.00",
+   "hit_top3": true,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+  },
+  {
+   "q": "Berapa harga kopi arabika Kerinci per kilogram?",
+   "gold": "85",
+   "hit_top3": true,
+   "oracle": "85 ribu",
+   "top1": "85 ribu",
+   "top3": "8ribu"
+  },
+  {
+   "q": "Kapan teknisi akan memperbaiki mesin cetak?",
+   "gold": "Jumat",
+   "hit_top3": true,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+  },
+  {
+   "q": "Atas nama siapa rekening koperasi desa?",
+   "gold": "Koperasi Maju Bersama",
+   "hit_top3": true,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top3": "Informasi tersebut tidak ada dalam teks."
+  },
+  {
+   "q": "Di mana festival layang-layang tahun ini diadakan?",
+   "gold": "Parangtritis",
+   "hit_top3": true,
+   "oracle": "Informasi tersebut tidak ada dalam teks.",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "top3": "Informasi tersebut tidak ada dalam teks."
+  },
+  {
+   "q": "Pada bulan apa festival layang-layang berlangsung?",
+   "gold": "Agustus",
+   "hit_top3": true,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+  },
+  {
+   "q": "Makanan apa yang membuat Pak Darmawan alergi?",
+   "gold": "udang",
+   "hit_top3": true,
+   "oracle": "Teks tidak menyebutkan hal itu.",
+   "top1": "Teks tidak menyebutkan hal itu.",
+   "top3": "Teks tidak menyebutkan hal itu."
+  },
+  {
+   "q": "Kepada siapa laporan triwulan ketiga diserahkan?",
+   "gold": "Ratna",
+   "hit_top3": true,
+   "oracle": "Informasi tersebut tidak ada dalam teks.",
+   "top1": "Informasi tersebut tidak ada dalam teks.",
+   "top3": "Informasi tersebut tidak ada dalam teks."
+  },
+  {
+   "q": "Dari terminal mana bus jurusan Bandung berangkat?",
+   "gold": "Pulogebang",
+   "hit_top3": true,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top3": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan."
+  },
+  {
+   "q": "Berapa harga beras premium lima kilogram di Toko Sumber Rejeki?",
+   "gold": "78",
+   "hit_top3": true,
+   "oracle": "78 ribu",
+   "top1": "78 ribu",
+   "top3": "78 ribu"
+  },
+  {
+   "q": "Siapa pelatih tim voli putri sekolah?",
+   "gold": "Nuraini",
+   "hit_top3": true,
+   "oracle": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top1": "Maaf, jawabannya tidak terdapat dalam teks yang diberikan.",
+   "top3": "Teks tidak menyebutkan hal itu."
+  }
+ ]
+}
