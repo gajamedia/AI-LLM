@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Memori</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f6df6'/%3E%3Cpath d='M9 11h14M9 16h14M9 21h9' stroke='white' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --surface-2:#eff1f5; --text:#161a21; --muted:#596273; --border:#e1e4ea;
+  --accent:#2f6df6; --accent-ink:#ffffff; --accent-soft:#e8efff;
+  --ok:#17784a; --ok-soft:#e4f4ec; --warn:#85560a; --warn-soft:#fff2d3; --danger:#b3261e; --danger-soft:#fdeceb;
+  --shadow:0 1px 2px rgba(16,24,40,.06),0 6px 20px rgba(16,24,40,.06);
+  --radius:16px; --radius-sm:10px;
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1117; --surface:#161a22; --surface-2:#1d222c; --text:#e8ebf1; --muted:#9aa4b5; --border:#2a303b;
+    --accent:#6b9bff; --accent-ink:#0b1020; --accent-soft:#1a2748;
+    --ok:#5fd394; --ok-soft:#13301f; --warn:#f0c14b; --warn-soft:#38300f; --danger:#ff8f86; --danger-soft:#3a1b19;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1117; --surface:#161a22; --surface-2:#1d222c; --text:#e8ebf1; --muted:#9aa4b5; --border:#2a303b;
+  --accent:#6b9bff; --accent-ink:#0b1020; --accent-soft:#1a2748;
+  --ok:#5fd394; --ok-soft:#13301f; --warn:#f0c14b; --warn-soft:#38300f; --danger:#ff8f86; --danger-soft:#3a1b19;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--text);font:15px/1.5 var(--font);-webkit-font-smoothing:antialiased}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.app{max-width:1180px;margin:0 auto;padding:16px 20px 20px;display:grid;gap:16px;grid-template-columns:minmax(0,1.3fr) minmax(320px,1fr);
+  grid-template-rows:auto minmax(0,1fr);height:100dvh}
+header.top{grid-column:1/-1;display:flex;align-items:center;gap:12px}
+.logo{width:36px;height:36px;border-radius:10px;background:var(--accent);display:grid;place-items:center;flex:none}
+.logo svg{width:20px;height:20px}
+.brand{font-weight:650;font-size:18px;letter-spacing:-.01em}
+.brand small{display:block;font-weight:400;font-size:12px;color:var(--muted);letter-spacing:0;margin-top:-2px}
+.spacer{flex:1}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--border);font-size:13px;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:#e0a100}
+.dot.ok{background:#1fa463}.dot.bad{background:#d93025}
+.icon-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center}
+.icon-btn:hover{background:var(--surface-2)}
+.icon-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+.panel{min-height:0}
+.panel-chat{display:flex;flex-direction:column;min-height:0}
+.side{display:grid;grid-template-rows:auto minmax(0,1fr);gap:16px;min-height:0}
+.card-h{display:flex;align-items:center;gap:8px;padding:14px 16px 0}
+.card-h h2{margin:0;font-size:15px;font-weight:650}
+.card-h .count{font-size:12px;color:var(--muted);background:var(--surface-2);padding:2px 8px;border-radius:999px}
+.card-b{padding:12px 16px 16px}
+
+/* chat */
+.chat{flex:1;overflow:auto;padding:18px 18px 8px;display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth}
+.msg{max-width:92%;animation:rise .25s ease both}
+.msg.user{align-self:flex-end;background:var(--accent);color:var(--accent-ink);padding:9px 14px;border-radius:16px 16px 4px 16px}
+.msg.ai{align-self:flex-start;width:min(100%,640px)}
+.ans{border:1px solid var(--border);background:var(--surface);border-radius:16px 16px 16px 4px;padding:14px 16px}
+.ans.ok{border-color:color-mix(in srgb,var(--ok) 35%,var(--border))}
+.ans.unknown{background:var(--surface-2)}
+.ans .big{font-size:19px;font-weight:600;letter-spacing:-.01em;word-break:break-word}
+.ans .lab{font-size:12px;color:var(--muted);margin-bottom:4px;display:flex;gap:8px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:2px 9px;border-radius:999px;background:var(--ok-soft);color:var(--ok);font-weight:600}
+.badge.muted{background:var(--surface);color:var(--muted);border:1px solid var(--border)}
+.src{margin-top:12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-2);padding:10px 12px;font-size:14px}
+.src b{font-size:12px;color:var(--muted);font-weight:600;display:block;margin-bottom:2px}
+mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;border-radius:4px;padding:0 2px}
+.callout{margin-top:10px;border-radius:var(--radius-sm);padding:10px 12px;font-size:14px;background:var(--warn-soft);color:var(--text);border:1px solid color-mix(in srgb,var(--warn) 40%,transparent)}
+.callout strong{color:var(--warn)}
+.callout ul{margin:6px 0 0;padding-left:18px}
+.row-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.btn{border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:7px 12px;font-size:14px}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:transparent;font-weight:600}
+.btn.primary:hover{filter:brightness(1.06)}
+.btn.danger{color:var(--danger)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.thinking{display:inline-flex;gap:5px;padding:12px 14px;border-radius:16px;background:var(--surface-2);align-items:center;color:var(--muted);font-size:13px}
+.thinking i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.1s infinite ease-in-out}
+.thinking i:nth-child(2){animation-delay:.15s}.thinking i:nth-child(3){animation-delay:.3s}
+.empty{margin:auto;text-align:center;max-width:420px;padding:20px;color:var(--muted)}
+.empty h3{margin:0 0 6px;color:var(--text);font-size:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.chip{border:1px solid var(--border);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--text)}
+.chip:hover{background:var(--accent-soft);border-color:var(--accent)}
+.composer{border-top:1px solid var(--border);padding:12px 14px calc(12px + env(safe-area-inset-bottom));display:grid;gap:8px}
+.input-row{display:flex;gap:8px;align-items:flex-end}
+textarea,input[type=search]{width:100%;border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:10px 12px;resize:none;line-height:1.45}
+textarea:focus,input[type=search]:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.send{width:44px;height:44px;border-radius:12px;border:0;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;flex:none}
+.send svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.send:disabled{opacity:.5;cursor:not-allowed}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:transparent;padding:5px 11px;font-size:13px;color:var(--muted)}
+.seg button[aria-pressed=true]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.meta-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+
+/* teach + notes */
+.hints{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:6px}
+.hints li{font-size:13px;background:var(--warn-soft);border-radius:8px;padding:6px 10px;color:var(--text)}
+.hints li.good{background:var(--ok-soft)}
+.teach-foot{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.counter{font-size:12px;color:var(--muted);margin-left:auto}
+.editing{margin-bottom:8px;font-size:13px;background:var(--accent-soft);color:var(--accent);border-radius:8px;padding:6px 10px;display:flex;gap:8px;align-items:center}
+.editing button{margin-left:auto;border:0;background:transparent;color:inherit;text-decoration:underline}
+.notes-card{display:flex;flex-direction:column;min-height:0}
+.notes-card .card-b{display:flex;flex-direction:column;min-height:0;flex:1}
+.notes{list-style:none;margin:10px 0 0;padding:0;overflow:auto;display:grid;gap:8px;align-content:start;min-height:0;flex:1}
+.note{border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 11px;display:grid;gap:6px;background:var(--surface)}
+.note.flash{animation:flash 1.6s ease}
+.note p{margin:0;font-size:14px;word-break:break-word}
+.note .top{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.note .tools{margin-left:auto;display:flex;gap:4px}
+.link{border:0;background:transparent;color:var(--muted);padding:2px 6px;border-radius:6px;font-size:12px}
+.link:hover{background:var(--surface-2);color:var(--text)}
+.link.danger:hover{color:var(--danger)}
+.confirm{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--danger)}
+.empty-notes{color:var(--muted);font-size:14px;padding:14px 4px}
+
+.toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:var(--text);color:var(--bg);padding:9px 16px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:30;max-width:90vw}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+dialog{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--text);max-width:560px;width:calc(100% - 32px);padding:0;box-shadow:var(--shadow)}
+dialog::backdrop{background:rgba(8,12,20,.5)}
+dialog .d-h{display:flex;align-items:center;padding:16px 18px 0}
+dialog h2{margin:0;font-size:17px}
+dialog .d-b{padding:10px 18px 18px;font-size:14px}
+dialog ol{padding-left:20px;margin:8px 0}
+dialog li{margin:6px 0}
+.good-bad{display:grid;gap:6px;margin:8px 0}
+.good-bad div{border-radius:8px;padding:6px 10px;font-size:13px}
+.good-bad .g{background:var(--ok-soft)}.good-bad .b{background:var(--danger-soft)}
+.tabs{display:none}
+
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+@keyframes flash{0%{background:var(--accent-soft);border-color:var(--accent)}100%{background:var(--surface)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+@media (max-width:860px){
+  .app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);padding:12px 12px 0;gap:12px}
+  .side{display:contents}
+  .panel{display:none}
+  body[data-tab="ask"] .panel-chat{display:flex}
+  body[data-tab="teach"] .panel-teach{display:block;overflow:auto}
+  body[data-tab="notes"] .panel-notes{display:flex;overflow:hidden}
+  .panel-chat,.panel-notes{border-radius:var(--radius)}
+  .tabs{display:grid;grid-template-columns:repeat(3,1fr);position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--border);padding:6px 8px calc(6px + env(safe-area-inset-bottom));gap:6px;z-index:20}
+  .tabs button{border:0;background:transparent;border-radius:10px;padding:8px 4px;display:grid;gap:2px;justify-items:center;font-size:12px;color:var(--muted)}
+  .tabs button[aria-selected=true]{color:var(--accent);background:var(--accent-soft);font-weight:600}
+  .tabs svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .app{padding-bottom:78px;height:100dvh}
+  .brand small,.pill .txt-long{display:none}
+}
+</style>
+</head>
+<body data-tab="ask">
+<div class="app">
+  <header class="top">
+    <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M5 8h14M5 12h14M5 16h9"/></svg></div>
+    <div class="brand">Memori<small>Ajari AI Anda, jawabannya selalu disertai sumber</small></div>
+    <div class="spacer"></div>
+    <span class="pill" id="status" role="status"><span class="dot" id="dot"></span><span id="statusText">Memuat…</span></span>
+    <button class="icon-btn" id="helpBtn" aria-label="Panduan mengajar" title="Panduan mengajar"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.2a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1.1.9-1.1 1.7M12 17h.01"/></svg></button>
+    <button class="icon-btn" id="themeBtn" aria-label="Ganti tema" title="Ganti tema"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+  </header>
+
+  <main class="panel panel-chat card" aria-label="Tanya jawab">
+    <div class="chat" id="chat" aria-live="polite"></div>
+    <div class="composer">
+      <div class="input-row">
+        <label class="sr" for="q">Pertanyaan</label>
+        <textarea id="q" rows="1" maxlength="300" placeholder="Tanyakan sesuatu yang pernah Anda ajarkan…"></textarea>
+        <button class="send" id="send" aria-label="Kirim pertanyaan"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="meta-row">
+        <span>Ketelitian jawaban:</span>
+        <span class="seg" id="strict" role="group" aria-label="Ketelitian jawaban">
+          <button data-v="longgar" aria-pressed="false" title="Lebih sering menjawab, lebih mungkin keliru">Longgar</button>
+          <button data-v="seimbang" aria-pressed="true" title="Bawaan">Seimbang</button>
+          <button data-v="ketat" aria-pressed="false" title="Lebih sering menjawab 'belum tahu', hampir tidak mengarang">Ketat</button>
+        </span>
+      </div>
+    </div>
+  </main>
+
+  <div class="side">
+    <section class="panel panel-teach card" aria-label="Ajari">
+      <div class="card-h"><h2>Ajari AI</h2></div>
+      <div class="card-b">
+        <div class="editing" id="editing" hidden><span id="editingText"></span><button type="button" id="cancelEdit">Batal</button></div>
+        <label class="sr" for="note">Catatan baru</label>
+        <textarea id="note" rows="3" maxlength="600" placeholder="Tulis satu fakta, mis. “Bu Rina tinggal di Jalan Mawar nomor 5.”"></textarea>
+        <ul class="hints" id="hints"></ul>
+        <div class="chips" style="justify-content:flex-start;margin-top:10px" id="examples"></div>
+        <div class="teach-foot">
+          <button class="btn primary" id="save" disabled>Simpan ke memori</button>
+          <span class="counter" id="counter">0/600</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel panel-notes card notes-card" aria-label="Catatan tersimpan">
+      <div class="card-h"><h2>Catatan</h2><span class="count" id="count">0</span></div>
+      <div class="card-b">
+        <label class="sr" for="search">Cari catatan</label>
+        <input type="search" id="search" placeholder="Cari di catatan…">
+        <ul class="notes" id="notes"></ul>
+      </div>
+    </section>
+  </div>
+</div>
+
+<nav class="tabs" role="tablist" aria-label="Bagian">
+  <button role="tab" data-tab="ask" aria-selected="true"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Tanya</button>
+  <button role="tab" data-tab="teach" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Ajari</button>
+  <button role="tab" data-tab="notes" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg><span>Catatan <span id="tabCount"></span></span></button>
+</nav>
+
+<div class="toast" id="toast" role="status"></div>
+
+<dialog id="guide">
+  <div class="d-h"><h2>Cara mengajar agar jawabannya tepat</h2><span class="spacer"></span><button class="icon-btn" id="closeGuide" aria-label="Tutup"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="d-b">
+    <ol>
+      <li><b>Satu fakta per catatan.</b> Model kecil lebih akurat dengan kalimat pendek.</li>
+      <li><b>Sebut nama lengkap</b>, jangan “dia/ia/mereka”.</li>
+      <li><b>Pakai tanggal atau hari yang pasti</b>, bukan “kemarin/besok”.</li>
+      <li><b>Memperbarui fakta:</b> hapus catatan lama (atau pakai “Ubah”), lalu simpan yang baru.</li>
+      <li><b>Selalu cek sumber</b> yang ditampilkan di bawah jawaban.</li>
+    </ol>
+    <div class="good-bad">
+      <div class="g">✓ Bu Rina tinggal di Jalan Mawar nomor 5.</div>
+      <div class="b">✗ Dia pindah ke sana kemarin dan bekerja sebagai guru sambil mengurus kebun dan toko.</div>
+    </div>
+    <p style="color:var(--muted);margin:10px 0 0">Model ini kecil (100 juta parameter): pada catatan sederhana sering benar, pada kalimat rumit hanya sekitar separuhnya. Jika tidak yakin, ia menjawab “belum tahu” alih-alih mengarang. Semua catatan tersimpan di komputer ini saja.</p>
+  </div>
+</dialog>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+var S={notes:[],editingId:null,asking:false,strict:"seimbang",newId:null};
+var EXAMPLE_NOTES=["Bu Rina tinggal di Jalan Mawar nomor 5.","Pak Joko bekerja sebagai montir bengkel di Bekasi.","Rapat tim produk dimulai pukul 09.30 di ruang Anggrek.","Harga satu kotak donat adalah 45 ribu rupiah."];
+var EXAMPLE_Q=["Di mana Bu Rina tinggal?","Apa pekerjaan Pak Joko?","Berapa harga satu kotak donat?"];
+
+function h(tag,attrs){var e=document.createElement(tag);attrs=attrs||{};
+  Object.keys(attrs).forEach(function(k){if(k==="class")e.className=attrs[k];else if(k==="text")e.textContent=attrs[k];else if(k.slice(0,2)==="on")e.addEventListener(k.slice(2),attrs[k]);else e.setAttribute(k,attrs[k]);});
+  for(var i=2;i<arguments.length;i++){var c=arguments[i];if(c==null)continue;e.appendChild(typeof c==="string"?document.createTextNode(c):c);}
+  return e;}
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){return null;}}
+function toast(msg){var t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove("show")},2600);}
+function api(path,opt){opt=opt||{};
+  return fetch(path,{method:opt.method||"GET",headers:{"Content-Type":"application/json"},body:opt.body?JSON.stringify(opt.body):undefined})
+    .then(function(r){return r.json().catch(function(){return {error:"Respons tidak valid"}}).then(function(j){if(!r.ok&&!j.error)j.error="Terjadi kesalahan ("+r.status+")";j._ok=r.ok;return j;});});}
+
+/* tema */
+function applyTheme(t){if(t)document.documentElement.setAttribute("data-theme",t);else document.documentElement.removeAttribute("data-theme");}
+applyTheme(store("memori.theme"));
+$("themeBtn").addEventListener("click",function(){
+  var cur=document.documentElement.getAttribute("data-theme");
+  var sysDark=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;
+  var next=(cur||(sysDark?"dark":"light"))==="dark"?"light":"dark";applyTheme(next);store("memori.theme",next);});
+
+/* tab (ponsel) */
+function setTab(t){document.body.setAttribute("data-tab",t);
+  document.querySelectorAll(".tabs button").forEach(function(b){b.setAttribute("aria-selected",String(b.getAttribute("data-tab")===t))});}
+document.querySelectorAll(".tabs button").forEach(function(b){b.addEventListener("click",function(){setTab(b.getAttribute("data-tab"))})});
+
+/* panduan */
+$("helpBtn").addEventListener("click",function(){var d=$("guide");if(d.showModal)d.showModal();else d.setAttribute("open","")});
+$("closeGuide").addEventListener("click",function(){$("guide").close()});
+$("guide").addEventListener("click",function(e){if(e.target===$("guide"))$("guide").close()});
+
+/* ketelitian */
+var savedStrict=store("memori.strict");if(savedStrict)S.strict=savedStrict;
+function renderStrict(){document.querySelectorAll("#strict button").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-v")===S.strict))});}
+document.querySelectorAll("#strict button").forEach(function(b){b.addEventListener("click",function(){S.strict=b.getAttribute("data-v");store("memori.strict",S.strict);renderStrict();})});
+renderStrict();
+
+/* catatan */
+function setCounts(){var n=S.notes.length;$("count").textContent=n;$("tabCount").textContent=n?("("+n+")"):"";
+  $("statusText").textContent="Siap · "+n+" catatan";}
+function renderNotes(){
+  var f=$("search").value.trim().toLowerCase();var ul=$("notes");ul.textContent="";
+  var items=S.notes.filter(function(n){return !f||n.text.toLowerCase().indexOf(f)>=0}).slice().reverse();
+  if(!items.length){ul.appendChild(h("li",{class:"empty-notes",text:S.notes.length?"Tidak ada catatan yang cocok.":"Belum ada catatan. Ajari AI satu fakta di sebelah."}));setCounts();return;}
+  items.forEach(function(n){
+    var li=h("li",{class:"note"+(S.newId===n.id?" flash":""),id:"note-"+n.id});
+    var tools=h("span",{class:"tools"});
+    var ubah=h("button",{class:"link",type:"button",text:"Ubah",onclick:function(){startEdit(n)}});
+    var hapus=h("button",{class:"link danger",type:"button",text:"Hapus"});
+    hapus.addEventListener("click",function(){
+      tools.textContent="";
+      tools.appendChild(h("span",{class:"confirm"},"Hapus?",
+        h("button",{class:"link danger",type:"button",text:"Ya",onclick:function(){removeNote(n.id)}}),
+        h("button",{class:"link",type:"button",text:"Batal",onclick:renderNotes})));});
+    tools.appendChild(ubah);tools.appendChild(hapus);
+    li.appendChild(h("div",{class:"top"},h("span",{class:"badge muted",text:"#"+n.id}),tools));
+    li.appendChild(h("p",{text:n.text}));
+    ul.appendChild(li);});
+  setCounts();}
+function setNotes(list){S.notes=list||[];renderNotes();renderEmpty();}
+$("search").addEventListener("input",renderNotes);
+function removeNote(id){api("/api/notes/"+id,{method:"DELETE"}).then(function(j){
+  if(j.error&&!j.notes){toast(j.error);return;}setNotes(j.notes);toast("Catatan #"+id+" dilupakan.");});}
+
+/* ajari */
+var noteEl=$("note");
+function clientHints(t){var out=[];t=t.trim();if(!t)return out;
+  var sents=t.split(/[.!?]+\s+/).filter(Boolean);
+  if(t.length>220)out.push("Catatan cukup panjang. Model lebih akurat dengan satu fakta per kalimat.");
+  if(sents.length>=3)out.push("Ada beberapa kalimat sekaligus. Simpan satu fakta per catatan.");
+  if(/^(dia|ia|mereka|beliau|itu|ini)\b/i.test(t))out.push("Mulailah dengan nama lengkap, bukan kata ganti (dia/ia/mereka).");
+  if(/\b(kemarin|tadi|besok|sekarang|hari ini|minggu depan)\b/i.test(t))out.push("Kata waktu relatif akan basi. Tulis tanggal atau hari yang pasti.");
+  if(t.length<12)out.push("Terlalu singkat; tulis kalimat lengkap dengan subjek dan keterangan.");
+  return out;}
+function renderTeach(){var t=noteEl.value;$("counter").textContent=t.length+"/600";$("save").disabled=!t.trim();
+  var ul=$("hints");ul.textContent="";var hs=clientHints(t);
+  hs.forEach(function(x){ul.appendChild(h("li",{text:x}))});
+  if(t.trim()&&!hs.length)ul.appendChild(h("li",{class:"good",text:"Catatan ini sudah jelas dan ringkas."}));}
+noteEl.addEventListener("input",renderTeach);
+noteEl.addEventListener("keydown",function(e){if((e.ctrlKey||e.metaKey)&&e.key==="Enter"){e.preventDefault();saveNote();}});
+function startEdit(n){S.editingId=n.id;noteEl.value=n.text;$("editing").hidden=false;$("editingText").textContent="Mengubah catatan #"+n.id+" — menyimpan akan menggantikan yang lama.";
+  setTab("teach");renderTeach();noteEl.focus();}
+function endEdit(){S.editingId=null;$("editing").hidden=true;}
+$("cancelEdit").addEventListener("click",function(){endEdit();noteEl.value="";renderTeach();});
+function saveNote(){var text=noteEl.value.trim();if(!text)return;$("save").disabled=true;
+  var body={text:text};if(S.editingId!=null)body.replace_id=S.editingId;
+  api("/api/notes",{method:"POST",body:body}).then(function(j){
+    if(j.error){toast(j.error);$("save").disabled=false;return;}
+    S.newId=j.id;setNotes(j.notes);var wasEdit=S.editingId!=null;endEdit();noteEl.value="";renderTeach();
+    toast(wasEdit?"Catatan diperbarui.":"Dicatat sebagai #"+j.id+".");
+    setTimeout(function(){S.newId=null},1800);});}
+$("save").addEventListener("click",saveNote);
+var exBox=$("examples");EXAMPLE_NOTES.slice(0,3).forEach(function(t){exBox.appendChild(h("button",{class:"chip",type:"button",text:t,onclick:function(){noteEl.value=t;renderTeach();noteEl.focus();}}));});
+
+/* tanya jawab */
+var chat=$("chat"),qEl=$("q");
+function scrollDown(){chat.scrollTop=chat.scrollHeight;}
+function renderEmpty(){var ex=chat.querySelector(".empty");
+  if(chat.querySelector(".msg"))return;if(ex)ex.remove();
+  var box=h("div",{class:"empty"});
+  if(!S.notes.length){
+    box.appendChild(h("h3",{text:"Memori masih kosong"}));
+    box.appendChild(h("p",{text:"Mulailah dengan mengajari satu fakta. Setelah itu Anda bisa menanyakannya dengan kalimat sendiri."}));
+    box.appendChild(h("div",{class:"chips"},h("button",{class:"btn primary",type:"button",text:"Ajari fakta pertama",onclick:function(){setTab("teach");noteEl.focus();}})));
+  }else{
+    box.appendChild(h("h3",{text:"Tanyakan apa yang pernah Anda ajarkan"}));
+    box.appendChild(h("p",{text:"Jawaban selalu disertai catatan sumbernya. Jika belum tahu, AI akan berkata terus terang."}));
+    var chips=h("div",{class:"chips"});EXAMPLE_Q.forEach(function(t){chips.appendChild(h("button",{class:"chip",type:"button",text:t,onclick:function(){qEl.value=t;qEl.focus();}}))});
+    box.appendChild(chips);}
+  chat.appendChild(box);}
+function userMsg(t){var e=chat.querySelector(".empty");if(e)e.remove();chat.appendChild(h("div",{class:"msg user",text:t}));scrollDown();}
+function thinking(){var m=h("div",{class:"msg ai"},h("div",{class:"thinking"},h("i"),h("i"),h("i"),h("span",{text:"Membaca catatan…"})));chat.appendChild(m);scrollDown();return m;}
+function highlighted(text,answer){var wrap=h("span");var i=answer?text.toLowerCase().indexOf(answer.toLowerCase()):-1;
+  if(i<0){wrap.textContent=text;return wrap;}
+  wrap.appendChild(document.createTextNode(text.slice(0,i)));wrap.appendChild(h("mark",{text:text.slice(i,i+answer.length)}));wrap.appendChild(document.createTextNode(text.slice(i+answer.length)));return wrap;}
+function focusNote(id){setTab("notes");var el=$("note-"+id);if(el){el.scrollIntoView({block:"center",behavior:"smooth"});el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");}}
+function relatedBox(out){if(!out.related||!out.related.length)return null;
+  var ul=h("ul");out.related.forEach(function(r){ul.appendChild(h("li",{},h("button",{class:"link",type:"button",text:"#"+r.id,onclick:function(){focusNote(r.id)}})," "+r.text));});
+  return h("div",{class:"callout"},h("strong",{text:out.source?"Perhatian — ada catatan lebih baru yang mirip tetapi tidak bisa saya baca; periksa sendiri:":"Catatan terkait yang tidak bisa saya jadikan jawaban:"}),ul);}
+function renderAnswer(out,question){
+  var card=h("div",{class:"ans "+(out.status==="unknown"?"unknown":"ok")});
+  if(out.status==="unknown"){
+    card.appendChild(h("div",{class:"lab"},h("span",{class:"badge muted",text:"Belum tahu"}),h("span",{text:out.seconds+" dtk"})));
+    card.appendChild(h("div",{class:"big",text:out.empty?"Memori masih kosong.":"Saya belum tahu."}));
+    card.appendChild(h("div",{style:"color:var(--muted);margin-top:4px",text:out.empty?"Ajari saya dulu, lalu tanyakan lagi.":"Belum ada catatan yang bisa menjawabnya dengan meyakinkan. Saya tidak akan menebak."}));
+    var rb=relatedBox(out);if(rb)card.appendChild(rb);
+    card.appendChild(h("div",{class:"row-actions"},h("button",{class:"btn",type:"button",text:"Ajari jawabannya",onclick:function(){setTab("teach");noteEl.focus();}})));
+  }else{
+    card.appendChild(h("div",{class:"lab"},h("span",{class:"badge",text:out.status==="conflict"?"Ada konflik":"Dari catatan"}),h("span",{text:"#"+out.source.id+" · "+out.seconds+" dtk"})));
+    card.appendChild(h("div",{class:"big",text:out.answer}));
+    var src=h("div",{class:"src"},h("b",{text:"Sumber"}),highlighted(out.source.text,out.answer));card.appendChild(src);
+    if(out.status==="conflict"&&out.conflicts.length){var ul=h("ul");out.conflicts.forEach(function(c){ul.appendChild(h("li",{},h("b",{text:c.answer})," — "+c.note+" (#"+c.id+")"))});
+      card.appendChild(h("div",{class:"callout"},h("strong",{text:"Catatan lain memberi jawaban berbeda; saya memakai yang terbaru:"}),ul));}
+    var rb2=relatedBox(out);if(rb2)card.appendChild(rb2);
+    card.appendChild(h("div",{class:"row-actions"},h("button",{class:"btn",type:"button",text:"Lihat di catatan",onclick:function(){focusNote(out.source.id)}})));}
+  return card;}
+function ask(){var q=qEl.value.trim();if(!q||S.asking)return;S.asking=true;$("send").disabled=true;qEl.value="";autoGrow();userMsg(q);var th=thinking();
+  api("/api/ask",{method:"POST",body:{question:q,strictness:S.strict}}).then(function(j){
+    th.remove();var m=h("div",{class:"msg ai"});
+    if(j.error){m.appendChild(h("div",{class:"ans unknown"},h("div",{class:"big",text:"Terjadi masalah"}),h("div",{style:"color:var(--muted)",text:j.error})));}
+    else m.appendChild(renderAnswer(j,q));
+    chat.appendChild(m);scrollDown();
+  }).catch(function(){th.remove();toast("Tidak bisa menghubungi server.");})
+  .then(function(){S.asking=false;$("send").disabled=false;qEl.focus();});}
+$("send").addEventListener("click",ask);
+qEl.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();ask();}});
+function autoGrow(){qEl.style.height="auto";qEl.style.height=Math.min(qEl.scrollHeight,140)+"px";}
+qEl.addEventListener("input",autoGrow);
+
+/* mulai */
+function boot(){
+  api("/api/status").then(function(s){
+    if(s.error){$("dot").className="dot bad";$("statusText").textContent="Server tidak merespons";return;}
+    $("dot").className="dot ok";$("statusText").title="Model: "+s.checkpoint;
+    return api("/api/notes").then(function(j){setNotes(j.notes);renderTeach();});
+  }).catch(function(){$("dot").className="dot bad";$("statusText").textContent="Tidak terhubung";});}
+boot();renderEmpty();renderTeach();
+})();
+</script>
+</body>
+</html>

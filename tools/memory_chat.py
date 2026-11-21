@@ -63,7 +63,7 @@ def handle(line, agent):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--checkpoint", default="reports/checkpoints_100m_sft_mem/gpt_sft_best.pt")
+    ap.add_argument("--checkpoint", default="reports/checkpoints_100m_sft_mem2/gpt_sft_best.pt")
     ap.add_argument("--db", default="data/memory/memory.db")
     ap.add_argument("--cmd", action="append", help="Jalankan perintah ini lalu keluar (boleh diulang).")
     ap.add_argument("--k", type=int, default=3)

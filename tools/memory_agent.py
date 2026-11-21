@@ -76,7 +76,8 @@ class MemoryStore:
     def __init__(self, path=":memory:"):
         if path != ":memory:":
             Path(path).parent.mkdir(parents=True, exist_ok=True)
-        self.con = sqlite3.connect(path)
+        # check_same_thread=False: server web melayani permintaan di banyak thread; akses diserialkan oleh pemanggil (lock).
+        self.con = sqlite3.connect(path, check_same_thread=False)
         self.con.execute("CREATE TABLE IF NOT EXISTS notes(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, created_at REAL, active INTEGER DEFAULT 1)")
         self.con.execute("CREATE VIRTUAL TABLE IF NOT EXISTS notes_fts USING fts5(text, tokenize='unicode61 remove_diacritics 2')")
         self.con.commit()

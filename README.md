@@ -16,6 +16,9 @@ Semua kode berjalan di **CPU-only** (diukur pada mesin ini) dan diuji otomatis d
 | 3 | KV cache + `position_offset` benar pada generasi | **Selesai** |
 | 4 | Hygiene repo (.gitignore, README, pyproject, pytest) | **Selesai** |
 | — | Training penuh 421M token | **Selesai di GPU** (model 100M, Kaggle; lihat [Training GPU di Kaggle](#training-gpu-di-kaggle-model-100m)). CPU tidak layak. |
+| — | Pretraining v2 (100M, 42.000 step) | **Selesai** (val loss 2,17; baseline 2,47) |
+| — | SFT bertahap 1–5 (instruksi, QA berbasis teks, hasil pencarian, catatan memori) | **Selesai**; lihat [Memori yang bisa diajari](#memori-yang-bisa-diajari) |
+| — | Aplikasi memori (web + CLI) | **Prototipe berfungsi**; akurasi terbatas, lihat [panduan](docs/PANDUAN_MENGAJAR.md) |
 
 Arsitektur model (production, tidak berubah): 8 layer, `d_model=384`, GQA 6 head / 3 KV head,
 SwiGLU (hidden 1024), RMSNorm, posisi learned, konteks 256, vocab 32.768,
@@ -205,6 +208,41 @@ Tokenizer & data sama dengan production; checkpoint **tidak kompatibel** dengan 
 - Hasil run (25.600 step, 2 epoch, ~15 jam GPU): validation loss **3,275** (ppl ~26,4), vs 4,56 pada model 25M.
   Kalimat lancar tetapi fakta sering salah (rasio ~4 token/parameter).
 - Unduhan Kaggle bisa mengekstrak file `.pt` menjadi folder; kemas ulang dengan zip tanpa kompresi (prefix folder `gpt_best/`).
+
+---
+
+## Memori yang bisa diajari
+
+Model tetap (bobot tidak berubah); pengetahuan ada di berkas memori lokal yang bisa diajari pemiliknya
+dengan kalimat biasa. Setiap jawaban menampilkan catatan sumber, dan jika tidak yakin sistem menjawab "belum tahu".
+Panduan pengguna: [`docs/PANDUAN_MENGAJAR.md`](docs/PANDUAN_MENGAJAR.md).
+
+```bash
+python tools/memory_web.py --open      # web: http://127.0.0.1:8765  (hanya localhost, tanpa dependensi tambahan)
+python tools/memory_chat.py            # CLI: ingat: ... / pertanyaan? / lupakan N / daftar
+```
+
+Komponen: `tools/memory_agent.py` (penyimpan FTS5, pembaca, pagar pengaman), `tools/memory_web.py` + `web/memory/index.html`
+(antarmuka), `tools/rag_index.py` (indeks Wikipedia, opsional). Model bawaan: `reports/checkpoints_100m_sft_mem2/gpt_sft_best.pt`
+(berkas model tidak ada di git; lihat bagian Training GPU).
+
+Rangkaian SFT (semua dilatih di Kaggle T4, masing-masing ±10 menit; skrip data di `tools/build_sft_*_data.py`, pelatih `tools/train_sft.py`,
+notebook `kaggle/hai07_sft_*_100m.ipynb`):
+1. instruksi umum (data terjemahan Indonesia), 2. QA berbasis teks (TyDi QA + IDK-MRC), 3. pembaca pada hasil pencarian BM25,
+4. catatan memori sintetis, 5. catatan rumit kompositional.
+
+Set uji tulisan tangan yang dibekukan ada di `evalsets/` (jangan dipakai menyetel data atau model). Hasil pengukuran (soal ditahan; skrip `tools/eval_qa.py`, `rag_eval.py`, `memory_*eval*.py`; angka di `reports/eval_*.json`):
+
+| Uji | Hasil |
+|---|---|
+| QA dari teks Wikipedia (RAG ujung ke ujung, 144 soal) | ~10% benar (BM25 menemukan jawaban di top-3 hanya pada ~45% soal); **belum berguna** |
+| Catatan pendek terstruktur, memori 200 catatan (agen bawaan) | ~74% benar, 0% salah, 0% mengarang |
+| Kalimat bebas sederhana tulisan tangan (20 soal) | ~50% benar, ~5% salah |
+| Kalimat rumit banyak fakta (69 soal, set dibekukan) | ~39% benar, ~14% salah, ~46% "belum tahu" |
+
+Keterbatasan yang diketahui: model 100M tidak andal sebagai sumber fakta; pada kalimat rumit hanya sekitar separuh benar bahkan
+saat diberi catatan yang tepat; set uji kecil (puluhan soal) sehingga selisih beberapa poin bukan bukti. Data latih memuat Wikipedia (CC-BY-SA),
+dataset terjemahan CC-BY-SA, dan Alpaca-GPT4 (jawaban dibuat model OpenAI): periksa lisensi sebelum mendistribusikan model.
 
 ---
 

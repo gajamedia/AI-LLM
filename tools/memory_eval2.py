@@ -2,7 +2,7 @@
 Uji generalisasi pembaca memori:
   1) pola kalimat B (tidak dilatih) pada atribut yang dilatih
   2) atribut yang tak pernah dilatih (hobi, umur), pola A dan B
-  3) kalimat bebas tulisan tangan (data/sft/memory_handwritten.jsonl) lewat pencarian BM25
+  3) kalimat bebas tulisan tangan (evalsets/memory_handwritten.jsonl) lewat pencarian BM25
      di antara 20 catatan tulisan tangan + 300 catatan sintetis pengecoh
 Metrik: akurasi (jawaban emas ada di keluaran dan bukan penolakan) untuk soal terjawab;
         tingkat penolakan untuk soal tak terjawab.
@@ -75,7 +75,7 @@ def main():
     print(json.dumps(rep, indent=1), flush=True)
 
     # --- tulisan tangan lewat memori + BM25 ---
-    hw = [json.loads(l) for l in open("data/sft/memory_handwritten.jsonl", encoding="utf-8")]
+    hw = [json.loads(l) for l in open("evalsets/memory_handwritten.jsonl", encoding="utf-8")]
     rng = random.Random(args.seed)
     hand_notes = list(dict.fromkeys(r["note"] for r in hw))
     synth = [G.make_fact(rng, rng.choice(G.TRAIN_ATTRS))["note"] for _ in range(300)]

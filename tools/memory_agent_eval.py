@@ -49,7 +49,7 @@ def main():
     suites = {}
 
     # --- tulisan tangan ---
-    hw = [json.loads(l) for l in open("data/sft/memory_handwritten.jsonl", encoding="utf-8")]
+    hw = [json.loads(l) for l in open("evalsets/memory_handwritten.jsonl", encoding="utf-8")]
     rng = random.Random(args.seed)
     store = M.MemoryStore()
     for n in dict.fromkeys(r["note"] for r in hw):

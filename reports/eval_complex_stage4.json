@@ -1,0 +1,868 @@
+{
+ "n_terjawab": 69,
+ "n_tak_terjawab": 15,
+ "recall@3": 1.0,
+ "terjawab": {
+  "oracle": {
+   "benar": 0.43478260869565216,
+   "salah": 0.2753623188405797,
+   "abstain": 0.2898550724637681
+  },
+  "raw_top1": {
+   "benar": 0.42028985507246375,
+   "salah": 0.2898550724637681,
+   "abstain": 0.2898550724637681
+  },
+  "agen_0.5": {
+   "benar": 0.34782608695652173,
+   "salah": 0.21739130434782608,
+   "abstain": 0.43478260869565216
+  },
+  "agen_0.67": {
+   "benar": 0.30434782608695654,
+   "salah": 0.17391304347826086,
+   "abstain": 0.5217391304347826
+  }
+ },
+ "tak_terjawab": {
+  "raw_top1": {
+   "abstain": 0.6,
+   "mengarang": 0.4
+  },
+  "agen_0.5": {
+   "abstain": 0.8,
+   "mengarang": 0.2
+  },
+  "agen_0.67": {
+   "abstain": 0.8666666666666667,
+   "mengarang": 0.13333333333333333
+  }
+ },
+ "cache": [
+  {
+   "q": "Di universitas mana Dimas lulus?",
+   "gold": "Gadjah Mada",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Berapa lama Dimas bekerja di Jakarta?",
+   "gold": "tiga tahun",
+   "outs": {
+    "oracle": "tiga tahun",
+    "raw_top1": "tiga tahun",
+    "agen_0.5": "tiga tahun",
+    "agen_0.67": "tiga tahun"
+   }
+  },
+  {
+   "q": "Hari apa toko roti Bu Marni tutup?",
+   "gold": "Minggu",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Jam berapa toko roti Bu Marni tutup setiap hari?",
+   "gold": "sembilan malam",
+   "outs": {
+    "oracle": "tujuh pagi sampai pukul sembilan malam",
+    "raw_top1": "tujuh pagi sampai pukul sembilan malam",
+    "agen_0.5": "tujuh pagi sampai pukul sembilan malam",
+    "agen_0.67": "tujuh pagi sampai pukul sembilan malam"
+   }
+  },
+  {
+   "q": "Berapa kursi yang dipesan Pak Hasan?",
+   "gold": "tiga puluh",
+   "outs": {
+    "oracle": "dua",
+    "raw_top1": "dua",
+    "agen_0.5": "dua",
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Dari kota mana Pak Hasan memesan kursi?",
+   "gold": "Cirebon",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Kapan ujian akhir semester kelas sebelas?",
+   "gold": "dua puluh Desember",
+   "outs": {
+    "oracle": "dua puluh Desember",
+    "raw_top1": "dua puluh Desember",
+    "agen_0.5": "dua puluh Desember",
+    "agen_0.67": "dua puluh Desember"
+   }
+  },
+  {
+   "q": "Mengapa ujian dimundurkan?",
+   "gold": "banjir",
+   "outs": {
+    "oracle": "banjir mengakibatkan banjir mengakibatkan banjir mengakibatkan banjir mengakibatkan banjir mengakibatkan banjir mengakibatkan banjir mengakibatkan banji",
+    "raw_top1": "banjir mengakibatkan banjir mengakibatkan banjir mengakibatkan banjir mengakibatkan banjir mengakibatkan banjir mengakibatkan banjir mengakibatkan banji",
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Siapa nama kakak Ratih?",
+   "gold": "Bima",
+   "outs": {
+    "oracle": "Bima",
+    "raw_top1": "Bima",
+    "agen_0.5": "Bima",
+    "agen_0.67": "Bima"
+   }
+  },
+  {
+   "q": "Siapa adik Ratih?",
+   "gold": "Sekar",
+   "outs": {
+    "oracle": "Sekar",
+    "raw_top1": "Sekar",
+    "agen_0.5": "Sekar",
+    "agen_0.67": "Sekar"
+   }
+  },
+  {
+   "q": "Siapa yang menerima paket dari Medan?",
+   "gold": "Lestari",
+   "outs": {
+    "oracle": "Ibu Lestari pada hari Sabtu di kantor pos Cimahi",
+    "raw_top1": "Ibu Lestari pada hari Sabtu di kantor pos Cimahi",
+    "agen_0.5": "Ibu Lestari pada hari Sabtu di kantor pos Cimahi",
+    "agen_0.67": "Ibu Lestari pada hari Sabtu di kantor pos Cimahi"
+   }
+  },
+  {
+   "q": "Di mana paket itu diterima?",
+   "gold": "Cimahi",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Di mana lomba lari berakhir?",
+   "gold": "Taman Kenari",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Dari mana lomba lari dimulai?",
+   "gold": "alun-alun",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Siapa yang mengajar fisika?",
+   "gold": "Anwar",
+   "outs": {
+    "oracle": "Pak Anwar",
+    "raw_top1": "Pak Anwar",
+    "agen_0.5": "Pak Anwar",
+    "agen_0.67": "Pak Anwar"
+   }
+  },
+  {
+   "q": "Pelajaran apa yang diajarkan Bu Yuni?",
+   "gold": "matematika",
+   "outs": {
+    "oracle": "matematika di kelas tujuh",
+    "raw_top1": "matematika di kelas tujuh",
+    "agen_0.5": "matematika di kelas tujuh",
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Kapan mesin kopi dibersihkan?",
+   "gold": "Jumat sore",
+   "outs": {
+    "oracle": "sore",
+    "raw_top1": "sore",
+    "agen_0.5": "sore",
+    "agen_0.67": "sore"
+   }
+  },
+  {
+   "q": "Siapa yang membersihkan mesin kopi?",
+   "gold": "petugas kebersihan",
+   "outs": {
+    "oracle": "petugas kebersihan",
+    "raw_top1": "petugas kebersihan",
+    "agen_0.5": "petugas kebersihan",
+    "agen_0.67": "petugas kebersihan"
+   }
+  },
+  {
+   "q": "Berapa kali sehari obat batuk diminum?",
+   "gold": "tiga kali",
+   "outs": {
+    "oracle": "tiga",
+    "raw_top1": "tiga",
+    "agen_0.5": "tiga",
+    "agen_0.67": "tiga"
+   }
+  },
+  {
+   "q": "Kapan obat batuk diminum?",
+   "gold": "sesudah makan",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Berapa buku yang diterima perpustakaan desa?",
+   "gold": "dua ratus",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Siapa yang menyumbangkan buku?",
+   "gold": "Kupu-Kupu",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Berapa lama perjalanan feri?",
+   "gold": "tiga jam",
+   "outs": {
+    "oracle": "dua jam",
+    "raw_top1": "dua jam",
+    "agen_0.5": "dua jam",
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Seberapa sering feri berangkat?",
+   "gold": "dua jam",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Berapa harga nasi campur?",
+   "gold": "dua puluh lima ribu",
+   "outs": {
+    "oracle": "lima",
+    "raw_top1": "lima",
+    "agen_0.5": "lima",
+    "agen_0.67": "lima"
+   }
+  },
+  {
+   "q": "Berapa harga es teh?",
+   "gold": "lima ribu",
+   "outs": {
+    "oracle": "lima",
+    "raw_top1": "lima",
+    "agen_0.5": "49",
+    "agen_0.67": "49"
+   }
+  },
+  {
+   "q": "Ke kota mana Dewi pindah?",
+   "gold": "Makassar",
+   "outs": {
+    "oracle": "Makassar",
+    "raw_top1": "Nomula",
+    "agen_0.5": "Gejama",
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Mengapa Dewi pindah?",
+   "gold": "dipindahtugaskan",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Di mana sertifikat tanah keluarga Santoso disimpan?",
+   "gold": "brankas bank",
+   "outs": {
+    "oracle": "brankas bank cabang Surabaya nomor lima",
+    "raw_top1": "brankas bank cabang Surabaya nomor lima",
+    "agen_0.5": "brankas bank cabang Surabaya nomor lima",
+    "agen_0.67": "brankas bank cabang Surabaya nomor lima"
+   }
+  },
+  {
+   "q": "Siapa yang meresmikan jembatan?",
+   "gold": "Lurah",
+   "outs": {
+    "oracle": "Pak Lurah",
+    "raw_top1": "Pak Lurah",
+    "agen_0.5": "Pak Lurah",
+    "agen_0.67": "Pak Lurah"
+   }
+  },
+  {
+   "q": "Berapa warga yang hadir?",
+   "gold": "seratus",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Ke mana anak panti berwisata?",
+   "gold": "kebun binatang",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Berapa bus yang digunakan?",
+   "gold": "dua",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Teh apa yang disukai Nina?",
+   "gold": "melati",
+   "outs": {
+    "oracle": "teh melati tanpa gula",
+    "raw_top1": "teh melati tanpa gula",
+    "agen_0.5": "teh melati tanpa gula",
+    "agen_0.67": "teh melati tanpa gula"
+   }
+  },
+  {
+   "q": "Apa minuman suami Nina?",
+   "gold": "kopi hitam",
+   "outs": {
+    "oracle": "teh melati tanpa gula",
+    "raw_top1": "teh melati tanpa gula",
+    "agen_0.5": "teh melati tanpa gula",
+    "agen_0.67": "teh melati tanpa gula"
+   }
+  },
+  {
+   "q": "Berapa lama garansi servis?",
+   "gold": "tiga puluh hari",
+   "outs": {
+    "oracle": "tigapuluh hari atau seribu kilometer",
+    "raw_top1": "tigapuluh hari atau seribu kilometer",
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Di mana pertandingan bulu tangkis diadakan?",
+   "gold": "gedung olahraga",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Kapan pertandingan diadakan?",
+   "gold": "Minggu pagi",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Di mana Bu Retno menyimpan resep rendang?",
+   "gold": "kotak kayu",
+   "outs": {
+    "oracle": "lemari dapur",
+    "raw_top1": "lemari dapur",
+    "agen_0.5": "lemari dapur",
+    "agen_0.67": "lemari dapur"
+   }
+  },
+  {
+   "q": "Siapa yang memimpin rapat RT?",
+   "gold": "Darto",
+   "outs": {
+    "oracle": "Pak Darto",
+    "raw_top1": "Pak Darto",
+    "agen_0.5": "Pak Darto",
+    "agen_0.67": "Pak Darto"
+   }
+  },
+  {
+   "q": "Kapan pembayaran listrik dipotong?",
+   "gold": "tanggal lima",
+   "outs": {
+    "oracle": "lima",
+    "raw_top1": "lima",
+    "agen_0.5": "lima",
+    "agen_0.67": "lima"
+   }
+  },
+  {
+   "q": "Siapa nama kucing Sinta?",
+   "gold": "Mochi",
+   "outs": {
+    "oracle": "Mochi",
+    "raw_top1": "Mochi",
+    "agen_0.5": "Mochi",
+    "agen_0.67": "Mochi"
+   }
+  },
+  {
+   "q": "Berapa anak kucing yang lahir?",
+   "gold": "empat",
+   "outs": {
+    "oracle": "empat",
+    "raw_top1": "empat",
+    "agen_0.5": "empat",
+    "agen_0.67": "empat"
+   }
+  },
+  {
+   "q": "Di mana rombongan singgah?",
+   "gold": "Magelang",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Siapa yang memegang kunci loker?",
+   "gold": "Satpam",
+   "outs": {
+    "oracle": "Pak Satpam di pos depan, bukan oleh pemiliknya",
+    "raw_top1": "Pak Satpam di pos depan, bukan oleh pemiliknya",
+    "agen_0.5": "Pak Satpam di pos depan, bukan oleh pemiliknya",
+    "agen_0.67": "Pak Satpam di pos depan, bukan oleh pemiliknya"
+   }
+  },
+  {
+   "q": "Nomor berapa loker itu?",
+   "gold": "empat belas",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Seberapa luas sawah Pak Rudi?",
+   "gold": "dua hektare",
+   "outs": {
+    "oracle": "dua hektare yang berada di dekat sungai Citarum",
+    "raw_top1": "dua hektare yang berada di dekat sungai Citarum",
+    "agen_0.5": "dua hektare yang berada di dekat sungai Citarum",
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Di dekat sungai apa sawahnya?",
+   "gold": "Citarum",
+   "outs": {
+    "oracle": "Sunga Citarum",
+    "raw_top1": "Sunga Citarum",
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Kapan libur sekolah dimulai?",
+   "gold": "dua puluh dua Juni",
+   "outs": {
+    "oracle": "dua puluh dua Juni sampai dengan tanggal enam puluh dua Juni",
+    "raw_top1": "dua puluh dua Juni sampai dengan tanggal enam puluh dua Juni",
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Sampai kapan libur sekolah?",
+   "gold": "enam Juli",
+   "outs": {
+    "oracle": "dua puluh dua Juni sampai dengan tanggal enam puluh dua Juni",
+    "raw_top1": "dua puluh dua Juni sampai dengan tanggal enam puluh dua Juni",
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Siapa yang membuat aplikasi kasir toko Berkah?",
+   "gold": "Faisal",
+   "outs": {
+    "oracle": "Faisal, tahun lalu",
+    "raw_top1": "Faisal, tahun lalu",
+    "agen_0.5": "Faisal, tahun lalu",
+    "agen_0.67": "Faisal, tahun lalu"
+   }
+  },
+  {
+   "q": "Apa yang tertinggal di taksi?",
+   "gold": "koper biru",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Apa nomor polisi taksi itu?",
+   "gold": "B 1234 XY",
+   "outs": {
+    "oracle": null,
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Berapa hari pelatihan menjahit?",
+   "gold": "lima hari",
+   "outs": {
+    "oracle": "lima",
+    "raw_top1": "lima",
+    "agen_0.5": "lima",
+    "agen_0.67": "lima"
+   }
+  },
+  {
+   "q": "Dari mana pembimbing pelatihan?",
+   "gold": "Solo",
+   "outs": {
+    "oracle": "penjahit",
+    "raw_top1": "penjahit",
+    "agen_0.5": "penjahit",
+    "agen_0.67": "penjahit"
+   }
+  },
+  {
+   "q": "Berapa harga tiket ke Denpasar?",
+   "gold": "dua juta",
+   "outs": {
+    "oracle": "dua juta rupia",
+    "raw_top1": "dua juta rupia",
+    "agen_0.5": "dua juta rupia",
+    "agen_0.67": "dua juta rupia"
+   }
+  },
+  {
+   "q": "Siapa yang digantikan Pak Hartono?",
+   "gold": "Wulan",
+   "outs": {
+    "oracle": "Ibu Wulan yang pensiun",
+    "raw_top1": "Ibu Wulan yang pensiun",
+    "agen_0.5": "Ibu Wulan yang pensiun",
+    "agen_0.67": "Ibu Wulan yang pensiun"
+   }
+  },
+  {
+   "q": "Sejak kapan Pak Hartono menjabat?",
+   "gold": "dua ribu sembilan belas",
+   "outs": {
+    "oracle": "dua ribu sembilan",
+    "raw_top1": "dua ribu sembilan",
+    "agen_0.5": "dua ribu sembilan",
+    "agen_0.67": "dua ribu sembilan"
+   }
+  },
+  {
+   "q": "Mengapa air sumur Bu Tuti keruh?",
+   "gold": "hujan deras",
+   "outs": {
+    "oracle": "karena hujan deras selama dua hari",
+    "raw_top1": "karena hujan deras selama dua hari",
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Regu mana yang piket hari Rabu?",
+   "gold": "regu B",
+   "outs": {
+    "oracle": "Rabu dan Kamis regu B",
+    "raw_top1": "Rabu dan Kamis regu B",
+    "agen_0.5": "Rabu dan Kamis regu B",
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Hari apa regu A piket?",
+   "gold": "Senin dan Selasa",
+   "outs": {
+    "oracle": "Jumat",
+    "raw_top1": "Jumat",
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Apa hadiah juara pertama?",
+   "gold": "sepeda",
+   "outs": {
+    "oracle": "sepeda",
+    "raw_top1": "sepeda",
+    "agen_0.5": "sepeda",
+    "agen_0.67": "sepeda"
+   }
+  },
+  {
+   "q": "Apa hadiah juara kedua?",
+   "gold": "tas sekolah",
+   "outs": {
+    "oracle": "sepeda",
+    "raw_top1": "sepeda",
+    "agen_0.5": "sepeda",
+    "agen_0.67": "sepeda"
+   }
+  },
+  {
+   "q": "Berapa harga mesin cuci yang dibeli Bu Maya?",
+   "gold": "satu juta lima ratus",
+   "outs": {
+    "oracle": "lima",
+    "raw_top1": "lima",
+    "agen_0.5": "lima",
+    "agen_0.67": "lima"
+   }
+  },
+  {
+   "q": "Dari siapa Bu Maya membeli mesin cuci?",
+   "gold": "tetangga",
+   "outs": {
+    "oracle": "tetangganya seharga satu juta",
+    "raw_top1": "tetangganya seharga satu juta",
+    "agen_0.5": "tetangganya seharga satu juta",
+    "agen_0.67": "tetangganya seharga satu juta"
+   }
+  },
+  {
+   "q": "Apa saja acara hari jadi koperasi?",
+   "gold": "bazar murah",
+   "outs": {
+    "oracle": "bazar murah dan petunjuk wayang semalam suntuk",
+    "raw_top1": "bazar murah dan petunjuk wayang semalam suntuk",
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Mengapa jalan ke Karangsari ditutup?",
+   "gold": "longsor",
+   "outs": {
+    "oracle": "Jalan Kesatria",
+    "raw_top1": "Jalan Kesatria",
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Lewat mana jalan dialihkan?",
+   "gold": "Mekarjaya",
+   "outs": {
+    "oracle": "Jalan Karangsari ditutup",
+    "raw_top1": "Jalan Karangsari ditutup",
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Siapa yang menyumbang genteng?",
+   "gold": "alumni",
+   "outs": {
+    "oracle": "Pak Teguh memperbaiki atap sekolah dengan genteng baru sumbangan dari alumni angkatan sembilan puluh",
+    "raw_top1": "Pak Teguh memperbaiki atap sekolah dengan genteng baru sumbangan dari alumni angkatan sembilan puluh",
+    "agen_0.5": "Pak Teguh memperbaiki atap sekolah dengan genteng baru sumbangan dari alumni angkatan sembilan puluh",
+    "agen_0.67": "Pak Teguh memperbaiki atap sekolah dengan genteng baru sumbangan dari alumni angkatan sembilan puluh"
+   }
+  },
+  {
+   "q": "Siapa nama istri Dimas?",
+   "gold": null,
+   "outs": {
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Berapa gaji Dimas di Bandung?",
+   "gold": null,
+   "outs": {
+    "raw_top1": "tiga",
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Apa merek mesin kopi di dapur kantor?",
+   "gold": null,
+   "outs": {
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Siapa kepala sekolah yang menunda ujian?",
+   "gold": null,
+   "outs": {
+    "raw_top1": "Ujian akhir semester",
+    "agen_0.5": "Ujian akhir semester",
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Kapan Ratih menikah?",
+   "gold": null,
+   "outs": {
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Apa warna bus sekolah yang dipakai anak panti?",
+   "gold": null,
+   "outs": {
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Siapa pemenang lomba lari sepuluh kilometer?",
+   "gold": null,
+   "outs": {
+    "raw_top1": "Lomba lari sepuluh kilometer",
+    "agen_0.5": "Lomba lari sepuluh kilometer",
+    "agen_0.67": "Lomba lari sepuluh kilometer"
+   }
+  },
+  {
+   "q": "Berapa umur Mochi?",
+   "gold": null,
+   "outs": {
+    "raw_top1": "empat",
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Di bank mana keluarga Santoso membuka rekening?",
+   "gold": null,
+   "outs": {
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Apa isi dokumen dalam koper biru?",
+   "gold": null,
+   "outs": {
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Siapa sopir taksi bernomor polisi B 1234 XY?",
+   "gold": null,
+   "outs": {
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Berapa biaya pelatihan menjahit?",
+   "gold": null,
+   "outs": {
+    "raw_top1": "5 hari di balai desa dan dibimbing oleh penjahit dari Solo",
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Siapa pengganti Pak Hartono?",
+   "gold": null,
+   "outs": {
+    "raw_top1": "Ibu Wulan yang pensiun",
+    "agen_0.5": "Ibu Wulan yang pensiun",
+    "agen_0.67": "Ibu Wulan yang pensiun"
+   }
+  },
+  {
+   "q": "Berapa luas sawah Pak Eko?",
+   "gold": null,
+   "outs": {
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  },
+  {
+   "q": "Kapan Pak Darto menjadi ketua RT?",
+   "gold": null,
+   "outs": {
+    "raw_top1": null,
+    "agen_0.5": null,
+    "agen_0.67": null
+   }
+  }
+ ]
+}
