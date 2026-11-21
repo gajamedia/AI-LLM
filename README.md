@@ -239,6 +239,7 @@ Set uji tulisan tangan yang dibekukan ada di `evalsets/` (jangan dipakai menyete
 | Catatan pendek terstruktur, memori 200 catatan (agen bawaan) | ~74% benar, 0% salah, 0% mengarang |
 | Kalimat bebas sederhana tulisan tangan (20 soal) | ~50% benar, ~5% salah |
 | Kalimat rumit banyak fakta (69 soal, set dibekukan) | ~39% benar, ~14% salah, ~46% "belum tahu" |
+| Impor dokumen .txt/.md (100 soal Wikipedia) | Pencarian menemukan bagian yang benar di 3 teratas pada 94% soal; jawaban AI benar hanya 13% (fitur menampilkan bagian dokumen, jawaban AI hanya dugaan) |
 
 Keterbatasan yang diketahui: model 100M tidak andal sebagai sumber fakta; pada kalimat rumit hanya sekitar separuh benar bahkan
 saat diberi catatan yang tepat; set uji kecil (puluhan soal) sehingga selisih beberapa poin bukan bukti. Data latih memuat Wikipedia (CC-BY-SA),

@@ -22,11 +22,13 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "tools"))
 
+import memory_docs
 import memory_tools
 from memory_agent import MemoryAgent, MemoryStore, Reader, parse_rule
 
 WEB_DIR = PROJECT_ROOT / "web" / "memory"
 MAX_BODY = 20_000
+MAX_DOC_BODY = 12_000_000  # hanya untuk /api/documents (teks dokumen)
 MAX_NOTE = 600
 MAX_QUESTION = 300
 STRICTNESS = {"longgar": 0.5, "seimbang": 0.67, "ketat": 1.0}
@@ -102,12 +104,12 @@ def make_handler(state, port):
             self.end_headers()
             self.wfile.write(data)
 
-        def _json_body(self):
+        def _json_body(self, limit=MAX_BODY):
             try:
                 n = int(self.headers.get("Content-Length") or 0)
             except ValueError:
                 return None
-            if n <= 0 or n > MAX_BODY:
+            if n <= 0 or n > limit:
                 return None
             try:
                 obj = json.loads(self.rfile.read(n).decode("utf-8"))
@@ -124,8 +126,11 @@ def make_handler(state, port):
                     return self._send(404, {"error": "web/memory/index.html tidak ditemukan"})
                 return self._send(200, page.read_bytes(), "text/html; charset=utf-8")
             if self.path == "/api/status":
-                return self._send(200, {"ready": True, "notes": len(state.store.list()), "checkpoint": Path(state.checkpoint).name,
-                                        "strictness": STRICTNESS})
+                return self._send(200, {"ready": True, "notes": len(state.store.list()), "documents": len(state.store.list_documents()),
+                                        "checkpoint": Path(state.checkpoint).name, "strictness": STRICTNESS})
+            if self.path == "/api/documents":
+                with state.lock:
+                    return self._send(200, {"documents": state.store.list_documents()})
             if self.path == "/api/notes":
                 with state.lock:
                     return self._send(200, {"notes": state.notes()})
@@ -134,9 +139,20 @@ def make_handler(state, port):
         def do_POST(self):
             if not self._host_ok():
                 return self._send(403, {"error": "host tidak diizinkan"})
-            body = self._json_body()
+            body = self._json_body(MAX_DOC_BODY if self.path == "/api/documents" else MAX_BODY)
             if body is None:
-                return self._send(400, {"error": "isi permintaan tidak valid"})
+                return self._send(400, {"error": "isi permintaan tidak valid atau terlalu besar"})
+            if self.path == "/api/documents":
+                name = memory_docs.sanitize_name(body.get("name", "dokumen"))
+                try:
+                    memory_docs.check_supported(name)
+                    chunks = memory_docs.chunk_text(str(body.get("text", "")))
+                except memory_docs.DocumentError as e:
+                    return self._send(400, {"error": str(e)})
+                with state.lock:
+                    doc_id, parts, replaced = state.store.add_document(name, chunks)
+                    return self._send(200, {"id": doc_id, "name": name, "parts": parts, "replaced": replaced,
+                                            "documents": state.store.list_documents()})
             if self.path == "/api/notes":
                 text = str(body.get("text", "")).strip()
                 if not text:
@@ -163,13 +179,18 @@ def make_handler(state, port):
                     t0 = time.time()
                     out = state.agent.ask(q)
                     out["seconds"] = round(time.time() - t0, 1)
-                    out["empty"] = not state.store.list()
+                    out["empty"] = state.store.is_empty()
                     return self._send(200, out)
             return self._send(404, {"error": "tidak ditemukan"})
 
         def do_DELETE(self):
             if not self._host_ok():
                 return self._send(403, {"error": "host tidak diizinkan"})
+            md = re.match(r"^/api/documents/(\d+)$", self.path)
+            if md:
+                with state.lock:
+                    ok = state.store.delete_document(int(md.group(1)))
+                    return self._send(200 if ok else 404, {"ok": ok, "documents": state.store.list_documents()})
             m = re.match(r"^/api/notes/(\d+)$", self.path)
             if not m:
                 return self._send(404, {"error": "tidak ditemukan"})

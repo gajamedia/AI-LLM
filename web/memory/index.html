@@ -46,7 +46,7 @@ header.top{grid-column:1/-1;display:flex;align-items:center;gap:12px}
 .brand{font-weight:650;font-size:18px;letter-spacing:-.01em}
 .brand small{display:block;font-weight:400;font-size:12px;color:var(--muted);letter-spacing:0;margin-top:-2px}
 .spacer{flex:1}
-.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--border);font-size:13px;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--border);font-size:13px;color:var(--muted)}
 .dot{width:8px;height:8px;border-radius:50%;background:#e0a100}
 .dot.ok{background:#1fa463}.dot.bad{background:#d93025}
 .icon-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center}
@@ -112,6 +112,24 @@ textarea:focus,input[type=search]:focus{outline:2px solid var(--accent);outline-
 .hints li{font-size:13px;background:var(--warn-soft);border-radius:8px;padding:6px 10px;color:var(--text)}
 .hints li.good{background:var(--ok-soft)}
 .teach-foot{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.doc-block{margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+.doc-block h3{margin:0 0 2px;font-size:14px;font-weight:650}
+.doc-block .sub{margin:0 0 8px;font-size:12.5px;color:var(--muted)}
+.dropzone{border:1.5px dashed var(--border);border-radius:12px;padding:14px 12px;text-align:center;font-size:13.5px;color:var(--muted);cursor:pointer;background:var(--surface-2);transition:.15s}
+.dropzone:hover,.dropzone.over,.dropzone:focus-visible{border-color:var(--accent);color:var(--text);background:var(--accent-soft)}
+.dropzone.busy{opacity:.6;pointer-events:none}
+.docs{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}
+.doc{display:flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:10px;padding:7px 10px;background:var(--surface);font-size:13.5px}
+.doc .dn{display:grid;min-width:0;flex:1}
+.doc .dn b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.doc .dp{font-size:12px;color:var(--muted)}
+.passages{margin-top:12px;display:grid;gap:8px}
+.passages .ph{font-size:12px;color:var(--muted);font-weight:600}
+.passage{border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-2);padding:9px 11px;font-size:14px}
+.passage .pm{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:2px}
+.passage .pt{word-break:break-word}
+.guess{margin-top:10px;font-size:13px;color:var(--muted);background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent);border-radius:var(--radius-sm);padding:8px 11px}
+.guess b{color:var(--text)}
 .counter{font-size:12px;color:var(--muted);margin-left:auto}
 .editing{margin-bottom:8px;font-size:13px;background:var(--accent-soft);color:var(--accent);border-radius:8px;padding:6px 10px;display:flex;gap:8px;align-items:center}
 .editing button{margin-left:auto;border:0;background:transparent;color:inherit;text-decoration:underline}
@@ -162,6 +180,10 @@ dialog li{margin:6px 0}
   .tabs svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .app{padding-bottom:78px;height:100dvh}
   .brand small,.pill .txt-long{display:none}
+  header.top{gap:8px}
+  .brand{font-size:17px}
+  .pill{font-size:12px;padding:5px 9px;gap:6px}
+  .icon-btn{width:34px;height:34px}
 }
 </style>
 </head>
@@ -208,6 +230,13 @@ dialog li{margin:6px 0}
           <button class="btn primary" id="save" disabled>Simpan ke memori</button>
           <span class="counter" id="counter">0/600</span>
         </div>
+        <div class="doc-block">
+          <h3>Impor dokumen</h3>
+          <p class="sub">Berkas .txt atau .md. AI mencari bagian dokumen yang relevan dan menampilkannya beserta sumbernya.</p>
+          <input type="file" id="docFile" accept=".txt,.md,.markdown,.text" hidden>
+          <div class="dropzone" id="drop" role="button" tabindex="0" aria-label="Pilih berkas dokumen">Pilih berkas atau seret ke sini</div>
+          <ul class="docs" id="docs"></ul>
+        </div>
       </div>
     </section>
 
@@ -240,6 +269,7 @@ dialog li{margin:6px 0}
       <li><b>Memperbarui fakta:</b> hapus catatan lama (atau pakai “Ubah”), lalu simpan yang baru.</li>
       <li><b>Selalu cek sumber</b> yang ditampilkan di bawah jawaban.</li>
       <li><b>Bukan kalkulator atau asisten umum.</b> AI hanya membaca catatan. Tersedia alat kecil yang dikerjakan program (bukan model): <i>urutkan 5, 4, 3, 9</i>, <i>hitung 12 x 5</i>, <i>hari apa 17 Agustus 2026</i>. Hasilnya diberi label “Alat”.</li>
+      <li><b>Dokumen:</b> impor berkas .txt/.md di bawah kotak Ajari. AI menampilkan <i>bagian dokumen yang paling relevan</i> beserta sumbernya. Jawaban AI dari dokumen hanya dugaan dan sering keliru, jadi baca sendiri bagian yang tampil.</li>
       <li><b>Aturan jawaban tetap:</b> tulis <i>jika ada yang menyapa "halo" jawab saja "halo"</i> (pemicu dan balasan diberi tanda kutip). Dijalankan program bila Anda mengetik pemicu persis sama.</li>
     </ol>
     <div class="good-bad">
@@ -254,7 +284,7 @@ dialog li{margin:6px 0}
 (function(){
 "use strict";
 var $=function(id){return document.getElementById(id)};
-var S={notes:[],editingId:null,asking:false,strict:"seimbang",newId:null};
+var S={notes:[],docs:[],editingId:null,asking:false,strict:"seimbang",newId:null};
 var EXAMPLE_NOTES=["Bu Rina tinggal di Jalan Mawar nomor 5.","Pak Joko bekerja sebagai montir bengkel di Bekasi.","Rapat tim produk dimulai pukul 09.30 di ruang Anggrek.","Harga satu kotak donat adalah 45 ribu rupiah."];
 var EXAMPLE_Q=["Di mana Bu Rina tinggal?","Apa pekerjaan Pak Joko?","Berapa harga satu kotak donat?"];
 
@@ -294,7 +324,7 @@ renderStrict();
 
 /* catatan */
 function setCounts(){var n=S.notes.length;$("count").textContent=n;$("tabCount").textContent=n?("("+n+")"):"";
-  $("statusText").textContent="Siap · "+n+" catatan";}
+  $("statusText").textContent="Siap · "+n+" catatan"+(S.docs.length?" · "+S.docs.length+(window.innerWidth<480?" dok":" dokumen"):"");}
 function renderNotes(){
   var f=$("search").value.trim().toLowerCase();var ul=$("notes");ul.textContent="";
   var items=S.notes.filter(function(n){return !f||n.text.toLowerCase().indexOf(f)>=0}).slice().reverse();
@@ -316,6 +346,53 @@ function renderNotes(){
   setCounts();}
 function setNotes(list){S.notes=list||[];renderNotes();renderEmpty();}
 $("search").addEventListener("input",renderNotes);
+/* dokumen */
+function renderDocs(){var ul=$("docs");ul.textContent="";
+  if(!S.docs.length){ul.appendChild(h("li",{class:"empty-notes",text:"Belum ada dokumen."}));return;}
+  S.docs.forEach(function(d){var li=h("li",{class:"doc"});var tools=h("span",{class:"tools"});
+    var hapus=h("button",{class:"link danger",type:"button",text:"Hapus"});
+    hapus.addEventListener("click",function(){tools.textContent="";
+      tools.appendChild(h("span",{class:"confirm"},"Hapus?",
+        h("button",{class:"link danger",type:"button",text:"Ya",onclick:function(){removeDoc(d.id)}}),
+        h("button",{class:"link",type:"button",text:"Batal",onclick:renderDocs})));});
+    tools.appendChild(hapus);
+    li.appendChild(h("div",{class:"dn"},h("b",{text:d.name}),h("span",{class:"dp",text:d.parts+" bagian"})));
+    li.appendChild(tools);ul.appendChild(li);});}
+function setDocs(list){S.docs=list||[];renderDocs();setCounts();renderEmpty();}
+function removeDoc(id){api("/api/documents/"+id,{method:"DELETE"}).then(function(j){
+  if(j.error&&!j.documents){toast(j.error);return;}setDocs(j.documents);toast("Dokumen dihapus.");});}
+function importFile(file){if(!file)return;
+  if(!/\.(txt|md|markdown|text)$/i.test(file.name)){toast("Jenis berkas belum didukung. Gunakan .txt atau .md.");return;}
+  if(file.size>6000000){toast("Berkas terlalu besar (maksimal sekitar 3 juta karakter).");return;}
+  var rd=new FileReader();
+  rd.onload=function(){var text=String(rd.result||"");var bad=(text.match(/\ufffd/g)||[]).length;
+    $("drop").classList.add("busy");
+    api("/api/documents",{method:"POST",body:{name:file.name,text:text}}).then(function(j){
+      $("drop").classList.remove("busy");
+      if(j.error){toast(j.error);return;}
+      setDocs(j.documents);
+      toast((j.replaced?"Dokumen diganti: ":"Dokumen diimpor: ")+j.name+" ("+j.parts+" bagian)"+(bad>5?" — pengodean mungkin bukan UTF-8":""));
+    }).catch(function(){$("drop").classList.remove("busy");toast("Gagal mengirim dokumen.");});};
+  rd.onerror=function(){toast("Gagal membaca berkas.");};
+  rd.readAsText(file);}
+var dropEl=$("drop"),fileEl=$("docFile");
+dropEl.addEventListener("click",function(){fileEl.click()});
+dropEl.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();fileEl.click();}});
+fileEl.addEventListener("change",function(){importFile(fileEl.files[0]);fileEl.value="";});
+["dragenter","dragover"].forEach(function(ev){dropEl.addEventListener(ev,function(e){e.preventDefault();dropEl.classList.add("over");})});
+["dragleave","drop"].forEach(function(ev){dropEl.addEventListener(ev,function(e){e.preventDefault();dropEl.classList.remove("over");})});
+dropEl.addEventListener("drop",function(e){importFile(e.dataTransfer&&e.dataTransfer.files[0]);});
+function highlightTerms(text,terms){var wrap=h("span");
+  var set={};(terms||[]).forEach(function(t){if(t&&t.length>=3)set[t.toLowerCase()]=1;});
+  if(!Object.keys(set).length){wrap.textContent=text;return wrap;}
+  text.split(/([\p{L}\p{N}]+)/u).forEach(function(tok){
+    if(!tok)return;
+    if(set[tok.toLowerCase()])wrap.appendChild(h("mark",{text:tok}));else wrap.appendChild(document.createTextNode(tok));});
+  return wrap;}
+function passagesBox(out,excludeId){var ps=(out.passages||[]).filter(function(p){return p.id!==excludeId});if(!ps.length)return null;
+  var box=h("div",{class:"passages"},h("div",{class:"ph",text:"Bagian dokumen yang paling relevan"}));
+  ps.forEach(function(p){box.appendChild(h("div",{class:"passage"},h("div",{class:"pm",text:p.doc+" · bagian "+p.part}),h("div",{class:"pt"},highlightTerms(p.text,out.terms))));});
+  return box;}
 function removeNote(id){api("/api/notes/"+id,{method:"DELETE"}).then(function(j){
   if(j.error&&!j.notes){toast(j.error);return;}setNotes(j.notes);toast("Catatan #"+id+" dilupakan.");});}
 
@@ -361,7 +438,7 @@ function scrollDown(){chat.scrollTop=chat.scrollHeight;}
 function renderEmpty(){var ex=chat.querySelector(".empty");
   if(chat.querySelector(".msg"))return;if(ex)ex.remove();
   var box=h("div",{class:"empty"});
-  if(!S.notes.length){
+  if(!S.notes.length&&!S.docs.length){
     box.appendChild(h("h3",{text:"Memori masih kosong"}));
     box.appendChild(h("p",{text:"Mulailah dengan mengajari satu fakta. Setelah itu Anda bisa menanyakannya dengan kalimat sendiri."}));
     box.appendChild(h("div",{class:"chips"},h("button",{class:"btn primary",type:"button",text:"Ajari fakta pertama",onclick:function(){setTab("teach");noteEl.focus();}})));
@@ -405,13 +482,26 @@ function renderAnswer(out,question){
   if(out.status==="unknown"){
     card.appendChild(h("div",{class:"lab"},h("span",{class:"badge muted",text:"Belum tahu"}),h("span",{text:out.seconds+" dtk"})));
     card.appendChild(h("div",{class:"big",text:out.empty?"Memori masih kosong.":"Saya belum tahu."}));
-    card.appendChild(h("div",{style:"color:var(--muted);margin-top:4px",text:out.empty?"Ajari saya dulu, lalu tanyakan lagi.":"Belum ada catatan yang bisa menjawabnya dengan meyakinkan. Saya tidak akan menebak."}));
+    var hasPass=(out.passages||[]).length>0;
+    card.appendChild(h("div",{style:"color:var(--muted);margin-top:4px",text:out.empty?"Ajari saya dulu, lalu tanyakan lagi.":(hasPass?"Saya tidak bisa menyimpulkan jawabannya dengan yakin, tetapi ini bagian dokumen yang paling mirip. Bacalah sendiri.":"Belum ada catatan yang bisa menjawabnya dengan meyakinkan. Saya tidak akan menebak.")}));
+    var pb=passagesBox(out,null);if(pb)card.appendChild(pb);
     var rb=relatedBox(out);if(rb)card.appendChild(rb);
     card.appendChild(h("div",{class:"row-actions"},h("button",{class:"btn",type:"button",text:"Ajari jawabannya",onclick:function(){setTab("teach");noteEl.focus();}})));
+  }else if(out.source.doc){
+    card.appendChild(h("div",{class:"lab"},h("span",{class:"badge",text:out.status==="conflict"?"Ada konflik":"Dari dokumen"}),h("span",{text:out.source.doc+" · "+out.seconds+" dtk"})));
+    var ps=(out.passages||[]).slice();
+    if(!ps.some(function(p){return p.id===out.source.id}))ps.unshift({id:out.source.id,doc:out.source.doc,part:out.source.part,text:out.source.text});
+    else ps.sort(function(a,b){return (a.id===out.source.id?0:1)-(b.id===out.source.id?0:1)});
+    card.appendChild(passagesBox({passages:ps,terms:out.terms},null));
+    card.appendChild(h("div",{class:"guess"},"Dugaan jawaban AI: ",h("b",{text:out.answer})," — sering keliru pada dokumen; pastikan dengan membaca bagian di atas."));
+    if(out.status==="conflict"&&out.conflicts.length){var ul0=h("ul");out.conflicts.forEach(function(c){ul0.appendChild(h("li",{},h("b",{text:c.answer})," — "+c.note+" (#"+c.id+")"))});
+      card.appendChild(h("div",{class:"callout"},h("strong",{text:"Catatan lain memberi jawaban berbeda:"}),ul0));}
+    var rb3=relatedBox(out);if(rb3)card.appendChild(rb3);
   }else{
     card.appendChild(h("div",{class:"lab"},h("span",{class:"badge",text:out.status==="conflict"?"Ada konflik":"Dari catatan"}),h("span",{text:"#"+out.source.id+" · "+out.seconds+" dtk"})));
     card.appendChild(h("div",{class:"big",text:out.answer}));
     var src=h("div",{class:"src"},h("b",{text:"Sumber"}),highlighted(out.source.text,out.answer));card.appendChild(src);
+    var pb2=passagesBox(out,out.source.id);if(pb2)card.appendChild(pb2);
     if(out.status==="conflict"&&out.conflicts.length){var ul=h("ul");out.conflicts.forEach(function(c){ul.appendChild(h("li",{},h("b",{text:c.answer})," — "+c.note+" (#"+c.id+")"))});
       card.appendChild(h("div",{class:"callout"},h("strong",{text:"Catatan lain memberi jawaban berbeda; saya memakai yang terbaru:"}),ul));}
     var rb2=relatedBox(out);if(rb2)card.appendChild(rb2);
@@ -435,9 +525,9 @@ function boot(){
   api("/api/status").then(function(s){
     if(s.error){$("dot").className="dot bad";$("statusText").textContent="Server tidak merespons";return;}
     $("dot").className="dot ok";$("statusText").title="Model: "+s.checkpoint;
-    return api("/api/notes").then(function(j){setNotes(j.notes);renderTeach();});
+    return api("/api/notes").then(function(j){setNotes(j.notes);renderTeach();return api("/api/documents");}).then(function(d){if(d&&d.documents)setDocs(d.documents);});
   }).catch(function(){$("dot").className="dot bad";$("statusText").textContent="Tidak terhubung";});}
-boot();renderEmpty();renderTeach();
+boot();renderEmpty();renderTeach();renderDocs();
 })();
 </script>
 </body>

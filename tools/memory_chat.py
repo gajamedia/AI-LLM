@@ -7,6 +7,9 @@ Perintah:
   <kalimat pernyataan>    akan ditanyakan apakah mau disimpan sebagai catatan (y/n)
   lupakan <nomor>         hapus catatan
   daftar                  tampilkan semua catatan
+  impor <berkas>          impor dokumen .txt/.md (dipecah per paragraf; AI menampilkan bagian yang relevan)
+  dokumen                 tampilkan dokumen yang sudah diimpor
+  hapus dokumen <nomor>   hapus dokumen
   keluar                  selesai
 Alat (dikerjakan program, bukan dari catatan): 'urutkan 5, 4, 3, 9', 'hitung 12 x 5', 'hari apa 17 Agustus 2026'.
 PENTING: AI ini hanya tahu apa yang Anda ajarkan. Ia tidak menjawab dari pengetahuan umum, jadi ajari dulu
@@ -23,6 +26,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "tools"))
 
+import memory_docs
 import memory_tools
 from memory_agent import MemoryAgent, MemoryStore, Reader, match_rule, parse_rule
 
@@ -48,7 +52,7 @@ def is_question_like(s):
 
 
 def greeting_reply(agent):
-    return memory_tools.greeting_reply(len(agent.store.list()))
+    return memory_tools.greeting_reply(len(agent.store.list()), len(agent.store.list_documents()))
 
 
 def teach_message(agent, text):
@@ -69,6 +73,30 @@ def format_tool(t):
     return t["answer"] + "\n  dihitung oleh alat \"" + t["tool"] + "\" (bukan dari catatan). " + t["detail"]
 
 
+def format_passages(out, exclude_id=None):
+    ps = [p for p in out.get("passages") or [] if p["id"] != exclude_id]
+    if not ps:
+        return []
+    lines = ["  Bagian dokumen yang paling relevan:"]
+    for p in ps:
+        text = p["text"] if len(p["text"]) <= 240 else p["text"][:237].rstrip() + "..."
+        lines.append(f"    - {p['doc']}, bagian {p['part']}: {text}")
+    return lines
+
+
+def import_message(agent, path):
+    path = path.strip().strip('"').strip("'")
+    try:
+        text = memory_docs.read_text_file(path)
+        name = memory_docs.sanitize_name(path)
+        chunks = memory_docs.chunk_text(text)
+    except memory_docs.DocumentError as e:
+        return f"Gagal mengimpor: {e}"
+    doc_id, parts, replaced = agent.store.add_document(name, chunks)
+    return (f"Dokumen {'diganti' if replaced else 'diimpor'} [{doc_id}]: {name} ({parts} bagian).\n"
+            "  Catatan: AI tidak memahami isi dokumen. Ia mencari bagian yang relevan dan menampilkannya beserta sumbernya.")
+
+
 def format_answer(out):
     rel_lines = []
     if out.get("related"):
@@ -76,13 +104,25 @@ def format_answer(out):
                 if out["source"] else "  catatan terkait yang tidak bisa saya jadikan jawaban:")
         rel_lines = [head] + [f"    [{r['id']}] {r['text']}" for r in out["related"]]
     if out["status"] == "unknown":
-        hint = "  (Jika Anda tahu jawabannya, ajari saya dengan 'ingat: ...')"
-        return "\n".join([out["answer"]] + rel_lines + [hint])
-    lines = [f"{out['answer']}", f"  sumber [{out['source']['id']}]: {out['source']['text']}"]
+        passages = format_passages(out)
+        hint = ("  (Saya tidak bisa menyimpulkan jawabannya dengan yakin; bacalah bagian dokumen di atas sendiri.)" if passages
+                else "  (Jika Anda tahu jawabannya, ajari saya dengan 'ingat: ...')")
+        return "\n".join([out["answer"]] + passages + rel_lines + [hint])
+    src = out["source"]
+    if src.get("doc"):  # jawaban dari dokumen: bagian dokumen jadi hasil utama, jawaban AI hanya dugaan (sering keliru)
+        shown = dict(out)
+        shown["passages"] = [{"id": src["id"], "doc": src["doc"], "part": src["part"], "text": src["text"]}] + \
+                            [p for p in out.get("passages") or [] if p["id"] != src["id"]]
+        lines = format_passages(shown) + [f"  Dugaan jawaban AI (sering keliru pada dokumen; periksa bagian di atas): {out['answer']}"]
+        if out["status"] == "conflict":
+            lines.append("  catatan: ada catatan lain dengan jawaban berbeda:")
+            lines += [f"    [{c['id']}] {c['answer']}  ({c['note']})" for c in out["conflicts"]]
+        return "\n".join(lines + rel_lines)
+    lines = [f"{out['answer']}", f"  sumber [{src['id']}]: {src['text']}"]
     if out["status"] == "conflict":
         lines.append("  catatan: ada catatan lain dengan jawaban berbeda; dipakai yang terbaru:")
         lines += [f"    [{c['id']}] {c['answer']}  ({c['note']})" for c in out["conflicts"]]
-    return "\n".join(lines + rel_lines)
+    return "\n".join(lines + format_passages(out, src["id"]) + rel_lines)
 
 
 def handle(line, agent, confirm=None):
@@ -96,6 +136,15 @@ def handle(line, agent, confirm=None):
     if low in ("daftar", "/daftar"):
         rows = agent.store.list()
         return "\n".join(f"  [{i}] {t}" for i, t in rows) if rows else "  (memori masih kosong)"
+    m = re.match(r"^/?impor\s+(.+)$", s, re.I)
+    if m:
+        return import_message(agent, m.group(1))
+    if low in ("dokumen", "/dokumen"):
+        docs = agent.store.list_documents()
+        return "\n".join(f"  [{d['id']}] {d['name']} ({d['parts']} bagian)" for d in docs) if docs else "  (belum ada dokumen; gunakan: impor <berkas>)"
+    m = re.match(r"^/?hapus\s+dokumen\s+#?(\d+)$", low)
+    if m:
+        return f"Dokumen [{m.group(1)}] dihapus." if agent.store.delete_document(int(m.group(1))) else f"Tidak ada dokumen aktif dengan nomor {m.group(1)}."
     m = re.match(r"^/?lupakan\s+#?(\d+)$", low)
     if m:
         return f"Catatan [{m.group(1)}] dilupakan." if agent.store.forget(int(m.group(1))) else f"Tidak ada catatan aktif dengan nomor {m.group(1)}."
@@ -113,7 +162,7 @@ def handle(line, agent, confirm=None):
         return format_tool(tool)
     q = m.group(1) if m else (s if (s.endswith("?") or is_question_like(s)) else None)
     if q is not None:
-        if not agent.store.list():
+        if agent.store.is_empty():
             return EMPTY_MSG
         return format_answer(agent.ask(q))
     # bukan perintah dan bukan pertanyaan
@@ -146,9 +195,9 @@ def main():
 
     print("[memori] memuat model ...", file=sys.stderr, flush=True)
     agent = MemoryAgent(MemoryStore(args.db), Reader(args.checkpoint), k=args.k, relevance_threshold=args.relevance)
-    n = len(agent.store.list())
-    print(f"[memori] siap. Catatan tersimpan: {n}. Ketik 'bantuan' untuk perintah.", flush=True)
-    print(INTRO if n == 0 else "AI ini hanya tahu apa yang Anda ajarkan (bukan pengetahuan umum).", flush=True)
+    n, nd = len(agent.store.list()), len(agent.store.list_documents())
+    print(f"[memori] siap. Catatan tersimpan: {n}, dokumen: {nd}. Ketik 'bantuan' untuk perintah.", flush=True)
+    print(INTRO if agent.store.is_empty() else "AI ini hanya tahu apa yang Anda ajarkan (bukan pengetahuan umum).", flush=True)
 
     def run(line, confirm):
         if line.strip().lower() in ("bantuan", "help", "/bantuan"):

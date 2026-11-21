@@ -57,7 +57,8 @@ Lanjutkan hanya jika Anda mempercayai sumber unduhan, dan hanya jika checksum di
 1. **Ajari** (kolom kanan atas): tulis satu fakta, misalnya `Bu Rina tinggal di Jalan Mawar nomor 5.`, lalu **Simpan ke memori**.
 2. **Tanya** (kolom kiri): ketik `Di mana Bu Rina tinggal?` lalu Enter. Jawaban muncul beserta **sumbernya**.
 3. Jika AI menjawab "Saya belum tahu", itu normal. Ia memilih diam daripada menebak. Coba tulis ulang catatan lebih sederhana, atau pilih **Longgar** di bawah kolom pertanyaan.
-4. Ikon **?** di pojok kanan atas membuka tips singkat mengajar. Panduan lengkap: `PANDUAN_MENGAJAR.md`.
+4. **Dokumen:** di bawah kotak Ajari AI ada "Impor dokumen" (berkas `.txt` atau `.md`). AI lalu menampilkan **bagian dokumen yang paling relevan** beserta sumbernya; jawaban AI hanya dugaan dan sering keliru, jadi baca sendiri bagian yang tampil.
+5. Ikon **?** di pojok kanan atas membuka tips singkat mengajar. Panduan lengkap: `PANDUAN_MENGAJAR.md`.
 
 Tips utama: **satu fakta per kalimat, sebut nama lengkap, tulis tanggal yang pasti, dan selalu periksa sumber jawaban.**
 

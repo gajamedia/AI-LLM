@@ -97,6 +97,9 @@ def relevance_ok(question, note, threshold=0.67):
 
 
 class MemoryStore:
+    """Catatan pengguna (doc_id NULL) dan potongan dokumen impor (doc_id terisi) disimpan di tabel yang sama
+    agar pencarian dan pembacaan tidak berubah. list() hanya mengembalikan catatan pengguna."""
+
     def __init__(self, path=":memory:"):
         if path != ":memory:":
             Path(path).parent.mkdir(parents=True, exist_ok=True)
@@ -104,7 +107,18 @@ class MemoryStore:
         self.con = sqlite3.connect(path, check_same_thread=False)
         self.con.execute("CREATE TABLE IF NOT EXISTS notes(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, created_at REAL, active INTEGER DEFAULT 1)")
         self.con.execute("CREATE VIRTUAL TABLE IF NOT EXISTS notes_fts USING fts5(text, tokenize='unicode61 remove_diacritics 2')")
+        self._migrate()
         self.con.commit()
+
+    def _migrate(self):
+        """Memori lama (tanpa dokumen) dimigrasikan di tempat; catatan yang ada tidak berubah."""
+        cols = {r[1] for r in self.con.execute("PRAGMA table_info(notes)")}
+        if "doc_id" not in cols:
+            self.con.execute("ALTER TABLE notes ADD COLUMN doc_id INTEGER")
+        if "doc_part" not in cols:
+            self.con.execute("ALTER TABLE notes ADD COLUMN doc_part INTEGER")
+        self.con.execute("CREATE TABLE IF NOT EXISTS documents(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, created_at REAL, "
+                         "parts INTEGER, active INTEGER DEFAULT 1)")
 
     def teach(self, text):
         text = re.sub(r"\s+", " ", text).strip()
@@ -117,7 +131,7 @@ class MemoryStore:
         return nid
 
     def forget(self, note_id):
-        row = self.con.execute("SELECT id FROM notes WHERE id=? AND active=1", (note_id,)).fetchone()
+        row = self.con.execute("SELECT id FROM notes WHERE id=? AND active=1 AND doc_id IS NULL", (note_id,)).fetchone()
         if not row:
             return False
         self.con.execute("UPDATE notes SET active=0 WHERE id=?", (note_id,))
@@ -126,16 +140,60 @@ class MemoryStore:
         return True
 
     def list(self):
-        return self.con.execute("SELECT id, text FROM notes WHERE active=1 ORDER BY id").fetchall()
+        """Hanya catatan pengguna (bukan potongan dokumen)."""
+        return self.con.execute("SELECT id, text FROM notes WHERE active=1 AND doc_id IS NULL ORDER BY id").fetchall()
 
-    def search(self, question, k=3):
+    def is_empty(self):
+        """Kosong bila tidak ada catatan pengguna maupun potongan dokumen."""
+        return self.con.execute("SELECT 1 FROM notes WHERE active=1 LIMIT 1").fetchone() is None
+
+    # ---------- dokumen ----------
+    def add_document(self, name, chunks):
+        """Impor dokumen. Dokumen aktif dengan nama sama DIGANTI. Kembalikan (doc_id, jumlah_bagian, diganti)."""
+        replaced = False
+        for (old_id,) in self.con.execute("SELECT id FROM documents WHERE name=? AND active=1", (name,)).fetchall():
+            self._delete_document(old_id)
+            replaced = True
+        cur = self.con.execute("INSERT INTO documents(name, created_at, parts) VALUES (?,?,?)", (name, time.time(), len(chunks)))
+        doc_id = cur.lastrowid
+        now = time.time()
+        for part, text in enumerate(chunks, 1):
+            text = re.sub(r"\s+", " ", text).strip()
+            c = self.con.execute("INSERT INTO notes(text, created_at, doc_id, doc_part) VALUES (?,?,?,?)", (text, now, doc_id, part))
+            self.con.execute("INSERT INTO notes_fts(rowid, text) VALUES (?,?)", (c.lastrowid, text))
+        self.con.commit()
+        return doc_id, len(chunks), replaced
+
+    def _delete_document(self, doc_id):
+        ids = [r[0] for r in self.con.execute("SELECT id FROM notes WHERE doc_id=? AND active=1", (doc_id,))]
+        for nid in ids:
+            self.con.execute("DELETE FROM notes_fts WHERE rowid=?", (nid,))
+        self.con.execute("UPDATE notes SET active=0 WHERE doc_id=?", (doc_id,))
+        self.con.execute("UPDATE documents SET active=0 WHERE id=?", (doc_id,))
+
+    def delete_document(self, doc_id):
+        row = self.con.execute("SELECT id FROM documents WHERE id=? AND active=1", (doc_id,)).fetchone()
+        if not row:
+            return False
+        self._delete_document(doc_id)
+        self.con.commit()
+        return True
+
+    def list_documents(self):
+        return [{"id": i, "name": n, "parts": p} for i, n, p in
+                self.con.execute("SELECT id, name, parts FROM documents WHERE active=1 ORDER BY id").fetchall()]
+
+    # ---------- pencarian ----------
+    def search(self, question, k=3, docs_only=False):
         q = R.build_query(question)
         if not q:
             return []
+        extra = "AND n.doc_id IS NOT NULL " if docs_only else ""
         rows = self.con.execute(
-            "SELECT n.id, n.text FROM notes_fts f JOIN notes n ON n.id=f.rowid "
-            "WHERE notes_fts MATCH ? AND n.active=1 ORDER BY bm25(notes_fts) LIMIT ?", (q, k)).fetchall()
-        return [{"id": i, "text": t} for i, t in rows]
+            "SELECT n.id, n.text, n.doc_id, n.doc_part, d.name FROM notes_fts f JOIN notes n ON n.id=f.rowid "
+            "LEFT JOIN documents d ON d.id=n.doc_id "
+            "WHERE notes_fts MATCH ? AND n.active=1 " + extra + "ORDER BY bm25(notes_fts) LIMIT ?", (q, k)).fetchall()
+        return [{"id": i, "text": t, "doc_id": did, "part": part, "doc": name} for i, t, did, part, name in rows]
 
 
 class Reader:
@@ -160,7 +218,7 @@ class Reader:
         return (text[k + len("Jawaban:"):] if k >= 0 else text[len(prompt):]).strip()
 
 
-def decide(question, reads, entity_guard=True, relevance_guard=True, threshold=0.67):
+def decide(question, reads, entity_guard=True, relevance_guard=True, threshold=0.67, doc_ids=frozenset()):
     """reads: daftar (id, note, raw_answer) berurutan peringkat. Kembalikan dict keputusan."""
     cands = []
     for nid, note, raw in reads:
@@ -173,7 +231,8 @@ def decide(question, reads, entity_guard=True, relevance_guard=True, threshold=0
         cands.append({"id": nid, "note": note, "answer": raw.strip().rstrip(".")})
     if not cands:
         return {"status": "unknown", "answer": UNKNOWN, "source": None, "conflicts": []}
-    best = max(cands, key=lambda c: c["id"])  # catatan terbaru menang
+    # catatan terbaru menang; catatan yang diajarkan pengguna didahulukan atas teks dokumen impor
+    best = max(cands, key=lambda c: (c["id"] not in doc_ids, c["id"]))
     conflicts = [c for c in cands if R.norm(c["answer"]) != R.norm(best["answer"])]
     return {"status": "conflict" if conflicts else "ok", "answer": best["answer"],
             "source": {"id": best["id"], "text": best["note"]}, "conflicts": conflicts}
@@ -202,19 +261,32 @@ class MemoryAgent:
             return {"status": "rule", "answer": rule["reply"], "tool": None, "detail": "",
                     "source": {"id": rule["id"], "text": rule["text"]}, "conflicts": [], "related": [], "retrieved": []}
         if memory_tools.GREETING.match(question.strip()):
-            return {"status": "greeting", "answer": memory_tools.greeting_reply(len(self.store.list())), "tool": None,
+            return {"status": "greeting", "answer": memory_tools.greeting_reply(len(self.store.list()), len(self.store.list_documents())), "tool": None,
                     "detail": "", "source": None, "conflicts": [], "related": [], "retrieved": []}
         t = memory_tools.route(question)
         if t:  # alat deterministik / permintaan tugas: tidak memanggil model
             return {"status": t["kind"], "answer": t["answer"], "tool": t["tool"], "detail": t["detail"],
                     "source": None, "conflicts": [], "related": [], "retrieved": []}
         hits = self.store.search(question, self.k)
-        reads = [(h["id"], h["text"], self.reader.read(h["text"], question)) for h in hits]
-        out = decide(question, reads, self.entity_guard, self.relevance_guard, self.relevance_threshold)
+        doc_ids = frozenset(h["id"] for h in hits if h.get("doc_id") is not None)
+        tok = getattr(self.reader, "tok", None)
+        reads = []
+        for h in hits:
+            ctx = h["text"]
+            if tok is not None and h["id"] in doc_ids:  # potongan dokumen bisa panjang: ambil jendela kalimat yang muat konteks model
+                ctx = R.fit_window(tok, ctx, question) or ctx
+            reads.append((h["id"], h["text"], self.reader.read(ctx, question)))
+        out = decide(question, reads, self.entity_guard, self.relevance_guard, self.relevance_threshold, doc_ids)
         out["retrieved"] = [h["id"] for h in hits]
+        if out["source"] and out["source"]["id"] in doc_ids:
+            src = next(h for h in hits if h["id"] == out["source"]["id"])
+            out["source"]["doc"], out["source"]["part"] = src["doc"], src["part"]
         used = {out["source"]["id"]} if out["source"] else set()
-        rel = related_unused(question, reads, used)
+        rel = [r for r in related_unused(question, reads, used) if r["id"] not in doc_ids]  # bagian dokumen ditampilkan di 'passages'
         if out["source"]:
             rel = [r for r in rel if r["id"] > out["source"]["id"]]  # hanya yang LEBIH BARU dari sumber
         out["related"] = rel
+        out["terms"] = R.content_tokens(question)
+        out["passages"] = [{"id": h["id"], "doc": h["doc"], "part": h["part"], "text": h["text"]}
+                           for h in self.store.search(question, 3, docs_only=True)]
         return out

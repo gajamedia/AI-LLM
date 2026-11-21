@@ -219,11 +219,12 @@ GREETING = re.compile(
 TABLE_HINT = "Tabel atau rumus tidak bisa dipelajari dari catatan. Untuk menghitung, ketik langsung, mis. 'hitung 12 x 5'."
 
 
-def greeting_reply(n_notes):
+def greeting_reply(n_notes, n_docs=0):
     base = "Halo! Saya memori pribadi Anda: saya hanya tahu apa yang Anda ajarkan, bukan pengetahuan umum.\n"
-    if n_notes == 0:
+    if n_notes == 0 and n_docs == 0:
         return base + INTRO
-    return base + f"Saat ini ada {n_notes} catatan. Tanyakan dengan kalimat berakhiran '?', atau tambah catatan dengan 'ingat: ...'."
+    docs = f" dan {n_docs} dokumen" if n_docs else ""
+    return base + f"Saat ini ada {n_notes} catatan{docs}. Tanyakan dengan kalimat berakhiran '?', atau tambah catatan dengan 'ingat: ...'."
 
 
 def looks_like_table(text):

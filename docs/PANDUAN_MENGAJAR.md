@@ -104,6 +104,30 @@ sumbernya. Aturan dijalankan **program**, bukan model, jadi sifatnya kaku:
 - Aturan terbaru menang bila ada beberapa aturan dengan pemicu sama. Hapus catatan aturan untuk menonaktifkannya.
 - Aturan mengalahkan sapaan bawaan, dan hanya menjawab teks tetap: ia tidak bisa menalar atau menyusun jawaban baru.
 
+## Belajar dari dokumen (impor berkas)
+
+Anda bisa mengimpor dokumen **.txt atau .md** (di web: kotak "Impor dokumen" di bawah panel Ajari AI, boleh diseret; di baris perintah:
+`impor <berkas>`, `dokumen`, `hapus dokumen <nomor>`). Dokumen dipecah per paragraf (maksimal ±500 karakter, judul Markdown ikut sebagai
+awalan, butir daftar dipisah titik koma, blok kode dibuang) dan disimpan terpisah dari catatan Anda: dokumen tidak memenuhi daftar
+Catatan, dan dihapus per dokumen. Mengimpor berkas dengan **nama yang sama menggantikan** versi lama. Hanya teks lokal; tidak ada yang dikirim keluar.
+
+**Cara kerjanya dan batasnya, jujur:** AI **tidak memahami** dokumen. Ia mencari bagian yang paling mirip dengan pertanyaan Anda
+(pencarian kata kunci) dan **menampilkan bagian itu beserta sumbernya** (nama berkas dan nomor bagian, kata kunci disorot). Jawaban AI hanya
+**"dugaan"** yang diberi peringatan, karena pada paragraf yang memuat banyak fakta ia sering mengutip fakta yang salah.
+
+| Uji | Hasil |
+|---|---|
+| 100 pertanyaan dari paragraf Wikipedia (±95 bagian) | Bagian yang memuat jawaban masuk 3 teratas pada **94%** soal; jawaban AI benar **13%**, salah 7%, "belum tahu" 80% |
+| Dokumen realistis kecil (7 bagian, 12 pertanyaan) | Bagian yang benar tampil pada **12 dari 12** soal (peringkat 1); dari 8 kali AI berani menjawab, hanya **3 benar** dan 5 salah (mis. ketua dijawab nama sekretaris) |
+
+Jadi: **gunakan fitur ini sebagai pencari lokal untuk dokumen Anda, dan baca sendiri bagian yang ditampilkan.** Jangan mengandalkan dugaan AI.
+Dokumen kecil seperti uji kedua mudah dicari; dokumen panjang dengan banyak paragraf mirip akan menurunkan ketepatan pencarian (belum diukur).
+
+Batas lain: PDF dan DOCX belum didukung (salin teksnya ke .txt; PDF hasil pindai tidak terbaca); tabel, gambar, dan blok kode di dalam dokumen
+tidak ikut; pencarian memakai kata kunci sehingga sinonim dan parafrase jauh bisa meleset; berkas maksimal ±3 juta karakter (≤5.000 bagian).
+Bila catatan Anda dan teks dokumen sama-sama menjawab, **catatan Anda didahulukan**. Berkas bukan UTF-8 dicoba dibaca sebagai Windows-1252;
+bila teks tampak rusak, simpan ulang berkas sebagai UTF-8.
+
 ## Kemampuan dan batasnya (angka sebenarnya)
 
 Angka berikut dari pengujian di repositori ini (`reports/eval_*.json`), memakai pengaturan **Seimbang**:
