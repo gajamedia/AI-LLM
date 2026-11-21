@@ -10,6 +10,7 @@ Memori disimpan lokal di berkas SQLite (--db); tidak ada data yang dikirim ke lu
 """
 import argparse
 import json
+import os
 import re
 import sys
 import threading
@@ -60,6 +61,13 @@ class State:
 
     def notes(self):
         return [{"id": i, "text": t} for i, t in self.store.list()]
+
+
+class ExclusiveServer(ThreadingHTTPServer):
+    """Di Windows, SO_REUSEADDR mengizinkan dua proses memakai port yang sama tanpa galat (permintaan terbagi acak
+    antar-server, termasuk dengan memori berbeda). Maka pemakaian ulang alamat dimatikan di Windows."""
+    allow_reuse_address = (os.name != "nt")
+    daemon_threads = True
 
 
 def make_handler(state, port):
@@ -174,8 +182,20 @@ def main():
     ap.add_argument("--open", action="store_true", help="Buka peramban otomatis.")
     args = ap.parse_args()
 
+    port_error = (f"[web] Port {args.port} sudah dipakai program lain (mungkin Memori yang sudah berjalan).\n"
+                  f"[web] Tutup yang lama, atau jalankan dengan port lain, mis.:  --port {args.port + 35}")
+    try:  # periksa port SEBELUM memuat model (hemat waktu) dan agar kegagalan cepat terlihat
+        probe = ExclusiveServer(("127.0.0.1", args.port), BaseHTTPRequestHandler)
+        probe.server_close()
+    except OSError:
+        print(port_error, file=sys.stderr)
+        sys.exit(1)
     state = State(args.checkpoint, args.db, args.k)
-    server = ThreadingHTTPServer(("127.0.0.1", args.port), make_handler(state, args.port))
+    try:
+        server = ExclusiveServer(("127.0.0.1", args.port), make_handler(state, args.port))
+    except OSError:
+        print(port_error, file=sys.stderr)
+        sys.exit(1)
     url = f"http://127.0.0.1:{args.port}/"
     print(f"[web] buka {url}  (Ctrl+C untuk berhenti)", flush=True)
     if args.open:

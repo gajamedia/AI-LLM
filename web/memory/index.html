@@ -239,6 +239,7 @@ dialog li{margin:6px 0}
       <li><b>Pakai tanggal atau hari yang pasti</b>, bukan “kemarin/besok”.</li>
       <li><b>Memperbarui fakta:</b> hapus catatan lama (atau pakai “Ubah”), lalu simpan yang baru.</li>
       <li><b>Selalu cek sumber</b> yang ditampilkan di bawah jawaban.</li>
+      <li><b>Bukan kalkulator atau asisten umum.</b> AI hanya membaca catatan. Tersedia alat kecil yang dikerjakan program (bukan model): <i>urutkan 5, 4, 3, 9</i>, <i>hitung 12 x 5</i>, <i>hari apa 17 Agustus 2026</i>. Hasilnya diberi label “Alat”.</li>
     </ol>
     <div class="good-bad">
       <div class="g">✓ Bu Rina tinggal di Jalan Mawar nomor 5.</div>
@@ -373,7 +374,17 @@ function relatedBox(out){if(!out.related||!out.related.length)return null;
   var ul=h("ul");out.related.forEach(function(r){ul.appendChild(h("li",{},h("button",{class:"link",type:"button",text:"#"+r.id,onclick:function(){focusNote(r.id)}})," "+r.text));});
   return h("div",{class:"callout"},h("strong",{text:out.source?"Perhatian — ada catatan lebih baru yang mirip tetapi tidak bisa saya baca; periksa sendiri:":"Catatan terkait yang tidak bisa saya jadikan jawaban:"}),ul);}
 function renderAnswer(out,question){
-  var card=h("div",{class:"ans "+(out.status==="unknown"?"unknown":"ok")});
+  var card=h("div",{class:"ans "+((out.status==="unknown"||out.status==="task")?"unknown":"ok")});
+  if(out.status==="tool"){
+    card.appendChild(h("div",{class:"lab"},h("span",{class:"badge",text:"Alat: "+out.tool}),h("span",{text:"dihitung program"})));
+    card.appendChild(h("div",{class:"big",text:out.answer}));
+    card.appendChild(h("div",{class:"src"},h("b",{text:"Bukan dari catatan Anda"}),document.createTextNode(out.detail||"")));
+    return card;}
+  if(out.status==="task"){
+    card.appendChild(h("div",{class:"lab"},h("span",{class:"badge muted",text:"Permintaan tugas"})));
+    card.appendChild(h("div",{class:"big",text:"Saya tidak bisa mengerjakan tugas itu."}));
+    card.appendChild(h("div",{style:"color:var(--muted);margin-top:4px",text:out.answer}));
+    return card;}
   if(out.status==="unknown"){
     card.appendChild(h("div",{class:"lab"},h("span",{class:"badge muted",text:"Belum tahu"}),h("span",{text:out.seconds+" dtk"})));
     card.appendChild(h("div",{class:"big",text:out.empty?"Memori masih kosong.":"Saya belum tahu."}));

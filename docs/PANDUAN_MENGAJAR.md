@@ -63,6 +63,28 @@ Antarmuka web memberi saran otomatis saat Anda mengetik (kata ganti di awal, kat
 - **Seimbang** (bawaan) — kompromi.
 - **Ketat** — lebih sering "belum tahu", hampir tidak pernah mengarang. Pilih ini jika kesalahan lebih merugikan daripada tidak ada jawaban.
 
+## Yang tidak bisa dilakukan: ini bukan asisten umum
+
+AI hanya **menyalin potongan dari catatan Anda**. Ia tidak bisa menghitung, mengurutkan, menalar, menerjemahkan, merangkum, atau menulis.
+Catatan seperti "urutan angka satuan: 0, 1, 2, …, 9" hanya berisi daftar, bukan cara mengurutkan angka baru, dan prosedur tidak bisa
+diajarkan lewat catatan fakta. Model sekecil ini juga tidak dilatih bernalar (hasil uji: diminta mengurutkan "5, 4, 3, 9" ia mengeluarkan
+"5, 9, 9, 10", dan diminta menjumlahkan "3 apel dan 4 jeruk" ia hanya mengutip "3").
+
+Karena itu, aplikasi punya **alat kecil yang dikerjakan program, bukan model**. Hasilnya selalu benar untuk pola yang dikenal dan diberi label
+"Alat" (bukan "Dari catatan"):
+
+| Ketik | Hasil |
+|---|---|
+| `urutkan 5, 4, 3, 9` atau `urutkan deret angka ini (5-4-3-9)` | `3, 4, 5, 9` (tambah `dari besar ke kecil` untuk menurun) |
+| `berapa 3 + 4`, `hitung 12 x 5`, `100 dibagi 4`, `2 pangkat 10` | `7`, `60`, `25`, `1024` |
+| `hari apa 17 Agustus 2026` | `Senin` |
+| `berapa hari antara 1 Januari 2026 dan 1 Maret 2026` | `59 hari` |
+
+Catatan alat: angka desimal memakai koma (`3,5`), titik ribuan boleh (`1.000`), hanya tanggal lengkap dengan nama bulan yang dikenali, dan alat
+hanya mengenali pola di atas (bukan bahasa bebas). Permintaan lain ("terjemahkan…", "tuliskan…", "ringkaskan…") dijawab dengan penjelasan
+bahwa aplikasi tidak bisa mengerjakannya. Pertanyaan biasa tentang catatan tidak terpengaruh (mis. "Siapa yang lahir tanggal 12-03-1990?"
+tidak dianggap pengurangan).
+
 ## Kemampuan dan batasnya (angka sebenarnya)
 
 Angka berikut dari pengujian di repositori ini (`reports/eval_*.json`), memakai pengaturan **Seimbang**:

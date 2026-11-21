@@ -8,6 +8,7 @@ Perintah:
   lupakan <nomor>         hapus catatan
   daftar                  tampilkan semua catatan
   keluar                  selesai
+Alat (dikerjakan program, bukan dari catatan): 'urutkan 5, 4, 3, 9', 'hitung 12 x 5', 'hari apa 17 Agustus 2026'.
 PENTING: AI ini hanya tahu apa yang Anda ajarkan. Ia tidak menjawab dari pengetahuan umum, jadi ajari dulu
 dengan 'ingat: ...'. Jawaban selalu disertai catatan sumber; jika tidak ada catatan yang meyakinkan, sistem
 menjawab "belum tahu" dan tidak mengarang.
@@ -22,6 +23,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "tools"))
 
+import memory_tools
 from memory_agent import MemoryAgent, MemoryStore, Reader
 
 HELP = __doc__.split("Perintah:")[1].split("Contoh non-interaktif")[0]
@@ -53,6 +55,12 @@ def greeting_reply(agent):
     if n == 0:
         return base + INTRO
     return base + f"Saat ini ada {n} catatan. Tanyakan dengan kalimat berakhiran '?', atau tambah catatan dengan 'ingat: ...'."
+
+
+def format_tool(t):
+    if t["kind"] == "task":
+        return t["answer"]
+    return t["answer"] + "\n  dihitung oleh alat \"" + t["tool"] + "\" (bukan dari catatan). " + t["detail"]
 
 
 def format_answer(out):
@@ -92,6 +100,9 @@ def handle(line, agent, confirm=None):
         nid = agent.store.teach(m.group(1))
         return f"Dicatat [{nid}]."
     m = re.match(r"^/?tanya\s*:\s*(.+)$", s, re.I | re.S)
+    tool = memory_tools.route(m.group(1) if m else s)  # alat dan permintaan tugas diperiksa sebelum pertanyaan/pernyataan
+    if tool:
+        return format_tool(tool)
     q = m.group(1) if m else (s if (s.endswith("?") or is_question_like(s)) else None)
     if q is not None:
         if not agent.store.list():
@@ -119,6 +130,11 @@ def main():
     ap.add_argument("--relevance", type=float, default=0.67,
                     help="Ambang kecocokan kata inti pertanyaan dengan catatan (0-1). 1.0 = ketat: lebih sering menjawab 'belum tahu', hampir tidak mengarang.")
     args = ap.parse_args()
+    for stream in (sys.stdout, sys.stderr):  # konsol cp1252 tidak boleh membuat CLI macet karena karakter khusus
+        try:
+            stream.reconfigure(errors="replace")
+        except (AttributeError, ValueError):
+            pass
 
     print("[memori] memuat model ...", file=sys.stderr, flush=True)
     agent = MemoryAgent(MemoryStore(args.db), Reader(args.checkpoint), k=args.k, relevance_threshold=args.relevance)

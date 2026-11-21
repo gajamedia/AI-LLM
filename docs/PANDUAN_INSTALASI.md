@@ -65,8 +65,10 @@ Tips utama: **satu fakta per kalimat, sebut nama lengkap, tulis tanggal yang pas
 
 - **Menjalankan lagi:** klik ganda `jalankan.bat`. Berikutnya hanya butuh 10–20 detik (tanpa unduhan).
 - **Menghentikan:** tekan `Ctrl+C` di jendela hitam atau tutup jendelanya. Catatan Anda tetap tersimpan.
-- **Port 8765 sudah dipakai program lain:** jalankan lewat Command Prompt di folder paket:
+- **Port 8765 sudah dipakai** (misalnya Memori sudah berjalan di jendela lain, atau program lain): aplikasi langsung berhenti dengan pesan
+  "Port 8765 sudah dipakai program lain". Tutup yang lama, atau jalankan lewat Command Prompt di folder paket:
   `jalankan.bat --port 8800`, lalu buka `http://127.0.0.1:8800`.
+  Jangan menjalankan dua salinan Memori sekaligus dengan memori yang sama.
 
 ## 8. Cadangan, pembaruan, dan mencopot
 
@@ -99,7 +101,8 @@ Di macOS pasang Python 3.10+ dari python.org atau Homebrew, lalu jalankan `bash 
 | Jendela hitam langsung tertutup | Jalankan dari Command Prompt agar pesan galat terbaca: buka `cmd`, `cd` ke folder paket, ketik `jalankan.bat`. |
 | Model gagal dimuat | Ukuran `model\hai07-100m-v….pt` harus ±404 MB. Jika lebih kecil, unduhan rusak: unduh ulang dan periksa checksum. |
 | Halaman tidak terbuka | Pastikan jendela hitam masih berjalan dan buka `http://127.0.0.1:8765/` (bukan alamat jaringan). |
-| "address already in use" / port terpakai | Pakai port lain (bagian 7). |
+| "Port 8765 sudah dipakai program lain" | Memori mungkin sudah berjalan di jendela lain: tutup yang lama, atau pakai port lain (bagian 7). |
+| Meminta AI menghitung, mengurutkan, atau menulis | AI hanya membaca catatan. Hanya alat kecil yang tersedia: urutkan angka, hitung (+ - x / ^), hari dan selisih tanggal. Lihat `PANDUAN_MENGAJAR.md`. |
 | AI sering menjawab "belum tahu" | Tulis catatan lebih sederhana, samakan nama dengan di catatan, atau pilih **Longgar**. Ini batas model kecil, bukan kerusakan. |
 | Komputer terasa berat saat menjawab | Tutup program lain; model memakai ±1 GB RAM dan prosesor saat menjawab. |
 | Catatan hilang | Periksa `data\memory\memory.db` di folder yang Anda jalankan. Memori ikut folder paketnya. Jika Anda membuka folder paket yang berbeda, memorinya juga berbeda. |
