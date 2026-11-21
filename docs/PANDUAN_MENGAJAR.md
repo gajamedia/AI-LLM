@@ -104,6 +104,23 @@ sumbernya. Aturan dijalankan **program**, bukan model, jadi sifatnya kaku:
 - Aturan terbaru menang bila ada beberapa aturan dengan pemicu sama. Hapus catatan aturan untuk menonaktifkannya.
 - Aturan mengalahkan sapaan bawaan, dan hanya menjawab teks tetap: ia tidak bisa menalar atau menyusun jawaban baru.
 
+## Kamus: mengajari alat hitung/urut kata baru
+
+Alat hitung dan pengurut membaca kata bilangan Indonesia bawaan (satu ... sembilan, belas, puluh, ratus, ribu, juta, miliar). Anda bisa
+**menambah kata sendiri** (mis. bahasa daerah) lewat catatan berformat tetap, tanda kutip wajib:
+
+| Catatan | Artinya |
+|---|---|
+| `kata "siji" berarti 1` | kata bilangan 0-9 (juga boleh "artinya", "sama dengan", "adalah") |
+| `pengali "ewu" berarti 1000` | pengali kelipatan sepuluh, 1000 sampai 1.000.000.000.000 |
+| `operator "campur" berarti +` | operator: `+ - * / ^` (atau tambah, kurang, kali, bagi, pangkat) |
+
+Setelah itu: `berapa siji campur loro`, `urutkan telu, siji, loro`, `berapa lima ewu kali dua`. Aplikasi memberi tahu bila catatan dikenali
+atau ditolak. Aturan keamanan: kata harus 2-20 huruf a-z tanpa spasi; kata yang sudah dipakai program (kata tanya, sapaan, perintah,
+bulan/hari, bilangan/operator bawaan) ditolak; maksimal 200 entri; bila satu kata didefinisikan dua kali, **catatan terbaru menang**;
+melupakan catatannya menghapus entrinya. Kosakata bawaan (satu...sembilan, ribu/juta/miliar, ditambah/kali/dibagi, dst.) dibaca dari berkas data `tools/kamus_bawaan.txt`, bukan dari kode; berkas itu boleh disunting, tetapi kata bawaan tidak bisa ditimpa catatan. Ini hanya perluasan kosakata: **cara menghitungnya tetap kode program**, dan kalimat biasa
+yang kebetulan memuat kata kamus tidak dialihkan ke alat kecuali ada kata perintah/operator hitung.
+
 ## Belajar dari dokumen (impor berkas)
 
 Anda bisa mengimpor dokumen **.txt atau .md** (di web: kotak "Impor dokumen" di bawah panel Ajari AI, boleh diseret; di baris perintah:

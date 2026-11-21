@@ -270,6 +270,7 @@ dialog li{margin:6px 0}
       <li><b>Selalu cek sumber</b> yang ditampilkan di bawah jawaban.</li>
       <li><b>Bukan kalkulator atau asisten umum.</b> AI hanya membaca catatan. Tersedia alat kecil yang dikerjakan program (bukan model): <i>urutkan 5, 4, 3, 9</i>, <i>hitung 12 x 5</i>, <i>hari apa 17 Agustus 2026</i>. Hasilnya diberi label “Alat”.</li>
       <li><b>Dokumen:</b> impor berkas .txt/.md di bawah kotak Ajari. AI menampilkan <i>bagian dokumen yang paling mirip</i> beserta sumbernya. Jawaban AI dari dokumen hanya dugaan dan sering keliru, jadi baca sendiri bagian yang tampil.</li>
+      <li><b>Kamus untuk alat hitung/urut:</b> ajarkan kata bilangan atau operator dengan format <i>kata "siji" berarti 1</i>, <i>pengali "ewu" berarti 1000</i>, <i>operator "campur" berarti +</i>. Lalu tanyakan, mis. "berapa siji campur loro".</li>
       <li><b>Aturan jawaban tetap:</b> tulis <i>jika ada yang menyapa "halo" jawab saja "halo"</i> (pemicu dan balasan diberi tanda kutip). Dijalankan program bila Anda mengetik pemicu persis sama.</li>
     </ol>
     <div class="good-bad">
@@ -404,9 +405,13 @@ function looksLikeTable(t){var m=t.match(/\d\s*[+\-x×*\/]\s*\d\s*=\s*\d/g);retu
 function clientHints(t){var out=[];t=t.trim();if(!t)return out;
   var rule=parseRule(t);
   if(rule){out.push({good:true,text:"Dikenali sebagai aturan: bila Anda mengetik persis “"+rule.trigger+"”, AI menjawab “"+rule.reply+"”."});return out;}
+  if(/^\s*(kata|pengali|operator)\s+["\u201c'\u2018]/i.test(t)){out.push({good:true,text:"Tampak seperti entri kamus (kata \u201csiji\u201d berarti 1, pengali \u201cewu\u201d berarti 1000, operator \u201ccampur\u201d berarti +). Setelah disimpan, formatnya diperiksa."});return out;}
+  if((t.match(/(^|[^\w.])\d\s*=\s*[A-Za-z]{2,}/g)||[]).length>=2){out.push({good:true,text:"Tampak seperti daftar \u201cangka = kata\u201d. Setelah disimpan, kata-kata barunya dipakai alat hitung/urut."});return out;}
   if(looksLikeTable(t))out.push("Tabel atau rumus tidak bisa dipelajari dari catatan. Untuk menghitung, ketik langsung, mis. 'hitung 12 x 5'.");
   var sents=t.split(/[.!?]+\s+/).filter(Boolean);
-  if(t.length>220)out.push("Catatan cukup panjang. Model lebih akurat dengan satu fakta per kalimat.");
+  if(/[²³¹⁰-⁹¼-¾≈≤≥→]/.test(t))out.push("Simbol seperti ² ³ ½ tidak dikenal model dan merusak jawaban. Tulis 'km2' atau 'km persegi'.");
+  if(t.length>400)out.push("Catatan "+t.length+" karakter mungkin melebihi konteks model; sebagian dipotong saat dibaca. Pecah menjadi satu fakta per catatan.");
+  else if(t.length>220)out.push("Catatan cukup panjang. Model lebih akurat dengan satu fakta per kalimat.");
   if(sents.length>=3)out.push("Ada beberapa kalimat sekaligus. Simpan satu fakta per catatan.");
   if(/^(dia|ia|mereka|beliau|itu|ini)\b/i.test(t))out.push("Mulailah dengan nama lengkap, bukan kata ganti (dia/ia/mereka).");
   if(/\b(kemarin|tadi|besok|sekarang|hari ini|minggu depan)\b/i.test(t))out.push("Kata waktu relatif akan basi. Tulis tanggal atau hari yang pasti.");
@@ -427,7 +432,7 @@ function saveNote(){var text=noteEl.value.trim();if(!text)return;$("save").disab
   api("/api/notes",{method:"POST",body:body}).then(function(j){
     if(j.error){toast(j.error);$("save").disabled=false;return;}
     S.newId=j.id;setNotes(j.notes);var wasEdit=S.editingId!=null;endEdit();noteEl.value="";renderTeach();
-    toast(wasEdit?"Catatan diperbarui.":(j.rule?"Dicatat sebagai aturan #"+j.id+".":"Dicatat sebagai #"+j.id+"."));
+    if(j.lexicon){toast(j.lexicon.message);}else toast(wasEdit?"Catatan diperbarui.":(j.rule?"Dicatat sebagai aturan #"+j.id+".":"Dicatat sebagai #"+j.id+"."));
     setTimeout(function(){S.newId=null},1800);});}
 $("save").addEventListener("click",saveNote);
 var exBox=$("examples");EXAMPLE_NOTES.slice(0,3).forEach(function(t){exBox.appendChild(h("button",{class:"chip",type:"button",text:t,onclick:function(){noteEl.value=t;renderTeach();noteEl.focus();}}));});

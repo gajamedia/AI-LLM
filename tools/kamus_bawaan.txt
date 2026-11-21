@@ -1,0 +1,35 @@
+# Kamus bawaan alat hitung/urut Memori. Berkas data, bukan kode: boleh Anda sunting.
+# Format sama dengan catatan kamus:
+#   kata "satu" berarti 1          kata bilangan 0-9
+#   pengali "ribu" berarti 1000    pengali kelipatan sepuluh (1000 ... 1000000000000)
+#   operator "kali" berarti *      operator + - * / ^
+# Awalan "se" otomatis berlaku untuk pengali (seribu, sejuta). Kata ini tidak bisa ditimpa catatan pengguna.
+# Kata struktur (sepuluh, sebelas, belas, puluh, seratus, ratus) adalah tata bahasa angka dan tetap di kode.
+# Jika berkas ini hilang, alat hitung tidak berjalan dan aplikasi menampilkan pesan galat.
+
+kata "nol" berarti 0
+kata "satu" berarti 1
+kata "dua" berarti 2
+kata "tiga" berarti 3
+kata "empat" berarti 4
+kata "lima" berarti 5
+kata "enam" berarti 6
+kata "tujuh" berarti 7
+kata "delapan" berarti 8
+kata "sembilan" berarti 9
+
+pengali "ribu" berarti 1000
+pengali "juta" berarti 1000000
+pengali "miliar" berarti 1000000000
+
+operator "ditambah" berarti +
+operator "ditambahkan" berarti +
+operator "tambah" berarti +
+operator "plus" berarti +
+operator "dikurangi" berarti -
+operator "minus" berarti -
+operator "dikali" berarti *
+operator "dikalikan" berarti *
+operator "kali" berarti *
+operator "dibagi" berarti /
+operator "pangkat" berarti ^

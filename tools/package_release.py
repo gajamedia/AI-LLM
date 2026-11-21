@@ -252,6 +252,7 @@ def main():
         text = (PROJECT_ROOT / "tools" / name).read_text(encoding="utf-8")
         text = text.replace(DEFAULT_CKPT_REPO, default_ckpt_pkg)
         (pkg / "tools" / name).write_text(text, encoding="utf-8", newline="\n")
+    shutil.copy2(PROJECT_ROOT / "tools" / "kamus_bawaan.txt", pkg / "tools" / "kamus_bawaan.txt")
     (pkg / "web" / "memory").mkdir(parents=True)
     shutil.copy2(PROJECT_ROOT / "web" / "memory" / "index.html", pkg / "web" / "memory" / "index.html")
     (pkg / "data" / "prod").mkdir(parents=True)

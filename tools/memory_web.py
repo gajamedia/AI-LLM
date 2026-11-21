@@ -38,12 +38,13 @@ def note_hints(text):
     """Saran penulisan catatan agar mudah dibaca model kecil (bukan larangan)."""
     hints = []
     t = text.strip()
-    if parse_rule(t):  # aturan dikenali: tidak perlu saran gaya penulisan
+    if parse_rule(t) or memory_tools.describe_lexicon_note(t):  # aturan/kamus dikenali: tidak perlu saran gaya penulisan
         return hints
     sentences = [s for s in re.split(r"(?<=[.!?])\s+", t) if s.strip()]
     if memory_tools.looks_like_table(t):
         hints.append(memory_tools.TABLE_HINT)
-    if len(t) > 220:
+    hints.extend(memory_tools.vocab_warnings(t))
+    if 220 < len(t) <= memory_tools.LONG_NOTE_CHARS:
         hints.append("Catatan cukup panjang. Model lebih akurat dengan satu fakta per kalimat; pertimbangkan memecahnya.")
     if len(sentences) >= 3:
         hints.append("Ada beberapa kalimat sekaligus. Simpan satu fakta per catatan agar mudah ditemukan.")
@@ -166,7 +167,8 @@ def make_handler(state, port):
                         state.store.forget(replace_id)
                     rule = parse_rule(text)
                     return self._send(200, {"id": nid, "hints": note_hints(text), "notes": state.notes(),
-                                            "rule": {"trigger": rule[0], "reply": rule[1]} if rule else None})
+                                            "rule": {"trigger": rule[0], "reply": rule[1]} if rule else None,
+                                            "lexicon": memory_tools.describe_lexicon_note(text)})
             if self.path == "/api/ask":
                 q = str(body.get("question", "")).strip()
                 if not q:

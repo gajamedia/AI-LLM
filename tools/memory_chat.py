@@ -36,8 +36,7 @@ INTRO = memory_tools.INTRO
 GREETING = memory_tools.GREETING
 EMPTY_MSG = ("Memori masih kosong, jadi saya belum bisa menjawab apa pun.\n"
              "Ajari saya dulu, misalnya:  ingat: Bu Rina tinggal di Jalan Mawar nomor 5.")
-QUESTION_WORDS = {"apa", "apakah", "siapa", "siapakah", "kapan", "kapankah", "dimana", "dimanakah", "mana", "manakah",
-                  "bagaimana", "bagaimanakah", "berapa", "berapakah", "mengapa", "kenapa", "bilamana", "kemana", "darimana"}
+QUESTION_WORDS = memory_tools.QUESTION_WORDS
 YES = {"y", "ya", "yes", "iya", "ok", "oke", "simpan"}
 
 
@@ -62,8 +61,14 @@ def teach_message(agent, text):
     rule = parse_rule(text)
     if rule:
         msg += f' Dikenali sebagai aturan: bila Anda mengetik persis "{rule[0]}", saya menjawab "{rule[1]}".'
-    if memory_tools.looks_like_table(text):
+    lex = memory_tools.describe_lexicon_note(text)
+    if lex:
+        msg += "\n  " + lex["message"]
+    if memory_tools.looks_like_table(text) and not lex:
         msg += "\n  " + memory_tools.TABLE_HINT
+    if not lex and not rule:
+        for w in memory_tools.vocab_warnings(text):
+            msg += "\n  " + w
     return msg
 
 
@@ -157,7 +162,7 @@ def handle(line, agent, confirm=None):
     if GREETING.match(s):
         return greeting_reply(agent)
     m = re.match(r"^/?tanya\s*:\s*(.+)$", s, re.I | re.S)
-    tool = memory_tools.route(m.group(1) if m else s)  # alat dan permintaan tugas diperiksa sebelum pertanyaan/pernyataan
+    tool = memory_tools.route(m.group(1) if m else s, memory_tools.parse_lexicon(agent.store.list())[0])  # alat dan permintaan tugas diperiksa sebelum pertanyaan/pernyataan
     if tool:
         return format_tool(tool)
     q = m.group(1) if m else (s if (s.endswith("?") or is_question_like(s)) else None)

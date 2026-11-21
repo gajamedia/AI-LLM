@@ -15,8 +15,9 @@ import ast
 import datetime as dt
 import operator
 import re
+from pathlib import Path
 
-TOOL_LIST = "mengurutkan angka, menghitung (+ - x / ^), dan hari/selisih tanggal"
+TOOL_LIST = "mengurutkan angka, menghitung (+ - x / ^), menulis angka dengan huruf (mis. 10), dan hari/selisih tanggal"
 TASK_MESSAGE = ("Ini permintaan tugas, bukan pertanyaan tentang catatan Anda. Aplikasi ini hanya membaca catatan yang "
                 "Anda ajarkan, jadi tidak bisa menulis, menerjemahkan, atau merangkum. Alat yang tersedia: " + TOOL_LIST + ".")
 
@@ -55,26 +56,76 @@ def parse_numbers(text, hyphen_is_separator=True):
     return out
 
 
-_UNITS = {"nol": 0, "satu": 1, "dua": 2, "tiga": 3, "empat": 4, "lima": 5, "enam": 6, "tujuh": 7, "delapan": 8, "sembilan": 9}
-_NUMBER_WORDS = list(_UNITS) + ["sepuluh", "sebelas", "belas", "puluh", "seratus", "ratus", "seribu", "ribu"]
-_RUN = re.compile(r"\b(?:" + "|".join(_NUMBER_WORDS) + r")\b(?:\s+(?:" + "|".join(_NUMBER_WORDS) + r")\b)*", re.I)
+BASE_LEXICON_FILE = Path(__file__).with_name("kamus_bawaan.txt")
+_BASE_LINE = re.compile(r'^(kata|pengali|operator)\s+"([a-z]{2,20})"\s+berarti\s+(\S+)$')
+_BASE_OPS = {"+": "+", "-": "-", "*": "*", "/": "/", "^": "^"}
 
 
-def _parse_number_run(tokens):
-    """Ubah deret kata bilangan (mis. 'dua puluh lima', 'seratus tiga belas', 'tiga satu dua') menjadi daftar bilangan bulat."""
-    nums, total, sub, cur, last = [], 0, 0, None, None
+def load_base_lexicon(path=BASE_LEXICON_FILE):
+    """Baca kamus bawaan dari berkas data (bukan kode). Kembalikan (unit, pengali, operator)."""
+    try:
+        lines = Path(path).read_text(encoding="utf-8-sig").splitlines()
+    except OSError as e:
+        raise RuntimeError(f"Kamus bawaan tidak ditemukan atau tidak terbaca ({path}): {e}. Berkas kamus_bawaan.txt harus ada di folder tools.") from e
+    units, mults, ops = {}, {}, {}
+    for n, raw in enumerate(lines, 1):
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        m = _BASE_LINE.match(line)
+        ok = bool(m)
+        if ok:
+            kind, word, val = m.groups()
+            if kind == "kata" and re.fullmatch(r"\d", val):
+                units[word] = int(val)
+            elif kind == "pengali" and re.fullmatch(r"10{3,12}", val):
+                mults[word] = int(val)
+            elif kind == "operator" and val in _BASE_OPS:
+                ops[word] = val
+            else:
+                ok = False
+        if not ok:
+            raise RuntimeError(f"Kamus bawaan {path}, baris {n} tidak valid: {raw!r}")
+    if not units or not mults:
+        raise RuntimeError(f"Kamus bawaan {path} tidak memuat kata bilangan atau pengali.")
+    return units, mults, ops
+
+
+_UNITS, _MULTS, _BASE_OPERATORS = load_base_lexicon()
+_STRUCT = ["sepuluh", "sebelas", "belas", "puluh", "seratus", "ratus"]
+_RUN_CACHE = {}
+
+
+def _run_regex(units, mults):
+    key = (tuple(sorted(units)), tuple(sorted(mults)))
+    rx = _RUN_CACHE.get(key)
+    if rx is None:
+        words = sorted(set(units) | set(mults) | {"se" + m for m in mults} | set(_STRUCT), key=len, reverse=True)
+        alt = "|".join(re.escape(w) for w in words)
+        rx = re.compile(r"\b(?:" + alt + r")\b(?:\s+(?:" + alt + r")\b)*", re.I)
+        if len(_RUN_CACHE) > 32:
+            _RUN_CACHE.clear()
+        _RUN_CACHE[key] = rx
+    return rx
+
+
+def _parse_number_run(tokens, units=None, mults=None):
+    """Ubah deret kata bilangan (mis. 'dua puluh lima', 'dua juta tiga ratus ribu', 'tiga satu dua') menjadi daftar bilangan bulat."""
+    units = _UNITS if units is None else units
+    mults = _MULTS if mults is None else mults
+    nums, total, sub, cur, last, lm = [], 0, 0, None, None, None  # lm: pengali terakhir (harus menurun)
 
     def flush():
-        nonlocal total, sub, cur, last
+        nonlocal total, sub, cur, last, lm
         if last is not None:
             nums.append(total + sub + (cur or 0))
-        total, sub, cur, last = 0, 0, None, None
+        total, sub, cur, last, lm = 0, 0, None, None, None
 
     for t in tokens:
-        if t in _UNITS:
+        if t in units:
             if last in ("unit", "teen"):
                 flush()
-            cur, last = _UNITS[t], "unit"
+            cur, last = units[t], "unit"
         elif t in ("sepuluh", "sebelas"):
             if last in ("unit", "teen", "tens"):
                 flush()
@@ -90,28 +141,155 @@ def _parse_number_run(tokens):
             sub, last = sub + 100, "hundreds"
         elif t == "ratus" and last == "unit":
             sub, cur, last = sub + cur * 100, None, "hundreds"
-        elif t == "seribu":
-            if last is not None:
+        elif t.startswith("se") and t[2:] in mults:      # seribu, sejuta, ...
+            v = mults[t[2:]]
+            if last is not None and not (lm is not None and v < lm and sub + (cur or 0) == 0):
                 flush()
-            total, last = 1000, "thousand"
-        elif t == "ribu" and last in ("unit", "teen", "tens", "hundreds"):
-            total, sub, cur, last = (sub + (cur or 0)) * 1000, 0, None, "thousand"
+            total, lm, last = total + v, v, "mult"
+        elif t in mults and last in ("unit", "teen", "tens", "hundreds"):
+            v, pending = mults[t], sub + (cur or 0)
+            if lm is not None and v >= lm:               # urutan naik (mis. 'dua ribu tiga juta'): bilangan baru
+                nums.append(total)
+                total = 0
+            total, sub, cur, lm, last = total + pending * v, 0, None, v, "mult"
     flush()
     return nums
 
 
-def words_to_digits(text):
-    """Ganti kata bilangan Indonesia dengan angka: 'dua puluh lima ditambah satu' -> '25 ditambah 1'."""
+def words_to_digits(text, lex=None):
+    """Ganti kata bilangan Indonesia dengan angka: 'dua puluh lima ditambah satu' -> '25 ditambah 1'.
+    lex: kamus dari catatan pengguna (lihat parse_lexicon); menambah kata bilangan dan pengali."""
+    units, mults = _UNITS, _MULTS
+    if lex and (lex.get("units") or lex.get("multipliers")):
+        units, mults = {**_UNITS, **lex.get("units", {})}, {**_MULTS, **lex.get("multipliers", {})}
+
     def repl(m):
-        nums = _parse_number_run(m.group(0).lower().split())
+        nums = _parse_number_run(m.group(0).lower().split(), units, mults)
         return " ".join(str(n) for n in nums) if nums else m.group(0)
-    return _RUN.sub(repl, text)
+    return _run_regex(units, mults).sub(repl, text)
 
 
-def sort_tool(q):
+# ---------- kamus dari catatan pengguna ----------
+QUESTION_WORDS = {"apa", "apakah", "siapa", "siapakah", "kapan", "kapankah", "dimana", "dimanakah", "mana", "manakah",
+                  "bagaimana", "bagaimanakah", "berapa", "berapakah", "mengapa", "kenapa", "bilamana", "kemana", "darimana"}
+MAX_LEXICON = 200
+_LEX_NOTE = re.compile(r"^\s*(kata|pengali|operator)\s+[\"“'‘](.+?)[\"”'’]\s+(?:berarti|artinya|sama dengan|adalah)\s+(\S+?)\s*[.!]?\s*$", re.I)
+_LEX_HEAD = re.compile(r"^\s*(kata|pengali|operator)\s+[\"“'‘]", re.I)
+_OP_SYMBOLS = {"+": "+", "-": "-", "*": "*", "x": "*", "×": "*", "/": "/", "÷": "/", "^": "^",
+               "tambah": "+", "plus": "+", "kurang": "-", "minus": "-", "kali": "*", "bagi": "/", "pangkat": "^"}
+_RESERVED = (QUESTION_WORDS | set(_UNITS) | set(_MULTS) | set(_BASE_OPERATORS) | set(_STRUCT) | set(MONTHS) | {d.lower() for d in DAYS} | {
+    "halo", "hai", "hei", "hello", "selamat", "terima", "kasih", "makasih", "thanks", "kabar", "pagi", "siang", "sore", "malam",
+    "ditambah", "tambah", "plus", "dikurangi", "minus", "dikali", "dikalikan", "kali", "dibagi", "bagi", "pangkat", "kurang",
+    "urutkan", "mengurutkan", "sortir", "sort", "hitung", "hitunglah", "jumlahkan", "kalikan", "terjemahkan", "tuliskan",
+    "buatkan", "ringkaskan", "rangkum", "ceritakan", "translate", "hasil", "hasilnya", "tolong", "coba", "selisih", "jarak",
+    "yang", "dan", "di", "ke", "dari", "atau", "ini", "itu", "untuk", "dengan", "pada", "adalah", "ya", "tidak", "bukan",
+    "ingat", "lupakan", "daftar", "tanya", "dokumen", "impor", "hapus", "bantuan", "kata", "pengali", "operator", "berarti", "artinya"})
+
+
+def _parse_entry(text):
+    """(jenis, kata, nilai) dari satu catatan format kamus; atau str berisi alasan penolakan; atau None bila bukan format kamus."""
+    if not _LEX_HEAD.match(text):
+        return None
+    m = _LEX_NOTE.match(text)
+    if not m:
+        return 'Format kamus: kata "siji" berarti 1  |  pengali "ewu" berarti 1000  |  operator "campur" berarti +'
+    kind, word, val = m.group(1).lower(), m.group(2).strip().lower(), m.group(3).strip().lower()
+    if not re.fullmatch(r"[a-z]{2,20}", word):
+        return f'Kata "{word}" tidak valid: harus 2-20 huruf a-z tanpa spasi, angka, atau tanda baca.'
+    if word in _RESERVED:
+        return f'Kata "{word}" sudah dipakai program (kata tanya, sapaan, perintah, bulan/hari, atau bilangan/operator bawaan); pilih kata lain.'
+    if kind == "kata":
+        if not re.fullmatch(r"\d", val):
+            return f'Nilai kata harus satu angka 0-9, bukan "{val}". Bilangan besar dibentuk dari kata-kata ini ("siji" "loro" ...).'
+        return kind, word, int(val)
+    if kind == "pengali":
+        digits = val.replace(".", "")
+        if not re.fullmatch(r"10{3,12}", digits):
+            return 'Nilai pengali harus kelipatan sepuluh dari 1000 sampai 1000000000000 (mis. 1000, 1000000).'
+        return kind, word, int(digits)
+    sym = _OP_SYMBOLS.get(val)
+    if sym is None:
+        return 'Nilai operator harus salah satu dari: + - * / ^ (atau tambah, kurang, kali, bagi, pangkat).'
+    return kind, word, sym
+
+
+_PAIR = re.compile(r"(?<![\w.])(\d)\s*=\s*([A-Za-z]{2,20})\b")
+
+
+def _parse_table(text):
+    """Daftar bebas 'angka = kata' (mis. 'Daftar Bilangan 1 Sampai 10 \u2022 1 = satu \u2022 2 = dua ...').
+    Kembalikan (entri, dilewati) atau None bila bukan daftar (butuh minimal 2 pasangan)."""
+    if _LEX_HEAD.match(text):
+        return None
+    pairs = _PAIR.findall(text)
+    if len(pairs) < 2:
+        return None
+    entries, skipped = [], []
+    for d, w in pairs:
+        w, d = w.lower(), int(d)
+        if w in _UNITS:
+            if _UNITS[w] != d:
+                skipped.append(f'"{w}" (bawaan bernilai {_UNITS[w]}, bukan {d})')
+        elif w in _RESERVED:
+            skipped.append(f'"{w}" (kata sudah dipakai program)')
+        else:
+            entries.append(("kata", w, d))
+    return entries, skipped
+
+
+def parse_lexicon(notes):
+    """notes: daftar (id, teks). Kembalikan (kamus, masalah). Catatan yang lebih baru menimpa yang lama."""
+    lex = {"units": {}, "multipliers": {}, "operators": {}}
+    keys = {"kata": "units", "pengali": "multipliers", "operator": "operators"}
+    issues, count = [], 0
+    for nid, text in sorted(notes, key=lambda n: n[0]):
+        e = _parse_entry(text)
+        if e is None:
+            tbl = _parse_table(text)
+            if tbl is None:
+                continue
+            entries = tbl[0]
+        elif isinstance(e, str):
+            issues.append((nid, e))
+            continue
+        else:
+            entries = [e]
+        for kind, word, val in entries:
+            if count >= MAX_LEXICON:
+                issues.append((nid, f"Batas {MAX_LEXICON} entri kamus tercapai; sisanya diabaikan."))
+                break
+            count += 1
+            for k, d in lex.items():
+                d.pop(word, None)            # satu kata hanya punya satu arti: yang terbaru menang
+            lex[keys[kind]][word] = val
+    return lex, issues
+
+
+def describe_lexicon_note(text):
+    """None bila catatan bukan format kamus; selain itu {'ok': bool, 'message': str} untuk umpan balik saat mengajar."""
+    e = _parse_entry(text)
+    if e is None:
+        tbl = _parse_table(text)
+        if tbl is None:
+            return None
+        new, skipped = tbl
+        msg = ("Dikenali sebagai daftar kamus: " + (f"{len(new)} kata baru (" + ", ".join(f'{w}={v}' for _, w, v in new[:6]) + (", ..." if len(new) > 6 else "") + "). Alat urut/hitung kini memahaminya."
+               if new else "semua kata di dalamnya sudah dikenal program."))
+        if skipped:
+            msg += " Dilewati: " + "; ".join(skipped[:4]) + "."
+        return {"ok": True, "message": msg}
+    if isinstance(e, str):
+        return {"ok": False, "message": e + " Catatan tetap disimpan tetapi tidak dipakai sebagai kamus."}
+    kind, word, val = e
+    what = {"kata": f'kata bilangan "{word}" = {val}', "pengali": f'pengali "{word}" = {val}',
+            "operator": f'operator "{word}" = {val}'}[kind]
+    return {"ok": True, "message": f"Dikenali sebagai kamus: {what}. Alat urut/hitung kini memahaminya."}
+
+
+def sort_tool(q, lex=None):
     if not re.search(r"\b(urutkan|mengurutkan|sortir|sort)\b", q, re.I):
         return None
-    nums = parse_numbers(words_to_digits(q))
+    nums = parse_numbers(words_to_digits(q, lex))
     if len(nums) < 2:
         return None
     desc = bool(re.search(r"terbesar|besar\s*(?:ke|->|-)\s*kecil|menurun|turun|descending|dari yang besar", q, re.I))
@@ -147,20 +325,18 @@ def _safe_eval(node):
     raise ValueError("ekspresi tidak didukung")
 
 
-_WORD_OPS = [(r"\bditambah(?:kan)?\b|\btambah\b|\bplus\b", " + "), (r"\bdikurangi\b|\bminus\b", " - "),
-             (r"\bdikali(?:kan)?\b|\bkali\b", " * "), (r"\bdibagi\b", " / "), (r"\bpangkat\b", " ** ")]
 _FILLER = {"berapa", "berapakah", "hitung", "hitunglah", "hasil", "hasilnya", "dari", "adalah", "ini", "itu", "tolong",
            "yang", "ya", "saja", "dong", "sama", "dengan", "nya", "jumlah", "jumlahkan", "kalikan", "bagi", "kurang", "kurangi"}
 _TRIGGER = re.compile(r"\b(hitung|hitunglah|berapa|berapakah|hasil|jumlahkan|kalikan)\b", re.I)
 
 
-def calc_tool(q):
-    t = words_to_digits(q.lower()).strip().rstrip("?= ")
+def calc_tool(q, lex=None):
+    t = words_to_digits(q.lower(), lex).strip().rstrip("?= ")
     if re.search(r"\b\d{1,2}[-/]\d{1,2}[-/]\d{2,4}\b", t) or re.search(r"\b\d{3,}-\d{3,}", t):
         return None  # tanggal atau nomor telepon, bukan pengurangan
     expr_text = t
-    for pat, rep in _WORD_OPS:
-        expr_text = re.sub(pat, rep, expr_text)
+    for word, sym in {**_BASE_OPERATORS, **((lex or {}).get("operators") or {})}.items():  # bawaan (berkas data) + ajaran pengguna
+        expr_text = re.sub(r"\b" + re.escape(word) + r"\b", " ** " if sym == "^" else f" {sym} ", expr_text)
     expr_text = re.sub(r"(?<=[\d)])\s*[x×]\s*(?=[\d(])", " * ", expr_text)
     expr_text = expr_text.replace("÷", " / ").replace("^", " ** ").replace(":", " : ")
     expr_text = _normalize_numbers(expr_text, hyphen_is_separator=False)
@@ -184,6 +360,74 @@ def calc_tool(q):
         return None
     shown = re.sub(r"\s+", " ", expr).replace("**", "^")
     return {"kind": "tool", "tool": "kalkulator", "answer": _format_number(value), "detail": f"Ekspresi dibaca: {shown}"}
+
+
+# ---------- terbilang (angka -> nama bilangan, nama dari kamus) ----------
+_TERBILANG = re.compile(
+    r"^\s*(?:terbilang\s+|tulis(?:kan)?\s+|eja(?:kan)?\s+)?(\d{1,3}(?:\.\d{3})+|\d+)\s*"
+    r"(?:=\s*\??|dibaca\s+apa\??|dalam\s+(?:kata|huruf)\??|\?)?\s*$", re.I)
+
+
+def _names(lex):
+    """Nama untuk tiap nilai: yang lebih dulu didefinisikan menang (bawaan lebih dulu daripada catatan pengguna)."""
+    un, mn = {}, {}
+    for w, v in {**_UNITS, **((lex or {}).get("units") or {})}.items():
+        un.setdefault(v, w)
+    for w, v in {**_MULTS, **((lex or {}).get("multipliers") or {})}.items():
+        mn.setdefault(v, w)
+    return un, mn
+
+
+def spell_number(n, lex=None):
+    """Nama bilangan bulat 0 <= n < 1000 * pengali terbesar, mis. 2300 -> 'dua ribu tiga ratus'."""
+    un, mn = _names(lex)
+
+    def below_1000(k):
+        out = []
+        h, r = divmod(k, 100)
+        if h == 1:
+            out.append("seratus")
+        elif h:
+            out.append(f"{un[h]} ratus")
+        if 10 <= r < 20:
+            out.append("sepuluh" if r == 10 else "sebelas" if r == 11 else f"{un[r - 10]} belas")
+        else:
+            t, u = divmod(r, 10)
+            if t:
+                out.append(f"{un[t]} puluh")
+            if u:
+                out.append(un[u])
+        return " ".join(out)
+
+    def spell(k):
+        if k == 0:
+            return un[0]
+        parts = []
+        for v in sorted(mn, reverse=True):
+            q, k = divmod(k, v)
+            if q:
+                parts.append(f"se{mn[v]}" if (v == 1000 and q == 1) else f"{below_1000(q)} {mn[v]}")
+        if k:
+            parts.append(below_1000(k))
+        return " ".join(parts)
+
+    return spell(n)
+
+
+def terbilang_tool(q, lex=None):
+    m = _TERBILANG.match(q)
+    if not m:
+        return None
+    n = int(m.group(1).replace(".", ""))
+    un, mn = _names(lex)
+    if n >= 1000 * max(mn):
+        return None
+    try:
+        words = spell_number(n, lex)
+    except KeyError:
+        return None  # kamus tidak punya nama untuk salah satu angka yang dibutuhkan
+    return {"kind": "tool", "tool": "terbilang", "answer": words,
+            "detail": f"Angka {n} dibaca: {words} (nama bilangan dari kamus)."}
 
 
 # ---------- tanggal ----------
@@ -227,6 +471,21 @@ def greeting_reply(n_notes, n_docs=0):
     return base + f"Saat ini ada {n_notes} catatan{docs}. Tanyakan dengan kalimat berakhiran '?', atau tambah catatan dengan 'ingat: ...'."
 
 
+_ODD_SYMBOLS = re.compile(r"[²³¹⁰-⁹¼-¾≈≤≥→]")
+LONG_NOTE_CHARS = 400
+
+
+def vocab_warnings(text):
+    """Peringatan khusus model kecil: simbol di luar kosakata dan catatan yang mungkin melebihi konteks 256 token."""
+    out = []
+    if _ODD_SYMBOLS.search(text):
+        out.append("Simbol seperti ² ³ ½ tidak dikenal model dan merusak jawaban. Tulis 'km2' atau 'km persegi', bukan 'km²'.")
+    if len(text) > LONG_NOTE_CHARS:
+        out.append(f"Catatan {len(text)} karakter mungkin melebihi konteks model (256 token); sebagian akan dipotong saat dibaca, "
+                   "dan angka panjang sering salah disalin. Pecah menjadi satu fakta per catatan.")
+    return out
+
+
 def looks_like_table(text):
     """Catatan berisi tabel/rumus hitung (mis. '1+1=2 1+2=3 ...'), yang tidak bisa dipelajari model."""
     return len(re.findall(r"\d\s*[+\-x×*/]\s*\d\s*=\s*\d", text)) >= 2 or text.count("=") >= 3
@@ -237,10 +496,10 @@ def is_task(q):
     return bool(re.match(r"^\s*(tolong\s+|coba\s+)?" + TASK_VERBS + r"\b", q, re.I))
 
 
-def route(q):
+def route(q, lex=None):
     """Kembalikan hasil alat, pesan 'permintaan tugas', atau None bila ini pertanyaan/pernyataan biasa."""
-    for fn in (sort_tool, date_tool, calc_tool):
-        r = fn(q)
+    for fn in (sort_tool, date_tool, calc_tool, terbilang_tool):
+        r = fn(q, lex) if fn is not date_tool else fn(q)
         if r:
             return r
     if is_task(q):

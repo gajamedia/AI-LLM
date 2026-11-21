@@ -249,6 +249,28 @@ def related_unused(question, reads, used_ids):
     return out
 
 
+READ_NEW_TOKENS = 30   # ruang minimal untuk jawaban model
+
+
+def fit_context(tok, text, question):
+    """Potong catatan/bagian panjang ke jendela kalimat yang membuat PROMPT LENGKAP muat di konteks model.
+    Dihitung dari prompt sebenarnya (bukan perkiraan), karena prompt terlalu panjang membuat model tidak bisa menulis jawaban."""
+    def prompt_len(ctx):
+        return len(tok.encode_ids(R.TEMPLATE_PROMPT.format(p=R.make_prompt(ctx, question))))
+    limit = R.MAX_CONTEXT - READ_NEW_TOKENS
+    if prompt_len(text) <= limit:
+        return text
+    best = None
+    for margin in range(R.GEN_MARGIN, 201, 20):
+        w = R.fit_window(tok, text, question, margin=margin)
+        if not w:
+            break
+        best = w
+        if prompt_len(w) <= limit:
+            return w
+    return best or text
+
+
 class MemoryAgent:
     def __init__(self, store, reader, k=3, entity_guard=True, relevance_guard=True, relevance_threshold=0.67):
         self.store, self.reader, self.k = store, reader, k
@@ -263,7 +285,7 @@ class MemoryAgent:
         if memory_tools.GREETING.match(question.strip()):
             return {"status": "greeting", "answer": memory_tools.greeting_reply(len(self.store.list()), len(self.store.list_documents())), "tool": None,
                     "detail": "", "source": None, "conflicts": [], "related": [], "retrieved": []}
-        t = memory_tools.route(question)
+        t = memory_tools.route(question, memory_tools.parse_lexicon(self.store.list())[0])  # kamus dari catatan pengguna
         if t:  # alat deterministik / permintaan tugas: tidak memanggil model
             return {"status": t["kind"], "answer": t["answer"], "tool": t["tool"], "detail": t["detail"],
                     "source": None, "conflicts": [], "related": [], "retrieved": []}
@@ -273,8 +295,8 @@ class MemoryAgent:
         reads = []
         for h in hits:
             ctx = h["text"]
-            if tok is not None and h["id"] in doc_ids:  # potongan dokumen bisa panjang: ambil jendela kalimat yang muat konteks model
-                ctx = R.fit_window(tok, ctx, question) or ctx
+            if tok is not None:  # catatan/potongan panjang: ambil jendela kalimat yang membuat prompt muat di konteks model
+                ctx = fit_context(tok, ctx, question)
             reads.append((h["id"], h["text"], self.reader.read(ctx, question)))
         out = decide(question, reads, self.entity_guard, self.relevance_guard, self.relevance_threshold, doc_ids)
         out["retrieved"] = [h["id"] for h in hits]
