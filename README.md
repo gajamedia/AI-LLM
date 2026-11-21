@@ -215,7 +215,7 @@ Tokenizer & data sama dengan production; checkpoint **tidak kompatibel** dengan 
 
 Model tetap (bobot tidak berubah); pengetahuan ada di berkas memori lokal yang bisa diajari pemiliknya
 dengan kalimat biasa. Setiap jawaban menampilkan catatan sumber, dan jika tidak yakin sistem menjawab "belum tahu".
-Panduan pengguna: [`docs/PANDUAN_MENGAJAR.md`](docs/PANDUAN_MENGAJAR.md).
+Panduan pengguna: [instalasi](docs/PANDUAN_INSTALASI.md) dan [mengajar](docs/PANDUAN_MENGAJAR.md).
 
 ```bash
 python tools/memory_web.py --open      # web: http://127.0.0.1:8765  (hanya localhost, tanpa dependensi tambahan)

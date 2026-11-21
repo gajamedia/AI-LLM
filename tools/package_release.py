@@ -196,8 +196,12 @@ Setelah itu peramban terbuka di `http://127.0.0.1:8765`. Tutup dengan Ctrl+C di 
 Tanpa skrip: `pip install -r requirements.txt` lalu `python tools/memory_web.py --open`.
 Versi baris perintah: `python tools/memory_chat.py`.
 
+## Panduan
+- Pemasangan dan pemecahan masalah: `PANDUAN_INSTALASI.md`.
+- Mengajar AI: `PANDUAN_MENGAJAR.md` (singkat).
+
 ## Mulai mengajar
-Baca `PANDUAN_MENGAJAR.md` (singkat). Intinya: **satu fakta per kalimat, sebut nama lengkap, tulis tanggal yang pasti**,
+Ringkasnya: Intinya: **satu fakta per kalimat, sebut nama lengkap, tulis tanggal yang pasti**,
 dan selalu periksa sumber yang ditampilkan di bawah jawaban.
 
 ## Catatan penting
@@ -261,7 +265,8 @@ def main():
     (pkg / "MODEL_CARD.md").write_text(from_card, encoding="utf-8", newline="\n")
     (pkg / "NOTICE.md").write_text(notice(v), encoding="utf-8", newline="\n")
     (pkg / "README.md").write_text(package_readme(v), encoding="utf-8", newline="\n")
-    shutil.copy2(PROJECT_ROOT / "docs" / "PANDUAN_MENGAJAR.md", pkg / "PANDUAN_MENGAJAR.md")
+    for guide in ("PANDUAN_MENGAJAR.md", "PANDUAN_INSTALASI.md"):
+        shutil.copy2(PROJECT_ROOT / "docs" / guide, pkg / guide)
     (pkg / "requirements.txt").write_text(REQUIREMENTS, encoding="utf-8", newline="\n")
     (pkg / "jalankan.bat").write_text(BAT, encoding="utf-8", newline="\r\n")
     (pkg / "jalankan.sh").write_text(SH, encoding="utf-8", newline="\n")
