@@ -254,7 +254,7 @@ dataset terjemahan CC-BY-SA, dan Alpaca-GPT4 (jawaban dibuat model OpenAI): peri
   non-komersial; ringkasan dan alasan di [`licenses/LISENSI.txt`](licenses/LISENSI.txt), sumber data di paket (`NOTICE.md`).
 - Data latih tidak ada di repositori dan tunduk pada lisensi sumbernya. Ini bukan nasihat hukum.
 
-Membuat paket rilis: `python tools/package_release.py --version 1.1126.2` (keluaran di `dist/`, tidak masuk git).
+Membuat paket rilis: `python tools/package_release.py --version 1.1126.3` (keluaran di `dist/`, tidak masuk git).
 
 ---
 
