@@ -77,7 +77,7 @@ def format_passages(out, exclude_id=None):
     ps = [p for p in out.get("passages") or [] if p["id"] != exclude_id]
     if not ps:
         return []
-    lines = ["  Bagian dokumen yang paling relevan:"]
+    lines = ["  Bagian dokumen yang paling mirip:"]
     for p in ps:
         text = p["text"] if len(p["text"]) <= 240 else p["text"][:237].rstrip() + "..."
         lines.append(f"    - {p['doc']}, bagian {p['part']}: {text}")

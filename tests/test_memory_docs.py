@@ -182,6 +182,19 @@ def test_user_note_wins_over_document_text_when_both_answer():
     assert out["status"] == "conflict" and out["conflicts"][0]["answer"] == "240 orang"
 
 
+def test_no_passages_when_answer_comes_from_a_user_note():
+    agent = agent_with_doc("Bu Ratna tinggal di Jalan Mawar nomor 5.")
+
+    class NoteReader:
+        def read(self, ctx, q):
+            return "Jalan Mawar nomor 5" if "Jalan Mawar" in ctx else "Maaf, tidak ada dalam teks."
+
+    agent.reader = NoteReader()
+    out = agent.ask("Di mana Bu Ratna tinggal?")
+    assert out["status"] == "ok" and "doc" not in out["source"]
+    assert out["passages"] == []        # bagian dokumen yang kebetulan mirip (kata "Ratna") tidak ditampilkan
+
+
 def test_document_chunks_do_not_appear_as_related_notes():
     out = agent_with_doc("Bu Ratna tinggal di Jalan Mawar.").ask("Siapa ketua Bu Ratna?")
     assert all(r["id"] not in {p["id"] for p in out["passages"]} for r in out["related"])
@@ -203,10 +216,10 @@ def test_cli_import_list_ask_and_delete(chat, tmp_path):
     assert "profil koperasi.md" in chat.handle("dokumen", agent)
     answer = chat.handle("Berapa jumlah anggota koperasi?", agent)
     # jawaban dari dokumen: bagian dokumen jadi hasil utama, jawaban AI hanya "dugaan" yang diberi peringatan
-    assert answer.lstrip().startswith("Bagian dokumen yang paling relevan") and "profil koperasi.md, bagian" in answer
+    assert answer.lstrip().startswith("Bagian dokumen yang paling mirip") and "profil koperasi.md, bagian" in answer
     assert "Dugaan jawaban AI (sering keliru pada dokumen" in answer and answer.rstrip().endswith("240 orang")
     unknown = chat.handle("Siapa bendahara koperasi di desa itu sekarang?", agent)
-    assert "Bagian dokumen yang paling relevan" in unknown and "Pak Slamet" in unknown and "bacalah bagian dokumen" in unknown
+    assert "Bagian dokumen yang paling mirip" in unknown and "Pak Slamet" in unknown and "bacalah bagian dokumen" in unknown
     assert not chat.handle("Siapa bendahara koperasi?", agent).startswith("Memori masih kosong")  # hanya-dokumen bukan 'kosong'
     assert "dihapus" in chat.handle(f"hapus dokumen {agent.store.list_documents()[0]['id']}", agent)
     assert "belum ada dokumen" in chat.handle("dokumen", agent)

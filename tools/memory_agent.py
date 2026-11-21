@@ -289,4 +289,6 @@ class MemoryAgent:
         out["terms"] = R.content_tokens(question)
         out["passages"] = [{"id": h["id"], "doc": h["doc"], "part": h["part"], "text": h["text"]}
                            for h in self.store.search(question, 3, docs_only=True)]
+        if out["source"] and out["source"]["id"] not in doc_ids:
+            out["passages"] = []  # dijawab dari catatan pengguna: bagian dokumen yang kebetulan mirip hanya jadi gangguan
         return out

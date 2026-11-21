@@ -269,7 +269,7 @@ dialog li{margin:6px 0}
       <li><b>Memperbarui fakta:</b> hapus catatan lama (atau pakai “Ubah”), lalu simpan yang baru.</li>
       <li><b>Selalu cek sumber</b> yang ditampilkan di bawah jawaban.</li>
       <li><b>Bukan kalkulator atau asisten umum.</b> AI hanya membaca catatan. Tersedia alat kecil yang dikerjakan program (bukan model): <i>urutkan 5, 4, 3, 9</i>, <i>hitung 12 x 5</i>, <i>hari apa 17 Agustus 2026</i>. Hasilnya diberi label “Alat”.</li>
-      <li><b>Dokumen:</b> impor berkas .txt/.md di bawah kotak Ajari. AI menampilkan <i>bagian dokumen yang paling relevan</i> beserta sumbernya. Jawaban AI dari dokumen hanya dugaan dan sering keliru, jadi baca sendiri bagian yang tampil.</li>
+      <li><b>Dokumen:</b> impor berkas .txt/.md di bawah kotak Ajari. AI menampilkan <i>bagian dokumen yang paling mirip</i> beserta sumbernya. Jawaban AI dari dokumen hanya dugaan dan sering keliru, jadi baca sendiri bagian yang tampil.</li>
       <li><b>Aturan jawaban tetap:</b> tulis <i>jika ada yang menyapa "halo" jawab saja "halo"</i> (pemicu dan balasan diberi tanda kutip). Dijalankan program bila Anda mengetik pemicu persis sama.</li>
     </ol>
     <div class="good-bad">
@@ -390,7 +390,7 @@ function highlightTerms(text,terms){var wrap=h("span");
     if(set[tok.toLowerCase()])wrap.appendChild(h("mark",{text:tok}));else wrap.appendChild(document.createTextNode(tok));});
   return wrap;}
 function passagesBox(out,excludeId){var ps=(out.passages||[]).filter(function(p){return p.id!==excludeId});if(!ps.length)return null;
-  var box=h("div",{class:"passages"},h("div",{class:"ph",text:"Bagian dokumen yang paling relevan"}));
+  var box=h("div",{class:"passages"},h("div",{class:"ph",text:"Bagian dokumen yang paling mirip"}));
   ps.forEach(function(p){box.appendChild(h("div",{class:"passage"},h("div",{class:"pm",text:p.doc+" · bagian "+p.part}),h("div",{class:"pt"},highlightTerms(p.text,out.terms))));});
   return box;}
 function removeNote(id){api("/api/notes/"+id,{method:"DELETE"}).then(function(j){
