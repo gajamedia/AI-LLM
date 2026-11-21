@@ -246,6 +246,18 @@ dataset terjemahan CC-BY-SA, dan Alpaca-GPT4 (jawaban dibuat model OpenAI): peri
 
 ---
 
+## Lisensi
+
+- **Kode** (`apps/`, `tools/`, `web/`, notebook): [MIT](LICENSE).
+- **Bobot model** yang dirilis (paket `hai07-memori`): **CC BY-NC-SA 4.0**, non-komersial dan bagi-serupa
+  ([teks](licenses/LICENSE-MODEL-CC-BY-NC-SA-4.0.txt)). Pilihan hati-hati karena sebagian data fine-tuning berhulu pada sumber
+  non-komersial; ringkasan dan alasan di [`licenses/LISENSI.txt`](licenses/LISENSI.txt), sumber data di paket (`NOTICE.md`).
+- Data latih tidak ada di repositori dan tunduk pada lisensi sumbernya. Ini bukan nasihat hukum.
+
+Membuat paket rilis: `python tools/package_release.py --version 1.1126.1` (keluaran di `dist/`, tidak masuk git).
+
+---
+
 ## Konfigurasi
 
 Lingkungan: `development` | `production` | `testing` — dipilih dengan `--env`

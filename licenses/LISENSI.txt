@@ -1,0 +1,31 @@
+LISENSI hai07-memori
+
+Paket ini memuat tiga jenis materi dengan lisensi berbeda.
+
+1) KODE (folder apps/, tools/, web/ dan skrip peluncur): lisensi MIT.
+   Teks lengkap: LICENSE-CODE-MIT.txt
+   Dokumentasi (berkas .md) mengikuti lisensi kode.
+
+2) BOBOT MODEL (folder model/, berkas .pt): Creative Commons
+   Atribusi-NonKomersial-BerbagiSerupa 4.0 Internasional (CC BY-NC-SA 4.0).
+   Teks resmi lengkap: LICENSE-MODEL-CC-BY-NC-SA-4.0.txt
+   Ringkasan (bukan pengganti teks resmi): https://creativecommons.org/licenses/by-nc-sa/4.0/deed.id
+   - Boleh menyalin, membagikan ulang, dan mengubah, untuk keperluan NON-KOMERSIAL,
+     dengan menyebut atribusi dan memakai lisensi yang sama pada hasil turunan.
+   - Tidak boleh dipakai atau diperjualbelikan untuk tujuan komersial.
+   Atribusi yang diminta:
+     "Model hai07-100m v1.1126.1, hak cipta 2026 gajamedia, lisensi CC BY-NC-SA 4.0"
+
+3) DATA LATIH tidak disertakan dalam paket dan tetap tunduk pada lisensi masing-masing
+   sumbernya (lihat NOTICE.md).
+
+Mengapa bobot dirilis non-komersial: sebagian data fine-tuning berasal dari rantai yang berhulu
+pada dataset non-komersial (CC BY-NC) dan keluaran model bahasa komersial yang syaratnya membatasi
+sebagian penggunaan, serta sebagian data berlisensi bagi-serupa. Hubungan hukum antara data latih
+dan bobot model masih belum mapan, sehingga pilihan ini bersifat hati-hati. Ini bukan nasihat hukum;
+konsultasikan dengan ahli hukum sebelum penggunaan komersial.
+
+Catatan: lisensi versi mendatang dapat berbeda. Salinan yang sudah didistribusikan tetap
+tunduk pada lisensi saat salinan itu diterima.
+
+TANPA JAMINAN. Model kecil ini dapat keliru; lihat MODEL_CARD.md untuk keterbatasan.

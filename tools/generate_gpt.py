@@ -107,7 +107,8 @@ def _resolve_model_state(payload: dict) -> Dict[str, torch.Tensor]:
 
 
 def _load_checkpoint_payload(checkpoint: Path) -> dict:
-    payload = torch.load(str(checkpoint), map_location="cpu")
+    # weights_only=True: hanya tensor/tipe dasar yang dimuat, sehingga berkas model dari luar tidak bisa menjalankan kode.
+    payload = torch.load(str(checkpoint), map_location="cpu", weights_only=True)
     if not isinstance(payload, dict):
         raise ValueError("Checkpoint payload must be a dictionary.")
     return payload
