@@ -14,7 +14,7 @@ Paket ini memuat tiga jenis materi dengan lisensi berbeda.
      dengan menyebut atribusi dan memakai lisensi yang sama pada hasil turunan.
    - Tidak boleh dipakai atau diperjualbelikan untuk tujuan komersial.
    Atribusi yang diminta:
-     "Model hai07-100m v1.1126.4, hak cipta 2026 gajamedia, lisensi CC BY-NC-SA 4.0"
+     "Model hai07-100m v1.1126.5, hak cipta 2026 gajamedia, lisensi CC BY-NC-SA 4.0"
 
 3) DATA LATIH tidak disertakan dalam paket dan tetap tunduk pada lisensi masing-masing
    sumbernya (lihat NOTICE.md).
