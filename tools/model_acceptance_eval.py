@@ -169,8 +169,8 @@ def _agent(store, reader):
 
 
 def run_qa_frozen(reader, limit=None):
-    from memory_eval2 import UNANSWERABLE_HW
-    suites = {"tulisan_tangan": (load("memory_handwritten.jsonl"), list(UNANSWERABLE_HW)),
+    unans_hw = json.loads((PROJECT_ROOT / "evalsets" / "memory_handwritten_unans.json").read_text(encoding="utf-8"))
+    suites = {"tulisan_tangan": (load("memory_handwritten.jsonl"), unans_hw),
               "kalimat_rumit": (load("memory_complex.jsonl"), [r["question"] for r in load("memory_complex_unans.jsonl")])}
     out = {}
     for name, (items, unans) in suites.items():
