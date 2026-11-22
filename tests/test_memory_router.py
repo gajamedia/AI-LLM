@@ -154,3 +154,69 @@ def test_snap_never_guesses_when_it_is_not_a_clear_cut_word():
     assert MA.snap_to_word_boundaries("kumen diadakan lagi nanti pada hari", note + " pada hari") != ""
     assert MA.snap_to_word_boundaries("abcde", "xx abcdefghijkl yy") == "abcde"      # perpanjangan > 4 huruf: tidak ditebak
     assert MA.snap_to_word_boundaries("", note) == "" and MA.snap_to_word_boundaries(None, note) is None
+
+
+# ---------- ujian gaya independen: perbaikan setelah melihat hasilnya ----------
+def test_no_control_characters_slipped_into_source_files():
+    for f in list((ROOT_DIR := Path(__file__).resolve().parent.parent).glob("tools/*.py")) + list((ROOT_DIR / "apps").glob("*.py")):
+        raw = f.read_bytes()
+        assert not any(c in raw for c in (b"\x08", b"\x07", b"\x0c")), f.name           # '\b' dalam skrip tambal pernah menjadi karakter backspace
+
+
+def test_loose_calculator_reads_common_word_problems_only_when_hinted():
+    T = MT
+    cases = {"Berapa total belanja 35 ribu, 18 ribu, dan 42 ribu?": "95000", "Aku punya 250 ribu lalu belanja 87 ribu, sisa uangku berapa?": "163000",
+             "Tolong hitung rata-rata dari 70, 80, dan 90": "80", "Diskon 20 persen dari harga 150000 jadi berapa?": "120000",
+             "Jumlahkan semua angka ini ya: 5, 10, 15, 20, 25": "75", "Hitung selisih antara 1.250.000 dan 875.000": "375000"}
+    for q, ans in cases.items():
+        assert T.route(q, None, None, hint="hitung")["answer"] == ans, q
+    assert T.route("Siapa yang membuat laporan bulanan 3 kali?", None, None, hint="hitung") is None
+
+
+def test_assisted_route_policy_on_unreadable_tool_requests_refusals_and_notes(monkeypatch):
+    MR._ROUTER = None
+    r = MR.assisted_route("Kalau mulai 20 November dan selesai 5 Desember, berapa hari jaraknya?", None, None, mode="on")
+    assert r is None or r.get("hint") == "tanggal"                                    # tidak jadi pencarian catatan yang menyesatkan bila classifier yakin
+    r = MR.assisted_route("Tolong hitung rata-rata dari 70, 80, dan 90", None, None, mode="on")
+    assert r["kind"] == "tool" and r["answer"] == "80"                                # aturan lama menolaknya sebagai 'tugas': kini dihitung
+    assert MR.assisted_route("Tolong cari catatan tentang susun jadwal piket minggu depan", None, None, mode="on") is None   # menyebut catatan: bukan permintaan tugas
+    assert MR.assisted_route("Tolong buatkan puisi tentang ibu", None, None, mode="on")["kind"] == "task"
+    assert MR.assisted_greeting("Hai, apa kabar?", mode="on") is True
+    assert MR.assisted_greeting("Di mana Bu Rina tinggal?", mode="on") is False
+
+
+def test_shadow_log_stores_text_only_when_explicitly_enabled(monkeypatch, tmp_path):
+    MR._ROUTER = None
+    log = tmp_path / "log.jsonl"
+    monkeypatch.setenv(MR.SHADOW_LOG_ENV, str(log))
+    monkeypatch.delenv(MR.SHADOW_TEXT_ENV, raising=False)
+    MR.assisted_route("bantu hitungkan 70220 ditambah 272", None, None, mode="shadow")
+    assert "teks" not in json.loads(log.read_text(encoding="utf-8").splitlines()[0])             # bawaan: tanpa teks
+    monkeypatch.setenv(MR.SHADOW_TEXT_ENV, "1")
+    out = MR.assisted_route("bantu hitungkan 70220 ditambah 272", None, None, mode="shadow")
+    assert out is None                                                                           # bayangan tidak mengubah hasil
+    assert json.loads(log.read_text(encoding="utf-8").splitlines()[-1])["teks"] == "bantu hitungkan 70220 ditambah 272"
+
+
+def test_log_tools_roundtrip_without_leaking_the_classifier_guess(tmp_path):
+    LT = load_module("router_log_tools_under_test", "tools/router_log_tools.py")
+    log = tmp_path / "log.jsonl"
+    entries = [{"teks": "tolong urutin 3 1 2", "classifier": "urut"}, {"teks": "Tolong urutin 3 1 2", "classifier": "urut"},
+               {"teks": "hai | min", "classifier": "sapaan"}, {"classifier": "cari"}]
+    log.write_text("\n".join(json.dumps(d) for d in entries), encoding="utf-8")
+    md = tmp_path / "l.md"
+    assert LT.to_md(log, md) == 2                                                                # duplikat (beda huruf besar) dan baris tanpa teks dibuang
+    table = md.read_text(encoding="utf-8").split("|---|---|---|")[1]
+    assert "urut" not in table.replace("urutin", "") and "sapaan" not in table                  # tidak ada tebakan classifier di lembar
+    filled = md.read_text(encoding="utf-8").replace("| tolong urutin 3 1 2 | |", "| tolong urutin 3 1 2 | urut |").replace("| hai / min | |", "| hai / min | Sapaan |")
+    md.write_text(filled, encoding="utf-8")
+    rows, bad = LT.from_md(md, tmp_path / "o.jsonl")
+    assert rows == [{"text": "tolong urutin 3 1 2", "label": "urut"}, {"text": "hai / min", "label": "sapaan"}] and not bad
+
+
+def test_independent_style_set_exists_and_is_wellformed_if_present():
+    path = Path(__file__).resolve().parent.parent / "evalsets" / "router_tulisan_anda.jsonl"
+    if not path.exists():
+        pytest.skip("berkas pesan independen belum ada")
+    rows = [json.loads(l) for l in open(path, encoding="utf-8") if l.strip()]
+    assert len(rows) >= 100 and {r["label"] for r in rows} == set(MR.LABELS) and all(r["text"].strip() for r in rows)

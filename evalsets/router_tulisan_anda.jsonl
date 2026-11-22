@@ -1,0 +1,120 @@
+{"text": "tolong urutkan angka ini dari yang paling kecil: 8, 2, 15, 4, 1", "label": "urut"}
+{"text": "bisa susun nomor berikut dari terbesar ke terkecil? 12, 45, 7, 23, 9", "label": "urut"}
+{"text": "urutin angka 30 11 5 19 2 dong", "label": "urut"}
+{"text": "mana urutan yang benar dari angka terkecil sampai terbesar: 100, 10, 1, 50?", "label": "urut"}
+{"text": "susun daftar nilai ini secara menaik: 78, 65, 90, 72, 81", "label": "urut"}
+{"text": "tolong sort angka 14, 3, 27, 8, 19", "label": "urut"}
+{"text": "dari nomor 6 2 9 1 4, urutkan ya", "label": "urut"}
+{"text": "bantu urutkan harga berikut dari yang termahal: 15000, 25000, 10000, 30000", "label": "urut"}
+{"text": "urutan abjad dari daftar nama ini: Budi, Andi, Citra, Deni", "label": "urut"}
+{"text": "tolong atur angka ini dari kecil ke besar 5; 3; 8; 2; 7", "label": "urut"}
+{"text": "bisa urutkan tanggal 12, 3, 25, 8 berdasarkan nomor harinya?", "label": "urut"}
+{"text": "susun peringkat nilai 88, 91, 76, 95 dari tertinggi", "label": "urut"}
+{"text": "aku punya nomor antrean 17, 4, 21, 9. Urutkan dong", "label": "urut"}
+{"text": "urutkan angka desimal ini: 2,5; 1,2; 3,1; 0,8", "label": "urut"}
+{"text": "tolong rapikan urutan nomor 003, 001, 010, 002", "label": "urut"}
+{"text": "berapa hasil 25 ditambah 37?", "label": "hitung"}
+{"text": "tolong jumlahkan 12000 + 8500 + 4000", "label": "hitung"}
+{"text": "kalau 150 dikurangi 48 hasilnya berapa?", "label": "hitung"}
+{"text": "hitung 24 kali 15 dong", "label": "hitung"}
+{"text": "96 dibagi 8 sama dengan berapa?", "label": "hitung"}
+{"text": "berapa total belanja 35 ribu, 18 ribu, dan 42 ribu?", "label": "hitung"}
+{"text": "berapakah 7 pangkat 2 ?", "label": "hitung"}
+{"text": "aku punya 250 ribu lalu belanja 87 ribu, sisa uangku berapa?", "label": "hitung"}
+{"text": "kalau satu kotak isinya 12 dan ada 9 kotak, totalnya berapa?", "label": "hitung"}
+{"text": "tolong hitung rata-rata dari 70, 80, dan 90", "label": "hitung"}
+{"text": "diskon 20 persen dari harga 150000 jadi berapa?", "label": "hitung"}
+{"text": "berapa 3/4 dari 200 ?", "label": "hitung"}
+{"text": "jumlahkan semua angka ini ya: 5, 10, 15, 20, 25", "label": "hitung"}
+{"text": "kalau harga satu barang 27500, beli 4 bayar berapa?", "label": "hitung"}
+{"text": "hitung selisih antara 1.250.000 dan 875.000", "label": "hitung"}
+{"text": "tanggal 17 Agustus 2026 itu hari apa?", "label": "tanggal"}
+{"text": "hari apa ya tanggal 1 Januari 2027?", "label": "tanggal"}
+{"text": "kalau 10 November 2025 jatuh hari apa?", "label": "tanggal"}
+{"text": "tanggal 29 Februari 2024 hari apa?", "label": "tanggal"}
+{"text": "berapa hari lagi dari 22 November 2026 sampai 1 Desember 2026?", "label": "tanggal"}
+{"text": "jarak antara 3 Mei 2026 dan 20 Mei 2026 berapa hari?", "label": "tanggal"}
+{"text": "dari tanggal 15 Juni sampai 2 Juli ada berapa hari?", "label": "tanggal"}
+{"text": "hari apa tanggal 25 Desember 2026?", "label": "tanggal"}
+{"text": "tanggal  bahasanya, 5 Oktober 2024 itu hari apa?", "label": "tanggal"}
+{"text": "kalau hari ini 22 November 2026, 30 hari lagi tanggal berapa?", "label": "tanggal"}
+{"text": "Berapa lama dari 1 Maret 2025 sampai 1 Maret 2026?", "label": "tanggal"}
+{"text": "tanggal 31 Desember 2026 jatuh pada hari apa?", "label": "tanggal"}
+{"text": "Selisih hari dari 12 Januari 2026 ke 28 Januari 2026 berapa?", "label": "tanggal"}
+{"text": "Hari apa 9 April 2027 nanti?", "label": "tanggal"}
+{"text": "Kalau mulai 20 November dan selesai 5 Desember, berapa hari jaraknya?", "label": "tanggal"}
+{"text": "Siapa nama pelanggan yang pesan 20 kotak roti?", "label": "cari"}
+{"text": "Di catatan kemarin alamat tokonya di mana ya?", "label": "cari"}
+{"text": "Kapan jadwal meeting dengan Pak Rudi?", "label": "cari"}
+{"text": "Berapa jumlah stok tepung yang tersisa?", "label": "cari"}
+{"text": "Apa nama aplikasi yang disebut waktu rapat?", "label": "cari"}
+{"text": "Siapa yang bertanggung jawab mengirim invoice?", "label": "cari"}
+{"text": "Nomor telepon Bu Sari ada di catatan nggak?", "label": "cari"}
+{"text": "Di mana lokasi acara ulang tahun kantor?", "label": "cari"}
+{"text": "Kapan terakhir kali mesin oven diservis?", "label": "cari"}
+{"text": "Berapa harga satu loyang bolu yang tercatat?", "label": "cari"}
+{"text": "Apa saja bahan yang harus dibeli besok?", "label": "cari"}
+{"text": "Siapa nama supplier kemasan plastik?", "label": "cari"}
+{"text": "Catatan tentang pesanan atas nama Andi ada di bagian mana?", "label": "cari"}
+{"text": "Jam berapa kurir dijadwalkan datang?", "label": "cari"}
+{"text": "Berapa total karyawan yang ikut pelatihan?", "label": "cari"}
+{"text": "Apa arti kata inventaris?", "label": "cari"}
+{"text": "Maksud istilah cash flow itu apa?", "label": "cari"}
+{"text": "Definisi dari kata efisien apa ya?", "label": "cari"}
+{"text": "Kata 'konsisten' artinya apa?", "label": "cari"}
+{"text": "Apa yang dimaksud dengan margin keuntungan?", "label": "cari"}
+{"text": "Siapa yang membawa kunci gudang tadi?", "label": "cari"}
+{"text": "Tanggal berapa batas akhir pembayaran sewa?", "label": "cari"}
+{"text": "Berapa ukuran booth yang pernah kita catat?", "label": "cari"}
+{"text": "Di folder mana dokumen penawaran disimpan?", "label": "cari"}
+{"text": "Apa nama produk yang penjualannya paling tinggi?", "label": "cari"}
+{"text": "Siapa kontak darurat untuk teknisi listrik?", "label": "cari"}
+{"text": "Kapan stok kemasan diperkirakan habis?", "label": "cari"}
+{"text": "Berapa nomor pesanan pelanggan atas nama Dinda?", "label": "cari"}
+{"text": "Apa warna seragam yang disepakati?", "label": "cari"}
+{"text": "Siapa yang terakhir memperbarui daftar harga?", "label": "cari"}
+{"text": "Tolong cari catatan tentang susun jadwal piket minggu depan", "label": "cari"}
+{"text": "Di catatan ada yang tulis daftar kebutuhan acara nggak?", "label": "cari"}
+{"text": "Siapa yang minta dibuatkan laporan penjualan bulan lalu?", "label": "cari"}
+{"text": "Berapa total pengeluaran yang tercatat untuk perjalanan dinas?", "label": "cari"}
+{"text": "Jumlah pesanan hari Senin yang tercatat berapa?", "label": "cari"}
+{"text": "Hari apa jadwal kunjungan vendor menurut catatan?", "label": "cari"}
+{"text": "Di catatan pembayaran, berapa yang masih kurang?", "label": "cari"}
+{"text": "Apa isi pesan yang dibuat untuk mengingatkan pelanggan?", "label": "cari"}
+{"text": "Siapa yang menulis notulen rapat hari Jumat?", "label": "cari"}
+{"text": "Ada catatan yang menyebut kata 'buat' untuk tugas desain?", "label": "cari"}
+{"text": "Tolong temukan catatan jumlah bahan baku bulan ini", "label": "cari"}
+{"text": "Berapa lama waktu pengerjaan yang disebut di catatan?", "label": "cari"}
+{"text": "Apa nama file yang berisi total penjualan?", "label": "cari"}
+{"text": "Siapa yang bertugas menyiapkan acara dan kapan jadwalnya?", "label": "cari"}
+{"text": "Di mana tertulis jumlah uang muka dari pelanggan?", "label": "cari"}
+{"text": "Halo, selamat pagi!", "label": "sapaan"}
+{"text": "Hai, apa kabar?", "label": "sapaan"}
+{"text": "Pagi, semoga harimu menyenangkan.", "label": "sapaan"}
+{"text": "Selamat siang", "label": "sapaan"}
+{"text": "Makasih banyak ya sudah membantu", "label": "sapaan"}
+{"text": "Terima kasih, informasinya berguna banget", "label": "sapaan"}
+{"text": "Oke sip, makasih", "label": "sapaan"}
+{"text": "Sampai jumpa lagi", "label": "sapaan"}
+{"text": "Saya pamit dulu ya", "label": "sapaan"}
+{"text": "Selamat malam, sampai besok", "label": "sapaan"}
+{"text": "Halo semuanya", "label": "sapaan"}
+{"text": "Thanks ya", "label": "sapaan"}
+{"text": "Dadah, hati-hati di jalan", "label": "sapaan"}
+{"text": "Terima kasih atas waktunya", "label": "sapaan"}
+{"text": "Hai, numpang tanya nanti ya", "label": "sapaan"}
+{"text": "Tolong buatkan puisi tentang ibu", "label": "tolak"}
+{"text": "Bisa terjemahkan kalimat ini ke bahasa Inggris?", "label": "tolak"}
+{"text": "Tulis cerita pendek tentang petualangan di hutan", "label": "tolak"}
+{"text": "Bantu rangkum artikel ini jadi tiga paragraf", "label": "tolak"}
+{"text": "Buatkan caption Instagram untuk jualan kopi", "label": "tolak"}
+{"text": "Tolong perbaiki tata bahasa surat ini", "label": "tolak"}
+{"text": "Ceritakan dong kisah lucu sebelum tidur", "label": "tolak"}
+{"text": "Bisa ubah teks ini menjadi bahasa Jepang?", "label": "tolak"}
+{"text": "Tolong buatkan pantun dua baris", "label": "tolak"}
+{"text": "Tuliskan email izin tidak masuk kerja", "label": "tolak"}
+{"text": "Ringkas isi buku ini dalam satu halaman", "label": "tolak"}
+{"text": "Buatkan slogan untuk usaha makanan saya", "label": "tolak"}
+{"text": "Tolong parafrase tulisan berikut supaya lebih formal", "label": "tolak"}
+{"text": "Bisa bikin dialog drama antara dua orang?", "label": "tolak"}
+{"text": "Terjemahin pesan ini ke bahasa Sunda", "label": "tolak"}

@@ -1,0 +1,428 @@
+{
+ "file": "router_tulisan_anda.jsonl",
+ "n": 120,
+ "sebaran": {
+  "urut": 15,
+  "hitung": 15,
+  "tanggal": 15,
+  "cari": 45,
+  "sapaan": 15,
+  "tolak": 15
+ },
+ "aturan lama": {
+  "benar": 87,
+  "n": 120,
+  "akurasi": 0.725,
+  "ci95": [
+   0.639,
+   0.797
+  ],
+  "cari_dibajak": 0,
+  "cari_n": 45,
+  "per_kelas": {
+   "urut": [
+    13,
+    15
+   ],
+   "hitung": [
+    7,
+    15
+   ],
+   "tanggal": [
+    12,
+    15
+   ],
+   "cari": [
+    45,
+    45
+   ],
+   "sapaan": [
+    3,
+    15
+   ],
+   "tolak": [
+    7,
+    15
+   ]
+  },
+  "salah": [
+   {
+    "text": "Urutin angka 30 11 5 19 2 dong",
+    "benar": "urut",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Urutan abjad dari daftar nama ini: Budi, Andi, Citra, Deni",
+    "benar": "urut",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Berapa total belanja 35 ribu, 18 ribu, dan 42 ribu?",
+    "benar": "hitung",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Aku punya 250 ribu lalu belanja 87 ribu, sisa uangku berapa?",
+    "benar": "hitung",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Kalau satu kotak isinya 12 dan ada 9 kotak, totalnya berapa?",
+    "benar": "hitung",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Tolong hitung rata-rata dari 70, 80, dan 90",
+    "benar": "hitung",
+    "tebakan": "tolak"
+   },
+   {
+    "text": "Diskon 20 persen dari harga 150000 jadi berapa?",
+    "benar": "hitung",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Jumlahkan semua angka ini ya: 5, 10, 15, 20, 25",
+    "benar": "hitung",
+    "tebakan": "tolak"
+   },
+   {
+    "text": "Kalau harga satu barang 27500, beli 4 bayar berapa?",
+    "benar": "hitung",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Hitung selisih antara 1.250.000 dan 875.000",
+    "benar": "hitung",
+    "tebakan": "tolak"
+   },
+   {
+    "text": "Dari tanggal 15 Juni sampai 2 Juli ada berapa hari?",
+    "benar": "tanggal",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Kalau hari ini 22 November 2026, 30 hari lagi tanggal berapa?",
+    "benar": "tanggal",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Kalau mulai 20 November dan selesai 5 Desember, berapa hari jaraknya?",
+    "benar": "tanggal",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Halo, selamat pagi!",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Hai, apa kabar?",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Pagi, semoga harimu menyenangkan.",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Makasih banyak ya sudah membantu",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Terima kasih, informasinya berguna banget",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Oke sip, makasih",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Sampai jumpa lagi",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Saya pamit dulu ya",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Selamat malam, sampai besok",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Dadah, hati-hati di jalan",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Terima kasih atas waktunya",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Hai, numpang tanya nanti ya",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Bisa terjemahkan kalimat ini ke bahasa Inggris?",
+    "benar": "tolak",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Bantu rangkum artikel ini jadi tiga paragraf",
+    "benar": "tolak",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Tolong perbaiki tata bahasa surat ini",
+    "benar": "tolak",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Bisa ubah teks ini menjadi bahasa Jepang?",
+    "benar": "tolak",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Ringkas isi buku ini dalam satu halaman",
+    "benar": "tolak",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Tolong parafrase tulisan berikut supaya lebih formal",
+    "benar": "tolak",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Bisa bikin dialog drama antara dua orang?",
+    "benar": "tolak",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Terjemahin pesan ini ke bahasa Sunda",
+    "benar": "tolak",
+    "tebakan": "cari"
+   }
+  ]
+ },
+ "classifier murni": {
+  "benar": 106,
+  "n": 120,
+  "akurasi": 0.883,
+  "ci95": [
+   0.814,
+   0.929
+  ],
+  "cari_dibajak": 2,
+  "cari_n": 45,
+  "per_kelas": {
+   "urut": [
+    14,
+    15
+   ],
+   "hitung": [
+    11,
+    15
+   ],
+   "tanggal": [
+    14,
+    15
+   ],
+   "cari": [
+    43,
+    45
+   ],
+   "sapaan": [
+    11,
+    15
+   ],
+   "tolak": [
+    13,
+    15
+   ]
+  },
+  "salah": [
+   {
+    "text": "Urutan abjad dari daftar nama ini: Budi, Andi, Citra, Deni",
+    "benar": "urut",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Aku punya 250 ribu lalu belanja 87 ribu, sisa uangku berapa?",
+    "benar": "hitung",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Diskon 20 persen dari harga 150000 jadi berapa?",
+    "benar": "hitung",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Kalau harga satu barang 27500, beli 4 bayar berapa?",
+    "benar": "hitung",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Hitung selisih antara 1.250.000 dan 875.000",
+    "benar": "hitung",
+    "tebakan": "tanggal"
+   },
+   {
+    "text": "Kalau mulai 20 November dan selesai 5 Desember, berapa hari jaraknya?",
+    "benar": "tanggal",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Tolong cari catatan tentang susun jadwal piket minggu depan",
+    "benar": "cari",
+    "tebakan": "tolak"
+   },
+   {
+    "text": "Ada catatan yang menyebut kata 'buat' untuk tugas desain?",
+    "benar": "cari",
+    "tebakan": "tolak"
+   },
+   {
+    "text": "Pagi, semoga harimu menyenangkan.",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Oke sip, makasih",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Sampai jumpa lagi",
+    "benar": "sapaan",
+    "tebakan": "tanggal"
+   },
+   {
+    "text": "Dadah, hati-hati di jalan",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Tolong parafrase tulisan berikut supaya lebih formal",
+    "benar": "tolak",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Bisa bikin dialog drama antara dua orang?",
+    "benar": "tolak",
+    "tebakan": "cari"
+   }
+  ]
+ },
+ "alur aplikasi (MEMORI_ROUTER=on)": {
+  "benar": 108,
+  "n": 120,
+  "akurasi": 0.9,
+  "ci95": [
+   0.833,
+   0.942
+  ],
+  "cari_dibajak": 0,
+  "cari_n": 45,
+  "per_kelas": {
+   "urut": [
+    14,
+    15
+   ],
+   "hitung": [
+    11,
+    15
+   ],
+   "tanggal": [
+    14,
+    15
+   ],
+   "cari": [
+    45,
+    45
+   ],
+   "sapaan": [
+    11,
+    15
+   ],
+   "tolak": [
+    13,
+    15
+   ]
+  },
+  "salah": [
+   {
+    "text": "Urutan abjad dari daftar nama ini: Budi, Andi, Citra, Deni",
+    "benar": "urut",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Aku punya 250 ribu lalu belanja 87 ribu, sisa uangku berapa?",
+    "benar": "hitung",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Diskon 20 persen dari harga 150000 jadi berapa?",
+    "benar": "hitung",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Kalau harga satu barang 27500, beli 4 bayar berapa?",
+    "benar": "hitung",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Hitung selisih antara 1.250.000 dan 875.000",
+    "benar": "hitung",
+    "tebakan": "tanggal"
+   },
+   {
+    "text": "Kalau mulai 20 November dan selesai 5 Desember, berapa hari jaraknya?",
+    "benar": "tanggal",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Pagi, semoga harimu menyenangkan.",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Oke sip, makasih",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Sampai jumpa lagi",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Dadah, hati-hati di jalan",
+    "benar": "sapaan",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Tolong parafrase tulisan berikut supaya lebih formal",
+    "benar": "tolak",
+    "tebakan": "cari"
+   },
+   {
+    "text": "Bisa bikin dialog drama antara dua orang?",
+    "benar": "tolak",
+    "tebakan": "cari"
+   }
+  ]
+ },
+ "pintu_G5": {
+  "akurasi alur aplikasi >= 0,85": true,
+  "cari dibajak <= 1%": true
+ }
+}

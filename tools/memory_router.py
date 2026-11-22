@@ -109,7 +109,8 @@ import os
 import json as _json
 
 MODE_ENV = "MEMORI_ROUTER"            # off (bawaan, perilaku lama) | shadow (jalan paralel, hanya mencatat) | on
-SHADOW_LOG_ENV = "MEMORI_ROUTER_LOG"  # berkas log lokal; hanya berisi kelas dan panjang pesan, TIDAK menyimpan teks pesan
+SHADOW_LOG_ENV = "MEMORI_ROUTER_LOG"  # berkas log lokal; bawaan hanya berisi kelas dan panjang pesan, TIDAK menyimpan teks pesan
+SHADOW_TEXT_ENV = "MEMORI_ROUTER_LOG_TEXT"  # "1" = ikut simpan teks pesan di berkas lokal itu (untuk dilabeli pemilik); mati bila tidak diisi
 _ROUTER = None
 
 
@@ -140,6 +141,8 @@ def _decide(text):
 def _rule_label(result):
     if result is None:
         return "cari"
+    if result.get("hint"):
+        return result["hint"]
     if result["kind"] == "task":
         return "tolak"
     t = result.get("tool") or ""
@@ -151,10 +154,23 @@ def _shadow_log(rule_label, label, p, text):
     if not path:
         return
     try:
+        rec = {"aturan": rule_label, "classifier": label, "p_max": round(float(max(p)), 3), "kata": len(text.split())}
+        if os.environ.get(SHADOW_TEXT_ENV, "").strip() == "1":
+            rec["teks"] = text.strip()
         with open(path, "a", encoding="utf-8") as f:
-            f.write(_json.dumps({"aturan": rule_label, "classifier": label, "p_max": round(float(max(p)), 3), "kata": len(text.split())}) + "\n")
+            f.write(_json.dumps(rec, ensure_ascii=False) + "\n")
     except OSError:
         pass
+
+
+HINT_MIN_P = 0.6        # arahan 'alat tak bisa membaca' hanya bila classifier cukup yakin
+REFUSE_MIN_P = 0.6      # 'tolak' lebih berbahaya salah daripada kelas lain (mengalihkan pertanyaan catatan): ambang lebih tinggi
+_MENTIONS_NOTES = re.compile(r"\b(catatan|dokumen|memori)\b", re.I)   # menyebut catatan: kemungkinan besar pertanyaan catatan, bukan permintaan tugas
+_UNREADABLE = {
+    "urut": "Sepertinya Anda meminta mengurutkan angka, tetapi saya tidak bisa membaca angkanya. Tulis angkanya langsung, mis. 'urutkan 5, 3, 9, 1'.",
+    "hitung": "Sepertinya Anda meminta menghitung, tetapi saya tidak bisa membaca soalnya. Tulis hitungannya langsung, mis. 'hitung 12 x 5' atau '250000 - 87000'.",
+    "tanggal": "Sepertinya Anda menanyakan hari atau selisih tanggal, tetapi saya butuh tanggal lengkap dengan tahun, mis. 'hari apa 17 Agustus 2026' atau 'selisih 15 Juni 2026 dan 2 Juli 2026'.",
+}
 
 
 def assisted_route(q, lex=None, notes=None, mode=None):
@@ -162,6 +178,16 @@ def assisted_route(q, lex=None, notes=None, mode=None):
     (alat mencoba bacaan longgar dan tetap harus berhasil) atau tolak (permintaan tugas). Hasil alat yang sudah ada tidak pernah diubah."""
     rule = T.route(q, lex, notes)
     mode = get_mode(mode)
+    if mode == "on" and rule is not None and rule.get("kind") == "task":
+        # aturan lama menolak semua yang diawali kata kerja tugas ('hitung ...', 'jumlahkan ...'), termasuk permintaan alat yang tidak terbaca
+        label, p = _decide(q)
+        if label in ("urut", "hitung", "tanggal"):
+            r = T.route(q, lex, notes, hint=label)
+            if r is not None and r.get("kind") != "task":
+                return r
+            if float(p[LABELS.index(label)]) >= HINT_MIN_P:
+                return {"kind": "task", "tool": None, "answer": _UNREADABLE[label], "detail": "", "hint": label}
+        return rule
     if mode == "off" or rule is not None:
         if mode == "shadow":
             label, p = _decide(q)
@@ -175,15 +201,18 @@ def assisted_route(q, lex=None, notes=None, mode=None):
         _shadow_log("cari", label, p, q)
         return rule
     if label in ("urut", "hitung", "tanggal"):
-        return T.route(q, lex, notes, hint=label)
-    if label == "tolak" and len(q.split()) <= 12:
+        r = T.route(q, lex, notes, hint=label)
+        if r is None and float(p[LABELS.index(label)]) >= HINT_MIN_P:   # yakin ini permintaan alat tetapi alat tak bisa membacanya: beri arahan, bukan 'belum tahu' dari catatan
+            return {"kind": "task", "tool": None, "answer": _UNREADABLE[label], "detail": "", "hint": label}
+        return r
+    if label == "tolak" and len(q.split()) <= 12 and float(p[LABELS.index("tolak")]) >= REFUSE_MIN_P and not _MENTIONS_NOTES.search(q):
         return {"kind": "task", "tool": None, "answer": T.TASK_MESSAGE, "detail": ""}
     return None
 
 
 def assisted_greeting(q, mode=None):
     """True bila classifier (mode 'on') yakin ini sapaan pendek yang lolos dari pola bawaan (mis. salah ketik 'selamt pagi')."""
-    if get_mode(mode) != "on" or len(q.split()) > 4 or any(ch.isdigit() or ch == "?" for ch in q):
+    if get_mode(mode) != "on" or len(q.split()) > 8 or any(ch.isdigit() for ch in q):
         return False
     label, _ = _decide(q)
     return label == "sapaan"

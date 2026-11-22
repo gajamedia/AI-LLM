@@ -776,8 +776,47 @@ def hinted_tool(q, hint, lex=None):
         for pat, sym in _HINT_OPS:
             t = re.sub(r"\b(?:" + pat + r")\b", f" {sym} ", t)
         t = " ".join(w for w in re.split(r"\s+", t) if w.strip("?,.!") not in _HINT_NOISE)
-        return calc_tool(t + " hasilnya", lex)
+        r = calc_tool(t + " hasilnya", lex)
+        return r or _calc_loose(q, lex)
     return None
+
+
+_SCALE = {"ribu": 1_000, "rb": 1_000, "juta": 1_000_000, "jt": 1_000_000}
+
+
+def _num_scaled(text):
+    """Angka dengan imbuhan ribu/juta dan pemisah ribuan: '35 ribu' -> 35000, '1,5 juta' -> 1500000, '1.250.000' -> 1250000."""
+    out = []
+    for m in re.finditer(r"(\d{1,3}(?:\.\d{3})+|\d+(?:,\d+)?)\s*(ribu|rb|juta|jt)?\b", text.lower()):
+        raw = m.group(1)
+        v = float(raw.replace(".", "").replace(",", ".")) if "." in raw and "," not in raw and re.fullmatch(r"\d{1,3}(?:\.\d{3})+", raw) else float(raw.replace(",", "."))
+        out.append(v * _SCALE.get(m.group(2), 1))
+    return out
+
+
+def _calc_loose(q, lex=None):
+    """Hitungan kata-kata yang umum: total/jumlah daftar angka, rata-rata, selisih dua angka, X persen dari Y, sisa. Hanya dipanggil bila classifier mengusulkan 'hitung'."""
+    t = words_to_digits(q.lower(), lex)
+    nums = _num_scaled(t)
+    if len(nums) < 2 or len(nums) > 12:
+        return None
+    if re.search(r"\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b", t):
+        return None
+    if re.search(r"\bpersen\b|%", t) and len(nums) == 2 and re.search(r"\bdari\b", t):
+        value, how = nums[0] * nums[1] / 100, f"{_format_number(nums[0])}% dari {_format_number(nums[1])}"
+        if re.search(r"\bdiskon\b", t):
+            value, how = nums[1] - value, f"{_format_number(nums[1])} dikurangi diskon {_format_number(nums[0])}%"
+    elif re.search(r"\brata[- ]?rata\b", t):
+        value, how = sum(nums) / len(nums), f"rata-rata dari {', '.join(_format_number(x) for x in nums)}"
+    elif re.search(r"\bselisih\b|\bbeda\b", t) and len(nums) == 2:
+        value, how = abs(nums[0] - nums[1]), f"selisih {_format_number(nums[0])} dan {_format_number(nums[1])}"
+    elif re.search(r"\b(total|jumlah|jumlahkan|totalnya|seluruh)\b", t) and not re.search(r"\bkotak\b", t):
+        value, how = sum(nums), " + ".join(_format_number(x) for x in nums)
+    elif re.search(r"\bsisa\b", t) and len(nums) == 2:
+        value, how = nums[0] - nums[1], f"{_format_number(nums[0])} - {_format_number(nums[1])}"
+    else:
+        return None
+    return {"kind": "tool", "tool": "kalkulator", "answer": _format_number(value), "detail": f"Dibaca sebagai {how} (bacaan longgar)."}
 
 
 def route(q, lex=None, notes=None, hint=None):
