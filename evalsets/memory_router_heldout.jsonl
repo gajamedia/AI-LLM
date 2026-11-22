@@ -1,0 +1,60 @@
+{"message": "susunlah angka 14 3 9 dari yang kecil", "label": "urut", "para": true}
+{"message": "urutkan secara menurun: 8 22 5 17", "label": "urut", "para": true}
+{"message": "mohon sortir nilai 70 85 60", "label": "urut", "para": true}
+{"message": "tolong rapikan deretan angka 5 1 4 2", "label": "urut", "para": true}
+{"message": "angka-angka ini disusun naik ya: 31 7 19", "label": "urut", "para": true}
+{"message": "urutkan tiga empat dua", "label": "urut", "para": true}
+{"message": "buat urutan terbesar ke terkecil dari 6 18 11", "label": "urut", "para": true}
+{"message": "sort 9 3 7 1", "label": "urut", "para": true}
+{"message": "diurutkan dari kecil: 50 40 45", "label": "urut", "para": true}
+{"message": "mengurutkan angka di catatan 2 dari terbesar", "label": "urut", "para": true}
+{"message": "berapa 45 dibagi 9", "label": "hitung", "para": true}
+{"message": "hitung 18 dikali 3", "label": "hitung", "para": true}
+{"message": "tambahkan 120 dengan 80", "label": "hitung", "para": true}
+{"message": "kurangi 500 dengan 125", "label": "hitung", "para": true}
+{"message": "kalikan 12 dengan 12", "label": "hitung", "para": true}
+{"message": "sepuluh ditambah lima belas", "label": "hitung", "para": true}
+{"message": "berapa 3 pangkat 4", "label": "hitung", "para": true}
+{"message": "total dari 7 dan 15 dan 20 berapa", "label": "hitung", "para": true}
+{"message": "hasil 64 dibagi 8 berapa", "label": "hitung", "para": true}
+{"message": "kalau 250 dikurangi 75 sisa berapa", "label": "hitung", "para": true}
+{"message": "hari apa 5 Januari 2026", "label": "tanggal", "para": true}
+{"message": "tanggal 17 Agustus 2026 jatuh hari apakah", "label": "tanggal", "para": true}
+{"message": "selisih 1 April 2026 dan 1 Juni 2026", "label": "tanggal", "para": true}
+{"message": "berapa hari dari 10 Februari 2026 sampai 10 Maret 2026", "label": "tanggal", "para": true}
+{"message": "berapa lama dari 1 Juli 2025 hingga 1 Oktober 2025", "label": "tanggal", "para": true}
+{"message": "jarak 3 Mei 2026 ke 3 Juni 2026 berapa hari", "label": "tanggal", "para": true}
+{"message": "25 Desember 2026 itu hari apa", "label": "tanggal", "para": true}
+{"message": "rentang 15 Agustus 2026 sampai 15 September 2026 berapa hari", "label": "tanggal", "para": true}
+{"message": "hari apakah 1 Januari 2027", "label": "tanggal", "para": true}
+{"message": "beda berapa hari 8 Maret 2026 dengan 8 April 2026", "label": "tanggal", "para": true}
+{"message": "Siapa yang menyusun jadwal rapat?", "label": "cari", "para": true}
+{"message": "Berapa total biaya rapat tim?", "label": "cari", "para": true}
+{"message": "Kapan Bu Rina pindah ke Bekasi?", "label": "cari", "para": true}
+{"message": "Di mana kunci gudang disimpan?", "label": "cari", "para": true}
+{"message": "Apa nama istri Pak Joko?", "label": "cari", "para": true}
+{"message": "Siapa yang menulis laporan keuangan?", "label": "cari", "para": true}
+{"message": "Berapa umur Bu Ratna?", "label": "cari", "para": true}
+{"message": "Apa isi catatan 1?", "label": "cari", "para": true}
+{"message": "Hari apa rapat evaluasi diadakan?", "label": "cari", "para": true}
+{"message": "Tugas apa yang dikerjakan Dimas?", "label": "cari", "para": true}
+{"message": "selamat sore", "label": "sapaan", "para": true}
+{"message": "hai semuanya", "label": "sapaan", "para": true}
+{"message": "halo apa kabar", "label": "sapaan", "para": true}
+{"message": "terima kasih", "label": "sapaan", "para": true}
+{"message": "makasih ya", "label": "sapaan", "para": true}
+{"message": "selamat datang", "label": "sapaan", "para": true}
+{"message": "hi", "label": "sapaan", "para": true}
+{"message": "assalamu'alaikum", "label": "sapaan", "para": true}
+{"message": "salam", "label": "sapaan", "para": true}
+{"message": "thanks a lot", "label": "sapaan", "para": true}
+{"message": "tuliskan cerita tentang naga", "label": "tolak", "para": true}
+{"message": "buatkan puisi untuk ibu", "label": "tolak", "para": true}
+{"message": "terjemahkan 'terima kasih' ke bahasa Inggris", "label": "tolak", "para": true}
+{"message": "rangkum isi dokumen tadi", "label": "tolak", "para": true}
+{"message": "tolong tulis pengumuman rapat", "label": "tolak", "para": true}
+{"message": "karang pantun tentang sekolah", "label": "tolak", "para": true}
+{"message": "ceritakan kisah Malin Kundang", "label": "tolak", "para": true}
+{"message": "susun surat izin sakit untuk anak saya", "label": "tolak", "para": true}
+{"message": "ubah teks ini menjadi lebih sopan", "label": "tolak", "para": true}
+{"message": "buat daftar belanja mingguan", "label": "tolak", "para": true}

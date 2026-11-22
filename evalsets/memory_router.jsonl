@@ -1,0 +1,72 @@
+{"message": "urutkan 5, 3, 9, 1", "label": "urut", "para": false}
+{"message": "sortir 8 2 6", "label": "urut", "para": false}
+{"message": "mengurutkan deret 15, 4, 23", "label": "urut", "para": false}
+{"message": "urutkan angka di catatan 2", "label": "urut", "para": false}
+{"message": "Urutkan bilangan lima tiga sembilan satu", "label": "urut", "para": false}
+{"message": "urutkan 7 7 1 4 dari yang terkecil", "label": "urut", "para": false}
+{"message": "tolong susun angka 40 12 7 dari kecil ke besar", "label": "urut", "para": true}
+{"message": "susun dari yang terbesar: 3 9 1 7", "label": "urut", "para": true}
+{"message": "rapikan urutan 100 20 3 dari kecil", "label": "urut", "para": true}
+{"message": "buat berurutan angka 33 11 22", "label": "urut", "para": true}
+{"message": "angka 9 4 6 2 tolong dibuat menurun", "label": "urut", "para": true}
+{"message": "mana yang paling kecil sampai paling besar: 12 5 8", "label": "urut", "para": true}
+{"message": "berapa 12 ditambah 30", "label": "hitung", "para": false}
+{"message": "hitung 7 x 8", "label": "hitung", "para": false}
+{"message": "100 dibagi 4", "label": "hitung", "para": false}
+{"message": "2 pangkat 10", "label": "hitung", "para": false}
+{"message": "berapa dua juta dikali tiga", "label": "hitung", "para": false}
+{"message": "15 dikurangi 6 hasilnya?", "label": "hitung", "para": false}
+{"message": "tambahkan 25 dengan 17", "label": "hitung", "para": true}
+{"message": "kalau 9 dikali 9 jadi berapa", "label": "hitung", "para": true}
+{"message": "total dari 12 dan 18 berapa?", "label": "hitung", "para": true}
+{"message": "lima ratus ribu dikurangi dua puluh ribu sisanya berapa", "label": "hitung", "para": true}
+{"message": "kurangi 90 dengan 45", "label": "hitung", "para": true}
+{"message": "jumlah 4 5 dan 6 ada berapa", "label": "hitung", "para": true}
+{"message": "hari apa 17 Agustus 1945", "label": "tanggal", "para": false}
+{"message": "tanggal 25 Desember 2026 jatuh hari apa", "label": "tanggal", "para": false}
+{"message": "1 Januari 2000 itu hari apa?", "label": "tanggal", "para": false}
+{"message": "selisih 5 Mei 2025 dan 20 Mei 2025", "label": "tanggal", "para": false}
+{"message": "berapa hari dari 1 Januari 2026 sampai 1 Maret 2026", "label": "tanggal", "para": false}
+{"message": "jarak antara 10 Oktober 2024 dan 10 November 2024", "label": "tanggal", "para": false}
+{"message": "tanggal 4 Juli 2026 itu Senin atau bukan, hari apa ya", "label": "tanggal", "para": true}
+{"message": "sudah berapa lama sejak 3 Maret 2026 sampai 3 April 2026", "label": "tanggal", "para": true}
+{"message": "17 Agustus 2030 jatuh pada hari apakah", "label": "tanggal", "para": true}
+{"message": "rentang waktu 1 Mei 2026 hingga 31 Mei 2026 ada berapa hari", "label": "tanggal", "para": true}
+{"message": "kapan hari Natal 2027 jatuhnya, 25 Desember 2027 hari apa", "label": "tanggal", "para": true}
+{"message": "antara 2 Februari 2026 dan 2 Maret 2026 beda berapa hari", "label": "tanggal", "para": true}
+{"message": "Di mana Bu Rina tinggal?", "label": "cari", "para": false}
+{"message": "Siapa ketua koperasi Maju?", "label": "cari", "para": false}
+{"message": "Kapan rapat tim dimulai?", "label": "cari", "para": false}
+{"message": "Apa pekerjaan Pak Joko?", "label": "cari", "para": false}
+{"message": "Berapa jumlah anggota koperasi?", "label": "cari", "para": false}
+{"message": "apa itu gravitasi", "label": "cari", "para": false}
+{"message": "Bu Rina bekerja di mana", "label": "cari", "para": true}
+{"message": "lambang negara indonesia apa?", "label": "cari", "para": true}
+{"message": "siapa yang menyimpan kunci gudang", "label": "cari", "para": true}
+{"message": "ruang rapat tim finance di mana", "label": "cari", "para": true}
+{"message": "apa warna rumah Bu Rina", "label": "cari", "para": true}
+{"message": "kota asal Pak Slamet apa", "label": "cari", "para": true}
+{"message": "halo", "label": "sapaan", "para": false}
+{"message": "hai", "label": "sapaan", "para": false}
+{"message": "selamat pagi", "label": "sapaan", "para": false}
+{"message": "terima kasih banyak", "label": "sapaan", "para": false}
+{"message": "makasih", "label": "sapaan", "para": false}
+{"message": "apa kabar", "label": "sapaan", "para": false}
+{"message": "assalamualaikum", "label": "sapaan", "para": false}
+{"message": "hello", "label": "sapaan", "para": false}
+{"message": "hei teman", "label": "sapaan", "para": false}
+{"message": "selamat malam semua", "label": "sapaan", "para": false}
+{"message": "thanks", "label": "sapaan", "para": false}
+{"message": "selamat siang", "label": "sapaan", "para": false}
+{"message": "tuliskan puisi tentang hujan", "label": "tolak", "para": false}
+{"message": "terjemahkan ke bahasa Inggris: selamat pagi", "label": "tolak", "para": false}
+{"message": "ringkaskan artikel ini", "label": "tolak", "para": false}
+{"message": "buatkan surat lamaran kerja", "label": "tolak", "para": false}
+{"message": "ceritakan dongeng kancil", "label": "tolak", "para": false}
+{"message": "rangkum rapat kemarin", "label": "tolak", "para": false}
+{"message": "tolong buat email permintaan maaf", "label": "tolak", "para": true}
+{"message": "buatkan slogan untuk toko roti", "label": "tolak", "para": true}
+{"message": "karang lagu tentang persahabatan", "label": "tolak", "para": true}
+{"message": "tulis cerita pendek tentang kucing", "label": "tolak", "para": true}
+{"message": "ubah kalimat ini ke bahasa Jawa: apa kabar", "label": "tolak", "para": true}
+{"message": "susun pidato singkat untuk wisuda", "label": "tolak", "para": true}

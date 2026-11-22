@@ -25,7 +25,8 @@ TASK_MESSAGE = ("Ini permintaan tugas, bukan pertanyaan tentang catatan Anda. Ap
 MONTHS = {"januari": 1, "februari": 2, "maret": 3, "april": 4, "mei": 5, "juni": 6, "juli": 7, "agustus": 8,
           "september": 9, "oktober": 10, "november": 11, "desember": 12}
 DAYS = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
-TASK_VERBS = r"(urutkan|mengurutkan|sortir|hitung|hitunglah|jumlahkan|kalikan|terjemahkan|tuliskan|buatkan|ringkaskan|rangkum|ceritakan|translate)"
+TASK_VERBS = (r"(urutkan|mengurutkan|sortir|hitung|hitunglah|jumlahkan|kalikan|terjemahkan|tuliskan|tulis|buatkan|buat(?!\s+apa\b)|bikin|"
+              r"ringkaskan|rangkum|ceritakan|karang|mengarang|gubah|ubah|susun|translate)")
 
 
 # ---------- angka ----------
@@ -287,13 +288,24 @@ def describe_lexicon_note(text):
     return {"ok": True, "message": f"Dikenali sebagai kamus: {what}. Alat urut/hitung kini memahaminya."}
 
 
+SORT_VERB = re.compile(r"\b(urutkan|mengurutkan|diurutkan|urutan|berurutan|sortir|sort|susunlah|susun|menyusun|disusun|rapikan|merapikan)\b", re.I)
+_SORT_RANGE = re.compile(r"(?:ter)?kecil\s*(?:ke|->|-|sampai|hingga)\s*(?:ter)?besar|(?:ter)?besar\s*(?:ke|->|-|sampai|hingga)\s*(?:ter)?kecil", re.I)
+_ASC_CUE = re.compile(r"(?:ter)?kecil\s*(?:ke|->|-|sampai|hingga)\s*(?:ter)?besar|menaik|\bnaik\b|ascending|dari\s+(?:yang\s+)?(?:paling\s+)?(?:ter)?kecil", re.I)
+_DESC_CUE = re.compile(r"terbesar|(?:ter)?besar\s*(?:ke|->|-|sampai|hingga)\s*(?:ter)?kecil|menurun|\bturun\b|descending|dari\s+yang\s+besar", re.I)
+
+
+def wants_desc(q):
+    """Urutan menurun? Isyarat menaik ('dari kecil', 'terkecil ke terbesar') didahulukan agar 'terbesar' di ujung rentang tidak membalik urutan."""
+    return False if _ASC_CUE.search(q) else bool(_DESC_CUE.search(q))
+
+
 def sort_tool(q, lex=None):
-    if not re.search(r"\b(urutkan|mengurutkan|sortir|sort)\b", q, re.I):
+    if not (SORT_VERB.search(q) or _SORT_RANGE.search(q)):
         return None
     nums = parse_numbers(words_to_digits(q, lex))
     if len(nums) < 2:
         return None
-    desc = bool(re.search(r"terbesar|besar\s*(?:ke|->|-)\s*kecil|menurun|turun|descending|dari yang besar", q, re.I))
+    desc = wants_desc(q)
     ordered = sorted(nums, reverse=desc)
     sep = "; " if any(isinstance(x, float) and not x.is_integer() for x in nums) else ", "  # koma desimal vs pemisah
     return {"kind": "tool", "tool": "pengurut angka", "answer": sep.join(_format_number(x) for x in ordered),
@@ -328,11 +340,26 @@ def _safe_eval(node):
 
 _FILLER = {"berapa", "berapakah", "hitung", "hitunglah", "hasil", "hasilnya", "dari", "adalah", "ini", "itu", "tolong",
            "yang", "ya", "saja", "dong", "sama", "dengan", "nya", "jumlah", "jumlahkan", "kalikan", "bagi", "kurang", "kurangi"}
-_TRIGGER = re.compile(r"\b(hitung|hitunglah|berapa|berapakah|hasil|jumlahkan|kalikan)\b", re.I)
+_TRIGGER = re.compile(r"\b(hitung|hitunglah|berapa|berapakah|hasil|hasilnya|sisanya?|jumlahkan|kalikan)\b", re.I)
+
+
+_N = r"\d+(?:[.,]\d+)?"
+
+
+def _prefix_verbs(t):
+    """Kata kerja di depan angka -> bentuk tengah: 'tambahkan 25 dengan 17' -> '25 + 17'; 'total dari 7 dan 15 dan 20' -> '7 + 15 + 20'."""
+    t = re.sub(rf"\b(?:tambahkan|jumlahkan|totalkan)\s+({_N})\s+(?:dengan|dan|ke)\s+({_N})\b", r"\1 + \2", t)
+    t = re.sub(rf"\bkurangi\s+({_N})\s+(?:dengan|oleh)\s+({_N})\b", r"\1 - \2", t)
+    t = re.sub(rf"\bkalikan\s+({_N})\s+(?:dengan|dan)\s+({_N})\b", r"\1 * \2", t)
+
+    def _sum(m):
+        nums = re.findall(_N, m.group(1))
+        return " + ".join(nums) + " " if len(nums) >= 2 else m.group(0)
+    return re.sub(rf"\b(?:jumlahkan|jumlah|totalnya|total)(?:\s+dari)?\s+((?:{_N}\s*(?:,|dan)?\s*)+)", _sum, t)
 
 
 def calc_tool(q, lex=None):
-    t = words_to_digits(q.lower(), lex).strip().rstrip("?= ")
+    t = _prefix_verbs(words_to_digits(q.lower(), lex)).strip().rstrip("?= ")
     if re.search(r"\b\d{1,2}[-/]\d{1,2}[-/]\d{2,4}\b", t) or re.search(r"\b\d{3,}-\d{3,}", t):
         return None  # tanggal atau nomor telepon, bukan pengurangan
     expr_text = t
@@ -444,11 +471,11 @@ def _dates(q):
 
 def date_tool(q):
     ds = _dates(q)
-    if len(ds) == 1 and re.search(r"\bhari apa\b", q, re.I):
+    if len(ds) == 1 and re.search(r"\bhari apa(?:kah)?\b", q, re.I):
         d = ds[0]
         return {"kind": "tool", "tool": "tanggal", "answer": DAYS[d.weekday()],
                 "detail": f"{d.day} {[k for k, v in MONTHS.items() if v == d.month][0].capitalize()} {d.year} jatuh pada hari {DAYS[d.weekday()]}."}
-    if len(ds) == 2 and re.search(r"\b(berapa hari|selisih|jarak)\b", q, re.I):
+    if len(ds) == 2 and re.search(r"\b(berapa hari|berapa lama|selisih|jarak|rentang|beda)\b", q, re.I):
         n = abs((ds[1] - ds[0]).days)
         return {"kind": "tool", "tool": "tanggal", "answer": f"{n} hari", "detail": f"Selisih antara {ds[0].isoformat()} dan {ds[1].isoformat()}."}
     return None
@@ -458,9 +485,11 @@ def date_tool(q):
 INTRO = ("AI ini hanya tahu apa yang Anda ajarkan; ia tidak menjawab dari pengetahuan umum.\n"
          "Mulai dengan:  ingat: Bu Rina tinggal di Jalan Mawar nomor 5.\n"
          "Lalu tanya:    Di mana Bu Rina tinggal?")
+_GREET_TAIL = r"(?:\s+(?:apa\s+kabar|semua|semuanya|teman|sobat|kak|kakak|pak|bu|mas|mbak|bro|sis|ya|banyak|lagi))*"
 GREETING = re.compile(
-    r"^(?:(?:halo|hai|hi|hei|hello|selamat\s+(?:pagi|siang|sore|malam))(?:\s+(?:apa\s+kabar|semua|semuanya|teman|sobat|kak|kakak|pak|bu|mas|mbak|bro))?"
-    r"|assalamu\S*|apa\s+kabar|terima\s+kasih(?:\s+banyak)?|makasih|thanks?)\W*$", re.I)
+    r"^(?:(?:halo|hai|hi|hei|hello|selamat\s+(?:pagi|siang|sore|malam|datang)|apa\s+kabar|terima\s+kasih|makasih|salam"
+    r"|thanks?(?:\s+a\s+lot)?|thank\s+you)" + _GREET_TAIL
+    + r"|assalamu\S*(?:\s+(?:warahmatullahi|wabarakatuh|wr|wb|wa)\S*)*)\W*$", re.I)
 TABLE_HINT = "Tabel atau rumus tidak bisa dipelajari dari catatan. Untuk menghitung, ketik langsung, mis. 'hitung 12 x 5'."
 
 
@@ -586,7 +615,7 @@ def rewrite_followup(question, history):
 
 # ---------- angka dari catatan tertentu ----------
 _NOTE_REF = re.compile(r"\bcatatan\s+(?:#|nomor\s+|no\.?\s*)?(\d+)\b|\bcatatan\s+(terakhir|terbaru|paling\s+baru)\b", re.I)
-_SORT_VERB = re.compile(r"\b(urutkan|mengurutkan|sortir|sort)\b", re.I)
+_SORT_VERB = SORT_VERB
 _NUM_WORD = re.compile(r"\b(angka|bilangan|nilai)\b", re.I)
 _NOTE_OPS = [("rata-rata", re.compile(r"rata-?rata|rerata", re.I)), ("jumlah", re.compile(r"\b(jumlah|jumlahkan|total|totalnya)\b", re.I)),
              ("terbesar", re.compile(r"terbesar|tertinggi|maksimum|maksimal|paling\s+besar", re.I)),
@@ -626,7 +655,7 @@ def notes_tool(q, lex=None, notes=None):
     detail = (f"Angka dibaca dari {where}: {shown}. Periksa bahwa semuanya memang angka yang Anda maksud "
               "(tanggal, jam, dan nomor telepon di catatan ikut terbaca sebagai angka).")
     if op == "urut":
-        desc = bool(re.search(r"terbesar|besar\s*(?:ke|->|-)\s*kecil|menurun|turun|descending|dari yang besar", q, re.I))
+        desc = wants_desc(q)
         ans = ", ".join(_format_number(x) for x in sorted(nums, reverse=desc))
         detail += f" Diurutkan {'menurun (besar ke kecil)' if desc else 'menaik (kecil ke besar)'}."
     elif op == "jumlah":

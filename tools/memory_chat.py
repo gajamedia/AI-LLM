@@ -76,7 +76,7 @@ def teach_message(agent, text):
 
 def format_tool(t):
     if t["kind"] == "task":
-        return t["answer"]
+        return t["answer"] + "\n  Bila kalimat ini ingin Anda simpan sebagai catatan, tulis:  ingat: <kalimat Anda>"
     return t["answer"] + "\n  dihitung oleh alat \"" + t["tool"] + "\" (bukan dari catatan). " + t["detail"]
 
 

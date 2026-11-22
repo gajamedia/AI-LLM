@@ -802,3 +802,76 @@ def test_alternate_form_only_reads_notes_that_contain_the_dropped_qualifier():
     assert not any(q == "Di mana Bu Rina tinggal?" for q in rd.asked)
     agent.alternate_forms = False
     assert agent.ask("di asia mana indonesia berada")["status"] == "unknown"
+
+
+# ---------- pemilih alat berbasis aturan: parafrase dan penjaga pembajakan ----------
+def _route_answer(q):
+    r = T.route(q, None, [(2, "Skor ujian: 78, 95, 60, 88.")])
+    return None if r is None else (r["kind"], r["answer"])
+
+
+@pytest.mark.parametrize("q,expected", [
+    ("susunlah angka 14 3 9 dari yang kecil", ("tool", "3, 9, 14")),
+    ("tolong rapikan deretan angka 5 1 4 2", ("tool", "1, 2, 4, 5")),
+    ("buat urutan terbesar ke terkecil dari 6 18 11", ("tool", "18, 11, 6")),
+    ("diurutkan dari kecil: 50 40 45", ("tool", "40, 45, 50")),
+    ("urutkan dari terkecil ke terbesar 9 1 5", ("tool", "1, 5, 9")),          # dulu: 'terbesar' membalik jadi menurun
+    ("urutkan angka terbesar 1 9 5", ("tool", "9, 5, 1")),
+    ("tambahkan 120 dengan 80", ("tool", "200")), ("kurangi 500 dengan 125", ("tool", "375")), ("kalikan 12 dengan 12", ("tool", "144")),
+    ("total dari 7 dan 15 dan 20 berapa", ("tool", "42")), ("jumlah 4 5 dan 6 ada berapa", ("tool", "15")),
+    ("15 dikurangi 6 hasilnya?", ("tool", "9")), ("jumlahkan 15 dan 35", ("tool", "50")),
+    ("tanggal 17 Agustus 2026 jatuh hari apakah", ("tool", "Senin")),
+    ("berapa lama dari 1 Juli 2025 hingga 1 Oktober 2025", ("tool", "92 hari")),
+])
+def test_rule_router_paraphrases(q, expected):
+    assert _route_answer(q) == expected
+
+
+@pytest.mark.parametrize("q", ["tolong tulis pengumuman rapat", "karang pantun tentang sekolah", "susun surat izin sakit untuk anak saya",
+                               "ubah teks ini menjadi lebih sopan", "buat daftar belanja mingguan", "bikin caption instagram untuk toko kue"])
+def test_more_task_requests_are_recognised(q):
+    assert _route_answer(q)[0] == "task"
+
+
+@pytest.mark.parametrize("q", ["Siapa yang menyusun jadwal rapat?", "Berapa total biaya rapat tim?", "Berapa jumlah peserta rapat kemarin?",
+                               "Hari apa Bu Rina libur?", "Buat apa rapat itu diadakan?", "Siapa yang bertugas mengurutkan arsip?",
+                               "Kurang berapa anggota untuk kuorum?", "Apa isi catatan 1?", "Total biaya perjalanan Pak Joko berapa?",
+                               "Ke mana Bu Rina pindah setelah tanggal 5 Mei 2026?", "Kapan batas waktu penyusunan anggaran?"])
+def test_ordinary_questions_are_not_hijacked_by_wider_rules(q):
+    assert _route_answer(q) is None
+
+
+def test_wider_greetings_match_only_whole_message():
+    for q in ["terima kasih banyak ya", "assalamualaikum warahmatullahi wabarakatuh", "apa kabar semuanya", "selamat datang", "thanks a lot", "salam"]:
+        assert T.GREETING.match(q), q
+    for q in ["halo, di mana Bu Rina tinggal?", "apa kabar proyek koperasi?", "salam dari siapa di surat itu?", "terima kasih atas bantuannya kemarin"]:
+        assert not T.GREETING.match(q), q
+
+
+def test_router_eval_sets_never_hijack_search_messages():
+    import json
+    from pathlib import Path
+    sys_path = Path(__file__).resolve().parent.parent / "tools"
+    import sys
+    sys.path.insert(0, str(sys_path))
+    from memory_router_eval import rule_router
+    root = Path(__file__).resolve().parent.parent / "evalsets"
+    notes = [(1, "Bu Rina tinggal di Jalan Mawar nomor 5."), (2, "Skor ujian: 78, 95, 60, 88.")]
+    total = hijacked = ok = 0
+    for name in ("memory_router.jsonl", "memory_router_heldout.jsonl", "memory_router_test2.jsonl"):
+        for line in open(root / name, encoding="utf-8"):
+            row = json.loads(line)
+            pred = rule_router(row["message"], notes)
+            total += 1
+            ok += pred == row["label"]
+            hijacked += row["label"] == "cari" and pred != "cari"
+    assert hijacked == 0                       # risiko utama perluasan aturan: pertanyaan biasa dibajak alat
+    assert ok / total >= 0.95                  # dev 97,2% / heldout 100% / test2 100% pada saat ditulis
+
+
+def test_cli_task_message_explains_how_to_save_an_imperative_note():
+    chat = load_module("memory_chat_task_hint_under_test", "tools/memory_chat.py")
+    agent = M.MemoryAgent(M.MemoryStore(":memory:"), NoReader())
+    out = chat.handle("Buat laporan mingguan setiap Jumat.", agent)
+    assert "permintaan tugas" in out and "ingat: <kalimat Anda>" in out
+    assert "Dicatat" in chat.handle("ingat: Buat laporan mingguan setiap Jumat.", agent)       # cara menyimpannya tetap berfungsi
