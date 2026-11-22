@@ -99,7 +99,7 @@ class FakeAgent:
         self.store = MemoryStore(":memory:")
         self.asked = []
 
-    def ask(self, q):
+    def ask(self, q, history=None):
         self.asked.append(q)
         return {"status": "unknown", "answer": "belum tahu", "source": None, "conflicts": [], "related": []}
 

@@ -16,7 +16,7 @@ class FakeAgent:
         self.store = store
         self.asked = []
 
-    def ask(self, q):
+    def ask(self, q, history=None):
         self.asked.append(q)
         return {"status": "unknown", "answer": "Saya belum tahu; belum ada catatan yang menjawabnya.",
                 "source": None, "conflicts": [], "related": []}
@@ -74,10 +74,15 @@ def test_statement_in_noninteractive_mode_is_not_saved_but_explains(chat, agent)
 
 
 def test_too_short_input_gets_guidance_not_a_bare_error(chat, agent):
-    for text in ("indonesia", "indonesia adalah", "ok sip", "presiden indonesia sekarang"):
+    for text in ("indonesia", "ok sip", "presiden indonesia sekarang"):
         out = chat.handle(text, agent)
         assert "terlalu pendek" in out and "ingat:" in out
     assert agent.store.list() == []
+
+
+def test_x_adalah_is_read_as_a_definition_question_like_in_the_web_app(chat, agent):
+    out = chat.handle("indonesia adalah", agent)        # dulu 'terlalu pendek'; kini dianggap 'Apa itu indonesia?' (memori masih kosong)
+    assert "Memori masih kosong" in out and "terlalu pendek" not in out
 
 
 def test_explicit_commands_still_work(chat, agent):

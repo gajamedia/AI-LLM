@@ -27,8 +27,8 @@ def apply(q, reads):
     top1 = reads[0][2] if reads and not M.refusal(reads[0][2]) else None
     d5, d67 = M.decide(q, reads, True, True, 0.5), M.decide(q, reads, True, True, 0.67)
     return {"raw_top1": top1,
-            "agen_0.5": d5["answer"] if d5["status"] != "unknown" else None,
-            "agen_0.67": d67["answer"] if d67["status"] != "unknown" else None}
+            "agen_0.5": d5["answer"] if d5["status"] in ("ok", "conflict") else None,
+            "agen_0.67": d67["answer"] if d67["status"] in ("ok", "conflict") else None}
 
 
 def main():

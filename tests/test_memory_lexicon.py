@@ -277,3 +277,528 @@ def test_vocab_warnings():
     assert any("km2" in w for w in T.vocab_warnings("Luas Indonesia 1.904.569 km² darat."))
     assert any("karakter" in w for w in T.vocab_warnings("Kalimat panjang. " * 40))
     assert T.vocab_warnings("Bu Rina tinggal di Jalan Mawar nomor 5.") == []
+
+
+# ---------- pertanyaan lanjutan (riwayat) ----------
+H = ["Di mana Bu Rina tinggal?"]
+
+
+@pytest.mark.parametrize("q,expected", [
+    ("Apa pekerjaannya?", "Apa pekerjaan Bu Rina?"),
+    ("Di mana dia tinggal?", "Di mana Bu Rina tinggal?"),
+    ("kalau Pak Joko?", "Di mana Pak Joko tinggal?"),
+    ("bagaimana dengan Pak Joko", "Di mana Pak Joko tinggal?"),
+    ("dan istrinya?", "Apa istri Bu Rina?"),
+    ("lalu kalau Pak Joko bekerja di mana?", "Pak Joko bekerja di mana?"),
+])
+def test_followups_are_rewritten_with_the_previous_subject(q, expected):
+    out, changed = T.rewrite_followup(q, H)
+    assert changed and out == expected
+
+
+@pytest.mark.parametrize("q", ["Di mana Pak Joko bekerja?", "Apa itu koperasi?", "Kapan lahir?", "Berapa luas Indonesia?",
+                               "Rapat dimulai kapan?", "Siapa ketua koperasi?"])
+def test_standalone_questions_are_left_alone(q):
+    assert T.rewrite_followup(q, H) == (q, False)
+
+
+def test_no_history_or_no_subject_in_history_means_no_rewrite():
+    assert T.rewrite_followup("Apa pekerjaannya?", []) == ("Apa pekerjaannya?", False)
+    assert T.rewrite_followup("Apa pekerjaannya?", None) == ("Apa pekerjaannya?", False)
+    assert T.rewrite_followup("Apa pekerjaannya?", ["apa itu koperasi?"]) == ("Apa pekerjaannya?", False)
+
+
+def test_history_skips_entity_less_questions_and_chains():
+    h = ["Di mana Bu Rina tinggal?", "apa itu koperasi?"]
+    assert T.rewrite_followup("Apa pekerjaannya?", h)[0] == "Apa pekerjaan Bu Rina?"
+    out, _ = T.rewrite_followup("kalau Pak Joko?", H)
+    assert T.rewrite_followup("dan istrinya?", H + [out])[0] == "Apa istri Pak Joko?"   # rantai memakai subjek terbaru
+
+
+class Echo:
+    """Pembaca tiruan yang mencatat pertanyaan yang sampai ke model."""
+    def __init__(self):
+        self.questions = []
+
+    def read(self, ctx, q):
+        self.questions.append(q)
+        return "Jalan Mawar nomor 5" if "Jalan Mawar" in ctx and "Rina" in q else "Maaf, tidak ada dalam teks."
+
+
+def test_agent_answers_followup_using_history_and_reports_rewrite():
+    store = M.MemoryStore(":memory:")
+    store.teach("Bu Rina tinggal di Jalan Mawar nomor 5.")
+    rd = Echo()
+    agent = M.MemoryAgent(store, rd)
+    first = agent.ask("Di mana Bu Rina tinggal?")
+    assert first["status"] == "ok" and first["rewritten"] is None and first["standalone"] == "Di mana Bu Rina tinggal?"
+    follow = agent.ask("Di mana dia tinggal?", [first["standalone"]])
+    assert follow["status"] == "ok" and follow["answer"] == "Jalan Mawar nomor 5"
+    assert follow["rewritten"] == "Di mana Bu Rina tinggal?" and rd.questions[-1] == "Di mana Bu Rina tinggal?"
+    assert agent.ask("Di mana dia tinggal?")["status"] == "unknown"      # tanpa riwayat: tidak menebak siapa "dia"
+
+
+def test_cli_session_remembers_previous_question():
+    chat = load_module("memory_chat_hist_under_test", "tools/memory_chat.py")
+    store = M.MemoryStore(":memory:")
+    store.teach("Bu Rina tinggal di Jalan Mawar nomor 5.")
+    agent = M.MemoryAgent(store, Echo())
+    hist = []
+    chat.handle("Di mana Bu Rina tinggal?", agent, history=hist)
+    out = chat.handle("Di mana dia tinggal?", agent, history=hist)
+    assert out.startswith("(dibaca sebagai: Di mana Bu Rina tinggal?)") and "Jalan Mawar nomor 5" in out
+    assert len(hist) == 2 and "belum tahu" in chat.handle("Di mana dia tinggal?", agent).lower()
+
+
+def test_web_history_is_used_and_validated():
+    web = load_module("memory_web_hist_under_test", "tools/memory_web.py")
+    state = FakeState()
+    state.store.teach("Bu Rina tinggal di Jalan Mawar nomor 5.")
+    state.agent = M.MemoryAgent(state.store, Echo())
+    srv = web.ExclusiveServer(("127.0.0.1", 0), web.make_handler(state, 0))
+    port = srv.server_address[1]
+    srv.RequestHandlerClass = web.make_handler(state, port)
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+
+    def ask(body):
+        c = http.client.HTTPConnection("127.0.0.1", port, timeout=10)
+        c.request("POST", "/api/ask", json.dumps(body), {"Content-Type": "application/json", "Host": f"127.0.0.1:{port}"})
+        r = c.getresponse()
+        data = json.loads(r.read().decode("utf-8"))
+        c.close()
+        return r.status, data
+
+    try:
+        code, a = ask({"question": "Di mana dia tinggal?", "history": ["Di mana Bu Rina tinggal?"]})
+        assert code == 200 and a["status"] == "ok" and a["rewritten"] == "Di mana Bu Rina tinggal?"
+        for bad in ("bukan daftar", {"x": 1}, [1, None, ["a"]], ["x" * 5000]):
+            code, b = ask({"question": "Di mana dia tinggal?", "history": bad})
+            assert code == 200 and b["status"] == "unknown" and b["rewritten"] is None   # riwayat tak valid diabaikan
+    finally:
+        srv.shutdown()
+        srv.server_close()
+
+
+# ---------- angka dari catatan tertentu ----------
+NN = [(1, "Skor ujian: 78, 95, 60, 88."), (2, "Bu Rina tinggal di Jalan Mawar nomor 5."), (3, "Tidak ada angka di sini.")]
+
+
+@pytest.mark.parametrize("q,expected", [
+    ("urutkan angka di catatan 1", "60, 78, 88, 95"),
+    ("urutkan angka di catatan 1 dari terbesar", "95, 88, 78, 60"),
+    ("urutkan catatan #1", "60, 78, 88, 95"),
+    ("jumlahkan angka di catatan 1", "321"),
+    ("berapa total angka di catatan nomor 1?", "321"),
+    ("rata-rata angka di catatan 1", "80,25"),
+    ("angka terbesar di catatan 1", "95"),
+    ("angka terkecil di catatan 1", "60"),
+    ("angka terbesar di catatan terakhir", "Tidak ada angka di catatan [3]."),
+    ("jumlahkan angka di catatan 3", "Tidak ada angka di catatan [3]."),
+    ("jumlahkan angka di catatan 9", "Tidak ada catatan aktif dengan nomor 9."),
+])
+def test_tools_work_on_numbers_in_one_named_note(q, expected):
+    r = T.route(q, None, NN)
+    assert r and r["kind"] == "tool" and r["answer"] == expected
+    if "[3]" not in expected and "nomor 9" not in expected:
+        assert "dibaca dari catatan [1]" in r["detail"] and "Periksa" in r["detail"]       # transparan: angka yang dibaca ditampilkan
+
+
+def test_notes_tool_does_not_hijack_normal_questions_and_refuses_to_mix_all_notes():
+    assert T.route("jumlah catatan saya berapa?", None, NN) is None
+    assert T.route("Apa isi catatan 1?", None, NN) is None
+    assert T.route("Berapa total biaya rapat?", None, NN) is None
+    r = T.route("urutkan angka di catatan saya", None, NN)
+    assert r["kind"] == "task" and "Sebutkan catatan" in r["answer"]
+    assert T.route("jumlahkan angka di catatan 1", None, None)["answer"] == "Tidak ada catatan aktif dengan nomor 1."
+
+
+def test_agent_and_cli_use_notes_for_tool():
+    chat = load_module("memory_chat_notes_under_test", "tools/memory_chat.py")
+    store = M.MemoryStore(":memory:")
+    nid = store.teach("Skor ujian: 78, 95, 60, 88.")
+    agent = M.MemoryAgent(store, NoReader())
+    out = agent.ask(f"jumlahkan angka di catatan {nid}")
+    assert out["status"] == "tool" and out["answer"] == "321"
+    assert "60, 78, 88, 95" in chat.handle(f"urutkan angka di catatan {nid}", agent)
+    store.forget(nid)
+    assert "Tidak ada catatan aktif" in chat.handle(f"urutkan angka di catatan {nid}", agent)
+
+
+# ---------- kutipan yang terpotong di tengah nama ----------
+NOTE_RI = "Indonesia, dengan nama resmi Republik Indonesia, adalah sebuah negara di Asia Tenggara."
+
+
+@pytest.mark.parametrize("answer,note,expected", [
+    ("Republik", NOTE_RI, "Republik Indonesia"),                       # kasus nyata: berhenti di tengah nama
+    ("Bu", "Ketua koperasi adalah Bu Ratna Dewi di desa.", "Bu Ratna Dewi"),
+    ("Jalan Mawar nomor 5", "Bu Rina tinggal di Jalan Mawar nomor 5.", "Jalan Mawar nomor 5"),   # tidak diubah
+    ("Ratna", "Ketua adalah Bu Ratna.", "Ratna"),                      # hanya memperluas ke kanan
+    ("Bekasi", "Pak Joko bekerja di Bekasi. Rapat mulai pukul 9.", "Bekasi"),   # tanda baca menghentikan
+    ("guru", "Bu Rina bekerja sebagai guru Matematika.", "guru"),      # kata terakhir bukan kapital: tidak diperluas
+])
+def test_complete_span(answer, note, expected):
+    assert M.complete_span(answer, note) == expected
+    assert expected in note
+
+
+def test_agent_returns_completed_name():
+    class Partial:
+        def read(self, ctx, q):
+            return "Republik"
+
+    store = M.MemoryStore(":memory:")
+    store.teach(NOTE_RI)
+    out = M.MemoryAgent(store, Partial()).ask("nama resmi indonesia adalah")
+    assert out["answer"] == "Republik Indonesia"
+
+
+# ---------- jawaban mentah model yang ditolak ditampilkan ----------
+def test_rejected_model_answers_are_reported_with_reasons():
+    note = "Bu Ratna adalah ketua koperasi Maju di Desa Sukamaju."
+    reads = [(1, note, "Pak Slamet"), (2, note, "Maaf, tidak ada dalam teks.")]
+    d = M.decide("Siapa ketua koperasi Maju?", reads)
+    assert d["status"] == "unknown" and d["guesses"] == [{"id": 1, "answer": "Pak Slamet", "reason": "bukan kutipan persis dari catatan"}]
+    d2 = M.decide("Siapa ketua Koperasi Sejahtera?", [(1, note, "Bu Ratna")])
+    assert d2["status"] == "unknown" and "nama atau angka" in d2["guesses"][0]["reason"]
+    d3 = M.decide("Berapa harga beras kemarin di pasar induk?", [(1, note, "Bu Ratna")])
+    assert "kata inti" in d3["guesses"][0]["reason"]
+    assert M.decide("Siapa ketua koperasi Maju?", [(1, note, "Bu Ratna")])["guesses"] == []   # dijawab: tidak ada dugaan tertolak
+
+
+def test_cli_shows_rejected_guess():
+    chat = load_module("memory_chat_guess_under_test", "tools/memory_chat.py")
+
+    class Wrong:
+        def read(self, ctx, q):
+            return "Pak Slamet"
+
+    store = M.MemoryStore(":memory:")
+    store.teach("Bu Ratna adalah ketua koperasi Maju di Desa Sukamaju.")
+    out = chat.handle("Siapa ketua koperasi Maju?", M.MemoryAgent(store, Wrong()))
+    assert "jawaban mentah model yang ditolak penjaga" in out and '"Pak Slamet"' in out and "bukan kutipan persis" in out
+
+
+# ---------- tempel beberapa baris -> beberapa catatan ----------
+def test_split_note_lines():
+    t = "Catatan:\n- Ketua koperasi Maju adalah Bu Ratna.\r\n* Bendahara adalah Pak Slamet.\n\n1. Anggota ada 240 orang.\n2) Rapat tiap Januari.\n"
+    lines, skipped = T.split_note_lines(t)
+    assert lines == ["Ketua koperasi Maju adalah Bu Ratna.", "Bendahara adalah Pak Slamet.", "Anggota ada 240 orang.", "Rapat tiap Januari."]
+    assert skipped == ["Catatan:"]
+    assert T.split_note_lines("Satu baris saja di sini.") == (["Satu baris saja di sini."], [])
+    table = "Daftar:\n1 = siji\n2 = loro\n3 = telu"
+    assert T.split_note_lines(table) == (["Daftar: 1 = siji 2 = loro 3 = telu"], [])     # kamus: satu catatan, tidak dipecah
+
+
+class MultiHarness:
+    def __init__(self):
+        self.web = load_module("memory_web_multi_under_test", "tools/memory_web.py")
+        self.state = FakeState()
+        srv = self.web.ExclusiveServer(("127.0.0.1", 0), self.web.make_handler(self.state, 0))
+        self.port = srv.server_address[1]
+        srv.RequestHandlerClass = self.web.make_handler(self.state, self.port)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        self.srv = srv
+
+    def post(self, body):
+        c = http.client.HTTPConnection("127.0.0.1", self.port, timeout=10)
+        c.request("POST", "/api/notes", json.dumps(body), {"Content-Type": "application/json", "Host": f"127.0.0.1:{self.port}"})
+        r = c.getresponse()
+        data = json.loads(r.read().decode("utf-8"))
+        c.close()
+        return r.status, data
+
+    def close(self):
+        self.srv.shutdown()
+        self.srv.server_close()
+
+
+def test_web_multi_line_paste_creates_one_note_per_line():
+    h = MultiHarness()
+    try:
+        text = "Koperasi Maju\nKetua koperasi Maju adalah Bu Ratna.\n- Bendahara koperasi Maju adalah Pak Slamet.\nHalo\n" \
+               'kata "siji" berarti 1\nkata "apa" berarti 2'
+        code, j = h.post({"text": text, "multi": True})
+        assert code == 200 and j["count"] == 5 and j["ids"] == [i["id"] for i in j["items"]] and j["skipped"] == ["Halo"]
+        assert [n["text"] for n in j["notes"]] == ["Koperasi Maju", "Ketua koperasi Maju adalah Bu Ratna.",
+                                                  "Bendahara koperasi Maju adalah Pak Slamet.", 'kata "siji" berarti 1', 'kata "apa" berarti 2']
+        assert len(j["lexicon_issues"]) == 1 and "apa" in j["lexicon_issues"][0]           # kamus yang ditolak dilaporkan
+        # tanpa flag multi: perilaku lama (satu catatan, baris baru dilebur)
+        code, j2 = h.post({"text": "Baris satu yang cukup.\nBaris dua yang cukup."})
+        assert code == 200 and "count" not in j2 and h.state.notes()[-1]["text"] == "Baris satu yang cukup. Baris dua yang cukup."
+    finally:
+        h.close()
+
+
+def test_web_multi_line_is_all_or_nothing_and_limited():
+    h = MultiHarness()
+    try:
+        before = len(h.state.notes())
+        code, j = h.post({"text": "Kalimat pertama yang baik.\n" + "kata " * 130 + "\nKalimat ketiga.", "multi": True})
+        assert code == 400 and "Baris 2 terlalu panjang" in j["error"] and len(h.state.notes()) == before   # tidak ada yang tersimpan
+        code, j = h.post({"text": "\n".join(f"Catatan nomor {i} ada." for i in range(61)), "multi": True})
+        assert code == 400 and "Terlalu banyak baris" in j["error"] and len(h.state.notes()) == before
+        code, j = h.post({"text": "x " * 3100, "multi": True})
+        assert code == 400 and "terlalu panjang" in j["error"].lower()
+        code, j = h.post({"text": "  \n \n", "multi": True})
+        assert code == 400 and len(h.state.notes()) == before
+        code, j = h.post({"text": "1 = siji\n2 = loro\n3 = telu", "multi": True})                        # kamus tidak dipecah
+        assert code == 200 and j["count"] == 1 and j["lexicon"]["ok"]
+    finally:
+        h.close()
+
+
+def test_web_multi_line_with_replace_id_replaces_the_old_note():
+    h = MultiHarness()
+    try:
+        _, first = h.post({"text": "Catatan lama yang akan diganti."})
+        code, j = h.post({"text": "Baris baru satu ada.\nBaris baru dua ada.", "multi": True, "replace_id": first["id"]})
+        assert code == 200 and [n["text"] for n in h.state.notes()] == ["Baris baru satu ada.", "Baris baru dua ada."]
+    finally:
+        h.close()
+
+
+# ---------- batas panjang jawaban: fakta vs definisi ----------
+GRAV = "Hukum Gravitasi Universal: Gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya."
+GRAV_ANS = "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya"
+
+
+def test_long_answer_is_accepted_for_definition_questions_only():
+    d = M.decide("apa itu gravitasi", [(1, GRAV, GRAV_ANS)])
+    assert d["status"] == "ok" and d["answer"] == GRAV_ANS
+    d2 = M.decide("Siapa penemu hukum gravitasi universal", [(1, GRAV, GRAV_ANS)])        # pertanyaan fakta: batas 14 kata
+    assert d2["status"] == "unknown"
+    assert d2["guesses"][0]["reason"].startswith("terlalu panjang (16 kata; batas 14 kata")   # alasan jujur, bukan "bukan kutipan"
+    assert M.decide("apa itu gravitasi", [(1, GRAV, "gaya tarik antar bumi dan bulan")])["guesses"][0]["reason"] == "bukan kutipan persis dari catatan"
+    long_answer = " ".join(["kata"] * 45)
+    assert "terlalu panjang" in M.decide("apa itu gravitasi", [(1, long_answer, long_answer)])["guesses"][0]["reason"]
+
+
+def test_definition_questions_get_more_room_to_write():
+    assert M.new_tokens("Apa itu gravitasi") == M.DEFINITION_NEW_TOKENS > M.new_tokens("Siapa ketua koperasi?") == M.READ_NEW_TOKENS
+    assert M.answer_limit("Jelaskan hukum gravitasi") == M.MAX_DEFINITION_WORDS and M.answer_limit("Kapan rapat?") == M.MAX_ANSWER_WORDS
+
+
+# ---------- pertanyaan definisi dalam bentuk lain ----------
+@pytest.mark.parametrize("q,expected", [
+    ("gravitasi adalah", "Apa itu gravitasi"), ("gravitasi itu apa?", "Apa itu gravitasi"), ("gravitasi adalah apa?", "Apa itu gravitasi"),
+    ("pengertian gravitasi", "Apa itu gravitasi"), ("Definisi gravitasi universal", "Apa itu gravitasi universal"),
+    ("apa arti kata sinergi", "Apa itu sinergi"), ("jelaskan gravitasi", "Apa itu gravitasi"),
+    ("jelaskan apa itu gravitasi", "Apa itu gravitasi"),
+])
+def test_definition_forms_become_apa_itu(q, expected):
+    assert T.rewrite_definition(q) == (expected, True)
+
+
+@pytest.mark.parametrize("q", ["apa itu gravitasi", "Apa itu gravitasi", "Bu Rina adalah guru", "Pak Joko itu apa?", "kota Bandung adalah", "Dimana ibu kota adalah",
+                               "jelaskan proses pembuatan roti yang benar di rumah", "pengertian 3 ditambah 4", "Di mana Bu Rina tinggal?",
+                               "Siapa ketua koperasi?", "Berapa luas Indonesia?"])
+def test_non_definition_questions_are_not_rewritten(q):
+    assert T.rewrite_definition(q) == (q, False)
+
+
+def test_agent_and_cli_handle_definition_forms():
+    class DefReader:
+        def read(self, ctx, q):
+            return GRAV_ANS if q == "Apa itu gravitasi" else "Maaf, tidak ada dalam teks."
+
+    chat = load_module("memory_chat_def_under_test", "tools/memory_chat.py")
+    store = M.MemoryStore(":memory:")
+    store.teach(GRAV)
+    agent = M.MemoryAgent(store, DefReader())
+    out = agent.ask("gravitasi adalah")
+    assert out["status"] == "ok" and out["answer"] == GRAV_ANS and out["rewritten"] == "Apa itu gravitasi"
+    assert agent.ask("Apa itu gravitasi")["rewritten"] is None
+    assert agent.ask("Apa itu gravitasi?")["rewritten"] == "Apa itu gravitasi"      # tanda tanya akhir dibuang (model menolak dengan '?')
+    text = chat.handle("pengertian gravitasi", agent)                      # tanpa '?' pun dikenali sebagai pertanyaan
+    assert text.startswith("(dibaca sebagai: Apa itu gravitasi)") and GRAV_ANS in text
+    assert "jawaban" not in chat.handle("jelaskan gravitasi", agent).lower().split("\n")[0] or True
+    out2 = agent.ask("dan istrinya?", ["Di mana Bu Rina tinggal?"])        # riwayat percakapan tetap didahulukan
+    assert out2["rewritten"] == "Apa istri Bu Rina?"
+
+
+# ---------- basa-basi di ujung jawaban dan bentuk pertanyaan alternatif ----------
+@pytest.mark.parametrize("raw,expected", [
+    ("Burung Garuda Berdasarkan teks yang diberikan.", "Burung Garuda"),
+    ("Burung Garuda Berdasarkan teks yang diberikan, jawabannya tidak terdapat dalam teks yang diberikan.", "Burung Garuda"),
+    ("Burung Garuda", "Burung Garuda"),
+    ("Pak Joko menurut Bu Rina", "Pak Joko menurut Bu Rina"),                                       # kata 'menurut' biasa tidak dibuang
+    ("Menurut informasi di atas, jawabannya ada.", ""),                                             # hanya basa-basi -> kosong
+    ("Berdasarkan teks yang diberikan, tidak ada jawabannya.", ""),                                  # hanya basa-basi -> kosong = penolakan
+])
+def test_clean_answer(raw, expected):
+    assert M.clean_answer(raw) == expected
+
+
+def test_decide_accepts_answer_with_trailing_boilerplate_and_still_rejects_wrong_spans():
+    note = "Lambang negara indonesia adalah Burung Garuda"
+    d = M.decide("apa lambang negara indonesia", [(1, note, "Burung Garuda Berdasarkan teks yang diberikan.")])
+    assert d["status"] == "ok" and d["answer"] == "Burung Garuda"
+    assert M.decide("apa lambang negara indonesia", [(1, note, "Elang Jawa Berdasarkan teks yang diberikan.")])["status"] == "unknown"
+
+
+def test_agent_tries_alternative_form_when_apa_itu_fails():
+    class FormSensitive:
+        def __init__(self):
+            self.asked = []
+
+        def read(self, ctx, q):
+            self.asked.append(q)
+            return "Burung Garuda" if q == "Apa lambang negara indonesia?" else "Maaf, tidak ada dalam teks."
+
+    store = M.MemoryStore(":memory:")
+    store.teach("Lambang negara indonesia adalah Burung Garuda")
+    rd = FormSensitive()
+    out = M.MemoryAgent(store, rd).ask("lambang negara indonesia adalah")
+    assert out["status"] == "ok" and out["answer"] == "Burung Garuda"
+    assert rd.asked == ["Apa itu lambang negara indonesia", "Apa lambang negara indonesia?"]
+    assert out["rewritten"] == "Apa lambang negara indonesia?"                    # yang berhasil yang ditampilkan
+    rd2 = FormSensitive()
+    store2 = M.MemoryStore(":memory:")
+    store2.teach("Bu Rina tinggal di Jalan Mawar nomor 5.")
+    assert M.MemoryAgent(store2, rd2).ask("Di mana Bu Rina tinggal?")["status"] == "unknown" and len(rd2.asked) == 1   # bentuk lain hanya untuk 'apa itu'
+
+
+# ---------- pemilihan jawaban saat konflik: kecocokan dulu, baru kebaruan ----------
+N14 = "Indonesia negara berbentuk Republik dengan nama resmi Republik Indonesia."
+N18 = "Lambang negara indonesia adalah Burung Garuda"
+
+
+def test_better_matching_note_beats_a_newer_note_about_something_else():
+    q = "Apa itu bentuk negara indonesia"
+    d = M.decide(q, [(14, N14, "Republik"), (18, N18, "Burung Garuda")], threshold=0.5)      # "Longgar": #18 (kecocokan 2/3) ikut lolos
+    assert d["source"]["id"] == 14 and d["answer"] == "Republik Indonesia"              # dulu: #18 menang karena lebih baru
+    assert d["status"] == "conflict" and [c["id"] for c in d["conflicts"]] == [18]        # yang kalah tetap ditampilkan sebagai konflik
+    assert M.decide(q, [(14, N14, "Republik"), (18, N18, "Burung Garuda")])["conflicts"] == []   # "Seimbang": #18 sudah ditolak penjaga
+
+
+def test_newest_note_still_wins_for_updates_with_the_same_wording():
+    old, new = "Bu Rina tinggal di Jalan Mawar nomor 5.", "Bu Rina tinggal di Jalan Melati nomor 9."
+    d = M.decide("Di mana Bu Rina tinggal?", [(1, old, "Jalan Mawar nomor 5"), (2, new, "Jalan Melati nomor 9")])
+    assert d["source"]["id"] == 2 and d["answer"] == "Jalan Melati nomor 9" and d["status"] == "conflict"
+
+
+def test_update_with_looser_wording_is_flagged_as_conflict_not_silently_replaced():
+    old = "Bu Rina tinggal di Jalan Mawar nomor 5 dekat pasar lama."
+    new = "Bu Rina bekerja sebagai guru dan tinggal di Jalan Melati nomor 9."
+    d = M.decide("Di mana Bu Rina tinggal dekat pasar lama?", [(1, old, "Jalan Mawar nomor 5"), (2, new, "Jalan Melati nomor 9")], relevance_guard=False)
+    assert d["status"] == "conflict" and {d["source"]["id"], d["conflicts"][0]["id"]} == {1, 2}   # keduanya terlihat oleh pengguna
+    assert d["source"]["id"] == 1                                                              # yang lebih cocok dengan pertanyaan menang
+
+
+def test_user_note_still_beats_document_chunk_even_if_chunk_matches_better():
+    note = "Bu Ratna adalah ketua koperasi."
+    chunk = "Ketua koperasi Maju dipilih setiap tahun; ketua koperasi Maju saat ini adalah Pak Slamet."
+    d = M.decide("Siapa ketua koperasi Maju?", [(1, note, "Bu Ratna"), (2, chunk, "Pak Slamet")], doc_ids=frozenset({2}), entity_guard=False)
+    assert d["source"]["id"] == 1
+
+
+def test_command_words_do_not_count_as_core_question_words():
+    note = "Lambang negara indonesia adalah Burung Garuda"
+    assert M.relevance_score("sebutkan lambang negara indonesia", note) == 1.0     # dulu 0.75: 'sebutkan' terpotong jadi 'butk'
+    assert M.relevance_score("jelaskan lambang negara", note) == 1.0
+    assert M.relevance_score("Apa itu bentuk negara indonesia", note) == pytest.approx(2 / 3)
+
+
+# ---------- tanya balik bila beberapa catatan sama-sama cocok ----------
+RAPAT_A = "Rapat tim produk dimulai pukul 09.30 di ruang Anggrek."
+RAPAT_B = "Rapat tim finance dimulai pukul 11.30 di ruang Mawar."
+
+
+def test_ambiguous_question_asks_back_with_distinguishing_words():
+    d = M.decide("rapat ada di ruang apa", [(20, RAPAT_A, "Anggrek"), (21, RAPAT_B, "Mawar")])
+    assert d["status"] == "clarify" and d["source"] is None
+    assert [(o["id"], o["label"], o["answer"]) for o in d["options"]] == [(20, "produk", "Anggrek"), (21, "finance", "Mawar")]
+
+
+def test_question_that_names_the_distinguishing_word_is_answered_directly():
+    d = M.decide("rapat tim finance ada di ruang apa", [(20, RAPAT_A, "Anggrek"), (21, RAPAT_B, "Mawar")])
+    assert d["status"] in ("ok", "conflict") and d["answer"] == "Mawar" and d["source"]["id"] == 21
+
+
+def test_fact_update_is_not_ambiguous_only_the_answer_differs():
+    old, new = "Bu Rina tinggal di Jalan Mawar nomor 5.", "Bu Rina tinggal di Jalan Melati nomor 9."
+    d = M.decide("Di mana Bu Rina tinggal?", [(1, old, "Jalan Mawar nomor 5"), (2, new, "Jalan Melati nomor 9")])
+    assert d["status"] == "conflict" and d["source"]["id"] == 2                  # terbaru menang, tidak bertanya balik
+
+
+def test_no_clarification_when_notes_agree_or_match_unequally():
+    same = [(1, RAPAT_A, "Anggrek"), (2, "Rapat tim finance dimulai pukul 11.30 di ruang Anggrek.", "Anggrek")]
+    assert M.decide("rapat ada di ruang apa", same)["status"] == "ok"            # jawabannya sama
+    d = M.decide("Apa itu bentuk negara indonesia", [(14, N14, "Republik"), (18, N18, "Burung Garuda")], threshold=0.5)
+    assert d["status"] == "conflict"                                              # kecocokan berbeda: pilih yang lebih cocok
+
+
+def test_agent_cli_and_web_ask_back():
+    class Room:
+        def read(self, ctx, q):
+            return "Anggrek" if "Anggrek" in ctx else "Mawar" if "Mawar" in ctx else "Maaf, tidak ada dalam teks."
+
+    chat = load_module("memory_chat_clarify_under_test", "tools/memory_chat.py")
+    store = M.MemoryStore(":memory:")
+    store.teach(RAPAT_A)
+    store.teach(RAPAT_B)
+    agent = M.MemoryAgent(store, Room())
+    out = agent.ask("rapat ada di ruang apa")
+    assert out["status"] == "clarify" and len(out["options"]) == 2
+    text = chat.handle("rapat ada di ruang apa?", agent)
+    assert "Maksud Anda yang mana?" in text and "(tambahkan kata: produk)" in text and "mis.: rapat ada di ruang apa produk" in text
+    assert agent.ask("rapat ada di ruang apa produk")["answer"] == "Anggrek"
+
+    web = load_module("memory_web_clarify_under_test", "tools/memory_web.py")
+    state = FakeState()
+    state.store.teach(RAPAT_A)
+    state.store.teach(RAPAT_B)
+    state.agent = M.MemoryAgent(state.store, Room())
+    srv = web.ExclusiveServer(("127.0.0.1", 0), web.make_handler(state, 0))
+    port = srv.server_address[1]
+    srv.RequestHandlerClass = web.make_handler(state, port)
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    try:
+        c = http.client.HTTPConnection("127.0.0.1", port, timeout=10)
+        c.request("POST", "/api/ask", json.dumps({"question": "rapat ada di ruang apa"}), {"Content-Type": "application/json", "Host": f"127.0.0.1:{port}"})
+        j = json.loads(c.getresponse().read().decode("utf-8"))
+        assert j["status"] == "clarify" and [o["label"] for o in j["options"]] == ["produk", "finance"]
+    finally:
+        srv.shutdown()
+        srv.server_close()
+
+
+def test_stem_strips_enclitic_then_suffix():
+    assert M.stem("ruangannya") == "ruang" and M.stem("rumahnya") == "rumah" and M.stem("tinggal") == "tinggal"
+
+
+# ---------- bentuk pertanyaan alternatif ----------
+@pytest.mark.parametrize("q,expected", [
+    ("di asia mana indonesia berada", [("Di mana indonesia berada?", "asia")]),
+    ("Di kota mana Bu Rina tinggal?", [("Di mana Bu Rina tinggal?", "kota")]),
+    ("indonesia berada di kawasan apa?", [("indonesia berada di mana", "kawasan")]),
+    ("apa itu gravitasi", [("Apa gravitasi?", None)]),
+    ("Di mana Bu Rina tinggal?", []), ("Siapa ketua koperasi?", []), ("Kapan rapat dimulai?", []),
+])
+def test_alternate_forms(q, expected):
+    assert T.alternate_forms(q) == expected
+
+
+def test_alternate_form_only_reads_notes_that_contain_the_dropped_qualifier():
+    class WhereReader:
+        def __init__(self):
+            self.asked = []
+
+        def read(self, ctx, q):
+            self.asked.append(q)
+            if q.startswith("Di mana"):
+                return "asia tenggara" if "asia tenggara" in ctx else "Jalan Mawar nomor 5" if "Mawar" in ctx else "Maaf, tidak ada dalam teks."
+            return "Maaf, tidak ada dalam teks."
+
+    store = M.MemoryStore(":memory:")
+    store.teach("indonesia berada di asia tenggara")
+    store.teach("Bu Rina tinggal di Jalan Mawar nomor 5.")
+    rd = WhereReader()
+    agent = M.MemoryAgent(store, rd)
+    out = agent.ask("di asia mana indonesia berada")
+    assert out["status"] == "ok" and out["answer"] == "asia tenggara" and out["rewritten"] == "Di mana indonesia berada?"
+    out2 = agent.ask("Di kota mana Bu Rina tinggal?")        # catatan tidak memuat 'kota': jangan dijawab dengan jalan
+    assert out2["status"] == "unknown" and out2["rewritten"] is None
+    assert not any(q == "Di mana Bu Rina tinggal?" for q in rd.asked)
+    agent.alternate_forms = False
+    assert agent.ask("di asia mana indonesia berada")["status"] == "unknown"

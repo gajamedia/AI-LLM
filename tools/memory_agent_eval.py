@@ -29,9 +29,9 @@ def policies(question, reads):
     return {
         "raw_top1": top1,
         "seq_nonrefuse": first_non[1] if first_non else None,
-        "verified": (lambda d: d["answer"] if d["status"] != "unknown" else None)(M.decide(question, reads, False, False)),
-        "verified+ent": (lambda d: d["answer"] if d["status"] != "unknown" else None)(M.decide(question, reads, True, False)),
-        "verified+ent+rel": (lambda d: d["answer"] if d["status"] != "unknown" else None)(M.decide(question, reads, True, True)),
+        "verified": (lambda d: d["answer"] if d["status"] in ("ok", "conflict") else None)(M.decide(question, reads, False, False)),
+        "verified+ent": (lambda d: d["answer"] if d["status"] in ("ok", "conflict") else None)(M.decide(question, reads, True, False)),
+        "verified+ent+rel": (lambda d: d["answer"] if d["status"] in ("ok", "conflict") else None)(M.decide(question, reads, True, True)),
     }
 
 

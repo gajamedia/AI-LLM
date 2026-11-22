@@ -1,0 +1,62 @@
+{
+ "tulisan tangan": {
+  "tanpa penjaga": {
+   "benar": 10,
+   "salah": 1,
+   "abstain": 9,
+   "abstain_tak": 8,
+   "mengarang_tak": 0
+  },
+  "gema >= 1.0": {
+   "benar": 10,
+   "salah": 1,
+   "abstain": 9,
+   "abstain_tak": 8,
+   "mengarang_tak": 0
+  },
+  "gema >= 0.5": {
+   "benar": 10,
+   "salah": 1,
+   "abstain": 9,
+   "abstain_tak": 8,
+   "mengarang_tak": 0
+  },
+  "gema > 0": {
+   "benar": 9,
+   "salah": 1,
+   "abstain": 10,
+   "abstain_tak": 8,
+   "mengarang_tak": 0
+  }
+ },
+ "kalimat rumit": {
+  "tanpa penjaga": {
+   "benar": 28,
+   "salah": 9,
+   "abstain": 32,
+   "abstain_tak": 14,
+   "mengarang_tak": 1
+  },
+  "gema >= 1.0": {
+   "benar": 28,
+   "salah": 9,
+   "abstain": 32,
+   "abstain_tak": 14,
+   "mengarang_tak": 1
+  },
+  "gema >= 0.5": {
+   "benar": 26,
+   "salah": 8,
+   "abstain": 35,
+   "abstain_tak": 14,
+   "mengarang_tak": 1
+  },
+  "gema > 0": {
+   "benar": 23,
+   "salah": 8,
+   "abstain": 38,
+   "abstain_tak": 14,
+   "mengarang_tak": 1
+  }
+ }
+}

@@ -48,15 +48,62 @@ def match_rule(store, text):
     return None
 
 
+_TRAILING_BOILERPLATE = re.compile(r"\s*\b(?:berdasarkan|menurut)\s+(?:teks|informasi)\b.*$", re.I | re.S)
+
+
+def clean_answer(raw):
+    """Buang kalimat basa-basi yang kadang ditempelkan model setelah jawaban ('Burung Garuda Berdasarkan teks yang diberikan.').
+    Bila yang tersisa kosong, jawaban dianggap penolakan."""
+    return _TRAILING_BOILERPLATE.sub("", raw).strip()
+
+
 def refusal(a):
     return (not a.strip()) or bool(R.REFUSE.search(a))
 
 
-def verified(answer, note, max_words=14):
+MAX_ANSWER_WORDS = 14          # jawaban fakta: kutipan pendek
+MAX_DEFINITION_WORDS = 40      # pertanyaan definisi ("apa itu ...") memang butuh jawaban lebih panjang
+_DEFINITION_Q = re.compile(r"^\s*(apa\s+itu|apakah\s+itu|apa\s+yang\s+dimaksud|apa\s+arti|apa\s+definisi|apa\s+pengertian|"
+                           r"apa\s+bunyi|bagaimana\s+bunyi|jelaskan|sebutkan\s+pengertian)\b", re.I)
+
+
+def answer_limit(question):
+    return MAX_DEFINITION_WORDS if _DEFINITION_Q.match(question or "") else MAX_ANSWER_WORDS
+
+
+READ_NEW_TOKENS = 30         # ruang menulis jawaban fakta
+DEFINITION_NEW_TOKENS = 70   # jawaban definisi lebih panjang
+
+
+def new_tokens(question):
+    return DEFINITION_NEW_TOKENS if _DEFINITION_Q.match(question or "") else READ_NEW_TOKENS
+
+
+def verify_reason(answer, note, max_words=MAX_ANSWER_WORDS):
+    """None bila jawaban sah (potongan persis catatan dan tidak kepanjangan); selain itu alasan penolakan."""
     a = R.norm(answer.strip().rstrip("."))
-    if not a or len(a.split()) > max_words:
-        return False
-    return a in R.norm(note)
+    if not a:
+        return "bukan kutipan persis dari catatan"
+    if len(a.split()) > max_words:
+        return f"terlalu panjang ({len(a.split())} kata; batas {max_words} kata untuk jawaban seperti ini)"
+    return None if a in R.norm(note) else "bukan kutipan persis dari catatan"
+
+
+def verified(answer, note, max_words=MAX_ANSWER_WORDS):
+    return verify_reason(answer, note, max_words) is None
+
+
+def complete_span(answer, note, max_extra=6):
+    """Lengkapi kutipan yang berhenti di tengah nama: bila kata terakhir jawaban berhuruf kapital dan di catatan langsung
+    disusul kata-kata berhuruf kapital (tanpa tanda baca), ikutkan kata-kata itu. 'Republik' -> 'Republik Indonesia'.
+    Hasilnya tetap potongan persis dari catatan."""
+    a = answer.strip()
+    last = a.split()[-1] if a.split() else ""
+    if not last[:1].isupper():
+        return a
+    for m in re.finditer(r"(?<![\w])" + re.escape(a) + r"((?:\s+[A-Z][\w-]*){1,%d})(?![\w])" % max_extra, note):
+        return a + m.group(1)
+    return a
 
 
 def entity_ok(question, note):
@@ -80,20 +127,35 @@ def stem(w):
     for sfx in _SUFFIX:
         if w.endswith(sfx) and len(w) - len(sfx) >= 4:
             w = w[:-len(sfx)]
+            if sfx in ("nya", "lah", "kah"):  # klitik: 'ruangannya' -> 'ruangan' -> 'ruang'
+                for sfx2 in ("kan", "an", "i"):
+                    if w.endswith(sfx2) and len(w) - len(sfx2) >= 4:
+                        w = w[:-len(sfx2)]
+                        break
             break
     return w
 
 
-def relevance_ok(question, note, threshold=0.67):
-    """Sebagian besar (>= threshold) akar kata inti non-entitas dari pertanyaan harus muncul di catatan."""
+# kata perintah di awal pertanyaan ('sebutkan lambang negara') bukan isi pertanyaan: tidak dihitung sebagai kata inti
+_COMMAND_WORDS = {"sebutkan", "sebut", "jelaskan", "terangkan", "uraikan", "jabarkan", "tunjukkan", "carikan", "beritahu", "beri",
+                  "katakan", "ceritakan", "tuliskan", "tolong", "coba"}
+
+
+def relevance_score(question, note):
+    """Porsi akar kata inti non-entitas pertanyaan yang muncul di catatan (1.0 = semua). 1.0 bila tidak ada kata inti."""
     words = re.findall(r"[\w-]+", question)
     ents = {R.norm(w) for i, w in enumerate(words) if (i > 0 and w[:1].isupper()) or any(c.isdigit() for c in w)}
     nn = R.norm(note)
-    core = [stem(t) for t in R.content_tokens(question) if R.norm(t) not in ents]
+    core = [stem(t) for t in R.content_tokens(question) if R.norm(t) not in ents and t.lower() not in _COMMAND_WORDS]
     core = [c for c in core if len(c) >= 4]
     if not core:
-        return True
-    return sum(c in nn for c in core) / len(core) >= threshold
+        return 1.0
+    return sum(c in nn for c in core) / len(core)
+
+
+def relevance_ok(question, note, threshold=0.67):
+    """Sebagian besar (>= threshold) akar kata inti non-entitas dari pertanyaan harus muncul di catatan."""
+    return relevance_score(question, note) >= threshold
 
 
 class MemoryStore:
@@ -209,33 +271,82 @@ class Reader:
         self.model, self.tok = _load_model(ckpt, cfg, self.device, payload=payload)
         del payload
 
-    def read(self, ctx, question, max_new=30):
+    def read(self, ctx, question, max_new=None):
         from generate_gpt import _set_seed, generate_text
         prompt = R.TEMPLATE_PROMPT.format(p=R.make_prompt(ctx, question))
         _set_seed(1)
-        text = generate_text(self.model, self.tok, prompt, max_new, 0.0, 0, 1.0, 1.0, self.device)
+        text = generate_text(self.model, self.tok, prompt, max_new or new_tokens(question), 0.0, 0, 1.0, 1.0, self.device)
         k = text.find("Jawaban:", max(0, len(prompt) - 20))
         return (text[k + len("Jawaban:"):] if k >= 0 else text[len(prompt):]).strip()
 
 
-def decide(question, reads, entity_guard=True, relevance_guard=True, threshold=0.67, doc_ids=frozenset()):
+def echo_fraction(question, answer):
+    """Porsi kata inti jawaban (akar kata) yang hanya mengulang kata inti pertanyaan. 1.0 = jawaban hanya menggemakan pertanyaan."""
+    qs = {stem(t) for t in R.content_tokens(question)}
+    toks = [stem(t) for t in R.content_tokens(answer)]
+    return sum(t in qs for t in toks) / len(toks) if toks else 0.0
+
+
+def _content_words(text):
+    return [w for w in re.findall(r"\w+", text.lower()) if len(w) >= 3 and w not in R.STOP]
+
+
+def clarify_options(question, cands, best, doc_ids):
+    """Kembalikan daftar pilihan bila pertanyaan ambigu; selain itu daftar kosong.
+    Ambigu bila: (1) beberapa catatan sama-sama cocok (kelas pengguna/dokumen dan skor kecocokan sama dengan yang terbaik),
+    (2) jawabannya berbeda, (3) tiap catatan punya kata pembeda berhuruf di luar jawabannya (mis. 'finance' vs 'produk'),
+    dan (4) pertanyaan tidak memuat kata pembeda itu. Pembaruan fakta yang sama (hanya jawabannya yang berbeda) tidak ambigu."""
+    group = [c for c in cands if (c["id"] in doc_ids) == (best["id"] in doc_ids) and c["score"] == best["score"]]
+    by_answer = {}
+    for c in group:
+        by_answer.setdefault(R.norm(c["answer"]), c)          # satu pilihan per jawaban berbeda (catatan terbaru dulu)
+    if len(by_answer) < 2:
+        return []
+    group = sorted(by_answer.values(), key=lambda c: c["id"])
+    words = {c["id"]: set(_content_words(c["note"])) - set(_content_words(c["answer"])) for c in group}
+    asked = set(_content_words(question))
+    options = []
+    for c in group:
+        others = set().union(*(words[o["id"]] for o in group if o is not c))
+        distinct = [w for w in dict.fromkeys(_content_words(c["note"])) if w in words[c["id"]] and w not in others and w.isalpha()]
+        if not distinct or asked & set(distinct):
+            return []
+        options.append({"id": c["id"], "label": " ".join(distinct[:2]), "text": c["note"], "answer": c["answer"]})
+    return options
+
+
+def decide(question, reads, entity_guard=True, relevance_guard=True, threshold=0.67, doc_ids=frozenset(), echo_threshold=None):
     """reads: daftar (id, note, raw_answer) berurutan peringkat. Kembalikan dict keputusan."""
-    cands = []
+    cands, guesses = [], []   # guesses: jawaban mentah model yang ditolak penjaga (ditampilkan sebagai dugaan, bukan jawaban)
     for nid, note, raw in reads:
-        if refusal(raw) or not verified(raw, note):
+        raw = clean_answer(raw)
+        if refusal(raw):
             continue
-        if entity_guard and not entity_ok(question, note):
+        reason = verify_reason(raw, note, answer_limit(question))
+        if reason is None and entity_guard and not entity_ok(question, note):
+            reason = "nama atau angka di pertanyaan tidak ada di catatan itu"
+        if reason is None and relevance_guard and not relevance_ok(question, note, threshold):
+            reason = "kata inti pertanyaan kurang cocok dengan catatan itu"
+        if reason:
+            guesses.append({"id": nid, "answer": raw.strip(), "reason": reason})
             continue
-        if relevance_guard and not relevance_ok(question, note, threshold):
-            continue
-        cands.append({"id": nid, "note": note, "answer": raw.strip().rstrip(".")})
+        if echo_threshold is not None and echo_fraction(question, raw) >= echo_threshold:
+            continue  # jawaban sebagian besar hanya mengulang kata pertanyaan
+        cands.append({"id": nid, "note": note, "answer": complete_span(raw.strip().rstrip("."), note)})
     if not cands:
-        return {"status": "unknown", "answer": UNKNOWN, "source": None, "conflicts": []}
-    # catatan terbaru menang; catatan yang diajarkan pengguna didahulukan atas teks dokumen impor
-    best = max(cands, key=lambda c: (c["id"] not in doc_ids, c["id"]))
+        return {"status": "unknown", "answer": UNKNOWN, "source": None, "conflicts": [], "guesses": guesses}
+    # Urutan pemilihan: catatan pengguna didahulukan atas teks dokumen; lalu catatan yang memuat paling banyak kata inti pertanyaan
+    # (agar catatan yang kebetulan lebih baru tetapi membahas hal lain tidak menang); bila sama, catatan terbaru menang (pembaruan fakta).
+    for c in cands:
+        c["score"] = round(relevance_score(question, c["note"]), 2)
+    best = max(cands, key=lambda c: (c["id"] not in doc_ids, c["score"], c["id"]))
+    options = clarify_options(question, cands, best, doc_ids)
+    if options:  # beberapa catatan sama-sama cocok dan dibedakan oleh kata di luar jawaban: tanya balik, jangan memilih diam-diam
+        return {"status": "clarify", "source": None, "conflicts": [], "guesses": [], "options": options,
+                "answer": "Ada beberapa catatan yang cocok dengan pertanyaan Anda. Maksud Anda yang mana?"}
     conflicts = [c for c in cands if R.norm(c["answer"]) != R.norm(best["answer"])]
     return {"status": "conflict" if conflicts else "ok", "answer": best["answer"],
-            "source": {"id": best["id"], "text": best["note"]}, "conflicts": conflicts}
+            "source": {"id": best["id"], "text": best["note"]}, "conflicts": conflicts, "guesses": []}
 
 
 def related_unused(question, reads, used_ids):
@@ -249,15 +360,12 @@ def related_unused(question, reads, used_ids):
     return out
 
 
-READ_NEW_TOKENS = 30   # ruang minimal untuk jawaban model
-
-
 def fit_context(tok, text, question):
     """Potong catatan/bagian panjang ke jendela kalimat yang membuat PROMPT LENGKAP muat di konteks model.
     Dihitung dari prompt sebenarnya (bukan perkiraan), karena prompt terlalu panjang membuat model tidak bisa menulis jawaban."""
     def prompt_len(ctx):
         return len(tok.encode_ids(R.TEMPLATE_PROMPT.format(p=R.make_prompt(ctx, question))))
-    limit = R.MAX_CONTEXT - READ_NEW_TOKENS
+    limit = R.MAX_CONTEXT - new_tokens(question)
     if prompt_len(text) <= limit:
         return text
     best = None
@@ -276,21 +384,9 @@ class MemoryAgent:
         self.store, self.reader, self.k = store, reader, k
         self.entity_guard, self.relevance_guard = entity_guard, relevance_guard
         self.relevance_threshold = relevance_threshold
+        self.alternate_forms = True
 
-    def ask(self, question):
-        rule = match_rule(self.store, question)  # aturan yang diajarkan pengguna didahulukan (mengalahkan sapaan bawaan)
-        if rule:
-            return {"status": "rule", "answer": rule["reply"], "tool": None, "detail": "",
-                    "source": {"id": rule["id"], "text": rule["text"]}, "conflicts": [], "related": [], "retrieved": []}
-        if memory_tools.GREETING.match(question.strip()):
-            return {"status": "greeting", "answer": memory_tools.greeting_reply(len(self.store.list()), len(self.store.list_documents())), "tool": None,
-                    "detail": "", "source": None, "conflicts": [], "related": [], "retrieved": []}
-        t = memory_tools.route(question, memory_tools.parse_lexicon(self.store.list())[0])  # kamus dari catatan pengguna
-        if t:  # alat deterministik / permintaan tugas: tidak memanggil model
-            return {"status": t["kind"], "answer": t["answer"], "tool": t["tool"], "detail": t["detail"],
-                    "source": None, "conflicts": [], "related": [], "retrieved": []}
-        hits = self.store.search(question, self.k)
-        doc_ids = frozenset(h["id"] for h in hits if h.get("doc_id") is not None)
+    def _read_hits(self, hits, question):
         tok = getattr(self.reader, "tok", None)
         reads = []
         for h in hits:
@@ -298,8 +394,46 @@ class MemoryAgent:
             if tok is not None:  # catatan/potongan panjang: ambil jendela kalimat yang membuat prompt muat di konteks model
                 ctx = fit_context(tok, ctx, question)
             reads.append((h["id"], h["text"], self.reader.read(ctx, question)))
-        out = decide(question, reads, self.entity_guard, self.relevance_guard, self.relevance_threshold, doc_ids)
+        return reads
+
+    def ask(self, question, history=None):
+        rule = match_rule(self.store, question)  # aturan yang diajarkan pengguna didahulukan (mengalahkan sapaan bawaan)
+        if rule:
+            return {"status": "rule", "answer": rule["reply"], "tool": None, "detail": "",
+                    "source": {"id": rule["id"], "text": rule["text"]}, "conflicts": [], "related": [], "retrieved": []}
+        if memory_tools.GREETING.match(question.strip()):
+            return {"status": "greeting", "answer": memory_tools.greeting_reply(len(self.store.list()), len(self.store.list_documents())), "tool": None,
+                    "detail": "", "source": None, "conflicts": [], "related": [], "retrieved": []}
+        notes = self.store.list()
+        t = memory_tools.route(question, memory_tools.parse_lexicon(notes)[0], notes)  # kamus dan angka dari catatan pengguna
+        if t:  # alat deterministik / permintaan tugas: tidak memanggil model
+            return {"status": t["kind"], "answer": t["answer"], "tool": t["tool"], "detail": t["detail"],
+                    "source": None, "conflicts": [], "related": [], "retrieved": []}
+        question, rewritten = memory_tools.rewrite_followup(question, history)  # pertanyaan lanjutan -> pertanyaan lengkap
+        if not rewritten:  # 'gravitasi adalah', 'pengertian gravitasi', 'jelaskan gravitasi' -> 'Apa itu gravitasi?'
+            question, rewritten = memory_tools.rewrite_definition(question)
+        hits = self.store.search(question, self.k)
+        doc_ids = frozenset(h["id"] for h in hits if h.get("doc_id") is not None)
+        forms = [(question, None)]
+        if self.alternate_forms:  # model terlatih dengan beberapa bentuk; bila bentuk pertama gagal, coba yang lebih sederhana
+            forms += memory_tools.alternate_forms(question)
+        out = reads = None
+        for form, required in forms:
+            form_hits = hits if required is None else [h for h in hits if R.norm(required) in R.norm(h["text"])]
+            if required is not None and not form_hits:
+                continue  # tidak ada catatan yang memuat kata penjelas yang dibuang: jangan menjawab dengan pertanyaan yang dilonggarkan
+            form_reads = self._read_hits(form_hits, form)
+            form_out = decide(form, form_reads, self.entity_guard, self.relevance_guard, self.relevance_threshold, doc_ids)
+            if out is None:
+                out, reads = form_out, form_reads        # bentuk pertama: dipakai juga bila semua bentuk gagal
+            if form_out["status"] != "unknown":
+                out, reads = form_out, form_reads
+                if form != question:
+                    question, rewritten = form, True
+                break
         out["retrieved"] = [h["id"] for h in hits]
+        out["standalone"] = question                       # dipakai klien sebagai riwayat berikutnya
+        out["rewritten"] = question if rewritten else None
         if out["source"] and out["source"]["id"] in doc_ids:
             src = next(h for h in hits if h["id"] == out["source"]["id"])
             out["source"]["doc"], out["source"]["part"] = src["doc"], src["part"]

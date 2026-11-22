@@ -305,3 +305,12 @@ def test_web_document_validation_and_security(server):
     assert call("GET", "/api/documents", host="evil.example.com")[0] == 403
     code, _ = call("POST", "/api/notes", {"text": "a" * 30000})        # batas catatan biasa tidak berubah
     assert code == 400
+
+
+def test_rejected_oversized_bodies_always_get_their_error_response(server):
+    """Penolakan isi besar harus selalu sampai ke klien (dulu koneksi sering terputus sebelum jawaban terbaca, terutama di Windows)."""
+    call, _ = server
+    for _ in range(15):
+        assert call("POST", "/api/notes", {"text": "a" * 2_000_000})[0] == 400
+        assert call("POST", "/api/notes", {"text": "a" * 500_000}, host="evil.example.com")[0] == 403
+    assert call("GET", "/api/status")[0] == 200            # server tetap sehat setelahnya

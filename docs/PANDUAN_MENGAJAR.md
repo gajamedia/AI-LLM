@@ -104,6 +104,36 @@ sumbernya. Aturan dijalankan **program**, bukan model, jadi sifatnya kaku:
 - Aturan terbaru menang bila ada beberapa aturan dengan pemicu sama. Hapus catatan aturan untuk menonaktifkannya.
 - Aturan mengalahkan sapaan bawaan, dan hanya menjawab teks tetap: ia tidak bisa menalar atau menyusun jawaban baru.
 
+## Menempel beberapa baris sekaligus
+
+Di web, kotak "Ajari AI" menerima beberapa baris sekaligus (maksimal 60 baris dan 6.000 karakter): **tiap baris disimpan sebagai satu catatan terpisah**.
+Penanda daftar di awal baris (`-`, `*`, bullet, `1.`) dibuang; baris kosong dan baris berisi satu kata (mis. judul "Catatan:") dilewati. Sebelum
+menyimpan, aplikasi menampilkan jumlah catatan yang akan dibuat dan saran per baris; bila ada baris di atas 600 karakter, tidak ada yang disimpan.
+Pengecualian: daftar kamus "1 = siji 2 = loro ..." tetap satu catatan.
+
+Ini penting karena satu catatan berisi banyak baris dilebur menjadi satu kalimat panjang dan model sulit memisahkan nilainya. Uji dengan 5 pertanyaan
+tentang "Koperasi Maju": satu catatan banyak baris hanya **2 dari 5 benar** (dengan jawaban terpotong seperti "Pak Slamet Jumlah anggota" dan "24"),
+sedangkan satu baris per catatan dengan kalimat lengkap **5 dari 5 benar**. Tulis tiap baris sebagai kalimat lengkap yang mengulang nama, mis.
+`Ketua koperasi Maju adalah Bu Ratna.` (jumlah soal uji kecil; ini gambaran, bukan jaminan).
+
+## Pertanyaan lanjutan ("dan istrinya?")
+
+Aplikasi mengingat beberapa pertanyaan terakhir dalam sesi dan memahami pertanyaan lanjutan yang pendek: `Apa pekerjaannya?`,
+`Di mana dia tinggal?`, `kalau Pak Joko?`, `dan istrinya?`. Penulisan ulang dilakukan **program, bukan model**, dan selalu ditampilkan
+("Dibaca sebagai: ..."), jadi Anda bisa memeriksanya. Aturannya sempit dan hanya berlaku bila tandanya jelas: ada kata ganti
+(dia/ia/beliau/mereka), kata berakhiran -nya, atau awalan penyambung (dan/kalau/lalu/bagaimana dengan), dan pertanyaan sebelumnya memuat nama
+(kata berhuruf kapital). Pertanyaan yang sudah lengkap tidak diubah. Bila rujukannya meleset, tulis nama lengkap. Riwayat hanya di sesi
+berjalan (CLI: sampai ditutup; web: sampai halaman dimuat ulang) dan tidak disimpan. Jawabannya tetap melewati penjaga yang sama.
+
+## Mengolah angka di catatan
+
+Alat bisa mengambil angka dari **satu catatan yang Anda sebut jelas**, lalu mengolahnya: `urutkan angka di catatan 3`,
+`jumlahkan angka di catatan 3`, `rata-rata angka di catatan 3`, `angka terbesar di catatan terakhir` (juga terkecil, dan "dari terbesar").
+Contoh catatan: `Skor ujian: 78, 95, 60, 88.` Jawabannya selalu disertai angka yang dibaca dari catatan itu, jadi mudah diperiksa.
+Hati-hati: **tanggal, jam, dan nomor telepon di catatan ikut terbaca sebagai angka**. Angka dari semua catatan sengaja tidak digabung
+karena akan tercampur; sebutkan nomor catatannya (lihat nomor di daftar Catatan). Yang dibaca hanya angka berdigit, bukan kata bilangan,
+dan hanya catatan yang Anda ajarkan (bukan potongan dokumen).
+
 ## Kamus: mengajari alat hitung/urut kata baru
 
 Alat hitung dan pengurut membaca kata bilangan Indonesia bawaan (satu ... sembilan, belas, puluh, ratus, ribu, juta, miliar). Anda bisa

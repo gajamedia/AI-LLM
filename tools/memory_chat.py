@@ -47,6 +47,8 @@ def is_question_like(s):
         return False
     if words[0] in QUESTION_WORDS:
         return True
+    if memory_tools.rewrite_definition(s)[1]:  # 'pengertian gravitasi', 'gravitasi adalah', 'jelaskan gravitasi'
+        return True
     return len(words) >= 2 and words[0] == "di" and words[1] == "mana"
 
 
@@ -102,7 +104,13 @@ def import_message(agent, path):
             "  Catatan: AI tidak memahami isi dokumen. Ia mencari bagian yang relevan dan menampilkannya beserta sumbernya.")
 
 
-def format_answer(out):
+def format_answer(out, question=None):
+    if out["status"] == "clarify":
+        lines = [out["answer"]]
+        lines += [f"    [{o['id']}] {o['text']}   (tambahkan kata: {o['label']})" for o in out["options"]]
+        eg = f"{question.rstrip('?').strip()} {out['options'][0]['label']}" if question else out["options"][0]["label"]
+        lines.append(f"  Ulangi pertanyaan dengan kata pembeda itu, mis.: {eg}")
+        return "\n".join(lines)
     rel_lines = []
     if out.get("related"):
         head = ("  perhatian: ada catatan LEBIH BARU yang mirip tetapi tidak bisa saya baca; periksa sendiri:"
@@ -110,6 +118,10 @@ def format_answer(out):
         rel_lines = [head] + [f"    [{r['id']}] {r['text']}" for r in out["related"]]
     if out["status"] == "unknown":
         passages = format_passages(out)
+        guess_lines = []
+        if out.get("guesses"):
+            guess_lines = ["  jawaban mentah model yang ditolak penjaga (bukan jawaban; mungkin salah):"] +                           [f"    [{g['id']}] \"{g['answer']}\"  - ditolak: {g['reason']}" for g in out["guesses"]]
+        rel_lines = guess_lines + rel_lines
         hint = ("  (Saya tidak bisa menyimpulkan jawabannya dengan yakin; bacalah bagian dokumen di atas sendiri.)" if passages
                 else "  (Jika Anda tahu jawabannya, ajari saya dengan 'ingat: ...')")
         return "\n".join([out["answer"]] + passages + rel_lines + [hint])
@@ -130,8 +142,9 @@ def format_answer(out):
     return "\n".join(lines + format_passages(out, src["id"]) + rel_lines)
 
 
-def handle(line, agent, confirm=None):
-    """Proses satu baris masukan. confirm(prompt) -> str dipakai untuk bertanya y/n (None = mode non-interaktif)."""
+def handle(line, agent, confirm=None, history=None):
+    """Proses satu baris masukan. confirm(prompt) -> str dipakai untuk bertanya y/n (None = mode non-interaktif).
+    history: daftar pertanyaan lengkap sebelumnya (diubah di tempat) agar pertanyaan lanjutan ("dan istrinya?") dipahami."""
     s = line.strip()
     if not s:
         return None
@@ -162,14 +175,22 @@ def handle(line, agent, confirm=None):
     if GREETING.match(s):
         return greeting_reply(agent)
     m = re.match(r"^/?tanya\s*:\s*(.+)$", s, re.I | re.S)
-    tool = memory_tools.route(m.group(1) if m else s, memory_tools.parse_lexicon(agent.store.list())[0])  # alat dan permintaan tugas diperiksa sebelum pertanyaan/pernyataan
+    notes = agent.store.list()
+    tool = memory_tools.route(m.group(1) if m else s, memory_tools.parse_lexicon(notes)[0], notes)  # alat dan permintaan tugas diperiksa sebelum pertanyaan/pernyataan
     if tool:
         return format_tool(tool)
     q = m.group(1) if m else (s if (s.endswith("?") or is_question_like(s)) else None)
     if q is not None:
         if agent.store.is_empty():
             return EMPTY_MSG
-        return format_answer(agent.ask(q))
+        out = agent.ask(q, history)
+        if history is not None and out.get("standalone"):
+            history.append(out["standalone"])
+            del history[:-memory_tools.MAX_HISTORY]
+        text = format_answer(out, q)
+        if out.get("rewritten"):
+            text = f"(dibaca sebagai: {out['rewritten']})\n" + text
+        return text
     # bukan perintah dan bukan pertanyaan
     if len(s.split()) < 4:
         return ("Kalimat terlalu pendek untuk dipahami.\n"
@@ -204,10 +225,12 @@ def main():
     print(f"[memori] siap. Catatan tersimpan: {n}, dokumen: {nd}. Ketik 'bantuan' untuk perintah.", flush=True)
     print(INTRO if agent.store.is_empty() else "AI ini hanya tahu apa yang Anda ajarkan (bukan pengetahuan umum).", flush=True)
 
+    history = []  # pertanyaan lengkap sepanjang sesi ini
+
     def run(line, confirm):
         if line.strip().lower() in ("bantuan", "help", "/bantuan"):
             return HELP
-        return handle(line, agent, confirm)
+        return handle(line, agent, confirm, history)
 
     if args.cmd:
         for line in args.cmd:

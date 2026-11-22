@@ -29,6 +29,7 @@ from memory_agent import MemoryAgent, MemoryStore, Reader, parse_rule
 WEB_DIR = PROJECT_ROOT / "web" / "memory"
 MAX_BODY = 20_000
 MAX_DOC_BODY = 12_000_000  # hanya untuk /api/documents (teks dokumen)
+MAX_DRAIN = 64_000_000     # isi permintaan ditolak yang masih dibaca-buang agar jawaban penolakan sampai ke klien
 MAX_NOTE = 600
 MAX_QUESTION = 300
 STRICTNESS = {"longgar": 0.5, "seimbang": 0.67, "ketat": 1.0}
@@ -105,12 +106,31 @@ def make_handler(state, port):
             self.end_headers()
             self.wfile.write(data)
 
+        def _discard_body(self):
+            """Baca dan buang isi permintaan yang ditolak. Jika server menjawab lalu menutup koneksi dengan isi belum terbaca,
+            Windows mengirim RST dan klien bisa kehilangan jawabannya (galat jaringan, bukan pesan penolakan)."""
+            try:
+                left = int(self.headers.get("Content-Length") or 0)
+            except ValueError:
+                left = 0
+            if left > MAX_DRAIN:
+                self.close_connection = True   # terlalu besar untuk dibuang: tutup saja
+                return
+            while left > 0:
+                chunk = self.rfile.read(min(65536, left))
+                if not chunk:
+                    break
+                left -= len(chunk)
+
         def _json_body(self, limit=MAX_BODY):
             try:
                 n = int(self.headers.get("Content-Length") or 0)
             except ValueError:
                 return None
-            if n <= 0 or n > limit:
+            if n > limit:
+                self._discard_body()
+                return None
+            if n <= 0:
                 return None
             try:
                 obj = json.loads(self.rfile.read(n).decode("utf-8"))
@@ -137,8 +157,39 @@ def make_handler(state, port):
                     return self._send(200, {"notes": state.notes()})
             return self._send(404, {"error": "tidak ditemukan"})
 
+        def _post_multi(self, body):
+            """Beberapa baris -> beberapa catatan (satu per baris). Semua baris diperiksa dulu; bila ada yang tidak valid, tidak ada yang disimpan."""
+            text = str(body.get("text", ""))
+            if len(text) > memory_tools.MAX_MULTI_CHARS:
+                return self._send(400, {"error": f"Teks terlalu panjang (maks {memory_tools.MAX_MULTI_CHARS} karakter sekaligus)."})
+            lines, skipped = memory_tools.split_note_lines(text)
+            if not lines:
+                return self._send(400, {"error": "Catatan kosong."})
+            if len(lines) > memory_tools.MAX_MULTI_LINES:
+                return self._send(400, {"error": f"Terlalu banyak baris (maks {memory_tools.MAX_MULTI_LINES} catatan sekaligus)."})
+            for i, line in enumerate(lines, 1):
+                if len(line) > MAX_NOTE:
+                    return self._send(400, {"error": f"Baris {i} terlalu panjang (maks {MAX_NOTE} karakter per catatan)."})
+            replace_id = body.get("replace_id")
+            with state.lock:
+                items = []
+                for line in lines:
+                    nid = state.store.teach(line)
+                    rule = parse_rule(line)
+                    items.append({"id": nid, "text": line, "hints": note_hints(line),
+                                  "rule": {"trigger": rule[0], "reply": rule[1]} if rule else None,
+                                  "lexicon": memory_tools.describe_lexicon_note(line)})
+                if isinstance(replace_id, int):
+                    state.store.forget(replace_id)
+                return self._send(200, {"id": items[0]["id"], "ids": [i["id"] for i in items], "count": len(items), "items": items,
+                                        "skipped": skipped, "hints": items[0]["hints"] if len(items) == 1 else [], "notes": state.notes(),
+                                        "rule": items[0]["rule"] if len(items) == 1 else None,
+                                        "lexicon": items[0]["lexicon"] if len(items) == 1 else None,
+                                        "lexicon_issues": [i["lexicon"]["message"] for i in items if i["lexicon"] and not i["lexicon"]["ok"]]})
+
         def do_POST(self):
             if not self._host_ok():
+                self._discard_body()
                 return self._send(403, {"error": "host tidak diizinkan"})
             body = self._json_body(MAX_DOC_BODY if self.path == "/api/documents" else MAX_BODY)
             if body is None:
@@ -154,6 +205,8 @@ def make_handler(state, port):
                     doc_id, parts, replaced = state.store.add_document(name, chunks)
                     return self._send(200, {"id": doc_id, "name": name, "parts": parts, "replaced": replaced,
                                             "documents": state.store.list_documents()})
+            if self.path == "/api/notes" and body.get("multi") is True:
+                return self._post_multi(body)
             if self.path == "/api/notes":
                 text = str(body.get("text", "")).strip()
                 if not text:
@@ -176,10 +229,15 @@ def make_handler(state, port):
                 if len(q) > MAX_QUESTION:
                     return self._send(400, {"error": f"Pertanyaan terlalu panjang (maks {MAX_QUESTION} karakter)."})
                 level = str(body.get("strictness", "seimbang"))
+                raw_hist = body.get("history")
+                history = []
+                if isinstance(raw_hist, list):  # riwayat tak valid diabaikan, bukan galat
+                    history = [h.strip() for h in raw_hist if isinstance(h, str) and h.strip() and len(h) <= MAX_QUESTION]
+                    history = history[-memory_tools.MAX_HISTORY:]
                 with state.lock:
                     state.agent.relevance_threshold = STRICTNESS.get(level, STRICTNESS["seimbang"])
                     t0 = time.time()
-                    out = state.agent.ask(q)
+                    out = state.agent.ask(q, history)
                     out["seconds"] = round(time.time() - t0, 1)
                     out["empty"] = state.store.is_empty()
                     return self._send(200, out)

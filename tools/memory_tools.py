@@ -17,7 +17,8 @@ import operator
 import re
 from pathlib import Path
 
-TOOL_LIST = "mengurutkan angka, menghitung (+ - x / ^), menulis angka dengan huruf (mis. 10), dan hari/selisih tanggal"
+TOOL_LIST = ("mengurutkan angka, menghitung (+ - x / ^), menulis angka dengan huruf (mis. 10), hari/selisih tanggal, "
+             "dan mengolah angka di satu catatan (mis. 'jumlahkan angka di catatan 3')")
 TASK_MESSAGE = ("Ini permintaan tugas, bukan pertanyaan tentang catatan Anda. Aplikasi ini hanya membaca catatan yang "
                 "Anda ajarkan, jadi tidak bisa menulis, menerjemahkan, atau merangkum. Alat yang tersedia: " + TOOL_LIST + ".")
 
@@ -486,9 +487,210 @@ def vocab_warnings(text):
     return out
 
 
+MAX_MULTI_CHARS = 6000
+MAX_MULTI_LINES = 60
+_BULLET = re.compile(r"^(?:[-*\u2022\u2013]|\d{1,3}[.)])\s+")
+
+
+def split_note_lines(text):
+    """Pisahkan teks beberapa baris menjadi catatan terpisah (satu per baris). Penanda daftar (-, *, bullet, 1.) dibuang.
+    Baris berisi satu kata (mis. judul 'Catatan:') dilewati. Kembalikan (daftar_baris, dilewati).
+    Teks yang berupa daftar 'angka = kata' (kamus) tidak dipecah: itu satu catatan."""
+    if _parse_table(text) is not None:
+        return [re.sub(r"\s+", " ", text).strip()], []
+    lines, skipped = [], []
+    for raw in text.replace("\r\n", "\n").replace("\r", "\n").split("\n"):
+        line = _BULLET.sub("", raw.strip()).strip()
+        if not line:
+            continue
+        (lines if len(line.split()) >= 2 else skipped).append(line)
+    return lines, skipped
+
+
 def looks_like_table(text):
     """Catatan berisi tabel/rumus hitung (mis. '1+1=2 1+2=3 ...'), yang tidak bisa dipelajari model."""
     return len(re.findall(r"\d\s*[+\-x×*/]\s*\d\s*=\s*\d", text)) >= 2 or text.count("=") >= 3
+
+
+# ---------- pertanyaan lanjutan (riwayat percakapan) ----------
+MAX_HISTORY = 5
+_SKIP_FIRST = QUESTION_WORDS | {"di", "dan", "kalau", "kalo", "lalu", "terus", "kemudian", "bagaimana", "dengan", "tolong",
+                                "coba", "ke", "dari", "untuk"}
+_CONNECT = re.compile(r"^(?:dan|kalau|kalo|bagaimana\s+dengan|bagaimana\s+kalau|lalu|terus|kemudian)\b[\s,]*(.+?)\s*\??\s*$", re.I)
+_PRONOUN = re.compile(r"\b(dia|ia|beliau|mereka)\b", re.I)
+_NYA_WORD = re.compile(r"\b([a-z]{4,})nya\b")
+
+
+def entities(q):
+    """Frasa nama di pertanyaan: kata-kata berurutan berhuruf kapital (selain kata tanya di awal) atau berangka."""
+    out, cur = [], []
+    for i, w in enumerate(re.findall(r"[\w-]+", q)):
+        if (w[:1].isupper() and not (i == 0 and w.lower() in _SKIP_FIRST)) or any(c.isdigit() for c in w):
+            cur.append(w)
+        elif cur:
+            out.append(" ".join(cur))
+            cur = []
+    if cur:
+        out.append(" ".join(cur))
+    return out
+
+
+def _as_question(text):
+    text = text.strip().rstrip("?").strip()
+    return text[:1].upper() + text[1:] + "?"
+
+
+def _fill_reference(q, entity):
+    """Ganti kata ganti (dia/ia/beliau/mereka) atau kata berakhiran -nya dengan nama; None bila tidak ada rujukan."""
+    if entities(q):
+        return None
+    if _PRONOUN.search(q):
+        return _PRONOUN.sub(entity, q, count=1)
+    if _NYA_WORD.search(q):
+        return _NYA_WORD.sub(lambda m: f"{m.group(1)} {entity}", q, count=1)
+    return None
+
+
+def rewrite_followup(question, history):
+    """Ubah pertanyaan lanjutan menjadi pertanyaan lengkap memakai pertanyaan sebelumnya (history: daftar pertanyaan lengkap,
+    terlama dulu). Hanya menulis ulang bila tandanya jelas; selain itu pertanyaan dikembalikan apa adanya.
+    Kembalikan (pertanyaan, diubah: bool)."""
+    q = question.strip()
+    prev = next((h for h in reversed(history or []) if entities(h)), None)
+    if not q or prev is None:
+        return question, False
+    old = entities(prev)[0]
+    out = None
+    m = _CONNECT.match(q)
+    if m:
+        rest = m.group(1)
+        while _CONNECT.match(rest):                                 # "lalu kalau ..." : buang semua awalan penyambung
+            rest = _CONNECT.match(rest).group(1)
+        ne = entities(rest)
+        first = (re.findall(r"[\w-]+", rest) or [""])[0].lower()
+        if ne and len(rest.split()) <= len(ne[0].split()) + 1 and first not in QUESTION_WORDS:
+            out = prev.replace(old, ne[0], 1)                       # "kalau Pak Joko?" -> pertanyaan lama untuk Pak Joko
+        elif ne:
+            out = _as_question(rest)                                # sudah lengkap, hanya awalan penyambung dibuang
+        elif first in QUESTION_WORDS or first == "di":
+            out = _fill_reference(_as_question(rest), old)
+        elif len(rest.split()) <= 3:
+            attr = _NYA_WORD.sub(lambda mm: mm.group(1), rest)      # "istrinya" -> "istri"
+            out = _as_question(f"Apa {attr} {old}")
+    else:
+        out = _fill_reference(q, old)
+    if not out or out.strip() == q:
+        return question, False
+    return out, True
+
+
+# ---------- angka dari catatan tertentu ----------
+_NOTE_REF = re.compile(r"\bcatatan\s+(?:#|nomor\s+|no\.?\s*)?(\d+)\b|\bcatatan\s+(terakhir|terbaru|paling\s+baru)\b", re.I)
+_SORT_VERB = re.compile(r"\b(urutkan|mengurutkan|sortir|sort)\b", re.I)
+_NUM_WORD = re.compile(r"\b(angka|bilangan|nilai)\b", re.I)
+_NOTE_OPS = [("rata-rata", re.compile(r"rata-?rata|rerata", re.I)), ("jumlah", re.compile(r"\b(jumlah|jumlahkan|total|totalnya)\b", re.I)),
+             ("terbesar", re.compile(r"terbesar|tertinggi|maksimum|maksimal|paling\s+besar", re.I)),
+             ("terkecil", re.compile(r"terkecil|terendah|minimum|minimal|paling\s+kecil", re.I))]
+
+
+def notes_tool(q, lex=None, notes=None):
+    """Ambil angka dari SATU catatan yang disebut jelas ('catatan 3', 'catatan terakhir') lalu urutkan/jumlahkan/rata-ratakan.
+    Angka dari seluruh catatan sengaja tidak digabung (tanggal, telepon, dan nomor lain akan tercampur)."""
+    notes = notes or []
+    sort = bool(_SORT_VERB.search(q))
+    op = "urut" if sort else next((name for name, rx in _NOTE_OPS if rx.search(q)), None)
+    ref = _NOTE_REF.search(q)
+    if op is None or (not sort and not _NUM_WORD.search(q)):
+        return None
+    if not ref:
+        if _NUM_WORD.search(q) and re.search(r"\b(catatan|memori)\b", q, re.I):
+            return {"kind": "task", "tool": None, "detail": "",
+                    "answer": "Sebutkan catatan yang dimaksud, mis. 'urutkan angka di catatan 3' atau 'jumlahkan angka di catatan terakhir'. "
+                              "Angka dari semua catatan tidak digabung karena tanggal, telepon, dan nomor lain akan ikut tercampur."}
+        return None
+    if ref.group(1):
+        nid = int(ref.group(1))
+        note = next((t for i, t in notes if i == nid), None)
+    else:
+        nid, note = (notes[-1][0], notes[-1][1]) if notes else (None, None)
+    name = {"urut": "pengurut angka", "jumlah": "penjumlah angka", "rata-rata": "penghitung rata-rata",
+            "terbesar": "pencari angka terbesar", "terkecil": "pencari angka terkecil"}[op]
+    if note is None:
+        msg = f"Tidak ada catatan aktif dengan nomor {ref.group(1)}." if ref.group(1) else "Belum ada catatan."
+        return {"kind": "tool", "tool": name, "answer": msg, "detail": "Hanya catatan yang Anda ajarkan yang bisa dipakai (bukan potongan dokumen)."}
+    nums = parse_numbers(note)
+    where = f"catatan [{nid}]"
+    if not nums:
+        return {"kind": "tool", "tool": name, "answer": f"Tidak ada angka di {where}.", "detail": f"Isi: {note}"}
+    shown = ", ".join(_format_number(x) for x in nums)
+    detail = (f"Angka dibaca dari {where}: {shown}. Periksa bahwa semuanya memang angka yang Anda maksud "
+              "(tanggal, jam, dan nomor telepon di catatan ikut terbaca sebagai angka).")
+    if op == "urut":
+        desc = bool(re.search(r"terbesar|besar\s*(?:ke|->|-)\s*kecil|menurun|turun|descending|dari yang besar", q, re.I))
+        ans = ", ".join(_format_number(x) for x in sorted(nums, reverse=desc))
+        detail += f" Diurutkan {'menurun (besar ke kecil)' if desc else 'menaik (kecil ke besar)'}."
+    elif op == "jumlah":
+        ans = _format_number(sum(nums))
+    elif op == "rata-rata":
+        ans = _format_number(sum(nums) / len(nums))
+    else:
+        ans = _format_number(max(nums) if op == "terbesar" else min(nums))
+    return {"kind": "tool", "tool": name, "answer": ans, "detail": detail}
+
+
+# ---------- pertanyaan definisi dalam bentuk lain -> "Apa itu X?" ----------
+_DEF_NOT_START = QUESTION_WORDS | {"di", "dan", "kalau", "kalo", "untuk", "cara", "proses", "yang", "dengan", "atau", "ke", "dari", "itu", "ini"}
+_DEF_FORMS = [
+    (re.compile(r"^(?:apa\s+)?(?:pengertian|definisi|arti|artinya|maksud)\s+(?:dari\s+|kata\s+)?(.+?)\s*\??$", re.I), 4),
+    (re.compile(r"^(?:jelaskan|terangkan|uraikan|jabarkan)\s+(?:apa\s+itu\s+|tentang\s+|mengenai\s+)?(.+?)\s*\??$", re.I), 3),
+    (re.compile(r"^(.+?)\s+(?:itu\s+apa|adalah\s+apa|adalah)\s*\??$", re.I), 4),
+]
+
+
+def rewrite_definition(question):
+    """'gravitasi adalah', 'gravitasi itu apa?', 'pengertian gravitasi', 'jelaskan gravitasi' -> 'Apa itu gravitasi?'
+    (tanpa tanda tanya: bentuk yang paling dikenal model). Hanya untuk subjek pendek berupa kata benda umum. Kembalikan (pertanyaan, diubah: bool)."""
+    q = question.strip()
+    if re.match(r"^apa\s+itu\b", q, re.I):
+        # model lebih sering menolak 'apa itu X?' (dengan tanda tanya) daripada 'apa itu X'; tanda tanya akhir dibuang
+        stripped = q.rstrip("?! ").strip()
+        return (stripped, True) if stripped != q else (question, False)
+    for rx, max_words in _DEF_FORMS:
+        m = rx.match(q)
+        if not m:
+            continue
+        subject = m.group(1).strip(" ,.?!")
+        words = subject.split()
+        if not words or len(words) > max_words or words[0].lower() in _DEF_NOT_START:
+            continue
+        if any(w[:1].isupper() for w in words[1:]) or re.search(r"[\d?]", subject):    # nama orang/tempat atau angka: bukan definisi umum
+            continue
+        return f"Apa itu {subject}", True
+    return question, False
+
+
+# ---------- bentuk pertanyaan alternatif (dicoba hanya bila bentuk pertama tidak menghasilkan jawaban) ----------
+_ALT_APA_ITU = re.compile(r"^apa\s+itu\s+(.+?)\s*\??$", re.I)
+_ALT_DI_X_MANA = re.compile(r"^di\s+(?!mana\b)(\w+)\s+mana\s+(.+?)\s*\??$", re.I)            # 'di asia mana indonesia berada'
+_ALT_REST_DI_X = re.compile(r"^(.+?)\s+di\s+(?!mana\b)(\w+)\s+(?:apa|mana)\s*\??$", re.I)      # 'indonesia berada di kawasan apa'
+
+
+def alternate_forms(question):
+    """Bentuk pertanyaan yang lebih sederhana untuk dicoba bila bentuk pertama gagal. Model hanya terlatih dengan beberapa bentuk
+    dan kadang menolak susunan lain; jawaban dari bentuk alternatif tetap melewati penjaga yang sama.
+    Kembalikan daftar (bentuk, kata_wajib). kata_wajib = kata penjelas yang dibuang ('asia' pada 'di asia mana ...'): bentuk itu hanya
+    boleh dibaca dari catatan yang memuat kata tersebut, agar 'di kota mana ...' tidak dijawab dengan jalan atau jenis lain."""
+    q = question.strip()
+    m = _ALT_APA_ITU.match(q)
+    if m:
+        return [(f"Apa {m.group(1)}?", None)]
+    m = _ALT_DI_X_MANA.match(q)
+    if m:
+        return [(f"Di mana {m.group(2)}?", m.group(1))]
+    m = _ALT_REST_DI_X.match(q)
+    if m:
+        return [(f"{m.group(1)} di mana", m.group(2))]
+    return []
 
 
 # ---------- perutean ----------
@@ -496,8 +698,12 @@ def is_task(q):
     return bool(re.match(r"^\s*(tolong\s+|coba\s+)?" + TASK_VERBS + r"\b", q, re.I))
 
 
-def route(q, lex=None):
-    """Kembalikan hasil alat, pesan 'permintaan tugas', atau None bila ini pertanyaan/pernyataan biasa."""
+def route(q, lex=None, notes=None):
+    """Kembalikan hasil alat, pesan 'permintaan tugas', atau None bila ini pertanyaan/pernyataan biasa.
+    notes: daftar (id, teks) catatan pengguna, untuk alat yang mengambil angka dari catatan."""
+    r = notes_tool(q, lex, notes)
+    if r:
+        return r
     for fn in (sort_tool, date_tool, calc_tool, terbilang_tool):
         r = fn(q, lex) if fn is not date_tool else fn(q)
         if r:
