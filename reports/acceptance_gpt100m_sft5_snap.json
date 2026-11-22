@@ -1,0 +1,304 @@
+{
+ "model": "gpt100m (checkpoints_100m_sft_mem2)",
+ "info": {
+  "parameter_juta": 100.9
+ },
+ "cepat": false,
+ "qa_beku": {
+  "tulisan_tangan": {
+   "benar": 11,
+   "salah": 1,
+   "belum_tahu": 8,
+   "mengarang": 0,
+   "n_terjawab": 20,
+   "n_tak_terjawab": 8
+  },
+  "kalimat_rumit": {
+   "benar": 29,
+   "salah": 9,
+   "belum_tahu": 31,
+   "mengarang": 1,
+   "n_terjawab": 69,
+   "n_tak_terjawab": 15
+  }
+ },
+ "kasus": [
+  {
+   "id": "rapat-jam-mawar",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "11.30"
+  },
+  {
+   "id": "rapat-jam-anggrek",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "09.30"
+  },
+  {
+   "id": "rapat-tim-mawar",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": false,
+   "status": "unknown",
+   "jawaban": null
+  },
+  {
+   "id": "rapat-tim-anggrek",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": false,
+   "status": "unknown",
+   "jawaban": null
+  },
+  {
+   "id": "rapat-ambigu",
+   "tag": "nyata",
+   "jenis": "tanya_balik",
+   "lolos": true,
+   "status": "clarify",
+   "jawaban": null
+  },
+  {
+   "id": "definisi-gravitasi",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya"
+  },
+  {
+   "id": "definisi-bentuk-adalah",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya"
+  },
+  {
+   "id": "lambang-negara",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "Burung Garuda"
+  },
+  {
+   "id": "bentuk-negara",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "Republik Indonesia"
+  },
+  {
+   "id": "asia-mana",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "asia tenggara"
+  },
+  {
+   "id": "pembaruan-fakta",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "conflict",
+   "jawaban": "Jalan Melati nomor 9"
+  },
+  {
+   "id": "lanjutan-pekerjaan",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "guru di Bekasi"
+  },
+  {
+   "id": "luas-wilayah",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "1.904.569 km persegi"
+  },
+  {
+   "id": "tak-terjawab-istri",
+   "tag": "nyata",
+   "jenis": "tolak",
+   "lolos": true,
+   "status": "unknown",
+   "jawaban": null
+  },
+  {
+   "id": "tak-terjawab-gaji",
+   "tag": "nyata",
+   "jenis": "tolak",
+   "lolos": true,
+   "status": "unknown",
+   "jawaban": null
+  },
+  {
+   "id": "rapat-tim-mawar-diadakan",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": false,
+   "status": "unknown",
+   "jawaban": null
+  },
+  {
+   "id": "segar-warung-tahun",
+   "tag": "segar",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "2010"
+  },
+  {
+   "id": "segar-kunci",
+   "tag": "segar",
+   "jenis": "jawab",
+   "lolos": false,
+   "status": "ok",
+   "jawaban": "laci meja"
+  },
+  {
+   "id": "segar-biologi",
+   "tag": "segar",
+   "jenis": "jawab",
+   "lolos": false,
+   "status": "unknown",
+   "jawaban": null
+  },
+  {
+   "id": "segar-mengajar-di",
+   "tag": "segar",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "SMP 3 Bogor"
+  },
+  {
+   "id": "segar-rt",
+   "tag": "segar",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "Jumat"
+  },
+  {
+   "id": "segar-toko-tutup",
+   "tag": "segar",
+   "jenis": "jawab",
+   "lolos": false,
+   "status": "ok",
+   "jawaban": "08.00"
+  },
+  {
+   "id": "segar-suami",
+   "tag": "segar",
+   "jenis": "tolak",
+   "lolos": true,
+   "status": "unknown",
+   "jawaban": null
+  },
+  {
+   "id": "segar-warna",
+   "tag": "segar",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "merah"
+  },
+  {
+   "id": "segar-dokter",
+   "tag": "segar",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "Senin dan Rabu"
+  },
+  {
+   "id": "segar-tak-terjawab-umur",
+   "tag": "segar",
+   "jenis": "tolak",
+   "lolos": true,
+   "status": "unknown",
+   "jawaban": null
+  }
+ ],
+ "ketahanan": {
+  "lolos_varian": 0.9824561403508771,
+  "varian_ok": 56,
+  "varian_n": 57
+ },
+ "detik_per_baca_median": 0.563,
+ "kriteria": [
+  {
+   "nama": "qa_beku/tulisan_tangan: benar",
+   "nilai": "11/20",
+   "syarat": ">= 14",
+   "lolos": false
+  },
+  {
+   "nama": "qa_beku/tulisan_tangan: salah",
+   "nilai": "1",
+   "syarat": "<= 1",
+   "lolos": true
+  },
+  {
+   "nama": "qa_beku/tulisan_tangan: mengarang (tak terjawab)",
+   "nilai": "0/8",
+   "syarat": "<= 0",
+   "lolos": true
+  },
+  {
+   "nama": "qa_beku/kalimat_rumit: benar",
+   "nilai": "29/69",
+   "syarat": ">= 42",
+   "lolos": false
+  },
+  {
+   "nama": "qa_beku/kalimat_rumit: salah",
+   "nilai": "9",
+   "syarat": "<= 9",
+   "lolos": true
+  },
+  {
+   "nama": "qa_beku/kalimat_rumit: mengarang (tak terjawab)",
+   "nilai": "1/15",
+   "syarat": "<= 1",
+   "lolos": true
+  },
+  {
+   "nama": "kasus: lolos",
+   "nilai": "20/26",
+   "syarat": ">= 22",
+   "lolos": false
+  },
+  {
+   "nama": "kasus: pertanyaan yang harus ditolak",
+   "nilai": "4/4",
+   "syarat": "semua",
+   "lolos": true
+  },
+  {
+   "nama": "kasus: nama tim (gagal di model sekarang)",
+   "nilai": "0/3",
+   "syarat": "semua",
+   "lolos": false
+  },
+  {
+   "nama": "ketahanan: varian pertanyaan lolos",
+   "nilai": "56/57 (98.2%)",
+   "syarat": ">= 85%",
+   "lolos": true
+  }
+ ],
+ "semua_lolos": false
+}

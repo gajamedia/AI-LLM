@@ -80,6 +80,36 @@ def new_tokens(question):
     return DEFINITION_NEW_TOKENS if _DEFINITION_Q.match(question or "") else READ_NEW_TOKENS
 
 
+def snap_to_word_boundaries(answer, note):
+    """Model kadang berhenti di tengah kata ('Parangtriti' untuk 'Parangtritis') atau mulai di tengah kata. Bila jawaban (tanpa memperhatikan
+    huruf besar-kecil) ada di catatan dan setiap kemunculannya terpotong di tepi kata, perpanjang ke tepi kata terdekat. Kemunculan yang sudah
+    utuh didahulukan (jawaban tidak diubah), dan teks selain kata penuh dari catatan tidak pernah ditambahkan."""
+    core = (answer or "").strip().rstrip(".")
+    if len(core) < 5 or not note:                     # pecahan sangat pendek terlalu ambigu untuk diperbaiki
+        return answer
+    low, key = note.lower(), core.lower()
+    spans, i = [], low.find(key)
+    while i != -1:
+        j = i + len(key)
+        spans.append((i, j))
+        i = low.find(key, i + 1)
+    if not spans:
+        return answer
+
+    def whole(i, j):
+        return (i == 0 or not note[i - 1].isalnum() or not key[0].isalnum()) and (j == len(note) or not note[j].isalnum() or not key[-1].isalnum())
+    if any(whole(i, j) for i, j in spans):
+        return answer
+    i, j = spans[0]
+    while i > 0 and note[i - 1].isalnum() and key[0].isalnum():
+        i -= 1
+    while j < len(note) and note[j].isalnum() and key[-1].isalnum():
+        j += 1
+    if (spans[0][0] - i) + (j - spans[0][1]) > 4:      # perpanjangan besar berarti bukan kata terpotong, jangan ditebak
+        return answer
+    return note[i:j]
+
+
 def verify_reason(answer, note, max_words=MAX_ANSWER_WORDS):
     """None bila jawaban sah (potongan persis catatan dan tidak kepanjangan); selain itu alasan penolakan."""
     a = R.norm(answer.strip().rstrip("."))
@@ -492,7 +522,7 @@ class MemoryAgent:
             ctx = h["text"]
             if tok is not None:  # catatan/potongan panjang: ambil jendela kalimat yang membuat prompt muat di konteks model
                 ctx = fit_context(tok, ctx, question)
-            reads.append((h["id"], h["text"], self.reader.read(ctx, question)))
+            reads.append((h["id"], h["text"], snap_to_word_boundaries(self.reader.read(ctx, question), h["text"])))
         return reads
 
     def ask(self, question, history=None):

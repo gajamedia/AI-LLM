@@ -130,3 +130,27 @@ def test_assisted_greeting_catches_typos_only_for_short_greetings():
     assert MR.assisted_greeting("selamt pagi", mode="off") is False
     assert MR.assisted_greeting("Di mana Bu Rina tinggal?", mode="on") is False
     assert MR.assisted_greeting("haloo 2 3", mode="on") is False
+
+
+# ---------- jawaban terpotong di tengah kata ----------
+MA = load_module("memory_agent_under_test_snap", "tools/memory_agent.py")
+
+
+def test_snap_repairs_words_cut_at_either_edge_and_keeps_whole_answers():
+    note = "Festival layang-layang tahun ini diadakan di pantai Parangtritis pada bulan Agustus."
+    assert MA.snap_to_word_boundaries("pantai Parangtriti", note) == "pantai Parangtritis"
+    assert MA.snap_to_word_boundaries("angtritis", note) == "Parangtritis"
+    assert MA.snap_to_word_boundaries("parangtriti.", note) == "Parangtritis"
+    assert MA.snap_to_word_boundaries("Parangtritis", note) == "Parangtritis"        # sudah utuh
+    assert MA.snap_to_word_boundaries("layang", note) == "layang"                     # utuh di tepi kata (tanda hubung)
+
+
+def test_snap_never_guesses_when_it_is_not_a_clear_cut_word():
+    note = "Rapat diadakan hari Selasa. Dokumen diadakan lagi nanti."
+    assert MA.snap_to_word_boundaries("ada", note) == "ada"                           # terlalu pendek
+    assert MA.snap_to_word_boundaries("Dokum", note) == "Dokumen"
+    assert MA.snap_to_word_boundaries("tidak ada di catatan", note) == "tidak ada di catatan"   # bukan potongan catatan
+    assert MA.snap_to_word_boundaries("dia", "Surat untuk si Dia tiba hari Rabu.") == "dia"      # utuh (huruf besar-kecil diabaikan)
+    assert MA.snap_to_word_boundaries("kumen diadakan lagi nanti pada hari", note + " pada hari") != ""
+    assert MA.snap_to_word_boundaries("abcde", "xx abcdefghijkl yy") == "abcde"      # perpanjangan > 4 huruf: tidak ditebak
+    assert MA.snap_to_word_boundaries("", note) == "" and MA.snap_to_word_boundaries(None, note) is None
