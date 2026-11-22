@@ -1,7 +1,7 @@
 """
 Membuat paket rilis yang bisa didistribusikan: bobot saja + kode jalan minimal + antarmuka web + dokumen.
 
-  python tools/package_release.py --version 1.1126.9
+  python tools/package_release.py --version 1.1126.10
 
 Keluaran: dist/hai07-memori-v<versi>/ dan dist/hai07-memori-v<versi>.zip (+ SHA256SUMS.txt di dalamnya).
 Paket tidak berisi optimizer, data latih, atau catatan pengguna. Berkas lisensi diambil dari licenses/
