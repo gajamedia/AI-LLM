@@ -1,0 +1,723 @@
+[
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "mana yang paling keciil sampai paling besaar dari 957 19,8 453 50.441 25",
+  "label": "urut",
+  "prediksi": "cari",
+  "keluarga": "urut_B1"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "tata deretan ini: 41, empat puluh empat, sembilan puluh empat",
+  "label": "urut",
+  "prediksi": "cari",
+  "keluarga": "urut_B4"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "permisi, mana yang paling kecil sampai paling besar dari 629 tujuh ratus tiga puluh lima 21,4 ya kak",
+  "label": "urut",
+  "prediksi": "cari",
+  "keluarga": "urut_B1"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "mana yang paling kcil sampai paling besar dari 98, 56, 62, 26",
+  "label": "urut",
+  "prediksi": "cari",
+  "keluarga": "urut_B1"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "halo, tta dretan ini: 717 - 87 - 479 - 539 - 50969 - 92318",
+  "label": "urut",
+  "prediksi": "cari",
+  "keluarga": "urut_B4"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "tolong mana yang paling kecil sampai paling besar dari 41 - 35 - 57 - 66.8 deh",
+  "label": "urut",
+  "prediksi": "cari",
+  "keluarga": "urut_B1"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "tolong tata deretan ini: 64.1 51 13.844",
+  "label": "urut",
+  "prediksi": "cari",
+  "keluarga": "urut_B4"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "sisa 20482 seetlah diukrangi 19?",
+  "label": "hitung",
+  "prediksi": "cari",
+  "keluarga": "hitung_B1"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "beda 22 Mei 2004 dengan 20 Juli 2030 berapa hari dong",
+  "label": "tanggal",
+  "prediksi": "hitung",
+  "keluarga": "tanggal_B3"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "bantu beda 24 maret 2022 dengan 2 agustus 2001 berapa hari",
+  "label": "tanggal",
+  "prediksi": "cari",
+  "keluarga": "tanggal_B3"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "beda 12 Jun 2027 dengan 27 Agustus 2023 berapa hari ya kak",
+  "label": "tanggal",
+  "prediksi": "hitung",
+  "keluarga": "tanggal_B3"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "beda 19 desember 2032 dengan 25 maret 2028 brp hari",
+  "label": "tanggal",
+  "prediksi": "hitung",
+  "keluarga": "tanggal_B3"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "bantu beda 25 Juli 2017 dengan 24 September 2008 berapa hari dong",
+  "label": "tanggal",
+  "prediksi": "hitung",
+  "keluarga": "tanggal_B3"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "beda 13 Jun 1992 dengan 21 November 2022 berapa hari please",
+  "label": "tanggal",
+  "prediksi": "cari",
+  "keluarga": "tanggal_B3"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "beda 19 april 1991 dengan 4 juni 2030 berapa hari ya min",
+  "label": "tanggal",
+  "prediksi": "cari",
+  "keluarga": "tanggal_B3"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "beda 11/3/2027 dengan 28 Januari 1997 berapa hari ya kak",
+  "label": "tanggal",
+  "prediksi": "hitung",
+  "keluarga": "tanggal_B3"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "beda 3 Agu 2026 dengan 3 April 1999 berapa hari ya kak",
+  "label": "tanggal",
+  "prediksi": "hitung",
+  "keluarga": "tanggal_B3"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "bantu beda 4 Juli 2029 dengan 28 Oktober 1998 berapa hari",
+  "label": "tanggal",
+  "prediksi": "cari",
+  "keluarga": "tanggal_B3"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "almat ibu yuni",
+  "label": "cari",
+  "prediksi": "sapaan",
+  "keluarga": "cari_B2_pendek"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "hari apa saja rt 05 berkumpul?",
+  "label": "cari",
+  "prediksi": "tanggal",
+  "keluarga": "cari_B3_jebakan"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "aamat Sari",
+  "label": "cari",
+  "prediksi": "sapaan",
+  "keluarga": "cari_B2_pendek"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "samppai jumpa dan salam keenal",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "salam kenal, oke makasih",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B5_gabungan"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "permisi, sip makasih",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B5_gabungan"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "selamat datang, sip makasih",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B5_gabungan"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "dadaah tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "selamat tinggal dan salam kenal",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "selamat datang, oke makasih",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B5_gabungan"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "sip makasih",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B3_terima_kasih"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "sampaai tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "salaam tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "dadaaah tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "sampaii tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "permiiisi tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "oke makasih",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B3_terima_kasih"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "permisi, oke makasih",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B5_gabungan"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "permisi, oke mkasih",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B5_gabungan"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "dadaah",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "salam kenal, sip makasih",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B5_gabungan"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "permiiiisi",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "permisii tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "met paig tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "sapmai jumpa admin",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "met pagi dan salam kenal",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "permisiii tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "saampai tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "daadah tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "prmisi",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "sampai jumpa tim",
+  "label": "sapaan",
+  "prediksi": "tanggal",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "selmaat tinggal pak gunawan",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B4_pamit_nama"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "seamat datang, oke makasih",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B5_gabungan"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "sampai jumpa kawan",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "salaaaam tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "sampai jumpa",
+  "label": "sapaan",
+  "prediksi": "tanggal",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "dadahh tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "daadaah",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "permisi tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "salaaam tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "daaaadah tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "daaadah tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "dadah tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "permiiiiisi tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "permisi dan salam kenal",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "permisi",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "permisi kawan",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "seelamat datang, sip makaish",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B5_gabungan"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "peeeermisi tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "selaat datang, oke mkasih",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B5_gabungan"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "selamat datang admin",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "selaamt datang, oke makasih",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B5_gabungan"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "selamat tinggal kawan",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "peeermisi",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "saaaampai tim",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "selamat datang kawan",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "selamat datang dan salam kenal",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B1_salam"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "permiisi",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "sapaan_B6_panjang"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "bagaimana kalau kamu menerjemhkan 'besok kita bertemu' ke bahasa Pranis",
+  "label": "tolak",
+  "prediksi": "cari",
+  "keluarga": "tolak_B4"
+ },
+ {
+  "set": "validasi (templat tak terlihat)",
+  "pesan": "bagaimana kalau kamu menerjemahkan 'selamat pagi' ke bahasa Prancis nih",
+  "label": "tolak",
+  "prediksi": "cari",
+  "keluarga": "tolak_B4"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "bisa mana yang paling kecil sampai paling besar: 12 5 8",
+  "label": "urut",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "coba mana yang paling kecil sampai paling besar: 12 5 8 ya kak",
+  "label": "urut",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "mana yang palng keecil sampai paling besar: 12 5 8",
+  "label": "urut",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "coba makasih",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "bnatu makasih",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "bisa beda berapa hari 8 maret 2026 dengan 8 april 2026",
+  "label": "tanggal",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "beda berapa hari 8 maret 2026 dengan 8 april 2026",
+  "label": "tanggal",
+  "prediksi": "hitung",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "beda beraap hari 8 maret 2026 dengan 8 april 2026 ya",
+  "label": "tanggal",
+  "prediksi": "hitung",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "kak selamat datang",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "sleamat datang",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "cerittakan kisah malin kuundang",
+  "label": "tolak",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "permisi, ceritakan kisah malin kundang",
+  "label": "tolak",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "bantu ceritakan kisah Malin Kundang",
+  "label": "tolak",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "jarak 20 junni 2026 dengan 20 jui 2026",
+  "label": "tanggal",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "jarak 20 Junni 2026 dengan 20 Juli 2026",
+  "label": "tanggal",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "jarak 20 Juni 2026 dengan 20 Juli 2026 dogn",
+  "label": "tanggal",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "tolong tluis sruat pengunduran diri",
+  "label": "tolak",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "min ubah kalimat ini jadi formal",
+  "label": "tolak",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "ubah kaliat ini jaadi formal nih",
+  "label": "tolak",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "berisik (varian bergangguan)",
+  "pesan": "kak ubah kalimat ini jadi formal",
+  "label": "tolak",
+  "prediksi": "cari",
+  "keluarga": "berisik"
+ },
+ {
+  "set": "uji resmi: dev",
+  "pesan": "mana yang paling kecil sampai paling besar: 12 5 8",
+  "label": "urut",
+  "prediksi": "cari",
+  "keluarga": null
+ },
+ {
+  "set": "uji resmi: heldout",
+  "pesan": "beda berapa hari 8 Maret 2026 dengan 8 April 2026",
+  "label": "tanggal",
+  "prediksi": "hitung",
+  "keluarga": null
+ },
+ {
+  "set": "uji resmi: heldout",
+  "pesan": "selamat datang",
+  "label": "sapaan",
+  "prediksi": "cari",
+  "keluarga": null
+ },
+ {
+  "set": "uji resmi: heldout",
+  "pesan": "ceritakan kisah Malin Kundang",
+  "label": "tolak",
+  "prediksi": "cari",
+  "keluarga": null
+ },
+ {
+  "set": "uji resmi: test2",
+  "pesan": "ubah kalimat ini jadi formal",
+  "label": "tolak",
+  "prediksi": "cari",
+  "keluarga": null
+ }
+]

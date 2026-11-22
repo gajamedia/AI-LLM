@@ -127,6 +127,26 @@ class HFBackend(Backend):
         return {"parameter_juta": round(sum(p.numel() for p in self.model.parameters()) / 1e6, 1)}
 
 
+class RouterBackend(Backend):
+    """Pemilih alat buatan sendiri (tools/memory_router.py) dengan kebijakan ambang; hanya untuk ujian 'router' (tidak membaca catatan)."""
+
+    def __init__(self):
+        import memory_router
+        self.router = memory_router.Router.load()
+        m = self.router.meta
+        self.tau = (m["tau"], m["tau_sapaan"], m["tau_tolak"])
+        self.name = "classifier alat sendiri (regresi logistik n-gram)"
+
+    def choose_tool(self, message):
+        return self.router.decide(message, *self.tau)[0]
+
+    def read(self, ctx, question):
+        raise NotImplementedError("backend 'router' hanya untuk ujian pemilih alat: gunakan --only router")
+
+    def info(self):
+        return {"parameter_juta": round(self.router.W.size / 1e6, 2)}
+
+
 class _AgentReader:
     """Menyesuaikan Backend ke antarmuka pembaca agen; mencatat waktu tiap pembacaan."""
 
@@ -320,7 +340,7 @@ def print_report(res):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Uji kelulusan model untuk aplikasi Memori")
-    ap.add_argument("--backend", choices=["gpt100m", "hf"], default="gpt100m")
+    ap.add_argument("--backend", choices=["gpt100m", "hf", "router"], default="gpt100m")
     ap.add_argument("--model", default=None, help="gpt100m: jalur checkpoint (bawaan sft_mem2). hf: id atau folder model.")
     ap.add_argument("--only", default=None, help="koma: router,qa_beku,kasus,ketahanan")
     ap.add_argument("--quick", action="store_true")
@@ -331,6 +351,10 @@ def main(argv=None):
     criteria = load_criteria(args.criteria)
     if args.backend == "gpt100m":
         backend = Gpt100mBackend(args.model or str(PROJECT_ROOT / "reports/checkpoints_100m_sft_mem2/gpt_sft_best.pt"))
+    elif args.backend == "router":
+        backend = RouterBackend()
+        if args.only is None:
+            args.only = "router"
     else:
         if not args.model:
             raise SystemExit("--backend hf memerlukan --model <id atau folder>")

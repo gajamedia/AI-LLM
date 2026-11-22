@@ -383,7 +383,10 @@ def main() -> None:
 
     # Tambahan Fitur
     parser.add_argument("--grad-accum", type=int, default=None, help="Gradient accumulation steps.")
-    parser.add_argument("--amp", action="store_true", help="Enable mixed precision training.")    
+    parser.add_argument("--amp", action="store_true", help="Enable mixed precision training.")
+    parser.add_argument("--grad-checkpoint", action="store_true", help="Gradient checkpointing per lapisan (hemat memori model besar; waktu naik ~30%%).")
+    parser.add_argument("--compile", action="store_true", help="torch.compile pada forward training (lebih cepat di GPU; checkpoint tetap dari model asli).")
+    parser.add_argument("--fused-adamw", action="store_true", help="AdamW versi fused (hanya CUDA).")    
     
     # Dataloader overrides
     parser.add_argument("--batch-size", type=int, default=None)
@@ -631,7 +634,15 @@ def main() -> None:
         model.parameters(),
         lr=train_lr,
         weight_decay=train_weight_decay,
+        **({"fused": True} if args.fused_adamw and device.type == "cuda" else {}),
     )
+    if args.grad_checkpoint:
+        model.transformer.gradient_checkpointing = True
+        print("[train_gpt] gradient checkpointing aktif.")
+    # forward yang dipakai loop latih; compile hanya membungkus pemanggilan, model asli tetap yang disimpan ke checkpoint
+    forward_batch = torch.compile(model.forward_batch) if args.compile else model.forward_batch
+    if args.compile:
+        print("[train_gpt] torch.compile aktif pada forward training.")
     amp_wanted = (bool(args.amp) or bool(getattr(cfg, "TRAIN_AMP_ENABLED", False))) and not args.no_amp
     use_amp = bool(amp_wanted) and device.type in ("cuda", "cpu")
     amp_dtype = torch.bfloat16
@@ -823,7 +834,7 @@ def main() -> None:
             batch = _to_device(batch, device)
 
             with torch.amp.autocast(device_type=device.type, dtype=amp_dtype, enabled=use_amp):
-                out = model.forward_batch(batch)
+                out = forward_batch(batch)
             if not (isinstance(out, tuple) and len(out) >= 2):
                 raise RuntimeError("Model must return (loss, logits) during training.")
             loss = out[0]

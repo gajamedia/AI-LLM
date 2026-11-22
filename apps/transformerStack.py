@@ -2,6 +2,7 @@ from typing import List, Optional, Tuple
 
 import torch
 import torch.nn as nn
+import torch.utils.checkpoint
 
 from config import CONFIG
 from embedding import (
@@ -38,6 +39,7 @@ class TransformerStack(nn.Module):
 
         self.num_layers = num_layers
         self.d_model = d_model
+        self.gradient_checkpointing = False   # hemat memori aktivasi (model besar); aktif hanya saat melatih tanpa cache
 
         self.layers = nn.ModuleList(
             [
@@ -110,6 +112,13 @@ class TransformerStack(nn.Module):
                     use_cache=True,
                 )
                 new_past_key_values.append(present)
+            elif self.gradient_checkpointing and self.training and torch.is_grad_enabled():
+                # aktivasi lapisan dihitung ulang saat backward: memori turun kira-kira berbanding lurus jumlah lapisan, waktu naik ~30%
+                x = torch.utils.checkpoint.checkpoint(
+                    lambda inp, _layer=layer, _mask=attention_mask: _layer(inp, attention_mask=_mask, past_key_value=None, use_cache=False),
+                    x,
+                    use_reentrant=False,
+                )
             else:
                 x = layer(
                     x,

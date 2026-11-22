@@ -134,3 +134,12 @@ def test_approved_criteria_file_matches_the_code_fallback_and_is_used_by_default
     assert EV.load_criteria() == approved
     with pytest.raises(SystemExit):
         EV.load_criteria("tidak-ada.json")
+
+
+def test_router_backend_runs_the_router_ujian_and_passes_the_approved_criteria():
+    be = EV.RouterBackend()
+    res = EV.run_all(be, only=["router"])
+    assert res["kriteria"] and res["semua_lolos"] is True                       # classifier sendiri memenuhi kriteria router yang disetujui
+    assert all(r["pembajakan_cari"] == 0 for r in res["router"].values())
+    with pytest.raises(NotImplementedError):
+        be.read("x", "y")
