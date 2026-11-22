@@ -116,6 +116,24 @@ tentang "Koperasi Maju": satu catatan banyak baris hanya **2 dari 5 benar** (den
 sedangkan satu baris per catatan dengan kalimat lengkap **5 dari 5 benar**. Tulis tiap baris sebagai kalimat lengkap yang mengulang nama, mis.
 `Ketua koperasi Maju adalah Bu Ratna.` (jumlah soal uji kecil; ini gambaran, bukan jaminan).
 
+## Jenis pertanyaan yang bisa dan belum bisa dijawab
+
+Model dilatih mengutip jawaban untuk **jenis fakta tertentu**: kota lahir, tahun lahir, profesi, makanan, hewan, lantai, mobil, tenggat,
+harga, ketua, telepon, dan alamat. Jam, ruang, tanggal, orang, dan tempat yang sederhana umumnya juga terbaca karena mirip jenis itu.
+Untuk jenis lain, model sering tidak bisa mengutip jawabannya walau catatannya jelas, dan aplikasi akan menjawab "belum tahu" (lengkap
+dengan jawaban mentah model yang ditolak dan alasannya). Itu keterbatasan model, bukan kesalahan catatan Anda.
+
+| Bisa (umumnya) | Belum bisa (diukur) |
+|---|---|
+| "Jam berapa rapat dimulai di ruang Mawar?" | "Tim apa yang rapat di ruang Anggrek?" (nama tim, divisi, peran) |
+| "Rapat tim finance ada di ruang apa?" | "Siapa yang rapat di ruang Anggrek?" bila jawabannya nama tim |
+| "Di mana Bu Rina tinggal?", "Siapa ketua koperasi Maju?" | "Rapat diadakan oleh tim mana?" |
+
+Pengujian: dari 35 percobaan (5 gaya catatan × 7 susunan pertanyaan) untuk mengeluarkan nama tim, **tidak ada satu pun** jawaban bersih. Model
+mengulang kata dari pertanyaan, menjawab jam, atau menolak. Caranya sekarang: **tanyakan hal yang bisa dijawab** (jam, ruang, tanggal), atau
+tanyakan secara umum ("rapat ada di ruang apa") dan pilih dari **pertanyaan balik** aplikasi, yang menampilkan kata pembeda seperti nama tim.
+Menambah kemampuan jenis fakta baru memerlukan pelatihan ulang model.
+
 ## Pertanyaan lanjutan ("dan istrinya?")
 
 Aplikasi mengingat beberapa pertanyaan terakhir dalam sesi dan memahami pertanyaan lanjutan yang pendek: `Apa pekerjaannya?`,

@@ -271,6 +271,7 @@ dialog li{margin:6px 0}
       <li><b>Selalu cek sumber</b> yang ditampilkan di bawah jawaban.</li>
       <li><b>Bukan kalkulator atau asisten umum.</b> AI hanya membaca catatan. Tersedia alat kecil yang dikerjakan program (bukan model): <i>urutkan 5, 4, 3, 9</i>, <i>hitung 12 x 5</i>, <i>hari apa 17 Agustus 2026</i>. Hasilnya diberi label “Alat”.</li>
       <li><b>Dokumen:</b> impor berkas .txt/.md di bawah kotak Ajari. AI menampilkan <i>bagian dokumen yang paling mirip</i> beserta sumbernya. Jawaban AI dari dokumen hanya dugaan dan sering keliru, jadi baca sendiri bagian yang tampil.</li>
+      <li><b>Jenis pertanyaan:</b> model paling andal untuk kota lahir, tahun lahir, profesi, ketua, telepon, alamat, serta jam, ruang, dan tanggal sederhana. Nama tim, divisi, atau peran belum bisa dikutip; "belum tahu" pada jenis itu adalah keterbatasan model. Tanyakan hal yang bisa dijawab, atau gunakan pertanyaan balik aplikasi.</li>
       <li><b>Banyak fakta sekaligus:</b> tempel beberapa baris di kotak Ajari; tiap baris menjadi satu catatan. Tulis tiap baris sebagai kalimat lengkap (mis. <i>Ketua koperasi Maju adalah Bu Ratna.</i>).</li>
       <li><b>Kamus untuk alat hitung/urut:</b> ajarkan kata bilangan atau operator dengan format <i>kata "siji" berarti 1</i>, <i>pengali "ewu" berarti 1000</i>, <i>operator "campur" berarti +</i>. Lalu tanyakan, mis. "berapa siji campur loro".</li>
       <li><b>Aturan jawaban tetap:</b> tulis <i>jika ada yang menyapa "halo" jawab saja "halo"</i> (pemicu dan balasan diberi tanda kutip). Dijalankan program bila Anda mengetik pemicu persis sama.</li>
@@ -538,9 +539,10 @@ function renderAnswer(out,question){
     card.appendChild(h("div",{class:"lab"},h("span",{class:"badge",text:out.status==="conflict"?"Ada konflik":"Dari catatan"}),h("span",{text:"#"+out.source.id+" · "+out.seconds+" dtk"})));
     card.appendChild(h("div",{class:"big",text:out.answer}));
     var src=h("div",{class:"src"},h("b",{text:"Sumber"}),highlighted(out.source.text,out.answer));card.appendChild(src);
+    if(out.repaired)card.appendChild(h("div",{class:"rewrite",text:"Model menulis \u201c"+out.repaired.model+"\u201d; di catatan tertulis \u201c"+out.repaired.note+"\u201d, jadi dikoreksi otomatis ke teks catatan."}));
     var pb2=passagesBox(out,out.source.id);if(pb2)card.appendChild(pb2);
     if(out.status==="conflict"&&out.conflicts.length){var ul=h("ul");out.conflicts.forEach(function(c){ul.appendChild(h("li",{},h("b",{text:c.answer})," — "+c.note+" (#"+c.id+")"))});
-      card.appendChild(h("div",{class:"callout"},h("strong",{text:"Catatan lain memberi jawaban berbeda; saya memakai yang terbaru:"}),ul));}
+      card.appendChild(h("div",{class:"callout"},h("strong",{text:"Catatan lain memberi jawaban berbeda; saya memakai yang paling cocok dengan pertanyaan (bila sama, yang terbaru):"}),ul));}
     var rb2=relatedBox(out);if(rb2)card.appendChild(rb2);
     card.appendChild(h("div",{class:"row-actions"},h("button",{class:"btn",type:"button",text:"Lihat di catatan",onclick:function(){focusNote(out.source.id)}})));}
   return card;}

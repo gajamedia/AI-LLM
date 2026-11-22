@@ -29,8 +29,10 @@ def main():
             store.teach(n)
         agent = M.MemoryAgent(store, reader)
         print(f"\n== {name}: terjawab={len(ans_items)}, tak terjawab={len(unans)}", flush=True)
-        for label, flag in (("tanpa bentuk alternatif", False), ("dengan bentuk alternatif", True)):
-            agent.alternate_forms = flag
+        for label, flag, echo, unread in (("tanpa bentuk alternatif", False, None, None), ("dengan bentuk alternatif", True, None, None),
+                                          ("+ penjaga gema", True, 1.0, None), ("+ penjaga catatan tak terbaca", True, None, 0.2),
+                                          ("+ keduanya (bawaan)", True, 1.0, 0.2)):
+            agent.alternate_forms, agent.echo_threshold, agent.unread_margin = flag, echo, unread
             t = {"benar": 0, "salah": 0, "abstain": 0, "abstain_tak": 0, "mengarang_tak": 0}
             changed = []
             for r in ans_items:
@@ -42,8 +44,8 @@ def main():
             for q in unans:
                 o = agent.ask(q)
                 t["abstain_tak" if o["status"] not in ("ok", "conflict") else "mengarang_tak"] += 1
-            print(f"{label:26s} benar {t['benar']:3d}  salah {t['salah']:3d}  belum tahu {t['abstain']:3d} | tak terjawab: abstain {t['abstain_tak']:3d} mengarang {t['mengarang_tak']:3d}", flush=True)
-            if flag:
+            print(f"{label:30s} benar {t['benar']:3d}  salah {t['salah']:3d}  belum tahu {t['abstain']:3d} | tak terjawab: abstain {t['abstain_tak']:3d} mengarang {t['mengarang_tak']:3d}", flush=True)
+            if label.startswith('dengan'):
                 for c in changed:
                     print("   dibaca ulang:", c)
 

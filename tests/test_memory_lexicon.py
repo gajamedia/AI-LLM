@@ -875,3 +875,92 @@ def test_cli_task_message_explains_how_to_save_an_imperative_note():
     out = chat.handle("Buat laporan mingguan setiap Jumat.", agent)
     assert "permintaan tugas" in out and "ingat: <kalimat Anda>" in out
     assert "Dicatat" in chat.handle("ingat: Buat laporan mingguan setiap Jumat.", agent)       # cara menyimpannya tetap berfungsi
+
+
+# ---------- penjaga gema dan penjaga "catatan yang lebih cocok tidak terbaca" ----------
+R20 = "Rapat tim produk dimulai pukul 09.30 di ruang Anggrek."
+R21 = "Rapat tim finance dimulai pukul 11.30 di ruang Mawar."
+
+
+def test_echo_guard_rejects_answers_that_only_repeat_the_question():
+    q = "rapat di ruang mawar diadakan oleh tim mana"
+    reads = [(21, R21, "Mawar"), (20, R20, "Anggrek")]
+    assert M.decide(q, reads)["status"] == "ok"                                      # tanpa penjaga: jawaban salah lolos
+    d = M.decide(q, reads, echo_threshold=1.0)
+    assert d["status"] == "unknown" and "hanya mengulang" in d["guesses"][0]["reason"]
+    assert M.echo_fraction("Siapa ketua koperasi Maju?", "Bu Ratna") == 0.0          # jawaban sah tidak terkena
+    assert M.decide("Apa itu gravitasi", [(1, GRAV, GRAV_ANS)], echo_threshold=1.0)["status"] == "ok"
+
+
+def test_answer_from_a_worse_matching_note_is_not_trusted_when_the_better_note_is_unreadable():
+    q = "jam berapa rapat dimulai di ruang mawar"
+    reads = [(21, R21, "tiga puluh"), (20, R20, "09.30")]       # model gagal membaca #21 (bukan angka yang bisa diperbaiki)
+    assert M.decide(q, reads)["answer"] == "09.30"             # tanpa penjaga: jawaban ruang Anggrek dipakai
+    d = M.decide(q, reads, unread_margin=0.2)
+    assert d["status"] == "unknown"
+    reasons = {g["id"]: g["reason"] for g in d["guesses"]}
+    assert "bukan kutipan persis" in reasons[21] and "#21" in reasons[20] and "tidak bisa saya baca" in reasons[20]
+
+
+def test_misread_digit_is_repaired_to_the_exact_text_of_the_note():
+    q = "jam berapa rapat dimulai di ruang mawar"
+    d = M.decide(q, [(21, R21, "11.00"), (20, R20, "09.30")], unread_margin=0.2)       # kasus nyata: model menulis 11.00, catatan berisi 11.30
+    assert d["status"] == "ok" and d["answer"] == "11.30" and d["source"]["id"] == 21   # catatan ruang Anggrek bukan konflik
+    assert d["repaired"] == {"model": "11.00", "note": "11.30"}
+    assert M.decide("jam berapa rapat dimulai di ruang anggrek", [(20, R20, "09.30")])["repaired"] is None
+
+
+@pytest.mark.parametrize("raw,note,expected", [
+    ("11.00", "Rapat dimulai pukul 11.30 di ruang Mawar.", "11.30"),
+    ("1.904.569", "Luas wilayah 1.904.659 km2.", "1.904.659"),
+    ("11.00", "Rapat pukul 11.30 sampai 13.30.", None),          # dua angka berbentuk sama: tidak menebak
+    ("12.00", "Rapat dimulai pukul 09.30.", None),                # selisih lebih dari 2 digit
+    ("11,5", "Rapat pukul 11.30.", None),                         # bentuk berbeda (koma vs titik)
+    ("Kamis", "Rapat hari Kamis.", None),                         # bukan angka
+    ("11.30", "Rapat pukul 11.30.", None),                        # sudah benar: tidak ada yang diperbaiki
+])
+def test_repair_number_is_narrow(raw, note, expected):
+    assert M.repair_number(raw, note) == expected
+
+
+def test_unread_margin_does_not_block_a_correct_answer_from_the_best_matching_note():
+    reads = [(20, R20, "09.30"), (21, R21, "Teks tidak menyebutkan hal itu.")]
+    d = M.decide("jam berapa rapat dimulai di ruang anggrek", reads, unread_margin=0.2)
+    assert d["status"] == "ok" and d["answer"] == "09.30"
+    assert M.decide("Di mana Bu Rina tinggal?", [(1, "Bu Rina tinggal di Jalan Mawar nomor 5.", "Jalan Mawar nomor 5")], unread_margin=0.2)["status"] == "ok"
+
+
+def test_agent_enables_both_guards_by_default():
+    class Misreads:
+        def read(self, ctx, q):
+            if "Mawar" in ctx:
+                return "Mawar" if "tim mana" in q else "11.00"
+            return "09.30" if "jam" in q else "Anggrek"
+
+    store = M.MemoryStore(":memory:")
+    store.teach(R20)
+    store.teach(R21)
+    agent = M.MemoryAgent(store, Misreads())
+    assert agent.echo_threshold == 1.0 and agent.unread_margin == 0.2
+    assert agent.ask("rapat di ruang mawar diadakan oleh tim mana")["status"] == "unknown"
+    out = agent.ask("jam berapa rapat dimulai di ruang mawar")
+    assert out["status"] == "ok" and out["answer"] == "11.30" and out["repaired"]["model"] == "11.00" and out["conflicts"] == []
+    assert agent.ask("jam berapa rapat dimulai di ruang anggrek")["answer"] == "09.30"
+
+
+def test_cli_recognises_questions_with_the_question_word_inside_the_sentence():
+    chat = load_module("memory_chat_inner_q_under_test", "tools/memory_chat.py")
+    for s in ["jam berapa rapat dimulai di ruang mawar", "rapat di ruang mawar diadakan oleh tim mana", "ruang mana yang dipakai rapat finance", "tim finance rapat kapan"]:
+        assert chat.is_question_like(s), s
+    for s in ["Bu Rina tinggal di Jalan Mawar nomor 5.", "Bu Rina tahu apa yang terjadi kemarin", "Rapat tim produk dimulai pukul 09.30 di ruang Anggrek.",
+              "Pak Joko bekerja sebagai montir bengkel di Bekasi"]:
+        assert not chat.is_question_like(s), s
+    agent = M.MemoryAgent(M.MemoryStore(":memory:"), NoReader())
+    agent.store.teach("Rapat tim finance dimulai pukul 11.30 di ruang Mawar.")
+    assert "tidak disimpan" not in chat.handle("jam berapa rapat dimulai di ruang mawar", agent)       # dulu dianggap pernyataan
+
+
+def test_related_notes_need_real_overlap_not_just_one_shared_word():
+    reads = [(21, R21, "11.30"), (3, "Bu Rina tinggal di Jalan Mawar nomor 5.", "Jalan Mawar nomor 5"), (22, "Rapat tim finance dimulai pukul 13.00 di ruang Mawar lantai 2.", "13.00")]
+    rel = M.related_unused("jam berapa rapat dimulai di ruang mawar", reads, {21})
+    assert [r["id"] for r in rel] == [22]                      # #3 hanya berbagi kata 'mawar': tidak ditampilkan

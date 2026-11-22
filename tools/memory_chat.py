@@ -40,6 +40,10 @@ QUESTION_WORDS = memory_tools.QUESTION_WORDS
 YES = {"y", "ya", "yes", "iya", "ok", "oke", "simpan"}
 
 
+# kata tanya yang hampir tidak pernah muncul dalam pernyataan biasa; 'apa' sengaja tidak termasuk ("Bu Rina tahu apa yang terjadi")
+_INNER_QUESTION_WORDS = {"berapa", "berapakah", "siapa", "siapakah", "kapan", "kapankah", "mana", "manakah", "bagaimana", "mengapa", "kenapa", "apakah"}
+
+
 def is_question_like(s):
     """Kalimat tanya tanpa tanda '?': diawali kata tanya, atau 'di mana'."""
     words = re.findall(r"[\w'-]+", s.lower())
@@ -48,6 +52,8 @@ def is_question_like(s):
     if words[0] in QUESTION_WORDS:
         return True
     if memory_tools.rewrite_definition(s)[1]:  # 'pengertian gravitasi', 'gravitasi adalah', 'jelaskan gravitasi'
+        return True
+    if any(w in _INNER_QUESTION_WORDS for w in words):  # 'jam berapa rapat dimulai di ruang mawar', 'rapat ... diadakan oleh tim mana'
         return True
     return len(words) >= 2 and words[0] == "di" and words[1] == "mana"
 
@@ -136,8 +142,10 @@ def format_answer(out, question=None):
             lines += [f"    [{c['id']}] {c['answer']}  ({c['note']})" for c in out["conflicts"]]
         return "\n".join(lines + rel_lines)
     lines = [f"{out['answer']}", f"  sumber [{src['id']}]: {src['text']}"]
+    if out.get("repaired"):
+        lines.append(f"  (model menulis \"{out['repaired']['model']}\"; di catatan tertulis \"{out['repaired']['note']}\": dikoreksi otomatis ke teks catatan)")
     if out["status"] == "conflict":
-        lines.append("  catatan: ada catatan lain dengan jawaban berbeda; dipakai yang terbaru:")
+        lines.append("  catatan: ada catatan lain dengan jawaban berbeda; dipakai yang paling cocok dengan pertanyaan (bila sama, yang terbaru):")
         lines += [f"    [{c['id']}] {c['answer']}  ({c['note']})" for c in out["conflicts"]]
     return "\n".join(lines + format_passages(out, src["id"]) + rel_lines)
 

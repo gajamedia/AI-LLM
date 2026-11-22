@@ -315,14 +315,44 @@ def clarify_options(question, cands, best, doc_ids):
     return options
 
 
-def decide(question, reads, entity_guard=True, relevance_guard=True, threshold=0.67, doc_ids=frozenset(), echo_threshold=None):
-    """reads: daftar (id, note, raw_answer) berurutan peringkat. Kembalikan dict keputusan."""
+_NUM_TOKEN = re.compile(r"\d+(?:[.,:]\d+)*")
+
+
+def _num_shape(tok):
+    return re.sub(r"\d", "9", tok)
+
+
+def repair_number(raw, note):
+    """Model kadang salah menyalin satu atau dua digit ('11.00' padahal catatan berisi '11.30'). Kembalikan angka persis dari catatan bila:
+    jawaban berupa angka saja, bukan potongan catatan, dan di catatan ada TEPAT SATU angka berbentuk sama (pola titik/koma/titik dua dan
+    jumlah digit sama) yang berbeda paling banyak 2 digit. Selain itu None (tidak menebak)."""
+    a = raw.strip().rstrip(".")
+    if not _NUM_TOKEN.fullmatch(a) or a in note:
+        return None
+    same = list(dict.fromkeys(t for t in _NUM_TOKEN.findall(note) if _num_shape(t) == _num_shape(a)))
+    if len(same) != 1:
+        return None
+    return same[0] if sum(x != y for x, y in zip(a, same[0])) <= 2 else None
+
+
+def decide(question, reads, entity_guard=True, relevance_guard=True, threshold=0.67, doc_ids=frozenset(), echo_threshold=None,
+           unread_margin=None):
+    """reads: daftar (id, note, raw_answer) berurutan peringkat. Kembalikan dict keputusan.
+    echo_threshold: tolak jawaban yang sebagian besar katanya hanya mengulang pertanyaan (None = mati).
+    unread_margin: tolak jawaban dari catatan A bila ada catatan B yang kecocokannya dengan pertanyaan lebih tinggi sedikitnya sebesar
+                   ini tetapi jawaban B ditolak (model tidak bisa membacanya); A kemungkinan membahas hal lain (None = mati)."""
     cands, guesses = [], []   # guesses: jawaban mentah model yang ditolak penjaga (ditampilkan sebagai dugaan, bukan jawaban)
     for nid, note, raw in reads:
         raw = clean_answer(raw)
         if refusal(raw):
             continue
         reason = verify_reason(raw, note, answer_limit(question))
+        repaired_from = None
+        if reason == "bukan kutipan persis dari catatan":
+            fixed = repair_number(raw, note)
+            if fixed:
+                repaired_from, raw = raw.strip().rstrip("."), fixed
+                reason = verify_reason(raw, note, answer_limit(question))
         if reason is None and entity_guard and not entity_ok(question, note):
             reason = "nama atau angka di pertanyaan tidak ada di catatan itu"
         if reason is None and relevance_guard and not relevance_ok(question, note, threshold):
@@ -331,10 +361,23 @@ def decide(question, reads, entity_guard=True, relevance_guard=True, threshold=0
             guesses.append({"id": nid, "answer": raw.strip(), "reason": reason})
             continue
         if echo_threshold is not None and echo_fraction(question, raw) >= echo_threshold:
-            continue  # jawaban sebagian besar hanya mengulang kata pertanyaan
-        cands.append({"id": nid, "note": note, "answer": complete_span(raw.strip().rstrip("."), note)})
+            guesses.append({"id": nid, "answer": raw.strip(), "reason": "jawaban hanya mengulang kata yang sudah ada di pertanyaan"})
+            continue
+        cands.append({"id": nid, "note": note, "answer": complete_span(raw.strip().rstrip("."), note), "repaired_from": repaired_from})
+    if unread_margin is not None and cands:
+        cand_ids = {c["id"] for c in cands}
+        scores = {nid: relevance_score(question, note) for nid, note, _ in reads}
+        kept = []
+        for c in cands:
+            better = [nid for nid, sc in scores.items() if nid not in cand_ids and sc - scores[c["id"]] >= unread_margin]
+            if better:
+                guesses.append({"id": c["id"], "answer": c["answer"], "reason": "catatan yang lebih cocok dengan pertanyaan (" +
+                                ", ".join(f"#{b}" for b in better) + ") tidak bisa saya baca, jadi jawaban dari catatan ini tidak dipercaya"})
+            else:
+                kept.append(c)
+        cands = kept
     if not cands:
-        return {"status": "unknown", "answer": UNKNOWN, "source": None, "conflicts": [], "guesses": guesses}
+        return {"status": "unknown", "answer": UNKNOWN, "source": None, "conflicts": [], "guesses": guesses, "repaired": None}
     # Urutan pemilihan: catatan pengguna didahulukan atas teks dokumen; lalu catatan yang memuat paling banyak kata inti pertanyaan
     # (agar catatan yang kebetulan lebih baru tetapi membahas hal lain tidak menang); bila sama, catatan terbaru menang (pembaruan fakta).
     for c in cands:
@@ -342,20 +385,24 @@ def decide(question, reads, entity_guard=True, relevance_guard=True, threshold=0
     best = max(cands, key=lambda c: (c["id"] not in doc_ids, c["score"], c["id"]))
     options = clarify_options(question, cands, best, doc_ids)
     if options:  # beberapa catatan sama-sama cocok dan dibedakan oleh kata di luar jawaban: tanya balik, jangan memilih diam-diam
-        return {"status": "clarify", "source": None, "conflicts": [], "guesses": [], "options": options,
+        return {"status": "clarify", "source": None, "conflicts": [], "guesses": [], "repaired": None, "options": options,
                 "answer": "Ada beberapa catatan yang cocok dengan pertanyaan Anda. Maksud Anda yang mana?"}
-    conflicts = [c for c in cands if R.norm(c["answer"]) != R.norm(best["answer"])]
+    # catatan yang jauh kurang cocok dengan pertanyaan membahas hal lain: bukan konflik (tetap terlihat sebagai catatan terkait)
+    conflicts = [c for c in cands if R.norm(c["answer"]) != R.norm(best["answer"])
+                 and (unread_margin is None or best["score"] - c["score"] < unread_margin)]
+    repaired = {"model": best["repaired_from"], "note": best["answer"]} if best.get("repaired_from") else None
     return {"status": "conflict" if conflicts else "ok", "answer": best["answer"],
-            "source": {"id": best["id"], "text": best["note"]}, "conflicts": conflicts, "guesses": []}
+            "source": {"id": best["id"], "text": best["note"]}, "conflicts": conflicts, "guesses": [], "repaired": repaired}
 
 
-def related_unused(question, reads, used_ids):
-    """Catatan top-K yang memuat semua entitas pertanyaan tetapi tidak dipakai sebagai sumber."""
+def related_unused(question, reads, used_ids, min_score=0.5):
+    """Catatan top-K yang memuat semua entitas pertanyaan dan cukup cocok dengan kata intinya (>= min_score), tetapi tidak dipakai sebagai
+    sumber. Syarat kecocokan mencegah catatan yang hanya kebetulan memuat satu kata sama ('mawar') tampil sebagai catatan terkait."""
     out = []
     for nid, note, raw in reads:
         if nid in used_ids:
             continue
-        if entity_ok(question, note):
+        if entity_ok(question, note) and relevance_score(question, note) >= min_score:
             out.append({"id": nid, "text": note})
     return out
 
@@ -385,6 +432,8 @@ class MemoryAgent:
         self.entity_guard, self.relevance_guard = entity_guard, relevance_guard
         self.relevance_threshold = relevance_threshold
         self.alternate_forms = True
+        self.echo_threshold = 1.0      # tolak jawaban yang hanya mengulang kata pertanyaan
+        self.unread_margin = 0.2       # tolak jawaban dari catatan kurang cocok bila yang lebih cocok tidak terbaca
 
     def _read_hits(self, hits, question):
         tok = getattr(self.reader, "tok", None)
@@ -423,7 +472,8 @@ class MemoryAgent:
             if required is not None and not form_hits:
                 continue  # tidak ada catatan yang memuat kata penjelas yang dibuang: jangan menjawab dengan pertanyaan yang dilonggarkan
             form_reads = self._read_hits(form_hits, form)
-            form_out = decide(form, form_reads, self.entity_guard, self.relevance_guard, self.relevance_threshold, doc_ids)
+            form_out = decide(form, form_reads, self.entity_guard, self.relevance_guard, self.relevance_threshold, doc_ids,
+                              echo_threshold=self.echo_threshold, unread_margin=self.unread_margin)
             if out is None:
                 out, reads = form_out, form_reads        # bentuk pertama: dipakai juga bila semua bentuk gagal
             if form_out["status"] != "unknown":
