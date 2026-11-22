@@ -1,0 +1,591 @@
+{"message": "eh urukan 5, 3, 9, 1", "label": "urut", "family": "berisik", "asal": "urutkan 5, 3, 9, 1"}
+{"message": "urutan 5, 3, 9, 1", "label": "urut", "family": "berisik", "asal": "urutkan 5, 3, 9, 1"}
+{"message": "urrutkan 5, 3, 9, 1", "label": "urut", "family": "berisik", "asal": "urutkan 5, 3, 9, 1"}
+{"message": "coa sortir 8 2 6", "label": "urut", "family": "berisik", "asal": "sortir 8 2 6"}
+{"message": "sotir 8 2 6", "label": "urut", "family": "berisik", "asal": "sortir 8 2 6"}
+{"message": "soritr 8 2 6", "label": "urut", "family": "berisik", "asal": "sortir 8 2 6"}
+{"message": "mohon mengurutkan deret 15, 4, 23", "label": "urut", "family": "berisik", "asal": "mengurutkan deret 15, 4, 23"}
+{"message": "eh mengurutkan deret 15, 4, 23", "label": "urut", "family": "berisik", "asal": "mengurutkan deret 15, 4, 23"}
+{"message": "coba mengurutan derret 15, 4, 23", "label": "urut", "family": "berisik", "asal": "mengurutkan deret 15, 4, 23"}
+{"message": "uurtkan agka di catatan 2", "label": "urut", "family": "berisik", "asal": "urutkan angka di catatan 2"}
+{"message": "uutkan angka di catatan 2", "label": "urut", "family": "berisik", "asal": "urutkan angka di catatan 2"}
+{"message": "urutkan angak di cataatan 2", "label": "urut", "family": "berisik", "asal": "urutkan angka di catatan 2"}
+{"message": "Uurtkan bilanggan lima tiga sembilan satu", "label": "urut", "family": "berisik", "asal": "Urutkan bilangan lima tiga sembilan satu"}
+{"message": "Urutkan bialngan lima tiga semilan satu dong", "label": "urut", "family": "berisik", "asal": "Urutkan bilangan lima tiga sembilan satu"}
+{"message": "urutkan bilangan lima tiga sembilan satu ya", "label": "urut", "family": "berisik", "asal": "Urutkan bilangan lima tiga sembilan satu"}
+{"message": "eh urutan 7 7 1 4 dair yang terkecil", "label": "urut", "family": "berisik", "asal": "urutkan 7 7 1 4 dari yang terkecil"}
+{"message": "kak urutkan 7 7 1 4 dri yang terkecil", "label": "urut", "family": "berisik", "asal": "urutkan 7 7 1 4 dari yang terkecil"}
+{"message": "urutkan 7 7 1 4 dari yang terkecli", "label": "urut", "family": "berisik", "asal": "urutkan 7 7 1 4 dari yang terkecil"}
+{"message": "tolong susun angka 40 12 7 dari kecil ke besar deh", "label": "urut", "family": "berisik", "asal": "tolong susun angka 40 12 7 dari kecil ke besar"}
+{"message": "min tolong susun angka 40 12 7 dari kecil ke besar", "label": "urut", "family": "berisik", "asal": "tolong susun angka 40 12 7 dari kecil ke besar"}
+{"message": "tolong susun angka 40 12 7 dari kecil ke bessar", "label": "urut", "family": "berisik", "asal": "tolong susun angka 40 12 7 dari kecil ke besar"}
+{"message": "permisi, susun dari yang terbesar: 3 9 1 7", "label": "urut", "family": "berisik", "asal": "susun dari yang terbesar: 3 9 1 7"}
+{"message": "kak susun dari yang terbesar: 3 9 1 7", "label": "urut", "family": "berisik", "asal": "susun dari yang terbesar: 3 9 1 7"}
+{"message": "suusn darri yang terbesar: 3 9 1 7", "label": "urut", "family": "berisik", "asal": "susun dari yang terbesar: 3 9 1 7"}
+{"message": "rapikan urutan 100 20 3 dri kecil nih", "label": "urut", "family": "berisik", "asal": "rapikan urutan 100 20 3 dari kecil"}
+{"message": "coba rapikan uutan 100 20 3 drai kecil", "label": "urut", "family": "berisik", "asal": "rapikan urutan 100 20 3 dari kecil"}
+{"message": "rapikan uutan 100 20 3 darri kecil", "label": "urut", "family": "berisik", "asal": "rapikan urutan 100 20 3 dari kecil"}
+{"message": "baut berurutan angka 33 11 22", "label": "urut", "family": "berisik", "asal": "buat berurutan angka 33 11 22"}
+{"message": "buat berurutan angka 33 11 22 nih", "label": "urut", "family": "berisik", "asal": "buat berurutan angka 33 11 22"}
+{"message": "buat berurutan anggka 33 11 22", "label": "urut", "family": "berisik", "asal": "buat berurutan angka 33 11 22"}
+{"message": "angka 9 4 6 2 tolong dibut menurn", "label": "urut", "family": "berisik", "asal": "angka 9 4 6 2 tolong dibuat menurun"}
+{"message": "angka 9 4 6 2 tolong dibuat mennurun please", "label": "urut", "family": "berisik", "asal": "angka 9 4 6 2 tolong dibuat menurun"}
+{"message": "min agnka 9 4 6 2 tolong dibaut menurun", "label": "urut", "family": "berisik", "asal": "angka 9 4 6 2 tolong dibuat menurun"}
+{"message": "bisa mana yang paling kecil sampai paling besar: 12 5 8", "label": "urut", "family": "berisik", "asal": "mana yang paling kecil sampai paling besar: 12 5 8"}
+{"message": "coba mana yang paling kecil sampai paling besar: 12 5 8 ya kak", "label": "urut", "family": "berisik", "asal": "mana yang paling kecil sampai paling besar: 12 5 8"}
+{"message": "mana yang palng keecil sampai paling besar: 12 5 8", "label": "urut", "family": "berisik", "asal": "mana yang paling kecil sampai paling besar: 12 5 8"}
+{"message": "coba berapa 12 ditambah 30", "label": "hitung", "family": "berisik", "asal": "berapa 12 ditambah 30"}
+{"message": "berapa 12 ditaambah 30", "label": "hitung", "family": "berisik", "asal": "berapa 12 ditambah 30"}
+{"message": "berappa 12 ditambah 30 dong", "label": "hitung", "family": "berisik", "asal": "berapa 12 ditambah 30"}
+{"message": "bisa hitung 7 x 8", "label": "hitung", "family": "berisik", "asal": "hitung 7 x 8"}
+{"message": "hiung 7 x 8", "label": "hitung", "family": "berisik", "asal": "hitung 7 x 8"}
+{"message": "htiung 7 x 8", "label": "hitung", "family": "berisik", "asal": "hitung 7 x 8"}
+{"message": "bsa 100 dibgai 4", "label": "hitung", "family": "berisik", "asal": "100 dibagi 4"}
+{"message": "halo, 100 dibagi 4", "label": "hitung", "family": "berisik", "asal": "100 dibagi 4"}
+{"message": "permisi, 100 dibaagi 4", "label": "hitung", "family": "berisik", "asal": "100 dibagi 4"}
+{"message": "2 panggkat 10", "label": "hitung", "family": "berisik", "asal": "2 pangkat 10"}
+{"message": "bantu 2 pangkat 10 nih", "label": "hitung", "family": "berisik", "asal": "2 pangkat 10"}
+{"message": "2 pangat 10", "label": "hitung", "family": "berisik", "asal": "2 pangkat 10"}
+{"message": "berapa dua juta dikali tga", "label": "hitung", "family": "berisik", "asal": "berapa dua juta dikali tiga"}
+{"message": "berapa dua juta dikali tiga ya", "label": "hitung", "family": "berisik", "asal": "berapa dua juta dikali tiga"}
+{"message": "bantu berapa dua juta dikali tiga", "label": "hitung", "family": "berisik", "asal": "berapa dua juta dikali tiga"}
+{"message": "permisi, 15 dikurangi 6 hasilnya ya min", "label": "hitung", "family": "berisik", "asal": "15 dikurangi 6 hasilnya?"}
+{"message": "15 dikurangi 6 hasilnya", "label": "hitung", "family": "berisik", "asal": "15 dikurangi 6 hasilnya?"}
+{"message": "15 dikurangi 6 hasilnya", "label": "hitung", "family": "berisik", "asal": "15 dikurangi 6 hasilnya?"}
+{"message": "tabahkan 25 smaa 17", "label": "hitung", "family": "berisik", "asal": "tambahkan 25 dengan 17"}
+{"message": "tambahkan 25 dengan 17 nih", "label": "hitung", "family": "berisik", "asal": "tambahkan 25 dengan 17"}
+{"message": "tambahan 25 dnegan 17", "label": "hitung", "family": "berisik", "asal": "tambahkan 25 dengan 17"}
+{"message": "kalau 9 dikali 9 jadi brp", "label": "hitung", "family": "berisik", "asal": "kalau 9 dikali 9 jadi berapa"}
+{"message": "kalau 9 dikali 9 jadi beraap", "label": "hitung", "family": "berisik", "asal": "kalau 9 dikali 9 jadi berapa"}
+{"message": "kalau 9 dikali 9 jdi berapa", "label": "hitung", "family": "berisik", "asal": "kalau 9 dikali 9 jadi berapa"}
+{"message": "total dari 12 dan 18 berapa", "label": "hitung", "family": "berisik", "asal": "total dari 12 dan 18 berapa?"}
+{"message": "tootal dari 12 dan 18 berapa", "label": "hitung", "family": "berisik", "asal": "total dari 12 dan 18 berapa?"}
+{"message": "total dari 12 dan 18 berapa deh", "label": "hitung", "family": "berisik", "asal": "total dari 12 dan 18 berapa?"}
+{"message": "lmia ratus ribbu dikurangi dua puluh ribu sisanya berapa", "label": "hitung", "family": "berisik", "asal": "lima ratus ribu dikurangi dua puluh ribu sisanya berapa"}
+{"message": "lima raus ribu dikurangi dua puluh ribu sisanya berapa", "label": "hitung", "family": "berisik", "asal": "lima ratus ribu dikurangi dua puluh ribu sisanya berapa"}
+{"message": "coba lima ratus ribu dikurangi dua puluh ribu sisanya berapa", "label": "hitung", "family": "berisik", "asal": "lima ratus ribu dikurangi dua puluh ribu sisanya berapa"}
+{"message": "kurangi 90 degan 45", "label": "hitung", "family": "berisik", "asal": "kurangi 90 dengan 45"}
+{"message": "kurangi 90 dengan 45 deh", "label": "hitung", "family": "berisik", "asal": "kurangi 90 dengan 45"}
+{"message": "min kurngi 90 denagn 45", "label": "hitung", "family": "berisik", "asal": "kurangi 90 dengan 45"}
+{"message": "jumalh 4 5 dan 6 ada berapa", "label": "hitung", "family": "berisik", "asal": "jumlah 4 5 dan 6 ada berapa"}
+{"message": "jumlah 4 5 dan 6 ada brp makashi", "label": "hitung", "family": "berisik", "asal": "jumlah 4 5 dan 6 ada berapa"}
+{"message": "tolong jumlah 4 5 dan 6 ada berapa deh", "label": "hitung", "family": "berisik", "asal": "jumlah 4 5 dan 6 ada berapa"}
+{"message": "hai apa 17 Agusus 1945", "label": "tanggal", "family": "berisik", "asal": "hari apa 17 Agustus 1945"}
+{"message": "mohon hari apa 17 agustus 1945", "label": "tanggal", "family": "berisik", "asal": "hari apa 17 Agustus 1945"}
+{"message": "harri apa 17 Agusstus 1945", "label": "tanggal", "family": "berisik", "asal": "hari apa 17 Agustus 1945"}
+{"message": "tangal 25 desember 2026 jatuh hari apa", "label": "tanggal", "family": "berisik", "asal": "tanggal 25 Desember 2026 jatuh hari apa"}
+{"message": "taggal 25 Desembr 2026 jatuh hari apa", "label": "tanggal", "family": "berisik", "asal": "tanggal 25 Desember 2026 jatuh hari apa"}
+{"message": "coba tanggal 25 Desember 2026 jatuh hari apa", "label": "tanggal", "family": "berisik", "asal": "tanggal 25 Desember 2026 jatuh hari apa"}
+{"message": "bisa 1 Januari 2000 itu hari apa?", "label": "tanggal", "family": "berisik", "asal": "1 Januari 2000 itu hari apa?"}
+{"message": "1 Jnuari 2000 itu hari apa?", "label": "tanggal", "family": "berisik", "asal": "1 Januari 2000 itu hari apa?"}
+{"message": "1 januari 2000 itu hari apa", "label": "tanggal", "family": "berisik", "asal": "1 Januari 2000 itu hari apa?"}
+{"message": "mhoon selisih 5 Mei 2025 dan 20 Mei 2025 dogn", "label": "tanggal", "family": "berisik", "asal": "selisih 5 Mei 2025 dan 20 Mei 2025"}
+{"message": "min selisih 5 mei 2025 dan 20 mei 2025", "label": "tanggal", "family": "berisik", "asal": "selisih 5 Mei 2025 dan 20 Mei 2025"}
+{"message": "sleisih 5 Mei 2025 dan 20 Mei 2025 deh", "label": "tanggal", "family": "berisik", "asal": "selisih 5 Mei 2025 dan 20 Mei 2025"}
+{"message": "permisi, berapa hari dari 1 Januari 2026 sampai 1 Maret 2026", "label": "tanggal", "family": "berisik", "asal": "berapa hari dari 1 Januari 2026 sampai 1 Maret 2026"}
+{"message": "coba berapa hari dari 1 Januari 2026 sampai 1 Maret 2026", "label": "tanggal", "family": "berisik", "asal": "berapa hari dari 1 Januari 2026 sampai 1 Maret 2026"}
+{"message": "berapa hari dari 1 janauri 2026 sampai 1 maret 2026", "label": "tanggal", "family": "berisik", "asal": "berapa hari dari 1 Januari 2026 sampai 1 Maret 2026"}
+{"message": "jarak antara 10 oktober 2024 dan 10 novmeber 2024 ya kak", "label": "tanggal", "family": "berisik", "asal": "jarak antara 10 Oktober 2024 dan 10 November 2024"}
+{"message": "permisi, jarak antara 10 oktober 2024 dan 10 novemer 2024 nih", "label": "tanggal", "family": "berisik", "asal": "jarak antara 10 Oktober 2024 dan 10 November 2024"}
+{"message": "jarrak antara 10 Oktober 2024 dan 10 November 2024", "label": "tanggal", "family": "berisik", "asal": "jarak antara 10 Oktober 2024 dan 10 November 2024"}
+{"message": "tanggal 4 juuli 2026 itu senin atau bukan, hari apa ya", "label": "tanggal", "family": "berisik", "asal": "tanggal 4 Juli 2026 itu Senin atau bukan, hari apa ya"}
+{"message": "tanggal 4 juli 2026 itu senni atau bukan, harri apa ya", "label": "tanggal", "family": "berisik", "asal": "tanggal 4 Juli 2026 itu Senin atau bukan, hari apa ya"}
+{"message": "mohon taanggal 4 juli 2026 itu senin atau bukan, hari apa ya", "label": "tanggal", "family": "berisik", "asal": "tanggal 4 Juli 2026 itu Senin atau bukan, hari apa ya"}
+{"message": "sudah berapa lama sejak 3 maret 2026 sampai 3 april 2026", "label": "tanggal", "family": "berisik", "asal": "sudah berapa lama sejak 3 Maret 2026 sampai 3 April 2026"}
+{"message": "kak sudah bearpa lama sejak 3 Maret 2026 sampaai 3 April 2026", "label": "tanggal", "family": "berisik", "asal": "sudah berapa lama sejak 3 Maret 2026 sampai 3 April 2026"}
+{"message": "sudha berapa lama seak 3 maret 2026 sampai 3 april 2026", "label": "tanggal", "family": "berisik", "asal": "sudah berapa lama sejak 3 Maret 2026 sampai 3 April 2026"}
+{"message": "17 agustus 2030 jatuh pada hai aapkah makasih", "label": "tanggal", "family": "berisik", "asal": "17 Agustus 2030 jatuh pada hari apakah"}
+{"message": "17 agusts 2030 jatuh pada hari apakah", "label": "tanggal", "family": "berisik", "asal": "17 Agustus 2030 jatuh pada hari apakah"}
+{"message": "17 Austus 2030 jatuh pada hari apakah", "label": "tanggal", "family": "berisik", "asal": "17 Agustus 2030 jatuh pada hari apakah"}
+{"message": "rentang wakttu 1 mei 2026 hingga 31 mei 2026 ada berapa hari", "label": "tanggal", "family": "berisik", "asal": "rentang waktu 1 Mei 2026 hingga 31 Mei 2026 ada berapa hari"}
+{"message": "rentang waktu 1 Mei 2026 hignga 31 Mei 2026 ada berapa hri", "label": "tanggal", "family": "berisik", "asal": "rentang waktu 1 Mei 2026 hingga 31 Mei 2026 ada berapa hari"}
+{"message": "rentang waktu 1 mei 2026 hingga 31 mei 2026 ada berapa hari", "label": "tanggal", "family": "berisik", "asal": "rentang waktu 1 Mei 2026 hingga 31 Mei 2026 ada berapa hari"}
+{"message": "kapaan hari Natal 2027 jatuhnya, 25 Desember 2027 hari apa", "label": "tanggal", "family": "berisik", "asal": "kapan hari Natal 2027 jatuhnya, 25 Desember 2027 hari apa"}
+{"message": "kaan hari Natal 2027 jatuhnya, 25 Desembr 2027 hari apa", "label": "tanggal", "family": "berisik", "asal": "kapan hari Natal 2027 jatuhnya, 25 Desember 2027 hari apa"}
+{"message": "kapan hri Ntaal 2027 jatuhnya, 25 Desember 2027 hari apa", "label": "tanggal", "family": "berisik", "asal": "kapan hari Natal 2027 jatuhnya, 25 Desember 2027 hari apa"}
+{"message": "antara 2 februari 2026 dan 2 maret 2026 beda brp hari please", "label": "tanggal", "family": "berisik", "asal": "antara 2 Februari 2026 dan 2 Maret 2026 beda berapa hari"}
+{"message": "antara 2 Februari 2026 dan 2 Mart 2026 beda berapa hai", "label": "tanggal", "family": "berisik", "asal": "antara 2 Februari 2026 dan 2 Maret 2026 beda berapa hari"}
+{"message": "tolong anatra 2 februari 2026 dan 2 maret 2026 beeda berapa hari", "label": "tanggal", "family": "berisik", "asal": "antara 2 Februari 2026 dan 2 Maret 2026 beda berapa hari"}
+{"message": "kak Di mana Bu Rina tinggal?", "label": "cari", "family": "berisik", "asal": "Di mana Bu Rina tinggal?"}
+{"message": "Di mana Bu Rina tinggal ya kak", "label": "cari", "family": "berisik", "asal": "Di mana Bu Rina tinggal?"}
+{"message": "coba di mana bu rina tinggal makasih", "label": "cari", "family": "berisik", "asal": "Di mana Bu Rina tinggal?"}
+{"message": "Siapa ketua koperasi Maju", "label": "cari", "family": "berisik", "asal": "Siapa ketua koperasi Maju?"}
+{"message": "halo, Siapa kteua kopeasi Maju?", "label": "cari", "family": "berisik", "asal": "Siapa ketua koperasi Maju?"}
+{"message": "siapa ketau koperaasi maju", "label": "cari", "family": "berisik", "asal": "Siapa ketua koperasi Maju?"}
+{"message": "kapan rpaat tim dimulai", "label": "cari", "family": "berisik", "asal": "Kapan rapat tim dimulai?"}
+{"message": "Kapaan rpat tim dimulai", "label": "cari", "family": "berisik", "asal": "Kapan rapat tim dimulai?"}
+{"message": "Kapan rapat tim dimulai ya", "label": "cari", "family": "berisik", "asal": "Kapan rapat tim dimulai?"}
+{"message": "apa pekrejaan pak joko", "label": "cari", "family": "berisik", "asal": "Apa pekerjaan Pak Joko?"}
+{"message": "apa peerjaan pak joko", "label": "cari", "family": "berisik", "asal": "Apa pekerjaan Pak Joko?"}
+{"message": "mohon Apa pekerjana Pak Joko?", "label": "cari", "family": "berisik", "asal": "Apa pekerjaan Pak Joko?"}
+{"message": "berapa jumlah anggota koperasi?", "label": "cari", "family": "berisik", "asal": "Berapa jumlah anggota koperasi?"}
+{"message": "permisi, Berapa jumlah anggota koperasi", "label": "cari", "family": "berisik", "asal": "Berapa jumlah anggota koperasi?"}
+{"message": "beraap jumlah anggota koprasi nih", "label": "cari", "family": "berisik", "asal": "Berapa jumlah anggota koperasi?"}
+{"message": "apa itu gravitassi", "label": "cari", "family": "berisik", "asal": "apa itu gravitasi"}
+{"message": "apa itu grvaitasi", "label": "cari", "family": "berisik", "asal": "apa itu gravitasi"}
+{"message": "apa itu gravitai nih", "label": "cari", "family": "berisik", "asal": "apa itu gravitasi"}
+{"message": "bu rinna bekerja di maa", "label": "cari", "family": "berisik", "asal": "Bu Rina bekerja di mana"}
+{"message": "bu rina bekerja di mana", "label": "cari", "family": "berisik", "asal": "Bu Rina bekerja di mana"}
+{"message": "Bu Riina bekerja di mana", "label": "cari", "family": "berisik", "asal": "Bu Rina bekerja di mana"}
+{"message": "lambang negara indonesia apa", "label": "cari", "family": "berisik", "asal": "lambang negara indonesia apa?"}
+{"message": "mohon lambang negara indonesia apa?", "label": "cari", "family": "berisik", "asal": "lambang negara indonesia apa?"}
+{"message": "lamabng negara indonesia apa?", "label": "cari", "family": "berisik", "asal": "lambang negara indonesia apa?"}
+{"message": "kak siaa yang menyimpan kunci gudang", "label": "cari", "family": "berisik", "asal": "siapa yang menyimpan kunci gudang"}
+{"message": "siapa yang menyiman kunci gudang", "label": "cari", "family": "berisik", "asal": "siapa yang menyimpan kunci gudang"}
+{"message": "siaa yang meniympan kunci gudang", "label": "cari", "family": "berisik", "asal": "siapa yang menyimpan kunci gudang"}
+{"message": "ruang rapat tim finance di maa", "label": "cari", "family": "berisik", "asal": "ruang rapat tim finance di mana"}
+{"message": "ruang rapat tim finance di mnaa", "label": "cari", "family": "berisik", "asal": "ruang rapat tim finance di mana"}
+{"message": "ruang rapat tim finance di mana nih", "label": "cari", "family": "berisik", "asal": "ruang rapat tim finance di mana"}
+{"message": "apa warna rumah Bu Rina ya kak", "label": "cari", "family": "berisik", "asal": "apa warna rumah Bu Rina"}
+{"message": "apa warna rumah Bu Rna", "label": "cari", "family": "berisik", "asal": "apa warna rumah Bu Rina"}
+{"message": "apa waarna rumah bu rina ya min", "label": "cari", "family": "berisik", "asal": "apa warna rumah Bu Rina"}
+{"message": "permisi, kota asal Pak Slamet apa", "label": "cari", "family": "berisik", "asal": "kota asal Pak Slamet apa"}
+{"message": "kotta asal Pak Slammet apa", "label": "cari", "family": "berisik", "asal": "kota asal Pak Slamet apa"}
+{"message": "bisa kota asal pak slamet apa", "label": "cari", "family": "berisik", "asal": "kota asal Pak Slamet apa"}
+{"message": "halo, halo", "label": "sapaan", "family": "berisik", "asal": "halo"}
+{"message": "min halo", "label": "sapaan", "family": "berisik", "asal": "halo"}
+{"message": "hallo", "label": "sapaan", "family": "berisik", "asal": "halo"}
+{"message": "toong hai", "label": "sapaan", "family": "berisik", "asal": "hai"}
+{"message": "permisi, hai", "label": "sapaan", "family": "berisik", "asal": "hai"}
+{"message": "permisi, hai", "label": "sapaan", "family": "berisik", "asal": "hai"}
+{"message": "permisi, selamat pagi", "label": "sapaan", "family": "berisik", "asal": "selamat pagi"}
+{"message": "bantu selmaat pagi", "label": "sapaan", "family": "berisik", "asal": "selamat pagi"}
+{"message": "sealmat pagi", "label": "sapaan", "family": "berisik", "asal": "selamat pagi"}
+{"message": "terima kasih banyka", "label": "sapaan", "family": "berisik", "asal": "terima kasih banyak"}
+{"message": "permisi, terima kasih banyak", "label": "sapaan", "family": "berisik", "asal": "terima kasih banyak"}
+{"message": "mohno terima kaish banyak", "label": "sapaan", "family": "berisik", "asal": "terima kasih banyak"}
+{"message": "coba makasih", "label": "sapaan", "family": "berisik", "asal": "makasih"}
+{"message": "bnatu makasih", "label": "sapaan", "family": "berisik", "asal": "makasih"}
+{"message": "makasiih", "label": "sapaan", "family": "berisik", "asal": "makasih"}
+{"message": "apa kabaar", "label": "sapaan", "family": "berisik", "asal": "apa kabar"}
+{"message": "apa kaabr", "label": "sapaan", "family": "berisik", "asal": "apa kabar"}
+{"message": "apa kabra ya", "label": "sapaan", "family": "berisik", "asal": "apa kabar"}
+{"message": "asalamualaikum", "label": "sapaan", "family": "berisik", "asal": "assalamualaikum"}
+{"message": "permisi, assalamualaikum", "label": "sapaan", "family": "berisik", "asal": "assalamualaikum"}
+{"message": "assalamualaiukm", "label": "sapaan", "family": "berisik", "asal": "assalamualaikum"}
+{"message": "hllo", "label": "sapaan", "family": "berisik", "asal": "hello"}
+{"message": "tolong hlelo", "label": "sapaan", "family": "berisik", "asal": "hello"}
+{"message": "eh hello", "label": "sapaan", "family": "berisik", "asal": "hello"}
+{"message": "hei temn", "label": "sapaan", "family": "berisik", "asal": "hei teman"}
+{"message": "mohon hei teman", "label": "sapaan", "family": "berisik", "asal": "hei teman"}
+{"message": "hei teman nih", "label": "sapaan", "family": "berisik", "asal": "hei teman"}
+{"message": "slamat malam semua", "label": "sapaan", "family": "berisik", "asal": "selamat malam semua"}
+{"message": "min selamat malam semua", "label": "sapaan", "family": "berisik", "asal": "selamat malam semua"}
+{"message": "selamat malma semau", "label": "sapaan", "family": "berisik", "asal": "selamat malam semua"}
+{"message": "thannks", "label": "sapaan", "family": "berisik", "asal": "thanks"}
+{"message": "halo, thhanks", "label": "sapaan", "family": "berisik", "asal": "thanks"}
+{"message": "thnaks please", "label": "sapaan", "family": "berisik", "asal": "thanks"}
+{"message": "mohoon selaamt siang", "label": "sapaan", "family": "berisik", "asal": "selamat siang"}
+{"message": "selamat siag", "label": "sapaan", "family": "berisik", "asal": "selamat siang"}
+{"message": "eh selamat saing", "label": "sapaan", "family": "berisik", "asal": "selamat siang"}
+{"message": "tolong tuliskan puisi tentang hujan", "label": "tolak", "family": "berisik", "asal": "tuliskan puisi tentang hujan"}
+{"message": "tuliskan puisi tentang hujn", "label": "tolak", "family": "berisik", "asal": "tuliskan puisi tentang hujan"}
+{"message": "tuliskan puisi tentang huajn", "label": "tolak", "family": "berisik", "asal": "tuliskan puisi tentang hujan"}
+{"message": "terjemahkan ke bhaasa Inggris: selamat pagi", "label": "tolak", "family": "berisik", "asal": "terjemahkan ke bahasa Inggris: selamat pagi"}
+{"message": "bantu terjemahkan ke bahasa inggris: selamat paagi", "label": "tolak", "family": "berisik", "asal": "terjemahkan ke bahasa Inggris: selamat pagi"}
+{"message": "terjemahkan ke bahaa Inggris: selamat pgai", "label": "tolak", "family": "berisik", "asal": "terjemahkan ke bahasa Inggris: selamat pagi"}
+{"message": "rinkgaskan artikel ini", "label": "tolak", "family": "berisik", "asal": "ringkaskan artikel ini"}
+{"message": "halo, ringkaskan artikel ini", "label": "tolak", "family": "berisik", "asal": "ringkaskan artikel ini"}
+{"message": "ringkaskan arikel ini", "label": "tolak", "family": "berisik", "asal": "ringkaskan artikel ini"}
+{"message": "buatkan surta lamaran kerja", "label": "tolak", "family": "berisik", "asal": "buatkan surat lamaran kerja"}
+{"message": "buatkan surat lamarn kerja", "label": "tolak", "family": "berisik", "asal": "buatkan surat lamaran kerja"}
+{"message": "eh buatkan surat lamaran kerja", "label": "tolak", "family": "berisik", "asal": "buatkan surat lamaran kerja"}
+{"message": "ceritakan dongng kanicl", "label": "tolak", "family": "berisik", "asal": "ceritakan dongeng kancil"}
+{"message": "tolong ceritakan dongeng kancil", "label": "tolak", "family": "berisik", "asal": "ceritakan dongeng kancil"}
+{"message": "ceritakan dongneg kancil", "label": "tolak", "family": "berisik", "asal": "ceritakan dongeng kancil"}
+{"message": "rangum rapat kemarin", "label": "tolak", "family": "berisik", "asal": "rangkum rapat kemarin"}
+{"message": "rangkum rapat kemarn", "label": "tolak", "family": "berisik", "asal": "rangkum rapat kemarin"}
+{"message": "bias rangkum rapat kemarin", "label": "tolak", "family": "berisik", "asal": "rangkum rapat kemarin"}
+{"message": "tolong buat eail permintaan maaf", "label": "tolak", "family": "berisik", "asal": "tolong buat email permintaan maaf"}
+{"message": "tolong buat email permintaan maf", "label": "tolak", "family": "berisik", "asal": "tolong buat email permintaan maaf"}
+{"message": "tollong buat eamil permintaan maaf", "label": "tolak", "family": "berisik", "asal": "tolong buat email permintaan maaf"}
+{"message": "buatkkan slogan untuk toko roit", "label": "tolak", "family": "berisik", "asal": "buatkan slogan untuk toko roti"}
+{"message": "buatkan slgoan utuk toko roti", "label": "tolak", "family": "berisik", "asal": "buatkan slogan untuk toko roti"}
+{"message": "tolong buatkan slogan untuk toko roti", "label": "tolak", "family": "berisik", "asal": "buatkan slogan untuk toko roti"}
+{"message": "halo, karang lagu tentang persahabatan", "label": "tolak", "family": "berisik", "asal": "karang lagu tentang persahabatan"}
+{"message": "karang lagu tentang persahabatan maksih", "label": "tolak", "family": "berisik", "asal": "karang lagu tentang persahabatan"}
+{"message": "karang lagu tentang persahabatan dong", "label": "tolak", "family": "berisik", "asal": "karang lagu tentang persahabatan"}
+{"message": "tulis cerita pendek tentang kuciing", "label": "tolak", "family": "berisik", "asal": "tulis cerita pendek tentang kucing"}
+{"message": "tulis cerita pendek tentang kuucing", "label": "tolak", "family": "berisik", "asal": "tulis cerita pendek tentang kucing"}
+{"message": "tuils creita pendek tentang kucing", "label": "tolak", "family": "berisik", "asal": "tulis cerita pendek tentang kucing"}
+{"message": "halo, ubah kaliat ini ke bahasa Jawa: apa kabar", "label": "tolak", "family": "berisik", "asal": "ubah kalimat ini ke bahasa Jawa: apa kabar"}
+{"message": "ubah kalimat ini ke bahasa Jawa: apa kbar", "label": "tolak", "family": "berisik", "asal": "ubah kalimat ini ke bahasa Jawa: apa kabar"}
+{"message": "tolong ubah kalimat ini ke bahasa Jawa: apa kabar", "label": "tolak", "family": "berisik", "asal": "ubah kalimat ini ke bahasa Jawa: apa kabar"}
+{"message": "susun piadto singgkat untuk wisuda", "label": "tolak", "family": "berisik", "asal": "susun pidato singkat untuk wisuda"}
+{"message": "susun pidato siingkat untuk wisuda", "label": "tolak", "family": "berisik", "asal": "susun pidato singkat untuk wisuda"}
+{"message": "susun pidato singkat utnuk wisuda dng", "label": "tolak", "family": "berisik", "asal": "susun pidato singkat untuk wisuda"}
+{"message": "bisa susunlah angka 14 3 9 dari yaang kecil dong", "label": "urut", "family": "berisik", "asal": "susunlah angka 14 3 9 dari yang kecil"}
+{"message": "susunlah angka 14 3 9 dari yang keicl", "label": "urut", "family": "berisik", "asal": "susunlah angka 14 3 9 dari yang kecil"}
+{"message": "susunlah angka 14 3 9 dari yang kecil dong", "label": "urut", "family": "berisik", "asal": "susunlah angka 14 3 9 dari yang kecil"}
+{"message": "urutkan secarra menurun: 8 22 5 17", "label": "urut", "family": "berisik", "asal": "urutkan secara menurun: 8 22 5 17"}
+{"message": "urutkna secara menurun: 8 22 5 17", "label": "urut", "family": "berisik", "asal": "urutkan secara menurun: 8 22 5 17"}
+{"message": "urutakn seara menurun: 8 22 5 17", "label": "urut", "family": "berisik", "asal": "urutkan secara menurun: 8 22 5 17"}
+{"message": "mohon sortri nilai 70 85 60", "label": "urut", "family": "berisik", "asal": "mohon sortir nilai 70 85 60"}
+{"message": "mohon sortir niali 70 85 60", "label": "urut", "family": "berisik", "asal": "mohon sortir nilai 70 85 60"}
+{"message": "min mohon sortir nilai 70 85 60", "label": "urut", "family": "berisik", "asal": "mohon sortir nilai 70 85 60"}
+{"message": "bantu tolong rapikan deretan angka 5 1 4 2", "label": "urut", "family": "berisik", "asal": "tolong rapikan deretan angka 5 1 4 2"}
+{"message": "tolong rapiikan dreetan angka 5 1 4 2 makasih", "label": "urut", "family": "berisik", "asal": "tolong rapikan deretan angka 5 1 4 2"}
+{"message": "tolng rapikan deretan angka 5 1 4 2", "label": "urut", "family": "berisik", "asal": "tolong rapikan deretan angka 5 1 4 2"}
+{"message": "mohon angka-angka ini disusun naik ya: 31 7 19", "label": "urut", "family": "berisik", "asal": "angka-angka ini disusun naik ya: 31 7 19"}
+{"message": "permisi, angka-angka ini disusun naik ya: 31 7 19", "label": "urut", "family": "berisik", "asal": "angka-angka ini disusun naik ya: 31 7 19"}
+{"message": "mohon angka-angka ini dissuun naik ya: 31 7 19", "label": "urut", "family": "berisik", "asal": "angka-angka ini disusun naik ya: 31 7 19"}
+{"message": "eh urutkan tigga empat dua plase", "label": "urut", "family": "berisik", "asal": "urutkan tiga empat dua"}
+{"message": "uruktan tiga empat dua", "label": "urut", "family": "berisik", "asal": "urutkan tiga empat dua"}
+{"message": "halo, urutkan tiga empat dua", "label": "urut", "family": "berisik", "asal": "urutkan tiga empat dua"}
+{"message": "bantu buat urutan terbesar ke terkecil dari 6 18 11", "label": "urut", "family": "berisik", "asal": "buat urutan terbesar ke terkecil dari 6 18 11"}
+{"message": "buat urutan teerbesar ke terkecil dari 6 18 11", "label": "urut", "family": "berisik", "asal": "buat urutan terbesar ke terkecil dari 6 18 11"}
+{"message": "buat uruan terbesar ke terkecil dari 6 18 11", "label": "urut", "family": "berisik", "asal": "buat urutan terbesar ke terkecil dari 6 18 11"}
+{"message": "sotr 9 3 7 1", "label": "urut", "family": "berisik", "asal": "sort 9 3 7 1"}
+{"message": "sot 9 3 7 1 ya kak", "label": "urut", "family": "berisik", "asal": "sort 9 3 7 1"}
+{"message": "srot 9 3 7 1", "label": "urut", "family": "berisik", "asal": "sort 9 3 7 1"}
+{"message": "tolong diurutkan dari kecil: 50 40 45", "label": "urut", "family": "berisik", "asal": "diurutkan dari kecil: 50 40 45"}
+{"message": "diurutakn dari kecil: 50 40 45", "label": "urut", "family": "berisik", "asal": "diurutkan dari kecil: 50 40 45"}
+{"message": "durutkan daari kecil: 50 40 45", "label": "urut", "family": "berisik", "asal": "diurutkan dari kecil: 50 40 45"}
+{"message": "mengrutkan agnka di catatan 2 dari terbesar", "label": "urut", "family": "berisik", "asal": "mengurutkan angka di catatan 2 dari terbesar"}
+{"message": "mengurutkan angka di catatan 2 dair terbesar", "label": "urut", "family": "berisik", "asal": "mengurutkan angka di catatan 2 dari terbesar"}
+{"message": "permisi, mengurutkan angka di catatan 2 dari terbesar", "label": "urut", "family": "berisik", "asal": "mengurutkan angka di catatan 2 dari terbesar"}
+{"message": "berapa 45 dibagi 9 ya min", "label": "hitung", "family": "berisik", "asal": "berapa 45 dibagi 9"}
+{"message": "kak beraap 45 dbiagi 9", "label": "hitung", "family": "berisik", "asal": "berapa 45 dibagi 9"}
+{"message": "beerapa 45 dibagi 9", "label": "hitung", "family": "berisik", "asal": "berapa 45 dibagi 9"}
+{"message": "hitung 18 diali 3", "label": "hitung", "family": "berisik", "asal": "hitung 18 dikali 3"}
+{"message": "hitugn 18 diklai 3 nih", "label": "hitung", "family": "berisik", "asal": "hitung 18 dikali 3"}
+{"message": "mohon hitung 18 dikali 3", "label": "hitung", "family": "berisik", "asal": "hitung 18 dikali 3"}
+{"message": "tolong tambahkan 120 dengan 80", "label": "hitung", "family": "berisik", "asal": "tambahkan 120 dengan 80"}
+{"message": "tambhkan 120 denan 80", "label": "hitung", "family": "berisik", "asal": "tambahkan 120 dengan 80"}
+{"message": "mohon tambahkan 120 dengan 80", "label": "hitung", "family": "berisik", "asal": "tambahkan 120 dengan 80"}
+{"message": "kuraangi 500 dengan 125", "label": "hitung", "family": "berisik", "asal": "kurangi 500 dengan 125"}
+{"message": "kuarngi 500 dengan 125", "label": "hitung", "family": "berisik", "asal": "kurangi 500 dengan 125"}
+{"message": "eh kruangi 500 dengan 125 ya", "label": "hitung", "family": "berisik", "asal": "kurangi 500 dengan 125"}
+{"message": "kailkan 12 dengna 12", "label": "hitung", "family": "berisik", "asal": "kalikan 12 dengan 12"}
+{"message": "kalikan 12 dengna 12", "label": "hitung", "family": "berisik", "asal": "kalikan 12 dengan 12"}
+{"message": "toolong kalikan 12 denggan 12 makasih", "label": "hitung", "family": "berisik", "asal": "kalikan 12 dengan 12"}
+{"message": "spuluh ditabmah lima belas", "label": "hitung", "family": "berisik", "asal": "sepuluh ditambah lima belas"}
+{"message": "sepuluh ditambah lima belas ya kak", "label": "hitung", "family": "berisik", "asal": "sepuluh ditambah lima belas"}
+{"message": "permisi, sepuluh ditamabh lmia belas", "label": "hitung", "family": "berisik", "asal": "sepuluh ditambah lima belas"}
+{"message": "mohon berapa 3 pangkat 4", "label": "hitung", "family": "berisik", "asal": "berapa 3 pangkat 4"}
+{"message": "berapa 3 pankgat 4", "label": "hitung", "family": "berisik", "asal": "berapa 3 pangkat 4"}
+{"message": "berrapa 3 pangkta 4", "label": "hitung", "family": "berisik", "asal": "berapa 3 pangkat 4"}
+{"message": "ttoal drai 7 dan 15 dan 20 berapa", "label": "hitung", "family": "berisik", "asal": "total dari 7 dan 15 dan 20 berapa"}
+{"message": "toatl dari 7 dan 15 dan 20 beraapa", "label": "hitung", "family": "berisik", "asal": "total dari 7 dan 15 dan 20 berapa"}
+{"message": "kak total dari 7 dan 15 dan 20 berapa", "label": "hitung", "family": "berisik", "asal": "total dari 7 dan 15 dan 20 berapa"}
+{"message": "hail 64 dibagi 8 berapa", "label": "hitung", "family": "berisik", "asal": "hasil 64 dibagi 8 berapa"}
+{"message": "hasil 64 dibagi 8 brapa please", "label": "hitung", "family": "berisik", "asal": "hasil 64 dibagi 8 berapa"}
+{"message": "hasil 64 dbagi 8 berappa", "label": "hitung", "family": "berisik", "asal": "hasil 64 dibagi 8 berapa"}
+{"message": "bantu kalau 250 dikurangi 75 sisa berapa", "label": "hitung", "family": "berisik", "asal": "kalau 250 dikurangi 75 sisa berapa"}
+{"message": "kalau 250 dikurngi 75 sisa berapa mkaasih", "label": "hitung", "family": "berisik", "asal": "kalau 250 dikurangi 75 sisa berapa"}
+{"message": "kak kalau 250 dikurangi 75 sisa berapa", "label": "hitung", "family": "berisik", "asal": "kalau 250 dikurangi 75 sisa berapa"}
+{"message": "hai apa 5 Januari 2026", "label": "tanggal", "family": "berisik", "asal": "hari apa 5 Januari 2026"}
+{"message": "hai apa 5 janauri 2026", "label": "tanggal", "family": "berisik", "asal": "hari apa 5 Januari 2026"}
+{"message": "hari apa 5 Jnauari 2026", "label": "tanggal", "family": "berisik", "asal": "hari apa 5 Januari 2026"}
+{"message": "tanggal 17 Agustus 2026 jatuh hrai apakah", "label": "tanggal", "family": "berisik", "asal": "tanggal 17 Agustus 2026 jatuh hari apakah"}
+{"message": "tanggal 17 agustus 2026 jatuh hari apakah", "label": "tanggal", "family": "berisik", "asal": "tanggal 17 Agustus 2026 jatuh hari apakah"}
+{"message": "tanggal 17 agustus 2026 jathu hari apakah", "label": "tanggal", "family": "berisik", "asal": "tanggal 17 Agustus 2026 jatuh hari apakah"}
+{"message": "sellisih 1 April 2026 dan 1 Jnui 2026", "label": "tanggal", "family": "berisik", "asal": "selisih 1 April 2026 dan 1 Juni 2026"}
+{"message": "selisih 1 april 2026 dan 1 jui 2026", "label": "tanggal", "family": "berisik", "asal": "selisih 1 April 2026 dan 1 Juni 2026"}
+{"message": "sellisih 1 april 2026 dan 1 jni 2026", "label": "tanggal", "family": "berisik", "asal": "selisih 1 April 2026 dan 1 Juni 2026"}
+{"message": "mohon berapa hari darri 10 Februari 2026 sampai 10 Maret 2026", "label": "tanggal", "family": "berisik", "asal": "berapa hari dari 10 Februari 2026 sampai 10 Maret 2026"}
+{"message": "berapa hari dari 10 februari 2026 sampai 10 maret 2026", "label": "tanggal", "family": "berisik", "asal": "berapa hari dari 10 Februari 2026 sampai 10 Maret 2026"}
+{"message": "berapa hari dari 10 februari 2026 sampai 10 maret 2026 deh", "label": "tanggal", "family": "berisik", "asal": "berapa hari dari 10 Februari 2026 sampai 10 Maret 2026"}
+{"message": "halo, berapa lama dari 1 Juli 2025 hingga 1 Oktober 2025", "label": "tanggal", "family": "berisik", "asal": "berapa lama dari 1 Juli 2025 hingga 1 Oktober 2025"}
+{"message": "beapa lma dari 1 Juli 2025 hingga 1 Oktober 2025", "label": "tanggal", "family": "berisik", "asal": "berapa lama dari 1 Juli 2025 hingga 1 Oktober 2025"}
+{"message": "berapa lama dari 1 juli 2025 hingga 1 otkober 2025 dong", "label": "tanggal", "family": "berisik", "asal": "berapa lama dari 1 Juli 2025 hingga 1 Oktober 2025"}
+{"message": "eh jarak 3 mei 2026 ke 3 juni 2026 berapa hari", "label": "tanggal", "family": "berisik", "asal": "jarak 3 Mei 2026 ke 3 Juni 2026 berapa hari"}
+{"message": "jark 3 Mei 2026 ke 3 Jnui 2026 berapa hari", "label": "tanggal", "family": "berisik", "asal": "jarak 3 Mei 2026 ke 3 Juni 2026 berapa hari"}
+{"message": "jaark 3 Mei 2026 ke 3 Juni 2026 berapa hari", "label": "tanggal", "family": "berisik", "asal": "jarak 3 Mei 2026 ke 3 Juni 2026 berapa hari"}
+{"message": "25 Deseber 2026 itu hari apa", "label": "tanggal", "family": "berisik", "asal": "25 Desember 2026 itu hari apa"}
+{"message": "25 Desember 2026 itu haari apa", "label": "tanggal", "family": "berisik", "asal": "25 Desember 2026 itu hari apa"}
+{"message": "25 Desember 2026 itu hai apa", "label": "tanggal", "family": "berisik", "asal": "25 Desember 2026 itu hari apa"}
+{"message": "rentang 15 agustus 2026 sampai 15 september 2026 berpa hari", "label": "tanggal", "family": "berisik", "asal": "rentang 15 Agustus 2026 sampai 15 September 2026 berapa hari"}
+{"message": "halo, rentang 15 agustus 2026 samapi 15 septemebr 2026 brp hari", "label": "tanggal", "family": "berisik", "asal": "rentang 15 Agustus 2026 sampai 15 September 2026 berapa hari"}
+{"message": "rentang 15 Agustuus 2026 sampai 15 September 2026 berapa hari", "label": "tanggal", "family": "berisik", "asal": "rentang 15 Agustus 2026 sampai 15 September 2026 berapa hari"}
+{"message": "bisa hari apakah 1 Januari 2027", "label": "tanggal", "family": "berisik", "asal": "hari apakah 1 Januari 2027"}
+{"message": "harri apaakah 1 januari 2027", "label": "tanggal", "family": "berisik", "asal": "hari apakah 1 Januari 2027"}
+{"message": "hari apakah 1 Januari 2027 makasih", "label": "tanggal", "family": "berisik", "asal": "hari apakah 1 Januari 2027"}
+{"message": "bisa beda berapa hari 8 maret 2026 dengan 8 april 2026", "label": "tanggal", "family": "berisik", "asal": "beda berapa hari 8 Maret 2026 dengan 8 April 2026"}
+{"message": "beda berapa hari 8 maret 2026 dengan 8 april 2026", "label": "tanggal", "family": "berisik", "asal": "beda berapa hari 8 Maret 2026 dengan 8 April 2026"}
+{"message": "beda beraap hari 8 maret 2026 dengan 8 april 2026 ya", "label": "tanggal", "family": "berisik", "asal": "beda berapa hari 8 Maret 2026 dengan 8 April 2026"}
+{"message": "coba Siapa yang menyusun jadwal rapat?", "label": "cari", "family": "berisik", "asal": "Siapa yang menyusun jadwal rapat?"}
+{"message": "siapa yang menyusun jdwal rapat", "label": "cari", "family": "berisik", "asal": "Siapa yang menyusun jadwal rapat?"}
+{"message": "Siaapa yang menyusun jadwl rapat?", "label": "cari", "family": "berisik", "asal": "Siapa yang menyusun jadwal rapat?"}
+{"message": "berpaa total biya rapat tim?", "label": "cari", "family": "berisik", "asal": "Berapa total biaya rapat tim?"}
+{"message": "Breapa total biaya rapat tim", "label": "cari", "family": "berisik", "asal": "Berapa total biaya rapat tim?"}
+{"message": "berapa total biaya rapat tim?", "label": "cari", "family": "berisik", "asal": "Berapa total biaya rapat tim?"}
+{"message": "kapan bu rina pinndah ke bekasi", "label": "cari", "family": "berisik", "asal": "Kapan Bu Rina pindah ke Bekasi?"}
+{"message": "kapan bu rina pindah ke bekasi", "label": "cari", "family": "berisik", "asal": "Kapan Bu Rina pindah ke Bekasi?"}
+{"message": "kapan bu rnia piindah ke bekasi?", "label": "cari", "family": "berisik", "asal": "Kapan Bu Rina pindah ke Bekasi?"}
+{"message": "banttu di mnaa kunci gudang disimpan?", "label": "cari", "family": "berisik", "asal": "Di mana kunci gudang disimpan?"}
+{"message": "mohon Di mana kunci guudang disimpan makaish", "label": "cari", "family": "berisik", "asal": "Di mana kunci gudang disimpan?"}
+{"message": "tolong Di mana kunci gudang disimpan?", "label": "cari", "family": "berisik", "asal": "Di mana kunci gudang disimpan?"}
+{"message": "eh apa nama isti pak joko", "label": "cari", "family": "berisik", "asal": "Apa nama istri Pak Joko?"}
+{"message": "apa naa istri pak joko", "label": "cari", "family": "berisik", "asal": "Apa nama istri Pak Joko?"}
+{"message": "Apa nama istri Pak Joko", "label": "cari", "family": "berisik", "asal": "Apa nama istri Pak Joko?"}
+{"message": "kak siapa ynag menulis lapoarn keuangan", "label": "cari", "family": "berisik", "asal": "Siapa yang menulis laporan keuangan?"}
+{"message": "bisa Sapa yng menulis laporan keuangan", "label": "cari", "family": "berisik", "asal": "Siapa yang menulis laporan keuangan?"}
+{"message": "siapa yang menulis laporan keuangan", "label": "cari", "family": "berisik", "asal": "Siapa yang menulis laporan keuangan?"}
+{"message": "Berpaa uumr Bu Ratna makasih", "label": "cari", "family": "berisik", "asal": "Berapa umur Bu Ratna?"}
+{"message": "berapa umur bu ratna ya kak", "label": "cari", "family": "berisik", "asal": "Berapa umur Bu Ratna?"}
+{"message": "berapa umur bu ratna?", "label": "cari", "family": "berisik", "asal": "Berapa umur Bu Ratna?"}
+{"message": "apa isi catatan 1", "label": "cari", "family": "berisik", "asal": "Apa isi catatan 1?"}
+{"message": "Apa isi cattan 1?", "label": "cari", "family": "berisik", "asal": "Apa isi catatan 1?"}
+{"message": "bantu Apa isi catatan 1", "label": "cari", "family": "berisik", "asal": "Apa isi catatan 1?"}
+{"message": "Hari apa rapta evaluasi diadakan?", "label": "cari", "family": "berisik", "asal": "Hari apa rapat evaluasi diadakan?"}
+{"message": "hari apa rapat evaluasi diadakan?", "label": "cari", "family": "berisik", "asal": "Hari apa rapat evaluasi diadakan?"}
+{"message": "coba Hari apa rapat evaluasi diadakan?", "label": "cari", "family": "berisik", "asal": "Hari apa rapat evaluasi diadakan?"}
+{"message": "eh Tugas apa yanng dikerjakan Dimas", "label": "cari", "family": "berisik", "asal": "Tugas apa yang dikerjakan Dimas?"}
+{"message": "Tugas apa yg dikerjakan Diams makkasih", "label": "cari", "family": "berisik", "asal": "Tugas apa yang dikerjakan Dimas?"}
+{"message": "tugas apa yang dikerjakan dimas", "label": "cari", "family": "berisik", "asal": "Tugas apa yang dikerjakan Dimas?"}
+{"message": "permisi, selamat soe", "label": "sapaan", "family": "berisik", "asal": "selamat sore"}
+{"message": "sellamat sore", "label": "sapaan", "family": "berisik", "asal": "selamat sore"}
+{"message": "eh selamat sore", "label": "sapaan", "family": "berisik", "asal": "selamat sore"}
+{"message": "banntu hai semuanya ya", "label": "sapaan", "family": "berisik", "asal": "hai semuanya"}
+{"message": "hai seumanya", "label": "sapaan", "family": "berisik", "asal": "hai semuanya"}
+{"message": "eh hai semuana", "label": "sapaan", "family": "berisik", "asal": "hai semuanya"}
+{"message": "hao apa kaar", "label": "sapaan", "family": "berisik", "asal": "halo apa kabar"}
+{"message": "halo, halo apa kabar", "label": "sapaan", "family": "berisik", "asal": "halo apa kabar"}
+{"message": "halo apa kaar ya", "label": "sapaan", "family": "berisik", "asal": "halo apa kabar"}
+{"message": "permisi, terima kasih please", "label": "sapaan", "family": "berisik", "asal": "terima kasih"}
+{"message": "trima kash", "label": "sapaan", "family": "berisik", "asal": "terima kasih"}
+{"message": "coba terima kasih", "label": "sapaan", "family": "berisik", "asal": "terima kasih"}
+{"message": "maksih ya", "label": "sapaan", "family": "berisik", "asal": "makasih ya"}
+{"message": "makaish ya", "label": "sapaan", "family": "berisik", "asal": "makasih ya"}
+{"message": "maasih ya", "label": "sapaan", "family": "berisik", "asal": "makasih ya"}
+{"message": "kak selamat datang", "label": "sapaan", "family": "berisik", "asal": "selamat datang"}
+{"message": "sleamat datang", "label": "sapaan", "family": "berisik", "asal": "selamat datang"}
+{"message": "selamat datanng", "label": "sapaan", "family": "berisik", "asal": "selamat datang"}
+{"message": "bisa hi", "label": "sapaan", "family": "berisik", "asal": "hi"}
+{"message": "permisi, hi", "label": "sapaan", "family": "berisik", "asal": "hi"}
+{"message": "bantu hi", "label": "sapaan", "family": "berisik", "asal": "hi"}
+{"message": "eh assalamu'alaikum", "label": "sapaan", "family": "berisik", "asal": "assalamu'alaikum"}
+{"message": "min assalamu'alaikum", "label": "sapaan", "family": "berisik", "asal": "assalamu'alaikum"}
+{"message": "assalamu'alaikum makasih", "label": "sapaan", "family": "berisik", "asal": "assalamu'alaikum"}
+{"message": "slam", "label": "sapaan", "family": "berisik", "asal": "salam"}
+{"message": "permisi, salam", "label": "sapaan", "family": "berisik", "asal": "salam"}
+{"message": "tolong salam", "label": "sapaan", "family": "berisik", "asal": "salam"}
+{"message": "thansk a lot", "label": "sapaan", "family": "berisik", "asal": "thanks a lot"}
+{"message": "thanks a lot ya", "label": "sapaan", "family": "berisik", "asal": "thanks a lot"}
+{"message": "thaks a lot", "label": "sapaan", "family": "berisik", "asal": "thanks a lot"}
+{"message": "tuliskan cerita tenatng naga makasih", "label": "tolak", "family": "berisik", "asal": "tuliskan cerita tentang naga"}
+{"message": "eh tuliskan creita tentang naga", "label": "tolak", "family": "berisik", "asal": "tuliskan cerita tentang naga"}
+{"message": "tuliskan cerrita tentang naga", "label": "tolak", "family": "berisik", "asal": "tuliskan cerita tentang naga"}
+{"message": "eh buatkan piusi untuk ibu", "label": "tolak", "family": "berisik", "asal": "buatkan puisi untuk ibu"}
+{"message": "buatkan piusi untku ibu ya min", "label": "tolak", "family": "berisik", "asal": "buatkan puisi untuk ibu"}
+{"message": "bntu bautkan puisi untuk ibu", "label": "tolak", "family": "berisik", "asal": "buatkan puisi untuk ibu"}
+{"message": "halo, terjemahkan 'terima kasih' ke bahasa Inggris please", "label": "tolak", "family": "berisik", "asal": "terjemahkan 'terima kasih' ke bahasa Inggris"}
+{"message": "terjemahkan 'terima kasih' ke baasa Inggris", "label": "tolak", "family": "berisik", "asal": "terjemahkan 'terima kasih' ke bahasa Inggris"}
+{"message": "terjemahkan 'terima kasih' ke bahasa inggris", "label": "tolak", "family": "berisik", "asal": "terjemahkan 'terima kasih' ke bahasa Inggris"}
+{"message": "eh rangkum isi dokumen tadi", "label": "tolak", "family": "berisik", "asal": "rangkum isi dokumen tadi"}
+{"message": "rangkum isi dokumen tadi ya", "label": "tolak", "family": "berisik", "asal": "rangkum isi dokumen tadi"}
+{"message": "rangkum isi doukmen tadi", "label": "tolak", "family": "berisik", "asal": "rangkum isi dokumen tadi"}
+{"message": "tolong tulis pegumuman rappat", "label": "tolak", "family": "berisik", "asal": "tolong tulis pengumuman rapat"}
+{"message": "toolng tulis pengumuman rapat", "label": "tolak", "family": "berisik", "asal": "tolong tulis pengumuman rapat"}
+{"message": "toong tulis pengumuman rapat", "label": "tolak", "family": "berisik", "asal": "tolong tulis pengumuman rapat"}
+{"message": "karang panttun tentang sekolah", "label": "tolak", "family": "berisik", "asal": "karang pantun tentang sekolah"}
+{"message": "karrang pantun tentang sekolah", "label": "tolak", "family": "berisik", "asal": "karang pantun tentang sekolah"}
+{"message": "karag pantun tentang sekolah deh", "label": "tolak", "family": "berisik", "asal": "karang pantun tentang sekolah"}
+{"message": "cerittakan kisah malin kuundang", "label": "tolak", "family": "berisik", "asal": "ceritakan kisah Malin Kundang"}
+{"message": "permisi, ceritakan kisah malin kundang", "label": "tolak", "family": "berisik", "asal": "ceritakan kisah Malin Kundang"}
+{"message": "bantu ceritakan kisah Malin Kundang", "label": "tolak", "family": "berisik", "asal": "ceritakan kisah Malin Kundang"}
+{"message": "susun surat izin sakit untuk aank saaya", "label": "tolak", "family": "berisik", "asal": "susun surat izin sakit untuk anak saya"}
+{"message": "mohon susun surat izin sakit untuk anak saya", "label": "tolak", "family": "berisik", "asal": "susun surat izin sakit untuk anak saya"}
+{"message": "susun suat izin sakit untuk anak saya", "label": "tolak", "family": "berisik", "asal": "susun surat izin sakit untuk anak saya"}
+{"message": "halo, ubah teks ini menjadi lebih sopan", "label": "tolak", "family": "berisik", "asal": "ubah teks ini menjadi lebih sopan"}
+{"message": "ubah teks ini mnjadi lebih sopna", "label": "tolak", "family": "berisik", "asal": "ubah teks ini menjadi lebih sopan"}
+{"message": "ubah teks ini menjadi lebih sopan ya min", "label": "tolak", "family": "berisik", "asal": "ubah teks ini menjadi lebih sopan"}
+{"message": "min buat datfar belana mingguan", "label": "tolak", "family": "berisik", "asal": "buat daftar belanja mingguan"}
+{"message": "baut daftar belanja mingguan", "label": "tolak", "family": "berisik", "asal": "buat daftar belanja mingguan"}
+{"message": "buat daftra belanja mingguan", "label": "tolak", "family": "berisik", "asal": "buat daftar belanja mingguan"}
+{"message": "mohon diurutkan dari agnka paling kecil: 17 4 29", "label": "urut", "family": "berisik", "asal": "mohon diurutkan dari angka paling kecil: 17 4 29"}
+{"message": "halo, mohon diurutkan dari angka paling kecil: 17 4 29", "label": "urut", "family": "berisik", "asal": "mohon diurutkan dari angka paling kecil: 17 4 29"}
+{"message": "mohon diurutkan dari angka pling kecil: 17 4 29", "label": "urut", "family": "berisik", "asal": "mohon diurutkan dari angka paling kecil: 17 4 29"}
+{"message": "halo, angka 3 8 1 toolong disusun besar ke kecil", "label": "urut", "family": "berisik", "asal": "angka 3 8 1 tolong disusun besar ke kecil"}
+{"message": "angka 3 8 1 tolong disusun beasr ke kceil", "label": "urut", "family": "berisik", "asal": "angka 3 8 1 tolong disusun besar ke kecil"}
+{"message": "tolong angka 3 8 1 tolong disusun besar ke kecil", "label": "urut", "family": "berisik", "asal": "angka 3 8 1 tolong disusun besar ke kecil"}
+{"message": "eh susun meunrun 21 6 14", "label": "urut", "family": "berisik", "asal": "susun menurun 21 6 14"}
+{"message": "susun menurun 21 6 14 makasih", "label": "urut", "family": "berisik", "asal": "susun menurun 21 6 14"}
+{"message": "susun menurun 21 6 14 ya", "label": "urut", "family": "berisik", "asal": "susun menurun 21 6 14"}
+{"message": "sotrir bilanggan sembilan dua tujuh", "label": "urut", "family": "berisik", "asal": "sortir bilangan sembilan dua tujuh"}
+{"message": "sortir bilangan sembilan dua tujhu", "label": "urut", "family": "berisik", "asal": "sortir bilangan sembilan dua tujuh"}
+{"message": "halo, sortir bilangan sembilan dua tujuh", "label": "urut", "family": "berisik", "asal": "sortir bilangan sembilan dua tujuh"}
+{"message": "urutkan nilai ujian 88 92 75 dai terbesar makasih", "label": "urut", "family": "berisik", "asal": "urutkan nilai ujian 88 92 75 dari terbesar"}
+{"message": "halo, uruktan nilai ujian 88 92 75 dari terbesar", "label": "urut", "family": "berisik", "asal": "urutkan nilai ujian 88 92 75 dari terbesar"}
+{"message": "urutkan nilai ujina 88 92 75 dai terbesar", "label": "urut", "family": "berisik", "asal": "urutkan nilai ujian 88 92 75 dari terbesar"}
+{"message": "min rapikan angka 12 3 45", "label": "urut", "family": "berisik", "asal": "rapikan angka 12 3 45"}
+{"message": "raikan anggka 12 3 45", "label": "urut", "family": "berisik", "asal": "rapikan angka 12 3 45"}
+{"message": "raipkan angkka 12 3 45", "label": "urut", "family": "berisik", "asal": "rapikan angka 12 3 45"}
+{"message": "tolong urukan 100 50 75 secaara menaik ya min", "label": "urut", "family": "berisik", "asal": "tolong urutkan 100 50 75 secara menaik"}
+{"message": "tolong urutkan 100 50 75 secara menaik ya min", "label": "urut", "family": "berisik", "asal": "tolong urutkan 100 50 75 secara menaik"}
+{"message": "tolong urutkan 100 50 75 secaar meanik", "label": "urut", "family": "berisik", "asal": "tolong urutkan 100 50 75 secara menaik"}
+{"message": "urrutan nik dari 9 2 5 nih", "label": "urut", "family": "berisik", "asal": "urutan naik dari 9 2 5"}
+{"message": "urutan naik darri 9 2 5", "label": "urut", "family": "berisik", "asal": "urutan naik dari 9 2 5"}
+{"message": "eh urutan naik dari 9 2 5 ya", "label": "urut", "family": "berisik", "asal": "urutan naik dari 9 2 5"}
+{"message": "berurutan dari keciil ke besar: 4 8 6", "label": "urut", "family": "berisik", "asal": "berurutan dari kecil ke besar: 4 8 6"}
+{"message": "berurtan darri kecil ke besar: 4 8 6", "label": "urut", "family": "berisik", "asal": "berurutan dari kecil ke besar: 4 8 6"}
+{"message": "beruruatn drai kecil ke besar: 4 8 6", "label": "urut", "family": "berisik", "asal": "berurutan dari kecil ke besar: 4 8 6"}
+{"message": "tolong uruttkan angka di catatan terakhir", "label": "urut", "family": "berisik", "asal": "urutkan angka di catatan terakhir"}
+{"message": "urutkan agnka di catatan terakhir", "label": "urut", "family": "berisik", "asal": "urutkan angka di catatan terakhir"}
+{"message": "tolong urutkan anggka di catatan terakhir", "label": "urut", "family": "berisik", "asal": "urutkan angka di catatan terakhir"}
+{"message": "coba berapa hasil 81 dibagi 9", "label": "hitung", "family": "berisik", "asal": "berapa hasil 81 dibagi 9"}
+{"message": "halo, berapa hasil 81 dibagi 9", "label": "hitung", "family": "berisik", "asal": "berapa hasil 81 dibagi 9"}
+{"message": "kak berapa hasil 81 dibagi 9", "label": "hitung", "family": "berisik", "asal": "berapa hasil 81 dibagi 9"}
+{"message": "coba 30 dikali 4 sama dengan berapa", "label": "hitung", "family": "berisik", "asal": "30 dikali 4 sama dengan berapa"}
+{"message": "30 dkali 4 sama dengan berapa ya kak", "label": "hitung", "family": "berisik", "asal": "30 dikali 4 sama dengan berapa"}
+{"message": "30 diali 4 sma dengan berapa", "label": "hitung", "family": "berisik", "asal": "30 dikali 4 sama dengan berapa"}
+{"message": "bisa berapa 1000 dikurangi 250", "label": "hitung", "family": "berisik", "asal": "berapa 1000 dikurangi 250"}
+{"message": "permisi, beerapa 1000 dikurangi 250", "label": "hitung", "family": "berisik", "asal": "berapa 1000 dikurangi 250"}
+{"message": "berapa 1000 dikurangi 250 dong", "label": "hitung", "family": "berisik", "asal": "berapa 1000 dikurangi 250"}
+{"message": "tolog hitung 6 pangkt 3", "label": "hitung", "family": "berisik", "asal": "tolong hitung 6 pangkat 3"}
+{"message": "tolong hitung 6 pangkat 3 ya kak", "label": "hitung", "family": "berisik", "asal": "tolong hitung 6 pangkat 3"}
+{"message": "tolong hitung 6 pankgat 3", "label": "hitung", "family": "berisik", "asal": "tolong hitung 6 pangkat 3"}
+{"message": "permisi, julmahkan 15 dan 35", "label": "hitung", "family": "berisik", "asal": "jumlahkan 15 dan 35"}
+{"message": "permisi, jumlahkan 15 dan 35 ya kak", "label": "hitung", "family": "berisik", "asal": "jumlahkan 15 dan 35"}
+{"message": "jumahkan 15 dan 35", "label": "hitung", "family": "berisik", "asal": "jumlahkan 15 dan 35"}
+{"message": "kalu 2 ditambah 2 ditambah 2 berapa", "label": "hitung", "family": "berisik", "asal": "kalau 2 ditambah 2 ditambah 2 berapa"}
+{"message": "mohon kalau 2 ditambah 2 ditambah 2 berapa", "label": "hitung", "family": "berisik", "asal": "kalau 2 ditambah 2 ditambah 2 berapa"}
+{"message": "kalau 2 ditambah 2 diatmbah 2 berapa", "label": "hitung", "family": "berisik", "asal": "kalau 2 ditambah 2 ditambah 2 berapa"}
+{"message": "banttu berapa tiga ratus diakli dua", "label": "hitung", "family": "berisik", "asal": "berapa tiga ratus dikali dua"}
+{"message": "brp tiga ratus dikali dua", "label": "hitung", "family": "berisik", "asal": "berapa tiga ratus dikali dua"}
+{"message": "bantu berapa tiga ratus dikail dua", "label": "hitung", "family": "berisik", "asal": "berapa tiga ratus dikali dua"}
+{"message": "tambahkkan 7 ke 8", "label": "hitung", "family": "berisik", "asal": "tambahkan 7 ke 8"}
+{"message": "tambhkan 7 ke 8 ya", "label": "hitung", "family": "berisik", "asal": "tambahkan 7 ke 8"}
+{"message": "tambahkn 7 ke 8", "label": "hitung", "family": "berisik", "asal": "tambahkan 7 ke 8"}
+{"message": "kuragi 100 olleh 1", "label": "hitung", "family": "berisik", "asal": "kurangi 100 oleh 1"}
+{"message": "coba kurangi 100 oleh 1", "label": "hitung", "family": "berisik", "asal": "kurangi 100 oleh 1"}
+{"message": "bantu kurangi 100 oleh 1", "label": "hitung", "family": "berisik", "asal": "kurangi 100 oleh 1"}
+{"message": "berpa 20 plus 22", "label": "hitung", "family": "berisik", "asal": "berapa 20 plus 22"}
+{"message": "eh brp 20 pllus 22", "label": "hitung", "family": "berisik", "asal": "berapa 20 plus 22"}
+{"message": "berrapa 20 plsu 22", "label": "hitung", "family": "berisik", "asal": "berapa 20 plus 22"}
+{"message": "eh hari apa 12 Desember 2026", "label": "tanggal", "family": "berisik", "asal": "hari apa 12 Desember 2026"}
+{"message": "kak hari apa 12 Dseember 2026 ya min", "label": "tanggal", "family": "berisik", "asal": "hari apa 12 Desember 2026"}
+{"message": "hari apa 12 desember 2026 please", "label": "tanggal", "family": "berisik", "asal": "hari apa 12 Desember 2026"}
+{"message": "tanggal 29 februari 2028 itu hari apa ya min", "label": "tanggal", "family": "berisik", "asal": "tanggal 29 Februari 2028 itu hari apa"}
+{"message": "tanggal 29 februari 2028 itu hari apa nih", "label": "tanggal", "family": "berisik", "asal": "tanggal 29 Februari 2028 itu hari apa"}
+{"message": "mohon tanggal 29 Februari 2028 itu hari apa", "label": "tanggal", "family": "berisik", "asal": "tanggal 29 Februari 2028 itu hari apa"}
+{"message": "selisih 1 agustus 2026 dan 1 september 2026 berapa hari", "label": "tanggal", "family": "berisik", "asal": "selisih 1 Agustus 2026 dan 1 September 2026 berapa hari"}
+{"message": "selisih 1 Agustus 2026 dan 1 September 2026 berpa hari", "label": "tanggal", "family": "berisik", "asal": "selisih 1 Agustus 2026 dan 1 September 2026 berapa hari"}
+{"message": "selish 1 Agustus 2026 dan 1 September 2026 beapa hari", "label": "tanggal", "family": "berisik", "asal": "selisih 1 Agustus 2026 dan 1 September 2026 berapa hari"}
+{"message": "beraap lama 5 Januari 2026 saampai 5 Juli 2026", "label": "tanggal", "family": "berisik", "asal": "berapa lama 5 Januari 2026 sampai 5 Juli 2026"}
+{"message": "min berapa lma 5 januari 2026 sampai 5 juli 2026", "label": "tanggal", "family": "berisik", "asal": "berapa lama 5 Januari 2026 sampai 5 Juli 2026"}
+{"message": "berapa lama 5 Januair 2026 sampai 5 Juli 2026", "label": "tanggal", "family": "berisik", "asal": "berapa lama 5 Januari 2026 sampai 5 Juli 2026"}
+{"message": "jarak 20 junni 2026 dengan 20 jui 2026", "label": "tanggal", "family": "berisik", "asal": "jarak 20 Juni 2026 dengan 20 Juli 2026"}
+{"message": "jarak 20 Junni 2026 dengan 20 Juli 2026", "label": "tanggal", "family": "berisik", "asal": "jarak 20 Juni 2026 dengan 20 Juli 2026"}
+{"message": "jarak 20 Juni 2026 dengan 20 Juli 2026 dogn", "label": "tanggal", "family": "berisik", "asal": "jarak 20 Juni 2026 dengan 20 Juli 2026"}
+{"message": "eh rentang 1 maret 2027 hingga 1 mei 2027 ada berapa hari", "label": "tanggal", "family": "berisik", "asal": "rentang 1 Maret 2027 hingga 1 Mei 2027 ada berapa hari"}
+{"message": "retnang 1 Maret 2027 hingga 1 Mei 2027 ada brapa hari", "label": "tanggal", "family": "berisik", "asal": "rentang 1 Maret 2027 hingga 1 Mei 2027 ada berapa hari"}
+{"message": "rentang 1 mret 2027 hingga 1 mei 2027 ada berapa hari", "label": "tanggal", "family": "berisik", "asal": "rentang 1 Maret 2027 hingga 1 Mei 2027 ada berapa hari"}
+{"message": "klau 31 Oktober 2026 hari apakah", "label": "tanggal", "family": "berisik", "asal": "kalau 31 Oktober 2026 hari apakah"}
+{"message": "kalau 31 oktober 2026 hri apakah makasih", "label": "tanggal", "family": "berisik", "asal": "kalau 31 Oktober 2026 hari apakah"}
+{"message": "kalau 31 oktober 2026 hari apakah", "label": "tanggal", "family": "berisik", "asal": "kalau 31 Oktober 2026 hari apakah"}
+{"message": "mohon beda hari anttara 14 Feruari 2026 dan 14 Maret 2026", "label": "tanggal", "family": "berisik", "asal": "beda hari antara 14 Februari 2026 dan 14 Maret 2026"}
+{"message": "tlg beda hari anttara 14 febrari 2026 dan 14 maret 2026", "label": "tanggal", "family": "berisik", "asal": "beda hari antara 14 Februari 2026 dan 14 Maret 2026"}
+{"message": "beda hari antara 14 februari 2026 dan 14 maret 2026 makasih", "label": "tanggal", "family": "berisik", "asal": "beda hari antara 14 Februari 2026 dan 14 Maret 2026"}
+{"message": "sjeak 17 augstus 2020 sampai 17 agustus 2026 berapa hari", "label": "tanggal", "family": "berisik", "asal": "sejak 17 Agustus 2020 sampai 17 Agustus 2026 berapa hari"}
+{"message": "sejak 17 Agstus 2020 sampai 17 Agustus 2026 berapa hari", "label": "tanggal", "family": "berisik", "asal": "sejak 17 Agustus 2020 sampai 17 Agustus 2026 berapa hari"}
+{"message": "sejak 17 agustus 2020 sampai 17 agustus 2026 berapa hari", "label": "tanggal", "family": "berisik", "asal": "sejak 17 Agustus 2020 sampai 17 Agustus 2026 berapa hari"}
+{"message": "1 Jannuari 2030 jatuh pada hari apa", "label": "tanggal", "family": "berisik", "asal": "1 Januari 2030 jatuh pada hari apa"}
+{"message": "1 januari 2030 jatuuh pada hari apa", "label": "tanggal", "family": "berisik", "asal": "1 Januari 2030 jatuh pada hari apa"}
+{"message": "kak 1 Januari 2030 jatuh pda hai apa", "label": "tanggal", "family": "berisik", "asal": "1 Januari 2030 jatuh pada hari apa"}
+{"message": "Siapa yang membuat laporan bulanan", "label": "cari", "family": "berisik", "asal": "Siapa yang membuat laporan bulanan?"}
+{"message": "tolong saipa yang membuta laporan bulanan?", "label": "cari", "family": "berisik", "asal": "Siapa yang membuat laporan bulanan?"}
+{"message": "Siapa yg membuat laporan bulanan?", "label": "cari", "family": "berisik", "asal": "Siapa yang membuat laporan bulanan?"}
+{"message": "Berpa jumlah peserta rapat kemarin?", "label": "cari", "family": "berisik", "asal": "Berapa jumlah peserta rapat kemarin?"}
+{"message": "beraap jumlah peserta rapat kemarin?", "label": "cari", "family": "berisik", "asal": "Berapa jumlah peserta rapat kemarin?"}
+{"message": "kak Berapa jumlah peseta rapat kemarn dong", "label": "cari", "family": "berisik", "asal": "Berapa jumlah peserta rapat kemarin?"}
+{"message": "kapan jadwal ujian disusun ulang", "label": "cari", "family": "berisik", "asal": "Kapan jadwal ujian disusun ulang?"}
+{"message": "kapan jadal ujian disusun ulang?", "label": "cari", "family": "berisik", "asal": "Kapan jadwal ujian disusun ulang?"}
+{"message": "kapan jadwal ujin diisusun ulang?", "label": "cari", "family": "berisik", "asal": "Kapan jadwal ujian disusun ulang?"}
+{"message": "Di manna hasli rapat ditulis?", "label": "cari", "family": "berisik", "asal": "Di mana hasil rapat ditulis?"}
+{"message": "di maa hasil rapat ditulis", "label": "cari", "family": "berisik", "asal": "Di mana hasil rapat ditulis?"}
+{"message": "Di maa hasil rapat ditulis", "label": "cari", "family": "berisik", "asal": "Di mana hasil rapat ditulis?"}
+{"message": "Apa tujuan kegiatan ini diubah", "label": "cari", "family": "berisik", "asal": "Apa tujuan kegiatan ini diubah?"}
+{"message": "Apa tujuan kegiatan ini diubah", "label": "cari", "family": "berisik", "asal": "Apa tujuan kegiatan ini diubah?"}
+{"message": "Apa tujuan kegiatan ini diubah", "label": "cari", "family": "berisik", "asal": "Apa tujuan kegiatan ini diubah?"}
+{"message": "siapa yang mengruus tanggal pernikahan", "label": "cari", "family": "berisik", "asal": "Siapa yang mengurus tanggal pernikahan?"}
+{"message": "siapa yg menngurus tangal pernikahan", "label": "cari", "family": "berisik", "asal": "Siapa yang mengurus tanggal pernikahan?"}
+{"message": "Siaapa yang mengurus tangal pernikahan", "label": "cari", "family": "berisik", "asal": "Siapa yang mengurus tanggal pernikahan?"}
+{"message": "hai apa bu rnia libur?", "label": "cari", "family": "berisik", "asal": "Hari apa Bu Rina libur?"}
+{"message": "Hai apa Bu Rnia libur", "label": "cari", "family": "berisik", "asal": "Hari apa Bu Rina libur?"}
+{"message": "Hai apa Bu Riina libur?", "label": "cari", "family": "berisik", "asal": "Hari apa Bu Rina libur?"}
+{"message": "eh Total biaya perjalanan Pak Joko berapa?", "label": "cari", "family": "berisik", "asal": "Total biaya perjalanan Pak Joko berapa?"}
+{"message": "Total baiya perjalanan Pak Joko berapa?", "label": "cari", "family": "berisik", "asal": "Total biaya perjalanan Pak Joko berapa?"}
+{"message": "Total biaya perjalanan Pak Joko brp?", "label": "cari", "family": "berisik", "asal": "Total biaya perjalanan Pak Joko berapa?"}
+{"message": "permisi, Salam dair siapa di srat itu?", "label": "cari", "family": "berisik", "asal": "Salam dari siapa di surat itu?"}
+{"message": "salam dari siapa di surat itu", "label": "cari", "family": "berisik", "asal": "Salam dari siapa di surat itu?"}
+{"message": "bantu Salam dari siapa di surat itu?", "label": "cari", "family": "berisik", "asal": "Salam dari siapa di surat itu?"}
+{"message": "berapa kali pak slamet menelepon?", "label": "cari", "family": "berisik", "asal": "Berapa kali Pak Slamet menelepon?"}
+{"message": "berapa kali pak slaamet menelepon", "label": "cari", "family": "berisik", "asal": "Berapa kali Pak Slamet menelepon?"}
+{"message": "berapa kali pak slamet menelepon?", "label": "cari", "family": "berisik", "asal": "Berapa kali Pak Slamet menelepon?"}
+{"message": "kurang berapa anggota untuk kuorum ya kak", "label": "cari", "family": "berisik", "asal": "Kurang berapa anggota untuk kuorum?"}
+{"message": "Kurang berapa anggota untuk kuorum ya min", "label": "cari", "family": "berisik", "asal": "Kurang berapa anggota untuk kuorum?"}
+{"message": "mohon kurang brp anggota untuk kuorum?", "label": "cari", "family": "berisik", "asal": "Kurang berapa anggota untuk kuorum?"}
+{"message": "apa yang terulis di catatan tentang gudang", "label": "cari", "family": "berisik", "asal": "Apa yang tertulis di catatan tentang gudang?"}
+{"message": "apa yang tertulis di catatan tentang gudang", "label": "cari", "family": "berisik", "asal": "Apa yang tertulis di catatan tentang gudang?"}
+{"message": "mohon Apa yang tertulis di ctaatan tentag gudang", "label": "cari", "family": "berisik", "asal": "Apa yang tertulis di catatan tentang gudang?"}
+{"message": "siapa yang bertugas mengurutkan arsip?", "label": "cari", "family": "berisik", "asal": "Siapa yang bertugas mengurutkan arsip?"}
+{"message": "siapa yang bertugas mengurutkan arsip", "label": "cari", "family": "berisik", "asal": "Siapa yang bertugas mengurutkan arsip?"}
+{"message": "siaap yang bertugas mengruutkan arsip nih", "label": "cari", "family": "berisik", "asal": "Siapa yang bertugas mengurutkan arsip?"}
+{"message": "Kapan batas wkatu penyusunan anggaran", "label": "cari", "family": "berisik", "asal": "Kapan batas waktu penyusunan anggaran?"}
+{"message": "tolong kpaan batas waktu penusunan anggaran", "label": "cari", "family": "berisik", "asal": "Kapan batas waktu penyusunan anggaran?"}
+{"message": "kapna batas waku penyusunan anggaran", "label": "cari", "family": "berisik", "asal": "Kapan batas waktu penyusunan anggaran?"}
+{"message": "Ke mana Bu Rina pindha setelah tanggal 5 Mei 2026?", "label": "cari", "family": "berisik", "asal": "Ke mana Bu Rina pindah setelah tanggal 5 Mei 2026?"}
+{"message": "tolong ke mana bu rina pindah setelah tanggal 5 mei 2026", "label": "cari", "family": "berisik", "asal": "Ke mana Bu Rina pindah setelah tanggal 5 Mei 2026?"}
+{"message": "Ke mana Bu Rian pindah setelah taggal 5 Mei 2026?", "label": "cari", "family": "berisik", "asal": "Ke mana Bu Rina pindah setelah tanggal 5 Mei 2026?"}
+{"message": "kak selaat siang semuanay", "label": "sapaan", "family": "berisik", "asal": "selamat siang semuanya"}
+{"message": "selamat sinag semuanya", "label": "sapaan", "family": "berisik", "asal": "selamat siang semuanya"}
+{"message": "halo, selamaat siang semuanya", "label": "sapaan", "family": "berisik", "asal": "selamat siang semuanya"}
+{"message": "eh halo kak", "label": "sapaan", "family": "berisik", "asal": "halo kak"}
+{"message": "hlo kak", "label": "sapaan", "family": "berisik", "asal": "halo kak"}
+{"message": "haol kak", "label": "sapaan", "family": "berisik", "asal": "halo kak"}
+{"message": "terima kashi baynak ya", "label": "sapaan", "family": "berisik", "asal": "terima kasih banyak ya"}
+{"message": "terima kassih banyak ya", "label": "sapaan", "family": "berisik", "asal": "terima kasih banyak ya"}
+{"message": "bantu terima kasih bayak ya maksih", "label": "sapaan", "family": "berisik", "asal": "terima kasih banyak ya"}
+{"message": "kak makasih banyak", "label": "sapaan", "family": "berisik", "asal": "makasih banyak"}
+{"message": "makasih banyak deh", "label": "sapaan", "family": "berisik", "asal": "makasih banyak"}
+{"message": "makaih banyka", "label": "sapaan", "family": "berisik", "asal": "makasih banyak"}
+{"message": "bisa hai", "label": "sapaan", "family": "berisik", "asal": "hai"}
+{"message": "bisa hai", "label": "sapaan", "family": "berisik", "asal": "hai"}
+{"message": "bisa hai", "label": "sapaan", "family": "berisik", "asal": "hai"}
+{"message": "assalamualaikum warahmatullahi wabrakatuh", "label": "sapaan", "family": "berisik", "asal": "assalamualaikum warahmatullahi wabarakatuh"}
+{"message": "asaslamualaikum warahmatullahi wabrakatuh", "label": "sapaan", "family": "berisik", "asal": "assalamualaikum warahmatullahi wabarakatuh"}
+{"message": "asaslamualaikum warahmatullahi wabarakath", "label": "sapaan", "family": "berisik", "asal": "assalamualaikum warahmatullahi wabarakatuh"}
+{"message": "selamat mlam", "label": "sapaan", "family": "berisik", "asal": "selamat malam"}
+{"message": "seamat malam", "label": "sapaan", "family": "berisik", "asal": "selamat malam"}
+{"message": "selamat malam ya kak", "label": "sapaan", "family": "berisik", "asal": "selamat malam"}
+{"message": "helol bro", "label": "sapaan", "family": "berisik", "asal": "hello bro"}
+{"message": "hllo bro", "label": "sapaan", "family": "berisik", "asal": "hello bro"}
+{"message": "helllo bro", "label": "sapaan", "family": "berisik", "asal": "hello bro"}
+{"message": "tahnk you", "label": "sapaan", "family": "berisik", "asal": "thank you"}
+{"message": "thakn you", "label": "sapaan", "family": "berisik", "asal": "thank you"}
+{"message": "coba thank you", "label": "sapaan", "family": "berisik", "asal": "thank you"}
+{"message": "halo, apa kabar semuanya", "label": "sapaan", "family": "berisik", "asal": "apa kabar semuanya"}
+{"message": "permisi, apa kabar semunaya", "label": "sapaan", "family": "berisik", "asal": "apa kabar semuanya"}
+{"message": "kak apa kabar semuanya", "label": "sapaan", "family": "berisik", "asal": "apa kabar semuanya"}
+{"message": "tolong tuliskan puiis cinta", "label": "tolak", "family": "berisik", "asal": "tolong tuliskan puisi cinta"}
+{"message": "tolong tuliskan puisi cinta ya kak", "label": "tolak", "family": "berisik", "asal": "tolong tuliskan puisi cinta"}
+{"message": "tolong tuliskan puuisi cinat", "label": "tolak", "family": "berisik", "asal": "tolong tuliskan puisi cinta"}
+{"message": "buatkan ringkasn buuk ini", "label": "tolak", "family": "berisik", "asal": "buatkan ringkasan buku ini"}
+{"message": "banttu buatkan ringkasan buku ini", "label": "tolak", "family": "berisik", "asal": "buatkan ringkasan buku ini"}
+{"message": "coba buakan ringkasan buku ini", "label": "tolak", "family": "berisik", "asal": "buatkan ringkasan buku ini"}
+{"message": "eh tejemahkan paragraf ini ke bahasa inggris", "label": "tolak", "family": "berisik", "asal": "terjemahkan paragraf ini ke bahasa Inggris"}
+{"message": "mohon terjemahakn paragraf ini ke bahasa inggris", "label": "tolak", "family": "berisik", "asal": "terjemahkan paragraf ini ke bahasa Inggris"}
+{"message": "terjemahkan paragrfa ini ke baahasa Inggris ya", "label": "tolak", "family": "berisik", "asal": "terjemahkan paragraf ini ke bahasa Inggris"}
+{"message": "rangkum berita hri ini", "label": "tolak", "family": "berisik", "asal": "rangkum berita hari ini"}
+{"message": "rangkum berita haari ini", "label": "tolak", "family": "berisik", "asal": "rangkum berita hari ini"}
+{"message": "ragkum beerita hari ini deh", "label": "tolak", "family": "berisik", "asal": "rangkum berita hari ini"}
+{"message": "karang cerita miteri singkat", "label": "tolak", "family": "berisik", "asal": "karang cerita misteri singkat"}
+{"message": "karagn cerrita misteri singkat", "label": "tolak", "family": "berisik", "asal": "karang cerita misteri singkat"}
+{"message": "kaarang creita misteri singkat", "label": "tolak", "family": "berisik", "asal": "karang cerita misteri singkat"}
+{"message": "eh tuis suurat pengunduran diri ya kak", "label": "tolak", "family": "berisik", "asal": "tulis surat pengunduran diri"}
+{"message": "tolong tluis sruat pengunduran diri", "label": "tolak", "family": "berisik", "asal": "tulis surat pengunduran diri"}
+{"message": "tulis surat pengunduran dirri", "label": "tolak", "family": "berisik", "asal": "tulis surat pengunduran diri"}
+{"message": "ceritakkan lelucon lucu", "label": "tolak", "family": "berisik", "asal": "ceritakan lelucon lucu"}
+{"message": "ceritakan lelucon luu", "label": "tolak", "family": "berisik", "asal": "ceritakan lelucon lucu"}
+{"message": "ceritakn leluocn lucu ya kak", "label": "tolak", "family": "berisik", "asal": "ceritakan lelucon lucu"}
+{"message": "min ubah kalimat ini jadi formal", "label": "tolak", "family": "berisik", "asal": "ubah kalimat ini jadi formal"}
+{"message": "ubah kaliat ini jaadi formal nih", "label": "tolak", "family": "berisik", "asal": "ubah kalimat ini jadi formal"}
+{"message": "kak ubah kalimat ini jadi formal", "label": "tolak", "family": "berisik", "asal": "ubah kalimat ini jadi formal"}
+{"message": "bikin caption instagrram untuk too kue", "label": "tolak", "family": "berisik", "asal": "bikin caption instagram untuk toko kue"}
+{"message": "min bikin caption isntagram untuk toko kue", "label": "tolak", "family": "berisik", "asal": "bikin caption instagram untuk toko kue"}
+{"message": "eh bikin caption instagram untuk toko kue", "label": "tolak", "family": "berisik", "asal": "bikin caption instagram untuk toko kue"}
+{"message": "susun jdawal belaar seminggu", "label": "tolak", "family": "berisik", "asal": "susun jadwal belajar seminggu"}
+{"message": "susun jadwal belajar seminggu deh", "label": "tolak", "family": "berisik", "asal": "susun jadwal belajar seminggu"}
+{"message": "susun jadwal belajr sminggu", "label": "tolak", "family": "berisik", "asal": "susun jadwal belajar seminggu"}
