@@ -89,6 +89,19 @@ def sha256(path, chunk=1 << 20):
     return h.hexdigest()
 
 
+def unique_param_count(state_dict):
+    """Jumlah parameter sebenarnya. state_dict memuat bobot yang dibagi pakai di beberapa kunci (mis. embedding token yang sama dengan
+    lm_head); menjumlahkan semua kunci menghitungnya berkali-kali (151,2 juta padahal modelnya 100,9 juta). Di sini bobot yang berbagi
+    penyimpanan, offset, bentuk, dan langkah yang sama dihitung sekali."""
+    seen, total = set(), 0
+    for t in state_dict.values():
+        key = (t.untyped_storage().data_ptr(), t.storage_offset(), tuple(t.shape), tuple(t.stride()))
+        if key not in seen:
+            seen.add(key)
+            total += t.numel()
+    return total
+
+
 def model_card(v, n_params, step, size_mb):
     return f"""# Kartu Model: hai07-100m v{v}
 
@@ -232,8 +245,7 @@ def main():
     slim = {k: payload[k] for k in ("epoch", "step", "env", "metadata", "model_state_dict") if k in payload}
     model_path = pkg / MODEL_FILE.format(v=v)
     torch.save(slim, str(model_path))
-    n_params = sum(t.numel() for t in slim["model_state_dict"].values())
-    # simpul weight-tying tersimpan dua kali di state_dict -> hitung dari model sebenarnya bila bisa
+    n_params = unique_param_count(slim["model_state_dict"])   # bobot yang dibagi pakai (weight tying) dihitung sekali
     # 2) verifikasi: berkas kecil dapat dimuat aman dan identik dengan sumbernya
     again = torch.load(str(model_path), map_location="cpu", weights_only=True)
     for k, t in payload["model_state_dict"].items():

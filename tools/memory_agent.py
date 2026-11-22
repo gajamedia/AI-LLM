@@ -93,11 +93,27 @@ def verified(answer, note, max_words=MAX_ANSWER_WORDS):
     return verify_reason(answer, note, max_words) is None
 
 
+def _complete_list(answer, note):
+    """Jawaban berupa SATU nama hari/bulan yang di catatan bagian dari daftar ('Senin sampai Rabu', 'Senin dan Selasa'): kembalikan daftar
+    utuh dari catatan. None bila bukan nama hari/bulan atau tidak ada daftar."""
+    a = answer.strip().rstrip(".").lower()
+    for names in (_DAY_NAMES, _MONTH_NAMES):
+        if a in names:
+            alt = "|".join(names)
+            m = re.search(rf"(?<![\w])(?:(?:{alt})\s+(?:dan|sampai|hingga|atau)\s+)*{a}(?:\s+(?:dan|sampai|hingga|atau)\s+(?:{alt}))*(?![\w])", note, re.I)
+            if m and m.group(0).lower() != a:
+                return m.group(0)
+    return None
+
+
 def complete_span(answer, note, max_extra=6):
     """Lengkapi kutipan yang berhenti di tengah nama: bila kata terakhir jawaban berhuruf kapital dan di catatan langsung
     disusul kata-kata berhuruf kapital (tanpa tanda baca), ikutkan kata-kata itu. 'Republik' -> 'Republik Indonesia'.
     Hasilnya tetap potongan persis dari catatan."""
     a = answer.strip()
+    ext = _complete_list(a, note)
+    if ext:
+        return ext
     last = a.split()[-1] if a.split() else ""
     if not last[:1].isupper():
         return a
@@ -139,23 +155,56 @@ def stem(w):
 # kata perintah di awal pertanyaan ('sebutkan lambang negara') bukan isi pertanyaan: tidak dihitung sebagai kata inti
 _COMMAND_WORDS = {"sebutkan", "sebut", "jelaskan", "terangkan", "uraikan", "jabarkan", "tunjukkan", "carikan", "beritahu", "beri",
                   "katakan", "ceritakan", "tuliskan", "tolong", "coba"}
+# kata jenis-jawaban ('hari apa ...', 'apa warna ...'): catatan sering berisi contohnya ('Jumat', 'merah'), bukan kata itu sendiri.
+# Kata itu tidak dihitung sebagai kata inti HANYA bila jawaban model sendiri bertipe cocok (hari <- nama hari, dst.). Pelonggaran tanpa
+# syarat ini terukur merugikan: menghilangkan jawaban benar yang bergantung pada kata itu dan melepas jawaban daftar yang terpotong.
+_DAY_NAMES = ["senin", "selasa", "rabu", "kamis", "jumat", "sabtu", "minggu"]
+_MONTH_NAMES = ["januari", "februari", "maret", "april", "mei", "juni", "juli", "agustus", "september", "oktober", "november", "desember"]
+_COLOR_NAMES = ["merah", "biru", "hijau", "kuning", "putih", "hitam", "abu-abu", "cokelat", "coklat", "ungu", "oranye", "jingga", "emas", "perak"]
+_TIME_RX = re.compile(r"^\d{1,2}[.:]\d{2}(?:\s*(?:wib|wita|wit))?$", re.I)
 
 
-def relevance_score(question, note):
+def answer_matches_type(word, answer):
+    """Apakah jawaban termasuk jenis yang ditanyakan oleh kata jenis-jawaban 'word' (hari, bulan, warna, jam/pukul, umur/usia)?"""
+    a = (answer or "").strip().lower().rstrip(".")
+    toks = re.findall(r"[a-z0-9.:-]+", a)
+    if not toks:
+        return False
+    w = word.lower()
+    if w == "hari":
+        return all(t in _DAY_NAMES or t in ("dan", "sampai", "hingga", "atau") for t in toks) and any(t in _DAY_NAMES for t in toks)
+    if w == "bulan":
+        return any(t in _MONTH_NAMES for t in toks) and all(t in _MONTH_NAMES or t in ("dan", "sampai", "hingga") for t in toks)
+    if w == "warna":
+        return any(t in _COLOR_NAMES for t in toks) and all(t in _COLOR_NAMES or t in ("dan", "muda", "tua") for t in toks)
+    if w in ("jam", "pukul"):
+        return bool(_TIME_RX.match(a))
+    if w in ("umur", "usia"):
+        return bool(re.match(r"^\d+(?:\s*tahun)?$", a))
+    return False
+
+
+_TYPE_WORDS = {"hari", "warna", "jam", "pukul", "bulan", "umur", "usia"}
+
+
+def relevance_score(question, note, answer=None):
     """Porsi akar kata inti non-entitas pertanyaan yang muncul di catatan (1.0 = semua). 1.0 bila tidak ada kata inti."""
     words = re.findall(r"[\w-]+", question)
     ents = {R.norm(w) for i, w in enumerate(words) if (i > 0 and w[:1].isupper()) or any(c.isdigit() for c in w)}
     nn = R.norm(note)
-    core = [stem(t) for t in R.content_tokens(question) if R.norm(t) not in ents and t.lower() not in _COMMAND_WORDS]
+    # kata jenis-jawaban dibuang dari hitungan HANYA bila tidak ada di catatan dan jawaban bertipe cocok; bila ada di catatan, ia tetap
+    # dihitung (cocok), sebab membuangnya justru menurunkan skor ('bulan' di catatan + jawaban 'Agustus': 3/4 menjadi 2/3 < 0,67)
+    core = [stem(t) for t in R.content_tokens(question) if R.norm(t) not in ents and t.lower() not in _COMMAND_WORDS
+            and not (answer and t.lower() in _TYPE_WORDS and stem(t) not in nn and answer_matches_type(t, answer))]
     core = [c for c in core if len(c) >= 4]
     if not core:
         return 1.0
     return sum(c in nn for c in core) / len(core)
 
 
-def relevance_ok(question, note, threshold=0.67):
+def relevance_ok(question, note, threshold=0.67, answer=None):
     """Sebagian besar (>= threshold) akar kata inti non-entitas dari pertanyaan harus muncul di catatan."""
-    return relevance_score(question, note) >= threshold
+    return relevance_score(question, note, answer) >= threshold
 
 
 class MemoryStore:
@@ -355,7 +404,7 @@ def decide(question, reads, entity_guard=True, relevance_guard=True, threshold=0
                 reason = verify_reason(raw, note, answer_limit(question))
         if reason is None and entity_guard and not entity_ok(question, note):
             reason = "nama atau angka di pertanyaan tidak ada di catatan itu"
-        if reason is None and relevance_guard and not relevance_ok(question, note, threshold):
+        if reason is None and relevance_guard and not relevance_ok(question, note, threshold, raw):
             reason = "kata inti pertanyaan kurang cocok dengan catatan itu"
         if reason:
             guesses.append({"id": nid, "answer": raw.strip(), "reason": reason})

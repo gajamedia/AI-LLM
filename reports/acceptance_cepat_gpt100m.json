@@ -1,0 +1,197 @@
+{
+ "model": "gpt100m (checkpoints_100m_sft_mem2)",
+ "info": {
+  "parameter_juta": 100.9
+ },
+ "cepat": true,
+ "router": {
+  "dev": {
+   "benar": 6,
+   "n": 6,
+   "akurasi": 1.0,
+   "pembajakan_cari": 0,
+   "sebaran": {
+    "urut": 6
+   }
+  },
+  "heldout": {
+   "benar": 6,
+   "n": 6,
+   "akurasi": 1.0,
+   "pembajakan_cari": 0,
+   "sebaran": {
+    "urut": 6
+   }
+  },
+  "test2": {
+   "benar": 6,
+   "n": 6,
+   "akurasi": 1.0,
+   "pembajakan_cari": 0,
+   "sebaran": {
+    "urut": 6
+   }
+  }
+ },
+ "qa_beku": {
+  "tulisan_tangan": {
+   "benar": 2,
+   "salah": 1,
+   "belum_tahu": 3,
+   "mengarang": 0,
+   "n_terjawab": 6,
+   "n_tak_terjawab": 2
+  },
+  "kalimat_rumit": {
+   "benar": 2,
+   "salah": 2,
+   "belum_tahu": 2,
+   "mengarang": 0,
+   "n_terjawab": 6,
+   "n_tak_terjawab": 2
+  }
+ },
+ "kasus": [
+  {
+   "id": "rapat-jam-mawar",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "11.30"
+  },
+  {
+   "id": "rapat-jam-anggrek",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "09.30"
+  },
+  {
+   "id": "rapat-tim-mawar",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": false,
+   "status": "unknown",
+   "jawaban": null
+  },
+  {
+   "id": "rapat-tim-anggrek",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": false,
+   "status": "unknown",
+   "jawaban": null
+  },
+  {
+   "id": "rapat-ambigu",
+   "tag": "nyata",
+   "jenis": "tanya_balik",
+   "lolos": true,
+   "status": "clarify",
+   "jawaban": null
+  },
+  {
+   "id": "definisi-gravitasi",
+   "tag": "nyata",
+   "jenis": "jawab",
+   "lolos": true,
+   "status": "ok",
+   "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya"
+  }
+ ],
+ "ketahanan": {
+  "lolos_varian": 1.0,
+  "varian_ok": 9,
+  "varian_n": 9
+ },
+ "detik_per_baca_median": 0.343,
+ "kriteria": [
+  {
+   "nama": "router/dev: akurasi",
+   "nilai": "6/6 (100.0%)",
+   "syarat": ">= 90%",
+   "lolos": true
+  },
+  {
+   "nama": "router/heldout: akurasi",
+   "nilai": "6/6 (100.0%)",
+   "syarat": ">= 90%",
+   "lolos": true
+  },
+  {
+   "nama": "router/test2: akurasi",
+   "nilai": "6/6 (100.0%)",
+   "syarat": ">= 90%",
+   "lolos": true
+  },
+  {
+   "nama": "router: pesan 'cari' dibajak alat",
+   "nilai": "0",
+   "syarat": "<= 0",
+   "lolos": true
+  },
+  {
+   "nama": "qa_beku/tulisan_tangan: benar",
+   "nilai": "2/6",
+   "syarat": ">= 14",
+   "lolos": false
+  },
+  {
+   "nama": "qa_beku/tulisan_tangan: salah",
+   "nilai": "1",
+   "syarat": "<= 1",
+   "lolos": true
+  },
+  {
+   "nama": "qa_beku/tulisan_tangan: mengarang (tak terjawab)",
+   "nilai": "0/2",
+   "syarat": "<= 0",
+   "lolos": true
+  },
+  {
+   "nama": "qa_beku/kalimat_rumit: benar",
+   "nilai": "2/6",
+   "syarat": ">= 42",
+   "lolos": false
+  },
+  {
+   "nama": "qa_beku/kalimat_rumit: salah",
+   "nilai": "2",
+   "syarat": "<= 9",
+   "lolos": true
+  },
+  {
+   "nama": "qa_beku/kalimat_rumit: mengarang (tak terjawab)",
+   "nilai": "0/2",
+   "syarat": "<= 1",
+   "lolos": true
+  },
+  {
+   "nama": "kasus: lolos",
+   "nilai": "4/6",
+   "syarat": ">= 22",
+   "lolos": false
+  },
+  {
+   "nama": "kasus: pertanyaan yang harus ditolak",
+   "nilai": "0/0",
+   "syarat": "semua",
+   "lolos": true
+  },
+  {
+   "nama": "kasus: nama tim (gagal di model sekarang)",
+   "nilai": "0/2",
+   "syarat": "semua",
+   "lolos": false
+  },
+  {
+   "nama": "ketahanan: varian pertanyaan lolos",
+   "nilai": "9/9 (100.0%)",
+   "syarat": ">= 85%",
+   "lolos": true
+  }
+ ],
+ "semua_lolos": false
+}

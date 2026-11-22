@@ -964,3 +964,48 @@ def test_related_notes_need_real_overlap_not_just_one_shared_word():
     reads = [(21, R21, "11.30"), (3, "Bu Rina tinggal di Jalan Mawar nomor 5.", "Jalan Mawar nomor 5"), (22, "Rapat tim finance dimulai pukul 13.00 di ruang Mawar lantai 2.", "13.00")]
     rel = M.related_unused("jam berapa rapat dimulai di ruang mawar", reads, {21})
     assert [r["id"] for r in rel] == [22]                      # #3 hanya berbagi kata 'mawar': tidak ditampilkan
+
+
+# ---------- kata jenis-jawaban dan daftar hari/bulan terpotong ----------
+@pytest.mark.parametrize("word,answer,expected", [
+    ("hari", "Jumat", True), ("hari", "Senin sampai Rabu", True), ("hari", "Senin dan Selasa", True), ("hari", "Bu Ratna", False), ("hari", "Jumat malam", False),
+    ("bulan", "Agustus", True), ("bulan", "Agustus 2026", False), ("warna", "merah", True), ("warna", "merah muda", True), ("warna", "Anggrek", False),
+    ("jam", "11.30", True), ("pukul", "09:30", True), ("jam", "Mawar", False), ("umur", "45 tahun", True), ("usia", "Bandung", False),
+    ("kota", "Bandung", False),                                              # kata lain tidak pernah diabaikan
+])
+def test_answer_matches_type(word, answer, expected):
+    assert M.answer_matches_type(word, answer) is expected
+
+
+@pytest.mark.parametrize("answer,note,expected", [
+    ("Senin", "Dokter Anindya membuka praktik setiap Senin sampai Rabu mulai pukul 16.00.", "Senin sampai Rabu"),
+    ("Selasa", "Jadwal piket kelas: Senin dan Selasa giliran regu A, Rabu dan Kamis regu B.", "Senin dan Selasa"),
+    ("Rabu", "Jadwal piket kelas: Senin dan Selasa giliran regu A, Rabu dan Kamis regu B.", "Rabu dan Kamis"),
+    ("Minggu", "Toko roti milik Bu Marni buka setiap hari kecuali Minggu, dari pukul tujuh.", "Minggu"),    # bukan daftar: tidak diubah
+    ("Jumat", "Rapat RT dilaksanakan setiap Jumat malam di rumah Pak Lurah.", "Jumat"),
+    ("Agustus", "Festival diadakan pada bulan Agustus sampai September di pantai.", "Agustus sampai September"),
+])
+def test_truncated_day_and_month_lists_are_completed_from_the_note(answer, note, expected):
+    assert M.complete_span(answer, note) == expected
+
+
+def test_type_word_is_ignored_only_when_the_answer_has_the_matching_type():
+    note = "Rapat RT dilaksanakan setiap Jumat malam di rumah Pak Lurah."
+    q = "Hari apa rapat RT dilaksanakan?"
+    assert M.decide(q, [(1, note, "Jumat")])["answer"] == "Jumat"                      # dulu ditolak: 'hari' tidak ada di catatan (2/3 < 0,67)
+    assert M.decide(q, [(1, note, "rumah Pak Lurah")])["status"] == "unknown"           # jawaban bertipe lain: kata 'hari' tetap dihitung
+    warna = "Pak Anto membeli sepeda motor merah di Bandung."
+    assert M.decide("Apa warna sepeda motor Pak Anto?", [(1, warna, "merah")])["answer"] == "merah"
+    assert M.decide("Apa warna sepeda motor Pak Anto?", [(1, warna, "Bandung")])["status"] == "unknown"
+
+
+def test_frozen_set_regressions_from_the_blanket_fix_stay_fixed():
+    """Empat pertanyaan di set uji beku yang berubah hasilnya ketika kata jenis-jawaban diabaikan tanpa syarat (dibatalkan)."""
+    n1 = "Festival layang-layang tahun ini diadakan di pantai Parangtritis pada bulan Agustus."
+    assert M.decide("Pada bulan apa festival layang-layang berlangsung?", [(1, n1, "Agustus")])["answer"] == "Agustus"   # 'bulan' ada di catatan: tetap benar
+    n2 = "Toko roti milik Bu Marni buka setiap hari kecuali Minggu, dari pukul tujuh pagi sampai pukul sembilan malam."
+    assert M.decide("Hari apa toko roti Bu Marni tutup?", [(1, n2, "Minggu")])["answer"] == "Minggu"
+    n3 = "Dokter Anindya membuka praktik setiap Senin sampai Rabu mulai pukul 16.00."
+    assert M.decide("Pada hari apa saja Dokter Anindya praktik?", [(1, n3, "Senin")])["answer"] == "Senin sampai Rabu"   # dulu 'salah: Senin'
+    n4 = "Jadwal piket kebersihan kelas: Senin dan Selasa giliran regu A, Rabu dan Kamis regu B."
+    assert M.decide("Hari apa regu A piket?", [(1, n4, "Selasa")])["answer"] == "Senin dan Selasa"                      # dulu 'salah: Selasa'

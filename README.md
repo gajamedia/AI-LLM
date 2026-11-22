@@ -67,6 +67,8 @@ reports/     laporan JSON + checkpoint + log
 
 ## Alur kerja
 
+> **Berkas besar yang sengaja tidak disimpan di komputer ini** (dihapus untuk menghemat ruang; semuanya bukan bagian repo git): checkpoint SFT tahap 1 sampai 4 (`reports/checkpoints_100m_sft*`, selain `sft_mem2`), checkpoint penuh v1 (bobotnya masih ada di `reports/checkpoints_100m/gpt_best_weights.pt`), dump Wikipedia mentah (`data/corpus_dump_20260901`, unduh ulang dengan perintah di bawah), dan data RAG (`data/rag`, dibuat ulang dengan `tools/rag_index.py` setelah dump tersedia). Alat percobaan RAG (`tools/rag_eval.py`, yang bawaannya memakai checkpoint SFT tahap 2, dan `tools/build_sft_rag_data.py`) memerlukan berkas-berkas itu dipulihkan (checkpoint tahap lama ada di keluaran notebook Kaggle). Aplikasi Memori hanya memakai `reports/checkpoints_100m_sft_mem2/gpt_sft_best.pt` dan kosakata di `data/prod_v2/`.
+
 Semua perintah di biasakan dijalankan dari root repo. Di Windows gunakan
 `venv\Scripts\python.exe` bila virtualenv tidak aktif.
 

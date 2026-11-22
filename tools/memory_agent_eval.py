@@ -37,7 +37,7 @@ def policies(question, reads):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--checkpoint", default="reports/checkpoints_100m_sft_mem/gpt_sft_best.pt")
+    ap.add_argument("--checkpoint", default="reports/checkpoints_100m_sft_mem2/gpt_sft_best.pt")
     ap.add_argument("--sizes", default="200,2000")
     ap.add_argument("--n-answerable", type=int, default=100)
     ap.add_argument("--n-unanswerable", type=int, default=50)

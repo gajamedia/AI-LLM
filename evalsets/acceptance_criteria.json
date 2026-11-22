@@ -1,0 +1,27 @@
+{
+ "_catatan": "Kriteria lulus uji kelulusan model. Usulan pengembang (bukan hasil pengukuran), DISETUJUI pengguna pada 2026-11-22. Pembanding model sekarang (gpt_sft_best.pt): qa_beku tulisan_tangan 10 benar/1 salah, kalimat_rumit 28 benar/9 salah; pemilih alat ~18-21%; nama tim 0 dari 35. Ubah angka hanya dengan keputusan sadar, lalu catat alasannya di sini.",
+ "router": {
+  "akurasi_min_per_set": 0.9,
+  "pembajakan_cari_maks": 0
+ },
+ "qa_beku": {
+  "tulisan_tangan": {
+   "benar_min": 14,
+   "salah_maks": 1,
+   "mengarang_maks": 0
+  },
+  "kalimat_rumit": {
+   "benar_min": 42,
+   "salah_maks": 9,
+   "mengarang_maks": 1
+  }
+ },
+ "kasus": {
+  "lolos_min": 22,
+  "abstain_wajib_lolos": true,
+  "tim_wajib_lolos": true
+ },
+ "ketahanan": {
+  "lolos_varian_min": 0.85
+ }
+}
