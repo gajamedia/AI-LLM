@@ -102,3 +102,88 @@ class Router:
             return "cari", p
         need = {"sapaan": tau_greeting, "tolak": tau_refuse}.get(label) or tau
         return (label, p) if p[LABELS.index(label)] >= need else ("cari", p)
+
+
+# ---------- dipakai aplikasi: classifier MENGUSULKAN, alat deterministik MEMVERIFIKASI ----------
+import os
+import json as _json
+
+MODE_ENV = "MEMORI_ROUTER"            # off (bawaan, perilaku lama) | shadow (jalan paralel, hanya mencatat) | on
+SHADOW_LOG_ENV = "MEMORI_ROUTER_LOG"  # berkas log lokal; hanya berisi kelas dan panjang pesan, TIDAK menyimpan teks pesan
+_ROUTER = None
+
+
+def _router():
+    global _ROUTER
+    if _ROUTER is None:
+        try:
+            _ROUTER = Router.load()
+        except Exception:
+            _ROUTER = False           # bobot tidak ada atau rusak: aplikasi tetap jalan dengan aturan lama
+    return _ROUTER or None
+
+
+def get_mode(mode=None):
+    m = (mode or os.environ.get(MODE_ENV, "off")).strip().lower()
+    return m if m in ("off", "shadow", "on") else "off"
+
+
+def _decide(text):
+    r = _router()
+    if r is None:
+        return None, None
+    m = r.meta
+    label, p = r.decide(text, m.get("tau", 0.5), m.get("tau_sapaan"), m.get("tau_tolak"))
+    return label, p
+
+
+def _rule_label(result):
+    if result is None:
+        return "cari"
+    if result["kind"] == "task":
+        return "tolak"
+    t = result.get("tool") or ""
+    return "urut" if "urut" in t or "angka" in t else "tanggal" if "tanggal" in t else "hitung"
+
+
+def _shadow_log(rule_label, label, p, text):
+    path = os.environ.get(SHADOW_LOG_ENV)
+    if not path:
+        return
+    try:
+        with open(path, "a", encoding="utf-8") as f:
+            f.write(_json.dumps({"aturan": rule_label, "classifier": label, "p_max": round(float(max(p)), 3), "kata": len(text.split())}) + "\n")
+    except OSError:
+        pass
+
+
+def assisted_route(q, lex=None, notes=None, mode=None):
+    """Pengganti memory_tools.route. Mode 'on': bila aturan ketat tidak menjawab, classifier boleh mengusulkan urut/hitung/tanggal
+    (alat mencoba bacaan longgar dan tetap harus berhasil) atau tolak (permintaan tugas). Hasil alat yang sudah ada tidak pernah diubah."""
+    rule = T.route(q, lex, notes)
+    mode = get_mode(mode)
+    if mode == "off" or rule is not None:
+        if mode == "shadow":
+            label, p = _decide(q)
+            if label is not None:
+                _shadow_log(_rule_label(rule), label, p, q)
+        return rule
+    label, p = _decide(q)
+    if label is None:
+        return rule
+    if mode == "shadow":
+        _shadow_log("cari", label, p, q)
+        return rule
+    if label in ("urut", "hitung", "tanggal"):
+        return T.route(q, lex, notes, hint=label)
+    if label == "tolak" and len(q.split()) <= 12:
+        return {"kind": "task", "tool": None, "answer": T.TASK_MESSAGE, "detail": ""}
+    return None
+
+
+def assisted_greeting(q, mode=None):
+    """True bila classifier (mode 'on') yakin ini sapaan pendek yang lolos dari pola bawaan (mis. salah ketik 'selamt pagi')."""
+    if get_mode(mode) != "on" or len(q.split()) > 4 or any(ch.isdigit() or ch == "?" for ch in q):
+        return False
+    label, _ = _decide(q)
+    return label == "sapaan"

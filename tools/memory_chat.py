@@ -27,6 +27,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "tools"))
 
 import memory_docs
+import memory_router
 import memory_tools
 from memory_agent import MemoryAgent, MemoryStore, Reader, match_rule, parse_rule
 
@@ -180,11 +181,11 @@ def handle(line, agent, confirm=None, history=None):
     rule = match_rule(agent.store, s)  # aturan yang Anda ajarkan didahulukan (mengalahkan sapaan bawaan)
     if rule:
         return f"{rule['reply']}\n  (aturan dari catatan [{rule['id']}])"
-    if GREETING.match(s):
+    if GREETING.match(s) or memory_router.assisted_greeting(s):
         return greeting_reply(agent)
     m = re.match(r"^/?tanya\s*:\s*(.+)$", s, re.I | re.S)
     notes = agent.store.list()
-    tool = memory_tools.route(m.group(1) if m else s, memory_tools.parse_lexicon(notes)[0], notes)  # alat dan permintaan tugas diperiksa sebelum pertanyaan/pernyataan
+    tool = memory_router.assisted_route(m.group(1) if m else s, memory_tools.parse_lexicon(notes)[0], notes)  # alat dan permintaan tugas diperiksa sebelum pertanyaan/pernyataan
     if tool:
         return format_tool(tool)
     q = m.group(1) if m else (s if (s.endswith("?") or is_question_like(s)) else None)

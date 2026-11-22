@@ -727,14 +727,72 @@ def is_task(q):
     return bool(re.match(r"^\s*(tolong\s+|coba\s+)?" + TASK_VERBS + r"\b", q, re.I))
 
 
-def route(q, lex=None, notes=None):
+# ---------- bacaan longgar: dipakai HANYA bila classifier mengusulkan alatnya; alat tetap harus berhasil memverifikasi ----------
+_MONTH_ABBR = {"jan": 1, "feb": 2, "mar": 3, "apr": 4, "jun": 6, "jul": 7, "agu": 8, "agt": 8, "ags": 8, "sep": 9, "sept": 9, "okt": 10, "nov": 11, "des": 12}
+_HINT_OPS = [(r"digabung(?:kan)?|ditambah(?:kan)?|dijumlah(?:kan)?|plus", "+"), (r"dikurangi|dikurang|dikurangkan|minus", "-"),
+             (r"dikalikan|dikali|kali", "*"), (r"dibagi|bagi", "/")]
+_HINT_NOISE = {"lalu", "jadinya", "jadi", "brp", "ya", "kak", "halo", "dong", "sih", "kalau", "jika", "bila", "hasilnya", "kira", "kirakira", "tolong", "coba", "bisa", "aja", "saja", "bantu", "hitungkan", "nih", "deh", "please", "min", "mohon"}
+
+
+def _dates_loose(q):
+    out = []
+    for m in re.finditer(r"\b(\d{1,2})\s+([a-z]{3,9})\.?\s+(\d{4})\b|\b(\d{1,2})[/-](\d{1,2})[/-](\d{4})\b", q, re.I):
+        try:
+            if m.group(1):
+                name = m.group(2).lower()
+                month = MONTHS.get(name) or _MONTH_ABBR.get(name[:4] if name[:4] in _MONTH_ABBR else name[:3])
+                if not month:
+                    continue
+                out.append(dt.date(int(m.group(3)), month, int(m.group(1))))
+            else:
+                out.append(dt.date(int(m.group(6)), int(m.group(5)), int(m.group(4))))
+        except ValueError:
+            return []
+    return out
+
+
+def hinted_tool(q, hint, lex=None):
+    """Bacaan longgar untuk kelas yang diusulkan classifier. None bila alat tetap tidak bisa membaca pesan (jatuh ke pencarian catatan)."""
+    if hint == "urut":
+        nums = parse_numbers(words_to_digits(q, lex))
+        if len(nums) < 2:
+            return None
+        desc = wants_desc(q)
+        ordered = sorted(nums, reverse=desc)
+        sep = "; " if any(isinstance(x, float) and not x.is_integer() for x in nums) else ", "
+        return {"kind": "tool", "tool": "pengurut angka", "answer": sep.join(_format_number(x) for x in ordered),
+                "detail": f"Angka dibaca: {sep.join(_format_number(x) for x in nums)} lalu diurutkan {'menurun (besar ke kecil)' if desc else 'menaik (kecil ke besar)'} (bacaan longgar)."}
+    if hint == "tanggal":
+        ds = _dates_loose(q)
+        if len(ds) == 1:
+            d = ds[0]
+            return {"kind": "tool", "tool": "tanggal", "answer": DAYS[d.weekday()], "detail": f"{d.isoformat()} jatuh pada hari {DAYS[d.weekday()]} (bacaan longgar)."}
+        if len(ds) == 2:
+            n = abs((ds[1] - ds[0]).days)
+            return {"kind": "tool", "tool": "tanggal", "answer": f"{n} hari", "detail": f"Selisih antara {ds[0].isoformat()} dan {ds[1].isoformat()} (bacaan longgar)."}
+        return None
+    if hint == "hitung":
+        t = q.lower()
+        for pat, sym in _HINT_OPS:
+            t = re.sub(r"\b(?:" + pat + r")\b", f" {sym} ", t)
+        t = " ".join(w for w in re.split(r"\s+", t) if w.strip("?,.!") not in _HINT_NOISE)
+        return calc_tool(t + " hasilnya", lex)
+    return None
+
+
+def route(q, lex=None, notes=None, hint=None):
     """Kembalikan hasil alat, pesan 'permintaan tugas', atau None bila ini pertanyaan/pernyataan biasa.
-    notes: daftar (id, teks) catatan pengguna, untuk alat yang mengambil angka dari catatan."""
+    notes: daftar (id, teks) catatan pengguna, untuk alat yang mengambil angka dari catatan.
+    hint: kelas yang diusulkan classifier ('urut', 'hitung', 'tanggal'); bila aturan ketat gagal, alat mencoba bacaan longgar."""
     r = notes_tool(q, lex, notes)
     if r:
         return r
     for fn in (sort_tool, date_tool, calc_tool, terbilang_tool):
         r = fn(q, lex) if fn is not date_tool else fn(q)
+        if r:
+            return r
+    if hint in ("urut", "hitung", "tanggal"):
+        r = hinted_tool(q, hint, lex)
         if r:
             return r
     if is_task(q):

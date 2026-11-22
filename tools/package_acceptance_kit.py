@@ -10,12 +10,12 @@ import zipfile
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-CODE = ["model_acceptance_eval.py", "memory_agent.py", "memory_tools.py", "rag_lib.py", "kamus_bawaan.txt"]
+CODE = ["model_acceptance_eval.py", "memory_agent.py", "memory_tools.py", "memory_router.py", "router_weights.npz", "rag_lib.py", "kamus_bawaan.txt"]
 EVALSETS = ["memory_handwritten.jsonl", "memory_handwritten_unans.json", "memory_complex.jsonl", "memory_complex_unans.jsonl",
             "memory_cases.jsonl", "memory_router.jsonl", "memory_router_heldout.jsonl", "memory_router_test2.jsonl", "acceptance_criteria.json"]
 PETUNJUK = """Paket uji kelulusan model (hai07 Memori)
 =========================================
-Isi: tools/ (5 berkas), evalsets/ (set uji + kriteria). Ekstrak ke folder kerja, lalu dari folder itu:
+Isi: tools/ (7 berkas), evalsets/ (set uji + kriteria). Ekstrak ke folder kerja, lalu dari folder itu:
 
   pip install transformers accelerate
   python tools/model_acceptance_eval.py --backend hf --model <id atau folder model> --quick      # uji asap dulu

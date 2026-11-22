@@ -10,6 +10,7 @@ import pytest
 from conftest import load_module
 
 ROOT = Path(__file__).resolve().parent.parent
+MT = load_module("memory_tools_under_test_r", "tools/memory_tools.py")
 MR = load_module("memory_router_under_test", "tools/memory_router.py")
 TR = load_module("train_router_under_test", "tools/train_router.py")
 ROUTER = MR.Router.load()
@@ -77,3 +78,55 @@ def test_classifier_meets_the_development_gates_on_the_frozen_sets():
     assert sum(p == r["label"] for p, r in zip(pa, accept)) / len(accept) >= 0.93
     assert not [r for p, r in zip(pa, accept) if r["label"] == "cari" and p != "cari"]
     assert sum(p != "cari" for p in pj) / len(jeb) <= 0.01
+
+
+# ---------- integrasi ke aplikasi: classifier mengusulkan, alat memverifikasi ----------
+def test_hinted_tools_read_loose_phrasings_correctly():
+    T = MT
+    assert T.route("mau tahu 21 Okt 2023 jatuh di hari apa", None, None) is None                       # aturan ketat tidak membacanya
+    assert T.route("mau tahu 21 Okt 2023 jatuh di hari apa", None, None, hint="tanggal")["answer"] == "Sabtu"
+    assert T.route("beda 12 Jun 2027 dengan 27 Agustus 2023 berapa hari ya kak", None, None, hint="tanggal")["answer"] == "1385 hari"
+    assert T.route("85 lalu dikali 43,7, berapa jadinya", None, None, hint="hitung")["answer"] == "3714,5"
+    assert T.route("berapa jumlahnya kalau 571 digabung 98549", None, None, hint="hitung")["answer"] == "99120"
+    assert T.route("naikkan urutannya deretan ini: 13,3, 36, tujuh puluh enam, 816", None, None, hint="urut")["answer"] == "13,3; 36; 76; 816"
+
+
+def test_hint_never_invents_an_answer_when_the_tool_cannot_verify():
+    for q, h in (("Siapa yang membuat laporan bulanan?", "hitung"), ("kapan rapat besok", "tanggal"), ("rapikan nomor rumah tadi", "urut"), ("berapa ya", "hitung")):
+        assert MT.route(q, None, None, hint=h) is None, q
+    assert MT.route("Berapa jumlah anggota koperasi?", None, None, hint="hitung") is None             # pertanyaan catatan tidak boleh jadi hitungan
+
+
+def test_hint_does_not_change_what_the_strict_rules_already_answer():
+    for q in ("urutkan 5, 3, 9, 1", "hitung 12 x 5", "hari apa 1 Mei 2026"):
+        assert MT.route(q, None, None) == MT.route(q, None, None, hint="urut") == MT.route(q, None, None, hint="hitung")
+
+
+def test_assisted_route_modes(monkeypatch, tmp_path):
+    MR._ROUTER = None
+    q = "bantu hitungkan 70220 ditambah 272"
+    assert MR.assisted_route(q, None, None, mode="off") is None                                        # perilaku lama
+    log = tmp_path / "shadow.jsonl"
+    monkeypatch.setenv(MR.SHADOW_LOG_ENV, str(log))
+    assert MR.assisted_route(q, None, None, mode="shadow") is None                                     # bayangan: tidak mengubah hasil
+    rec = log.read_text(encoding="utf-8")
+    assert '"classifier": "hitung"' in rec and "70220" not in rec and "bantu" not in rec               # tidak menyimpan teks pesan
+    assert MR.assisted_route(q, None, None, mode="on")["answer"] == "70492"
+    assert MR.assisted_route("Di mana Bu Rina tinggal?", None, None, mode="on") is None                # pertanyaan catatan tetap ke pencarian
+    assert MR.assisted_route("tolong tuliskan puisi tentang laut", None, None, mode="on")["kind"] == "task"
+
+
+def test_default_mode_is_off_and_missing_weights_are_safe(monkeypatch):
+    monkeypatch.delenv(MR.MODE_ENV, raising=False)
+    assert MR.get_mode() == "off" and MR.get_mode("sembarang") == "off"
+    monkeypatch.setattr(MR, "_ROUTER", False)                                                          # bobot hilang: pakai aturan lama
+    assert MR.assisted_route("bantu hitungkan 1 ditambah 2", None, None, mode="on") is None
+    assert MR.assisted_greeting("selamt pagi", mode="on") is False
+
+
+def test_assisted_greeting_catches_typos_only_for_short_greetings():
+    MR._ROUTER = None
+    assert MR.assisted_greeting("selamt pagi", mode="on") is True
+    assert MR.assisted_greeting("selamt pagi", mode="off") is False
+    assert MR.assisted_greeting("Di mana Bu Rina tinggal?", mode="on") is False
+    assert MR.assisted_greeting("haloo 2 3", mode="on") is False

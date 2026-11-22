@@ -19,6 +19,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "apps"))
 sys.path.insert(0, str(PROJECT_ROOT / "tools"))
 
+import memory_router
 import memory_tools
 import rag_lib as R
 
@@ -499,11 +500,11 @@ class MemoryAgent:
         if rule:
             return {"status": "rule", "answer": rule["reply"], "tool": None, "detail": "",
                     "source": {"id": rule["id"], "text": rule["text"]}, "conflicts": [], "related": [], "retrieved": []}
-        if memory_tools.GREETING.match(question.strip()):
+        if memory_tools.GREETING.match(question.strip()) or memory_router.assisted_greeting(question):
             return {"status": "greeting", "answer": memory_tools.greeting_reply(len(self.store.list()), len(self.store.list_documents())), "tool": None,
                     "detail": "", "source": None, "conflicts": [], "related": [], "retrieved": []}
         notes = self.store.list()
-        t = memory_tools.route(question, memory_tools.parse_lexicon(notes)[0], notes)  # kamus dan angka dari catatan pengguna
+        t = memory_router.assisted_route(question, memory_tools.parse_lexicon(notes)[0], notes)  # kamus dan angka dari catatan pengguna; classifier hanya mengusulkan (MEMORI_ROUTER)
         if t:  # alat deterministik / permintaan tugas: tidak memanggil model
             return {"status": t["kind"], "answer": t["answer"], "tool": t["tool"], "detail": t["detail"],
                     "source": None, "conflicts": [], "related": [], "retrieved": []}
