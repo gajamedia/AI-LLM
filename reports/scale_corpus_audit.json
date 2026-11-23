@@ -1,0 +1,83 @@
+{
+ "keutuhan": [
+  {
+   "shard": "000_00000",
+   "ok": true,
+   "masalah": [],
+   "dokumen": 2024859,
+   "token": 2587862661
+  },
+  {
+   "shard": "000_00001",
+   "ok": true,
+   "masalah": [],
+   "dokumen": 2703671,
+   "token": 3481801536
+  },
+  {
+   "shard": "000_00002",
+   "ok": true,
+   "masalah": [],
+   "dokumen": 2710176,
+   "token": 3477747238
+  },
+  {
+   "shard": "000_00003",
+   "ok": true,
+   "masalah": [],
+   "dokumen": 2714931,
+   "token": 3473217233
+  }
+ ],
+ "duplikat_penuh": {
+  "000_00000": {
+   "dokumen_dibandingkan": 2024859,
+   "duplikat_di_dalam_shard": 0,
+   "hash_unik_sudah_ada_di_shard_sebelumnya": 0
+  },
+  "000_00001": {
+   "dokumen_dibandingkan": 2703671,
+   "duplikat_di_dalam_shard": 1,
+   "hash_unik_sudah_ada_di_shard_sebelumnya": 1
+  },
+  "000_00002": {
+   "dokumen_dibandingkan": 2710176,
+   "duplikat_di_dalam_shard": 0,
+   "hash_unik_sudah_ada_di_shard_sebelumnya": 7
+  },
+  "000_00003": {
+   "dokumen_dibandingkan": 2714931,
+   "duplikat_di_dalam_shard": 1,
+   "hash_unik_sudah_ada_di_shard_sebelumnya": 9
+  }
+ },
+ "duplikat_awalan": {
+  "000_00000": {
+   "dokumen_dibandingkan": 1983430,
+   "duplikat_di_dalam_shard": 6569,
+   "hash_unik_sudah_ada_di_shard_sebelumnya": 0
+  },
+  "000_00001": {
+   "dokumen_dibandingkan": 2644077,
+   "duplikat_di_dalam_shard": 8775,
+   "hash_unik_sudah_ada_di_shard_sebelumnya": 5445
+  },
+  "000_00002": {
+   "dokumen_dibandingkan": 2650877,
+   "duplikat_di_dalam_shard": 8942,
+   "hash_unik_sudah_ada_di_shard_sebelumnya": 11266
+  },
+  "000_00003": {
+   "dokumen_dibandingkan": 2655763,
+   "duplikat_di_dalam_shard": 8934,
+   "hash_unik_sudah_ada_di_shard_sebelumnya": 16306
+  }
+ },
+ "ringkasan": {
+  "shard": 4,
+  "dokumen": 10153637,
+  "token": 13020628668,
+  "dokumen_duplikat_penuh_kira_kira": 19,
+  "persen_dokumen_duplikat_penuh": 0.0
+ }
+}

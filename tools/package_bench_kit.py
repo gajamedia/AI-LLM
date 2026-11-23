@@ -21,6 +21,7 @@ def build(out):
         for f in sorted((PROJECT_ROOT / "apps" / "modules").glob("*.py")):
             z.write(f, f"apps/modules/{f.name}")
         z.write(PROJECT_ROOT / "tools" / "bench_train.py", "tools/bench_train.py")
+        z.write(PROJECT_ROOT / "tools" / "bench_train_xla.py", "tools/bench_train_xla.py")        # jalur TPU (torch_xla); notebook: kaggle/hai07_bench_xla.ipynb
         for f in VOCAB:
             z.write(PROJECT_ROOT / "data" / "prod_v2" / f, f"data/prod_v2/{f}")
         z.writestr("PETUNJUK.txt", "Ekstrak, lalu dari folder itu: python tools/bench_train.py --preset 100m --device cuda --amp\nNotebook: kaggle/hai07_bench_train.ipynb\n")

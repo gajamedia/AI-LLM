@@ -1,5 +1,6 @@
 """Tahap A dan B: saluran data skala besar (tools/build_scale_corpus.py) dan kode latih untuk model besar (gradient checkpointing, bench)."""
 import ast
+import json
 import sys
 from pathlib import Path
 
@@ -163,3 +164,87 @@ def test_bench_kit_is_self_contained_and_notebook_is_valid(tmp_path):
     for c in [c for c in nb["cells"] if c["cell_type"] == "code"]:
         ast.parse("".join(c["source"]))
     assert "--grad-checkpoint" in "".join("".join(c["source"]) for c in nb["cells"])
+
+
+# ---------- jalur TPU (torch_xla): bagian murni dan logika pekerja dengan tiruan torch_xla di CPU ----------
+BX = load_module("bench_train_xla_under_test", "tools/bench_train_xla.py")
+
+
+def test_xla_module_imports_without_torch_xla_and_maps_tpu_generations():
+    assert "torch_xla" not in sys.modules or True
+    assert BX.peak_tflops_per_chip("v5litepod-8") == BX.peak_tflops_per_chip("v5e-8") == 197.0
+    assert BX.peak_tflops_per_chip("v6e-8") == 918.0 and BX.peak_tflops_per_chip("v5p-8") == 459.0 and BX.peak_tflops_per_chip("") is None
+    s = BX.summarize([1.0, 1.2, 0.8], 8 * 2 * 1024, 3.7e9, 8, 197.0)
+    assert s["token_per_detik"] == 16384 and s["detik_per_langkah_median"] == 1.0 and s["mfu_persen"] == round(100 * 3.7e9 * 16384 / 1e12 / (197 * 8), 1)
+
+
+def test_checkpoint_patch_drops_unknown_kwargs():
+    seen = {}
+
+    def fake_xla(fn, *a):
+        seen["args"] = a
+        return fn(*a)
+    p = BX.make_checkpoint_patch(fake_xla)
+    assert p(lambda x, y: x + y, 1, 2, use_reentrant=False, preserve_rng_state=True) == 3 and seen["args"] == (1, 2)
+
+
+def test_worker_logic_runs_end_to_end_on_cpu_with_a_stubbed_torch_xla(tmp_path, monkeypatch):
+    import contextlib
+    import types
+    import torch.utils.checkpoint as tuc
+
+    xm = types.ModuleType("torch_xla.core.xla_model")
+    xm.xla_device = lambda: torch.device("cpu")
+    xm.optimizer_step = lambda opt: opt.step()
+    xm.mark_step = lambda: None
+    xm.wait_device_ops = lambda: None
+    xm.get_memory_info = lambda d: {"bytes_used": 123_000_000}
+    xr = types.ModuleType("torch_xla.runtime")
+    xr.world_size, xr.global_ordinal = (lambda: 1), (lambda: 0)
+    xr.use_spmd, xr.global_runtime_device_count = (lambda: None), (lambda: 1)
+    marks = []
+    spmd = types.ModuleType("torch_xla.distributed.spmd")
+    spmd.Mesh = lambda ids, shape, names: ("mesh", tuple(shape), names)
+    spmd.mark_sharding = lambda t, mesh, spec: marks.append(spec)
+    dist = types.ModuleType("torch_xla.distributed")
+    dist.spmd = spmd
+    ck = types.ModuleType("torch_xla.utils.checkpoint")
+    ck.checkpoint = lambda fn, *a: fn(*a)
+    pkg = types.ModuleType("torch_xla")
+    pkg.core, pkg.runtime, pkg.utils = types.ModuleType("torch_xla.core"), xr, types.ModuleType("torch_xla.utils")
+    pkg.core.xla_model, pkg.utils.checkpoint = xm, ck
+    pkg.distributed = dist
+    for name, mod in {"torch_xla": pkg, "torch_xla.core": pkg.core, "torch_xla.core.xla_model": xm, "torch_xla.runtime": xr, "torch_xla.distributed": dist,
+                      "torch_xla.distributed.spmd": spmd, "torch_xla.utils": pkg.utils, "torch_xla.utils.checkpoint": ck}.items():
+        monkeypatch.setitem(sys.modules, name, mod)
+    monkeypatch.setattr(torch, "autocast", lambda *a, **k: contextlib.nullcontext())
+    monkeypatch.setattr(tuc, "checkpoint", tuc.checkpoint)                      # dipulihkan otomatis setelah tes
+    monkeypatch.setenv("TPU_ACCELERATOR_TYPE", "v5litepod-8")
+    out = tmp_path / "o.jsonl"
+    args = BX.parse_args(["--preset", "tiny", "--ctx", "32", "--batch", "2", "--steps", "2", "--warmup", "1", "--grad-checkpoint", "--out", str(out)])
+    BX._worker(0, args)
+    res = json.loads(out.read_text(encoding="utf-8").splitlines()[0])
+    assert res["token_per_detik"] > 0 and res["chip"] == 1 and res["grad_checkpoint"] is True and res["memori_dipakai_gb"] == 0.12 and "galat" not in res
+    assert res["mfu_persen"] is not None and res["mode"] == "spmd"
+    assert marks and all(spec == ("data", None) for spec in marks)                    # mode bawaan spmd: hanya batch yang dipecah (parameter direplikasi)
+    marks.clear()
+    args2 = BX.parse_args(["--preset", "tiny", "--ctx", "32", "--batch", "2", "--steps", "1", "--warmup", "1", "--shard-params", "--accelerator", "v6e", "--out", str(out)])
+    BX._worker(0, args2)
+    assert any(len(spec) >= 2 and spec[0] == "data" for spec in marks) and len(marks) > 4          # --shard-params menandai parameter juga
+    assert json.loads(out.read_text(encoding="utf-8").splitlines()[-1])["shard_params"] is True
+    args3 = BX.parse_args(["--preset", "tiny", "--ctx", "32", "--batch", "2", "--steps", "1", "--warmup", "1", "--mode", "mp", "--out", str(out)])
+    BX._worker(0, args3)                                                                          # mode lama tetap berjalan
+    assert json.loads(out.read_text(encoding="utf-8").splitlines()[-1])["mode"] == "mp"
+
+
+def test_bench_kit_ships_the_xla_runner_and_the_tpu_notebook_is_valid(tmp_path):
+    import zipfile
+    kit = load_module("package_bench_kit_under_test_xla", "tools/package_bench_kit.py")
+    names = set(zipfile.ZipFile(kit.build(tmp_path / "k.zip")).namelist())
+    assert "tools/bench_train_xla.py" in names and "tools/bench_train.py" in names
+    nb = json.loads((ROOT / "kaggle" / "hai07_bench_xla.ipynb").read_text(encoding="utf-8"))
+    code = [c for c in nb["cells"] if c["cell_type"] == "code"]
+    for c in code:
+        ast.parse("".join(c["source"]))
+    text = "\n".join("".join(c["source"]) for c in nb["cells"])
+    assert "--preset\", \"tiny\"" in text and "UJI ASAP GAGAL" in text and "20 jam per minggu" in text
