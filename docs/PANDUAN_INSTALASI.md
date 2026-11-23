@@ -21,23 +21,25 @@ Kecepatan (diukur di komputer 8 inti): model dimuat dalam 5–10 detik, jawaban 
 1. Unduh `hai07-memori-v….zip` dari halaman Releases di GitHub.
 2. Periksa keutuhan. Di PowerShell:
    ```powershell
-   Get-FileHash .\hai07-memori-v1.1126.11.zip -Algorithm SHA256
+   Get-FileHash .\hai07-memori-v1.1126.12.zip -Algorithm SHA256
    ```
    Bandingkan dengan nilai SHA-256 yang tertulis di catatan rilis. Jika berbeda, unduh ulang (unduhan terputus atau rusak).
 
 ## 3. Pasang Python (sekali saja)
 
-1. Buka https://www.python.org/downloads/ dan unduh Python 3.10 atau yang lebih baru untuk Windows.
+1. Buka https://www.python.org/downloads/release/python-3120/ dan unduh **Windows installer (64-bit)** Python 3.12. Disarankan 3.12 karena
+   aplikasi hanya diuji pada Python 3.10; versi yang jauh lebih baru bisa gagal saat memasang pustaka.
 2. Jalankan pemasangnya dan **centang kotak "Add python.exe to PATH"** di layar pertama, lalu **Install Now**.
-3. Cek: buka *Command Prompt* (ketik `cmd` di menu Start) dan ketik `python --version`. Harus muncul `Python 3.10` atau lebih tinggi.
+3. Cek: buka *Command Prompt* (ketik `cmd` di menu Start) dan ketik `python --version`. Harus muncul `Python 3.10` sampai `3.12`.
 
-Jika perintah itu tidak dikenali, pemasangan Python perlu diulang dengan kotak PATH dicentang.
+Jika perintah itu tidak dikenali, atau yang muncul adalah jendela Microsoft Store, pemasangan Python perlu diulang dengan kotak PATH dicentang
+(Windows punya pintasan `python` palsu yang membuka Store; `jalankan.bat` akan memberi tahu bila itu yang terdeteksi).
 
 ## 4. Ekstrak paket
 
 1. Klik kanan zip, pilih **Extract All…**, dan simpan di folder yang Anda miliki, misalnya `C:\Memori` atau `Documents`.
    Jangan jalankan dari dalam zip, dan hindari `C:\Program Files` (butuh izin khusus untuk menulis).
-2. Hasilnya folder `hai07-memori-v1.1126.11` berisi `jalankan.bat`, `model`, `tools`, dll.
+2. Hasilnya folder `hai07-memori-v1.1126.12` berisi `jalankan.bat`, `model`, `tools`, dll.
 
 ## 5. Jalankan pertama kali
 
@@ -86,7 +88,7 @@ Skrip `jalankan.sh` disertakan tetapi **belum pernah dijalankan** karena pembuat
 ```bash
 # Debian/Ubuntu: pastikan Python dan venv tersedia
 sudo apt install python3 python3-venv
-cd hai07-memori-v1.1126.11
+cd hai07-memori-v1.1126.12
 bash jalankan.sh
 ```
 
@@ -97,7 +99,7 @@ Di macOS pasang Python 3.10+ dari python.org atau Homebrew, lalu jalankan `bash 
 | Gejala | Penyebab dan solusi |
 |---|---|
 | "Python 3.10 atau lebih baru belum terpasang" | Pasang Python (bagian 3) dan **centang Add python.exe to PATH**, lalu klik ganda `jalankan.bat` lagi. |
-| "Gagal menyiapkan lingkungan" | Biasanya koneksi internet terputus atau diblokir (proxy, VPN, antivirus). Periksa koneksi, hapus folder `.venv` di dalam paket, lalu jalankan lagi. |
+| "Gagal menyiapkan lingkungan" | Koneksi internet terputus atau diblokir (proxy, VPN, antivirus), atau versi Python tidak cocok (pasang Python 3.12). Hapus folder `.venv` di dalam paket, lalu jalankan lagi. |
 | Pemasangan sangat lama | Normal pada internet lambat (±250 MB). Biarkan sampai selesai. |
 | Jendela hitam langsung tertutup | Jalankan dari Command Prompt agar pesan galat terbaca: buka `cmd`, `cd` ke folder paket, ketik `jalankan.bat`. |
 | Model gagal dimuat | Ukuran `model\hai07-100m-v….pt` harus ±404 MB. Jika lebih kecil, unduhan rusak: unduh ulang dan periksa checksum. |

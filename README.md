@@ -268,7 +268,7 @@ Terukur dengan model asli pada aplikasi utuh: kasus bertema 20 -> 23 dari 26 lol
   non-komersial; ringkasan dan alasan di [`licenses/LISENSI.txt`](licenses/LISENSI.txt), sumber data di paket (`NOTICE.md`).
 - Data latih tidak ada di repositori dan tunduk pada lisensi sumbernya. Ini bukan nasihat hukum.
 
-Membuat paket rilis: `python tools/package_release.py --version 1.1126.11` (keluaran di `dist/`, tidak masuk git).
+Membuat paket rilis: `python tools/package_release.py --version 1.1126.12` (keluaran di `dist/`, tidak masuk git).
 
 ---
 

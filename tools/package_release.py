@@ -1,7 +1,7 @@
 """
 Membuat paket rilis yang bisa didistribusikan: bobot saja + kode jalan minimal + antarmuka web + dokumen.
 
-  python tools/package_release.py --version 1.1126.11
+  python tools/package_release.py --version 1.1126.12
 
 Keluaran: dist/hai07-memori-v<versi>/ dan dist/hai07-memori-v<versi>.zip (+ SHA256SUMS.txt di dalamnya).
 Paket tidak berisi optimizer, data latih, atau catatan pengguna. Berkas lisensi diambil dari licenses/
@@ -30,11 +30,17 @@ REQUIREMENTS = "# Kebutuhan runtime (diuji pada Python 3.10, torch 2.14 CPU)\nto
 BAT = r"""@echo off
 setlocal
 cd /d "%~dp0"
-where python >nul 2>nul
+python -c "import sys; sys.exit(0 if sys.version_info>=(3,10) else 1)" >nul 2>nul
 if errorlevel 1 (
-  echo Python 3.10 atau lebih baru belum terpasang. Unduh dari https://www.python.org/downloads/
+  echo Python 3.10 atau lebih baru belum terpasang, atau yang terdeteksi hanya pintasan Microsoft Store.
+  echo Disarankan Python 3.12: https://www.python.org/downloads/release/python-3120/
+  echo Saat memasang, CENTANG "Add python.exe to PATH". Lalu klik ganda jalankan.bat lagi.
   pause
   exit /b 1
+)
+python -c "import sys; sys.exit(0 if sys.version_info<(3,13) else 1)" >nul 2>nul
+if errorlevel 1 (
+  echo PERINGATAN: Python ini lebih baru dari 3.12 dan belum diuji. Jika pemasangan gagal, pasang Python 3.12.
 )
 if not exist ".venv\Scripts\python.exe" (
   echo Menyiapkan lingkungan Python sekali saja ^(perlu internet, sekitar 250 MB^)...
@@ -45,7 +51,8 @@ if not exist ".venv\Scripts\python.exe" (
 ".venv\Scripts\python.exe" tools\memory_web.py --open %*
 exit /b 0
 :err
-echo Gagal menyiapkan lingkungan. Periksa koneksi internet lalu jalankan lagi.
+echo Gagal menyiapkan lingkungan. Penyebab umum: internet terputus/diblokir, atau versi Python tidak cocok.
+echo Hapus folder .venv di sini, pasang Python 3.12, lalu jalankan lagi. Kirim teks galat di atas jika masih gagal.
 pause
 exit /b 1
 """
@@ -280,7 +287,7 @@ def main():
     (pkg / "MODEL_CARD.md").write_text(from_card, encoding="utf-8", newline="\n")
     (pkg / "NOTICE.md").write_text(notice(v), encoding="utf-8", newline="\n")
     (pkg / "README.md").write_text(package_readme(v), encoding="utf-8", newline="\n")
-    for guide in ("PANDUAN_MENGAJAR.md", "PANDUAN_INSTALASI.md"):
+    for guide in ("PANDUAN_PESERTA.md", "PANDUAN_MENGAJAR.md", "PANDUAN_INSTALASI.md"):
         shutil.copy2(PROJECT_ROOT / "docs" / guide, pkg / guide)
     (pkg / "requirements.txt").write_text(REQUIREMENTS, encoding="utf-8", newline="\n")
     (pkg / "jalankan.bat").write_text(BAT, encoding="utf-8", newline="\r\n")

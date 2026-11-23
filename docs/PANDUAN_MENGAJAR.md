@@ -125,13 +125,17 @@ dengan jawaban mentah model yang ditolak dan alasannya). Itu keterbatasan model,
 
 | Bisa (umumnya) | Belum bisa (diukur) |
 |---|---|
-| "Jam berapa rapat dimulai di ruang Mawar?" | "Tim apa yang rapat di ruang Anggrek?" (nama tim, divisi, peran) |
-| "Rapat tim finance ada di ruang apa?" | "Siapa yang rapat di ruang Anggrek?" bila jawabannya nama tim |
-| "Di mana Bu Rina tinggal?", "Siapa ketua koperasi Maju?" | "Rapat diadakan oleh tim mana?" |
+| "Jam berapa rapat dimulai di ruang Mawar?" | "Siapa yang rapat di ruang Anggrek?" bila jawabannya nama orang atau peran |
+| "Rapat tim finance ada di ruang apa?" | Pertanyaan "siapa ..." dan pola lain di luar "kategori mana/apa" |
+| "Di mana Bu Rina tinggal?", "Siapa ketua koperasi Maju?" | Jenis fakta di luar daftar di atas (nama divisi, peran, dan sejenisnya) |
 
-Pengujian: dari 35 percobaan (5 gaya catatan × 7 susunan pertanyaan) untuk mengeluarkan nama tim, **tidak ada satu pun** jawaban bersih. Model
-mengulang kata dari pertanyaan, menjawab jam, atau menolak. Caranya sekarang: **tanyakan hal yang bisa dijawab** (jam, ruang, tanggal), atau
-tanyakan secara umum ("rapat ada di ruang apa") dan pilih dari **pertanyaan balik** aplikasi, yang menampilkan kata pembeda seperti nama tim.
+Pengujian pada model saja: dari 35 percobaan (5 gaya catatan × 7 susunan pertanyaan) untuk mengeluarkan nama tim, **tidak ada satu pun** jawaban
+bersih; model mengulang kata dari pertanyaan, menjawab jam, atau menolak. Karena itu aplikasi punya **cadangan** untuk satu pola: pertanyaan
+berbentuk "**KATEGORI mana/apa** ..." (mis. "Tim mana yang rapat di ruang Anggrek?"). Hanya bila model tidak menjawab, program mengambil kata PERSIS
+yang mengikuti kategori di catatan ("Rapat tim produk ... di ruang Anggrek" memberi "produk"). Pada uji aplikasi utuh, pertanyaan nama tim naik
+dari 0 menjadi 3 dari 3 (jumlah soal sangat kecil, ini gambaran, bukan jaminan). Cadangan ini berhenti dan tetap menjawab "belum tahu" bila ruang
+atau entitas yang ditanya tidak ada di catatan, ada dua jawaban berbeda, atau tidak ada kata pembeda. Pola lain belum ditangani: **tanyakan hal yang
+bisa dijawab** (jam, ruang, tanggal), atau tanyakan secara umum ("rapat ada di ruang apa") dan pilih dari **pertanyaan balik** aplikasi.
 Menambah kemampuan jenis fakta baru memerlukan pelatihan ulang model.
 
 ## Pertanyaan lanjutan ("dan istrinya?")
