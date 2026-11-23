@@ -1,4 +1,7 @@
 import argparse
+import builtins
+import contextlib
+import datetime
 import math
 import os
 import random
@@ -9,6 +12,7 @@ from pathlib import Path
 from typing import Dict
 
 import torch
+import torch.distributed as dist
 import numpy as np
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -18,8 +22,48 @@ if str(APPS_DIR) not in sys.path:
 
 from config import get_config
 from checkpoint_meta import build_checkpoint_metadata, validate_checkpoint_metadata
-from dataset2 import create_dataloader
+from dataset2 import create_dataloader, parse_token_spec
 from gptModel import GPTModel
+
+
+_PROCESS_START = time.time()   # untuk --time-limit-s (hitungan dimulai sejak proses jalan, termasuk memuat data)
+
+
+def _dist_on() -> bool:
+    return dist.is_available() and dist.is_initialized()
+
+
+def _rank() -> int:
+    return dist.get_rank() if _dist_on() else 0
+
+
+def _world() -> int:
+    return dist.get_world_size() if _dist_on() else 1
+
+
+def _is_main() -> bool:
+    return _rank() == 0
+
+
+class _BatchForward(torch.nn.Module):
+    """Pembungkus agar DDP memicu hook gradiennya: DDP hanya aktif lewat forward(), sedangkan loop latih
+    memanggil model.forward_batch(batch). Parameter dipakai bersama dengan model asli."""
+
+    def __init__(self, model):
+        super().__init__()
+        self.model = model
+
+    def forward(self, batch):
+        return self.model.forward_batch(batch)
+
+
+def _sync_any(flag: bool, device: torch.device) -> bool:
+    """True di SEMUA rank bila salah satu rank True (mencegah rank berhenti sendiri lalu macet di all-reduce)."""
+    if not _dist_on():
+        return bool(flag)
+    t = torch.tensor([1 if flag else 0], device=device)
+    dist.all_reduce(t, op=dist.ReduceOp.MAX)
+    return bool(t.item())
 
 
 def _resolve_device(requested: str) -> torch.device:
@@ -54,6 +98,8 @@ def _save_checkpoint(
     scheduler=None,
     training_state=None,
 ) -> None:
+    if not _is_main():
+        return   # multi-GPU: hanya rank 0 menulis checkpoint
     path.parent.mkdir(parents=True, exist_ok=True)
     numpy_rng = np.random.get_state()
     temp_path = path.with_suffix(path.suffix + ".tmp")
@@ -89,6 +135,13 @@ def _save_checkpoint(
         str(temp_path),
     )
     os.replace(temp_path, path)
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()   # lepas blok cadangan hasil serialisasi agar tidak memicu OOM di langkah berikutnya
+    try:   # berkas kecil pendamping: memilih checkpoint terbaru tanpa memuat file bergiga-giga
+        import json as _json
+        path.with_suffix('.meta.json').write_text(_json.dumps({'epoch': int(epoch), 'step': int(step), 'env': env, 'saved_at': time.time()}), encoding='utf-8')
+    except OSError:
+        pass
 
 
 def _log_save_event(
@@ -104,6 +157,8 @@ def _log_save_event(
     start_time: float,
     cfg,
 ) -> None:
+    if not _is_main():
+        return
     elapsed = time.time() - start_time
     ppl = math.exp(min(loss, 20.0))
     ma_text = f"{ma_loss:.6f}" if ma_loss is not None else "n/a"
@@ -253,6 +308,8 @@ def _evaluate_validation_loss(
     use_amp: bool,
     amp_dtype: torch.dtype = torch.bfloat16,
 ) -> float | None:
+    if not _is_main():
+        return None   # multi-GPU: validasi hanya di rank 0; rank lain menunggu di all-reduce langkah berikutnya
     model.eval()
     total_loss = 0.0
     total_tokens = 0
@@ -303,6 +360,7 @@ def _update_validation_monitor(
     env: str,
     cfg,
     save_dir: Path,
+    save_best: bool = True,
 ) -> tuple[float, int, bool]:
     """Drive LR scheduling, best-checkpoint selection, and early stopping from val loss."""
     if loss is None:
@@ -312,7 +370,9 @@ def _update_validation_monitor(
         scheduler.step(loss)
 
     improved = loss < best_loss - min_delta
-    if improved:
+    if improved and not save_best:
+        best_loss, bad_evals = loss, 0   # model besar: checkpoint terbaik tidak ditulis (6,5 GB tiap kali)
+    elif improved:
         best_loss, bad_evals = loss, 0
         _save_checkpoint(
             path=save_dir / "gpt_best.pt", model=model, tokenizer=tokenizer,
@@ -386,7 +446,10 @@ def main() -> None:
     parser.add_argument("--amp", action="store_true", help="Enable mixed precision training.")
     parser.add_argument("--grad-checkpoint", action="store_true", help="Gradient checkpointing per lapisan (hemat memori model besar; waktu naik ~30%%).")
     parser.add_argument("--compile", action="store_true", help="torch.compile pada forward training (lebih cepat di GPU; checkpoint tetap dari model asli).")
-    parser.add_argument("--fused-adamw", action="store_true", help="AdamW versi fused (hanya CUDA).")    
+    parser.add_argument("--fused-adamw", action="store_true", help="AdamW versi fused (hanya CUDA).")
+    parser.add_argument("--time-limit-s", type=float, default=None,
+                        help="Berhenti rapi (checkpoint gpt_last.pt ditulis) di batas langkah optimizer pertama setelah waktu proses melewati nilai ini; untuk sesi Kaggle 12 jam.")
+    parser.add_argument("--no-best-save", action="store_true", help="Jangan tulis gpt_best.pt saat validasi membaik (hemat disk untuk model besar).")
     
     # Dataloader overrides
     parser.add_argument("--batch-size", type=int, default=None)
@@ -422,6 +485,25 @@ def main() -> None:
         raise SystemExit("--num-threads must be >= 1.")
     if args.num_threads is not None:
         torch.set_num_threads(int(args.num_threads))
+
+    # Multi-GPU: jalankan lewat `torchrun --nproc_per_node=2 tools/train_gptV2.py ...` (membaca WORLD_SIZE/RANK/LOCAL_RANK).
+    ddp_world = int(os.environ.get("WORLD_SIZE", "1"))
+    ddp_rank = int(os.environ.get("RANK", "0"))
+    ddp_local_rank = int(os.environ.get("LOCAL_RANK", "0"))
+    if ddp_world > 1:
+        if not torch.cuda.is_available():
+            raise SystemExit("Multi-GPU (torchrun) memerlukan CUDA.")
+        if ddp_local_rank >= torch.cuda.device_count():
+            raise SystemExit(f"LOCAL_RANK={ddp_local_rank} tetapi hanya {torch.cuda.device_count()} GPU terlihat.")
+        torch.cuda.set_device(ddp_local_rank)
+        dist.init_process_group(backend="nccl", timeout=datetime.timedelta(minutes=60))
+        if ddp_rank != 0:
+            builtins.print = lambda *a, **k: None   # hanya rank 0 mencetak log
+        if args.scheduler == "plateau" or args.plateau:
+            raise SystemExit("Multi-GPU belum mendukung scheduler plateau; pakai --scheduler cosine.")
+        if args.compile:
+            raise SystemExit("--compile belum dipakai bersama multi-GPU; hilangkan --compile.")
+        print(f"[train_gpt] DDP aktif: {ddp_world} proses (backend nccl).")
 
     env = args.env or os.getenv("TOKENIZER_ENV", "production")
     cfg = get_config(env)
@@ -541,9 +623,14 @@ def main() -> None:
     if train_grad_accum < 1:
         raise SystemExit("--grad-accum must be >= 1")
 
-    device = _resolve_device(train_device)
+    device = torch.device("cuda", ddp_local_rank) if ddp_world > 1 else _resolve_device(train_device)
 
     dataloader_kwargs = {"resumable": True, "seed": train_seed}
+    if ddp_world > 1:
+        dataloader_kwargs["rank"] = ddp_rank
+        dataloader_kwargs["world_size"] = ddp_world
+        if train_seed is None:
+            dataloader_kwargs["seed"] = 1234   # seed HARUS sama di semua rank agar permutasi sama dan data tidak tumpang tindih
     if args.batch_size is not None:
         dataloader_kwargs["batch_size"] = int(args.batch_size)
     if args.block_size is not None:
@@ -609,10 +696,11 @@ def main() -> None:
     validation_dataloader = None
     if val_token_file and train_val_every > 0:
         val_token_path = Path(str(val_token_file))
-        if not val_token_path.exists():
-            raise SystemExit(f"Validation token file not found: {val_token_path}")
+        for _vp, _rng in parse_token_spec(val_token_file):
+            if not Path(_vp).exists():
+                raise SystemExit(f"Validation token file not found: {_vp}")
         validation_dataloader = create_dataloader(
-            token_file=str(val_token_path),
+            token_file=str(val_token_file),
             block_size=int(dataloader_kwargs.get("block_size", getattr(cfg, "DATASET_BLOCK_SIZE", 128))),
             batch_size=int(dataloader_kwargs.get("batch_size", getattr(cfg, "DATASET_BATCH_SIZE", 16))),
             shuffle=False,
@@ -643,6 +731,12 @@ def main() -> None:
     forward_batch = torch.compile(model.forward_batch) if args.compile else model.forward_batch
     if args.compile:
         print("[train_gpt] torch.compile aktif pada forward training.")
+    ddp_module = None
+    if ddp_world > 1:
+        ddp_module = torch.nn.parallel.DistributedDataParallel(
+            _BatchForward(model), device_ids=[ddp_local_rank], output_device=ddp_local_rank,
+        )
+        forward_batch = ddp_module
     amp_wanted = (bool(args.amp) or bool(getattr(cfg, "TRAIN_AMP_ENABLED", False))) and not args.no_amp
     use_amp = bool(amp_wanted) and device.type in ("cuda", "cpu")
     amp_dtype = torch.bfloat16
@@ -797,7 +891,7 @@ def main() -> None:
     print(f"mixed_precision={use_amp} dtype={amp_dtype}")
     print(f"num_threads={torch.get_num_threads()}")
     print(f"grad_accum={train_grad_accum}")
-    print(f"effective_batch={train_grad_accum * dataloader.batch_size}")
+    print(f"effective_batch={train_grad_accum * dataloader.batch_size * ddp_world}" + (f" (per GPU {dataloader.batch_size}, {ddp_world} GPU)" if ddp_world > 1 else ""))
     trainable_params = sum(parameter.numel() for parameter in model.parameters() if parameter.requires_grad)
     dataset_tokens = int(getattr(dataloader.dataset, "num_training_tokens", 0))
     samples = len(dataloader.dataset)
@@ -805,7 +899,7 @@ def main() -> None:
     sequence_slots = int(getattr(dataloader.dataset, "block_size", 0))
     token_utilization = average_target_tokens / max(1, sequence_slots)
     planned_tokens = int(
-        planned_updates * dataloader.batch_size * train_grad_accum * average_target_tokens
+        planned_updates * dataloader.batch_size * train_grad_accum * ddp_world * average_target_tokens
     )
     planned_passes = planned_tokens / max(1, dataset_tokens)
     print(f"trainable_parameters={trainable_params:,}")
@@ -833,31 +927,41 @@ def main() -> None:
                 training_sampler.mark_consumed(int(batch["input_ids"].shape[0]))
             batch = _to_device(batch, device)
 
-            with torch.amp.autocast(device_type=device.type, dtype=amp_dtype, enabled=use_amp):
-                out = forward_batch(batch)
-            if not (isinstance(out, tuple) and len(out) >= 2):
-                raise RuntimeError("Model must return (loss, logits) during training.")
-            loss = out[0]
-            if not torch.is_tensor(loss):
-                raise RuntimeError("Loss output is not a tensor.")
-
-            loss_value = float(loss.detach().cpu().item())
-            if not math.isfinite(loss_value):
-                skipped_non_finite += 1
-                accum_batches = 0
-                optimizer.zero_grad(set_to_none=True)
-                print(
-                    f"[warn] non-finite loss detected (loss={loss_value}) at "
-                    f"epoch={epoch_number} batch={batch_idx + 1}; accumulated step dropped. "
-                    f"total_skipped={skipped_non_finite}"
-                )
-                continue
-
-            loss = loss / train_grad_accum
-            if use_scaler:
-                scaler.scale(loss).backward()
+            # DDP: all-reduce gradien hanya pada mikro-langkah terakhir akumulasi (no_sync di langkah sebelumnya).
+            if ddp_module is not None and accum_batches + 1 < train_grad_accum:
+                sync_ctx = ddp_module.no_sync()
             else:
-                loss.backward()
+                sync_ctx = contextlib.nullcontext()
+            with sync_ctx:
+                with torch.amp.autocast(device_type=device.type, dtype=amp_dtype, enabled=use_amp):
+                    out = forward_batch(batch)
+                if not (isinstance(out, tuple) and len(out) >= 2):
+                    raise RuntimeError("Model must return (loss, logits) during training.")
+                loss = out[0]
+                if not torch.is_tensor(loss):
+                    raise RuntimeError("Loss output is not a tensor.")
+
+                loss_value = float(loss.detach().cpu().item())
+                # semua rank harus sepakat melewati langkah ini; bila hanya satu rank yang melewatinya, rank lain macet di all-reduce
+                if _sync_any(not math.isfinite(loss_value), device):
+                    skipped_non_finite += 1
+                    if ddp_module is not None:
+                        # tuntaskan siklus reduksi DDP dengan backward nol (gradien nol) supaya forward berikutnya tidak galat
+                        sum(p.sum() for p in model.parameters() if p.requires_grad).mul(0.0).backward()
+                    accum_batches = 0
+                    optimizer.zero_grad(set_to_none=True)
+                    print(
+                        f"[warn] non-finite loss detected (loss={loss_value}) at "
+                        f"epoch={epoch_number} batch={batch_idx + 1}; accumulated step dropped. "
+                        f"total_skipped={skipped_non_finite}"
+                    )
+                    continue
+
+                loss = loss / train_grad_accum
+                if use_scaler:
+                    scaler.scale(loss).backward()
+                else:
+                    loss.backward()
 
             run_step += 1
             accum_batches += 1
@@ -930,6 +1034,7 @@ def main() -> None:
                     env=env,
                     cfg=cfg,
                     save_dir=save_dir,
+                    save_best=not args.no_best_save,
                 )
                 stop_training = stop_training or val_stop
 
@@ -1000,16 +1105,27 @@ def main() -> None:
 
             if train_max_steps is not None and global_step >= train_max_steps:
                 stop_training = True
+            if optimizer_stepped and args.time_limit_s and time.time() - _PROCESS_START >= args.time_limit_s and not stop_training:
+                stop_training = True
+                print(f"[time-limit] {args.time_limit_s:.0f}s tercapai di step={global_step}; berhenti dan menulis gpt_last.pt")
+            if optimizer_stepped:
+                stop_training = _sync_any(stop_training, device)   # keputusan berhenti (mis. early-stop di rank 0) harus seragam
             if stop_training:
                 break
 
         if hasattr(training_sampler, "finish_epoch") and (
             not stop_training
-            or training_sampler.consumed_position >= len(training_sampler)
+            or training_sampler.consumed_position >= len(training_sampler) * getattr(training_sampler, "world_size", 1)
         ):
             training_sampler.finish_epoch()
 
         if accum_batches > 0 and not stop_training:
+            if ddp_module is not None:
+                # sisa akumulasi dijalankan di bawah no_sync: rata-ratakan gradien antar rank secara manual
+                for p in model.parameters():
+                    if p.grad is not None:
+                        dist.all_reduce(p.grad)
+                        p.grad.div_(ddp_world)
             _optimizer_step(
                 model, optimizer, scaler, use_scaler, train_grad_clip,
                 grad_scale=float(train_grad_accum) / float(accum_batches),
@@ -1079,6 +1195,7 @@ def main() -> None:
                     env=env,
                     cfg=cfg,
                     save_dir=save_dir,
+                    save_best=not args.no_best_save,
                 )
                 stop_training = stop_training or val_stop
 
@@ -1168,6 +1285,9 @@ def main() -> None:
     print(f"training complete: micro_steps={run_step}, optimizer_steps={run_optimizer_steps}, global_steps={global_step}")
     print(f"skipped_non_finite={skipped_non_finite}")
     print(f"final checkpoint: {final_ckpt}")
+    if _dist_on():
+        dist.barrier()   # tunggu rank 0 selesai menulis checkpoint
+        dist.destroy_process_group()
 
 
 if __name__ == "__main__":

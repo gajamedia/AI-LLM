@@ -219,6 +219,7 @@ class PackedDataset(Dataset):
         bos_token_id=None,
         eos_token_id=None,
         pad_token_id=0,
+        document_range=None,
     ):
         assert os.path.exists(token_file), f"{token_file} not found"
 
@@ -233,10 +234,18 @@ class PackedDataset(Dataset):
         self.sample_spans = None
         if self.document_offsets_path and os.path.exists(self.document_offsets_path):
             self.document_offsets = np.load(self.document_offsets_path, mmap_mode="r", allow_pickle=False)
+            if document_range is not None:
+                # potong daftar dokumen (mis. sisihkan dokumen terakhir sebagai validasi); token file tetap utuh
+                lo, hi = document_range
+                self.document_offsets = self.document_offsets[int(lo or 0):(None if hi is None else int(hi))]
+                if len(self.document_offsets) == 0:
+                    raise ValueError(f"document_range {document_range} kosong untuk {token_file}")
             if len(self.document_offsets) == 0:
                 self.document_offsets = None
             else:
                 self.sample_spans = self._build_packed_spans(self.document_offsets, self.block_size)
+        elif document_range is not None:
+            raise ValueError("document_range memerlukan berkas indeks dokumen (.docs.npy).")
 
         self.total_tokens = len(self.data)
         self.num_blocks = len(self.sample_spans) if self.sample_spans is not None else (self.total_tokens - 1) // self.block_size
@@ -334,6 +343,51 @@ class PackedDataset(Dataset):
         }
 
 
+def parse_token_spec(spec):
+    """'a.u16,b.u16@100:200' -> [('a.u16', None), ('b.u16', (100, 200))].
+    '@lo:hi' memilih dokumen lo..hi-1 pada berkas itu (kosong = sampai ujung); koma memisahkan beberapa shard."""
+    parts = []
+    for item in str(spec).split(","):
+        item = item.strip()
+        if not item:
+            continue
+        rng = None
+        if "@" in item:
+            item, r = item.rsplit("@", 1)
+            lo, hi = r.split(":")
+            rng = (int(lo) if lo else 0, int(hi) if hi else None)
+        parts.append((item, rng))
+    if not parts:
+        raise ValueError("spesifikasi token kosong")
+    return parts
+
+
+class ShardedPackedDataset(Dataset):
+    """Beberapa shard token (masing-masing dengan indeks dokumen) tampil sebagai satu dataset berurutan."""
+
+    def __init__(self, parts, block_size=None, dtype=None, bos_token_id=None, eos_token_id=None, pad_token_id=0):
+        self.parts = [
+            PackedDataset(path, block_size=block_size, dtype=dtype, bos_token_id=bos_token_id,
+                          eos_token_id=eos_token_id, pad_token_id=pad_token_id, document_range=rng)
+            for path, rng in parts
+        ]
+        self.block_size = self.parts[0].block_size
+        self.cum = np.cumsum([0] + [len(p) for p in self.parts]).astype(np.int64)
+        self.total_tokens = sum(p.total_tokens for p in self.parts)
+        self.num_training_tokens = sum(p.num_training_tokens for p in self.parts)
+        print(f"Sharded dataset: {len(self.parts)} shard, {int(self.cum[-1]):,} blok, {self.num_training_tokens:,} token latih")
+
+    def __len__(self):
+        return int(self.cum[-1])
+
+    def __getitem__(self, idx):
+        idx = int(idx)
+        if not 0 <= idx < int(self.cum[-1]):
+            raise IndexError(idx)
+        k = int(np.searchsorted(self.cum, idx, side="right")) - 1
+        return self.parts[k][idx - int(self.cum[k])]
+
+
 # =========================================================
 # 3️⃣ SLIDING WINDOW DATASET (Optional)
 # =========================================================
@@ -386,16 +440,22 @@ class SlidingWindowDataset(Dataset):
 class ResumableRandomSampler(Sampler):
     """Random sampler that checkpoints its permutation and consumed position."""
 
-    def __init__(self, data_source, shuffle=True, generator=None):
+    def __init__(self, data_source, shuffle=True, generator=None, rank=0, world_size=1):
+        # Multi-GPU (DDP): semua rank memakai permutasi yang SAMA (seed sama); rank r mengambil posisi
+        # r, r+W, r+2W, ... sehingga data antar rank tidak tumpang tindih. world_size=1 = perilaku lama.
         self.data_source = data_source
         self.shuffle = bool(shuffle)
         self.generator = generator or torch.Generator()
+        self.rank = int(rank)
+        self.world_size = max(1, int(world_size))
+        if not 0 <= self.rank < self.world_size:
+            raise ValueError("rank harus di dalam [0, world_size).")
         self.permutation = None
-        self.consumed_position = 0
+        self.consumed_position = 0   # posisi GLOBAL pada permutasi (semua rank bersama)
         self.yielded_position = 0
 
     def __len__(self):
-        return len(self.data_source)
+        return len(self.data_source) // self.world_size if self.world_size > 1 else len(self.data_source)
 
     def _ensure_permutation(self):
         if self.permutation is None or len(self.permutation) != len(self.data_source):
@@ -409,15 +469,18 @@ class ResumableRandomSampler(Sampler):
     def __iter__(self):
         self._ensure_permutation()
         self.yielded_position = self.consumed_position
-        while self.yielded_position < len(self.permutation):
-            index = int(self.permutation[self.yielded_position])
-            self.yielded_position += 1
+        total = len(self.permutation)
+        if self.world_size > 1:
+            total -= total % self.world_size   # buang sisa agar semua rank punya jumlah sampel sama
+        while self.yielded_position + self.world_size <= total:
+            index = int(self.permutation[self.yielded_position + self.rank])
+            self.yielded_position += self.world_size
             yield index
 
     def mark_consumed(self, count):
         self.consumed_position = min(
             self.yielded_position,
-            self.consumed_position + int(count),
+            self.consumed_position + int(count) * self.world_size,
         )
 
     def finish_epoch(self):
@@ -471,6 +534,8 @@ def create_dataloader(
     dtype=None,
     resumable=False,
     seed=None,
+    rank=0,
+    world_size=1,
     bos_token_id=None,
     eos_token_id=None,
     pad_token_id=0,
@@ -497,14 +562,21 @@ def create_dataloader(
     dtype = _resolve_np_dtype(dtype or getattr(CONFIG, "DATASET_DTYPE", np.int32))
 
     if dataset_type == "packed":
-        dataset = PackedDataset(
-            token_file=token_file,
-            block_size=block_size,
-            dtype=dtype,
-            bos_token_id=bos_token_id,
-            eos_token_id=eos_token_id,
-            pad_token_id=pad_token_id,
-        )
+        parts = parse_token_spec(token_file) if ("," in str(token_file) or "@" in str(token_file)) else None
+        if parts is not None:
+            dataset = ShardedPackedDataset(
+                parts, block_size=block_size, dtype=dtype, bos_token_id=bos_token_id,
+                eos_token_id=eos_token_id, pad_token_id=pad_token_id,
+            )
+        else:
+            dataset = PackedDataset(
+                token_file=token_file,
+                block_size=block_size,
+                dtype=dtype,
+                bos_token_id=bos_token_id,
+                eos_token_id=eos_token_id,
+                pad_token_id=pad_token_id,
+            )
     elif dataset_type == "sliding":
         dataset = SlidingWindowDataset(
             token_file=token_file,
@@ -520,7 +592,11 @@ def create_dataloader(
         generator = torch.Generator()
         if seed is not None:
             generator.manual_seed(int(seed))
-        sampler = ResumableRandomSampler(dataset, shuffle=shuffle, generator=generator)
+        sampler = ResumableRandomSampler(
+            dataset, shuffle=shuffle, generator=generator, rank=rank, world_size=world_size,
+        )
+    elif int(world_size) > 1:
+        raise ValueError("world_size > 1 memerlukan resumable=True (sampler sadar rank).")
 
     loader = DataLoader(
         dataset,

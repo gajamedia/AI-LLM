@@ -534,6 +534,39 @@ class Production100MConfig(ProductionConfig):
     DATASET_BATCH_SIZE = 32         # 32 x 4 x 256 = 32.768 token/step
 
 
+class Production540MConfig(ProductionConfig):
+    """Model ~543M parameter (prapelatihan dari nol) untuk Kaggle GPU T4 x2 (DDP, fp16).
+
+    Kosakata sama dengan production (32.768); data = shard korpus skala (uint16, kosakata data/prod_v2).
+    Per langkah: 2 GPU x batch 4 x akumulasi 64 x konteks 1024 = 524.288 token (kurang sedikit bila ada padding).
+    Checkpoint TIDAK kompatibel dengan production / production_100m.
+    """
+    EMBEDDING_DIM = 1280
+    ATTENTION_NUM_HEADS = 20
+    ATTENTION_NUM_KV_HEADS = 5      # GQA 4:1
+    TRANSFORMER_NUM_LAYERS = 28
+    EMBEDDING_MAX_SEQ_LEN = 1024
+    ATTENTION_MAX_SEQ_LEN = 1024
+    MAX_LENGTH = 1024
+    # <1 epoch data web yang besar: dropout tidak diperlukan (hemat memori dan waktu)
+    EMBEDDING_DROPOUT = 0.0
+    ATTENTION_DROPOUT = 0.0
+    TRANSFORMER_DROPOUT = 0.0
+    TRAIN_LR = 3e-4
+    TRAIN_MIN_LR = 3e-5
+    TRAIN_WARMUP_STEPS = 500
+    TRAIN_MAX_STEPS = 20000
+    TRAIN_SAVE_DIR = "reports/checkpoints_540m"
+    TRAIN_SAVE_EVERY = 50
+    TRAIN_GRAD_ACCUM = 64
+    TRAIN_LOSS_WINDOW = 10
+    DATASET_BATCH_SIZE = 4          # PER GPU
+    DATASET_BLOCK_SIZE = 1024
+    DATASET_DTYPE = "uint16"
+    DATASET_NUM_WORKERS = 2
+    DATASET_PIN_MEMORY = True
+
+
 # ========================================
 # Testing Configuration
 # ========================================
@@ -625,6 +658,7 @@ def get_config(env: str = "development") -> Config:
         "development": DevelopmentConfig,
         "production": ProductionConfig,
         "production_100m": Production100MConfig,
+        "production_540m": Production540MConfig,
         "testing": TestingConfig,
     }
 

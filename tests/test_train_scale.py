@@ -248,3 +248,189 @@ def test_bench_kit_ships_the_xla_runner_and_the_tpu_notebook_is_valid(tmp_path):
         ast.parse("".join(c["source"]))
     text = "\n".join("".join(c["source"]) for c in nb["cells"])
     assert "--preset\", \"tiny\"" in text and "UJI ASAP GAGAL" in text and "20 jam per minggu" in text
+
+
+def test_bench_train_perangkat_non_cuda_sinkron_dan_argumen_tpu():
+    import types
+    args = BT.parse_args(["--preset", "tiny", "--device", "tpu", "--amp", "--peak-tflops", "197", "--device-name", "TPU v5e-1"])
+    assert args.device == "tpu" and args.peak_tflops == 197.0 and args.device_name == "TPU v5e-1" and args.amp
+    model = torch.nn.Linear(4, 4)
+    BT.sync_device(types.SimpleNamespace(type="tpu"), model)         # perangkat non-CUDA: membaca satu nilai parameter, tidak boleh gagal
+    BT.sync_device(types.SimpleNamespace(type="cpu"), model)
+    res = BT.run(BT.parse_args(["--preset", "tiny", "--device", "cpu", "--batch", "2", "--ctx", "32", "--steps", "1", "--warmup", "1", "--peak-tflops", "1", "--device-name", "CPU uji"]))
+    assert res["perangkat"] == "CPU uji" and res["mfu_persen"] is not None and res["bf16_murni"] is False
+
+
+def test_notebook_colab_sintaks_dan_mendeteksi_tiga_jalur():
+    import ast
+    nb = json.loads((ROOT / "kaggle" / "hai07_bench_colab.ipynb").read_text(encoding="utf-8"))
+    src = "\n".join("".join(c["source"]) for c in nb["cells"] if c["cell_type"] == "code")
+    ast.parse(src)
+    assert all(k in src for k in ("torch_tpu", "torch_xla", "tpu_torch", "run_inproc", "--peak-tflops"))
+
+
+def test_bench_train_menyambung_ulang_bobot_terikat_setelah_pindah_perangkat():
+    class M(torch.nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.tie_weights = True
+            self.token_embedding = torch.nn.Embedding(10, 4)
+            self.lm_head = torch.nn.Linear(4, 10, bias=False)
+            self.lm_head.weight = self.token_embedding.weight
+    m = M()
+    m.lm_head.weight = torch.nn.Parameter(m.lm_head.weight.detach().clone())      # meniru backend yang memisahkan bobot terikat
+    assert BT.count_params(m) == 80
+    BT.retie_weights(m)
+    assert m.lm_head.weight is m.token_embedding.weight and BT.count_params(m) == 40
+
+
+# ---------- multi-GPU (DDP): sampler sadar rank ----------
+def _sampler(n, rank, world, seed=7):
+    from dataset2 import ResumableRandomSampler
+    g = torch.Generator().manual_seed(seed)
+    return ResumableRandomSampler(list(range(n)), shuffle=True, generator=g, rank=rank, world_size=world)
+
+
+def test_sampler_dua_rank_tidak_tumpang_tindih_dan_sama_panjang():
+    s0, s1 = _sampler(101, 0, 2), _sampler(101, 1, 2)
+    a, b = list(s0), list(s1)
+    assert len(a) == len(b) == len(s0) == 50                     # sisa 1 sampel dibuang agar jumlah sama
+    assert not set(a) & set(b)
+
+
+def test_sampler_satu_rank_sama_dengan_perilaku_lama():
+    s = _sampler(33, 0, 1)
+    out = list(s)
+    assert sorted(out) == list(range(33)) and len(s) == 33
+
+
+def test_sampler_lanjut_dari_posisi_global_lintas_world_size():
+    s = _sampler(40, 0, 2)
+    it = iter(s)
+    first = [next(it) for _ in range(5)]
+    s.mark_consumed(5)                                           # 5 sampel per rank = 10 posisi global
+    assert s.consumed_position == 10
+    state = s.state_dict()
+    s2 = _sampler(40, 1, 2, seed=99)                             # rank lain, seed lain: harus ikut permutasi checkpoint
+    s2.load_state_dict(state)
+    rest = list(s2)
+    assert len(rest) == 15 and not set(rest) & set(first)
+
+
+def test_sampler_rank_di_luar_rentang_ditolak():
+    with pytest.raises(ValueError):
+        _sampler(10, 2, 2)
+
+
+def test_trainer_ddp_terpasang_aman():
+    src = (ROOT / "tools" / "train_gptV2.py").read_text(encoding="utf-8")
+    ast.parse(src)
+    for k in ("DistributedDataParallel", "no_sync", "_sync_any", "WORLD_SIZE", "init_process_group", "_is_main"):
+        assert k in src
+
+
+def test_notebook_bench_t4x2_valid_dan_memakai_torchrun():
+    nb = json.loads((ROOT / "kaggle" / "hai07_bench_t4x2.ipynb").read_text(encoding="utf-8"))
+    src = "\n".join("".join(c["source"]) for c in nb["cells"] if c["cell_type"] == "code")
+    ast.parse(src)
+    assert all(k in src for k in ("torch.distributed.run", "nproc_per_node=2", "jumlah_gpu", "skala_persen"))
+
+
+def test_notebook_t4x2_tidak_memberi_argumen_python_ke_torchrun():
+    nb = json.loads((ROOT / "kaggle" / "hai07_bench_t4x2.ipynb").read_text(encoding="utf-8"))
+    src = "\n".join("".join(c["source"]) for c in nb["cells"] if c["cell_type"] == "code")
+    assert 'TORCHRUN = [sys.executable, "-u", "-m"' in src      # -u harus sebelum -m; setelahnya torchrun menolaknya
+    assert '+ ["-u", WORK' not in src
+
+
+# ---------- prapelatihan 540M: shard ganda, rentang dokumen, batas waktu ----------
+def _tiny_shard(tmp_path, name, n_docs, seed, dtype=np.uint16, vocab=32768):
+    rng = np.random.default_rng(seed)
+    lens = rng.integers(5, 40, size=n_docs)
+    toks, offs, pos = [], [], 0
+    for L in lens:
+        d = rng.integers(4, vocab, size=int(L)).astype(dtype)
+        toks.append(d)
+        offs.append((pos, pos + int(L)))
+        pos += int(L)
+    f = tmp_path / name
+    np.concatenate(toks).tofile(f)
+    np.save(str(f) + ".docs.npy", np.asarray(offs, dtype=np.int64))
+    return str(f), np.concatenate(toks)
+
+
+def test_parse_token_spec():
+    from dataset2 import parse_token_spec
+    assert parse_token_spec("a.u16") == [("a.u16", None)]
+    assert parse_token_spec("a.u16, b.u16@10:20,c.u16@5:") == [("a.u16", None), ("b.u16", (10, 20)), ("c.u16", (5, None))]
+    with pytest.raises(ValueError):
+        parse_token_spec(" , ")
+
+
+def test_dataset_multi_shard_uint16_dan_rentang_dokumen_tidak_tumpang_tindih(tmp_path):
+    from dataset2 import PackedDataset, ShardedPackedDataset
+    a, _ = _tiny_shard(tmp_path, "a.u16", 60, 1)
+    b, _ = _tiny_shard(tmp_path, "b.u16", 80, 2)
+    pa = PackedDataset(a, block_size=64, dtype="uint16", bos_token_id=1, eos_token_id=2)
+    train = ShardedPackedDataset([(a, None), (b, (0, 60))], block_size=64, dtype="uint16")
+    val = ShardedPackedDataset([(b, (60, None))], block_size=64, dtype="uint16")
+    pb_head = PackedDataset(b, block_size=64, dtype="uint16", document_range=(0, 60))
+    assert len(train) == len(pa) + len(pb_head)
+    # dokumen validasi (b 60..) tidak ada di rentang latih
+    assert train.num_training_tokens + val.num_training_tokens == pa.num_training_tokens + PackedDataset(b, block_size=64, dtype="uint16").num_training_tokens
+    x = train[len(pa)]                                   # blok pertama shard b
+    assert x["input_ids"].shape == (64,) and x["input_ids"].dtype == torch.long
+    with pytest.raises(IndexError):
+        train[len(train)]
+    with pytest.raises(ValueError):
+        PackedDataset(a, block_size=64, dtype="uint16", document_range=(1000, None))
+
+
+def test_dataloader_dengan_sampler_dua_rank_dan_multi_shard(tmp_path):
+    from dataset2 import create_dataloader
+    a, _ = _tiny_shard(tmp_path, "a.u16", 60, 1)
+    b, _ = _tiny_shard(tmp_path, "b.u16", 80, 2)
+    kw = dict(token_file=f"{a},{b}@0:50", block_size=64, batch_size=3, dtype="uint16", resumable=True, seed=5, world_size=2,
+              num_workers=0, pin_memory=False, shuffle=True, drop_last=False, dataset_type="packed")
+    l0, l1 = create_dataloader(rank=0, **kw), create_dataloader(rank=1, **kw)
+    assert len(l0.sampler) == len(l1.sampler)
+    assert not set(list(l0.sampler)) & set(list(l1.sampler))
+    batch = next(iter(l0))
+    assert batch["input_ids"].shape[1] == 64
+
+
+def test_trainer_punya_batas_waktu_dan_config_540m():
+    src = (ROOT / "tools" / "train_gptV2.py").read_text(encoding="utf-8")
+    for k in ("--time-limit-s", "_PROCESS_START", "--no-best-save", "meta.json"):
+        assert k in src
+    from config import get_config
+    c = get_config("production_540m")
+    assert (c.EMBEDDING_DIM, c.TRANSFORMER_NUM_LAYERS, c.DATASET_BLOCK_SIZE) == (1280, 28, 1024)
+    assert str(np.dtype(c.DATASET_DTYPE)) == "uint16" and c.TRAIN_GRAD_ACCUM == 64 and c.TRANSFORMER_DROPOUT == 0.0
+
+
+def test_notebook_prapelatihan_540m_valid_dan_aman_antar_sesi(tmp_path):
+    import re
+    nb = json.loads((ROOT / "kaggle" / "hai07_pretrain_540m_t4x2.ipynb").read_text(encoding="utf-8"))
+    src = "\n".join("".join(c["source"]) for c in nb["cells"] if c["cell_type"] == "code")
+    ast.parse(src)
+    for k in ("torch.distributed.run", "production_540m", "--time-limit-s", "--resume", "FIRST_SESSION", "meta.json", "--no-best-save", "VAL_SPEC"):
+        assert k in src
+    assert 'TORCHRUN' not in src and '+ ["-u", WORK' not in src
+    # urutan argumen: -u sebelum -m (torchrun menolak -u setelahnya)
+    assert '[sys.executable, "-u", "-m", "torch.distributed.run"' in src
+    # regex pengukur kecepatan cocok dengan format log trainer
+    rx = re.compile(r"step=(\d+) .*elapsed=([0-9.]+)s")
+    line = "epoch=1/1 step=3 run_optimizer_steps=3 micro_steps=6 batch=6 loss=10.4 ma_loss=n/a validation_loss=n/a lr=1e-4 ppl~=3 elapsed=5.7s"
+    assert rx.search(line).groups() == ("3", "5.7")
+    # tanpa pelarian ganda di regex notebook (pengamanan terhadap bug escape pembuat notebook)
+    bs = chr(92)
+    assert "step=(" + bs + "d+)" in src and "step=(" + bs * 2 + "d+)" not in src
+
+
+def test_paket_prapelatihan_memuat_kode_dan_kosakata(tmp_path):
+    import zipfile
+    PK = load_module("package_pretrain_kit_under_test", "tools/package_pretrain_kit.py")
+    out = PK.build(tmp_path / "kit.zip")
+    names = set(zipfile.ZipFile(out).namelist())
+    assert {"apps/dataset2.py", "apps/config.py", "tools/train_gptV2.py", "data/prod/vocab_prod.json", "data/prod/token2id_prod.json", "data/prod/id2token_prod.json"} <= names
