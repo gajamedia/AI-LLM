@@ -254,6 +254,10 @@ Pengaturan lewat berkas: salin `memori.env.example` menjadi `memori.env` (di fol
 Terukur pada set buatan pengembang (validasi 2.100 pesan): pesan alat yang terbaca naik dari 169 ke 293 dari 300 (urut), 78 ke 254 (hitung), 203 ke 294 (tanggal), pertanyaan catatan dibajak 0 dari 600.
 **Belum diuji pada gaya tulisan pemilik lain**, karena itu bawaannya mati. Juga ada perbaikan jawaban yang terpotong di tengah kata ("Parangtriti" menjadi "Parangtritis"; tidak mengubah hasil model sekarang pada set uji beku).
 
+### Cadangan untuk pertanyaan "KATEGORI mana/apa ..." (aktif otomatis)
+Model 100M sering menjawab "belum tahu" untuk pertanyaan seperti "tim mana yang rapat di ruang Anggrek?" (ia menjawab nama ruangnya, bukan nama tim, lalu ditolak penjaga). Hanya bila model tidak menjawab, `category_lookup` mengambil kata PERSIS yang mengikuti kategori di catatan ("Rapat tim produk ... di ruang Anggrek" -> "produk"). Alat berhenti dan tetap "belum tahu" bila ruang/entitas yang ditanya tidak ada di catatan, ada dua jawaban berbeda, atau tidak ada kata pembeda antar catatan; jawaban model tidak pernah ditimpa.
+Terukur dengan model asli pada aplikasi utuh: kasus bertema 20 -> 23 dari 26 lolos, nama tim 0 -> 3 dari 3, jawaban salah dan mengarang tidak bertambah. Ini kemampuan APLIKASI, bukan model: uji kelulusan model mematikannya secara bawaan (`--app-fallbacks` untuk mengukur aplikasi utuh). Hanya menutup pola "kategori mana/apa"; pola lain (mis. "siapa yang ...") belum.
+
 ---
 
 ## Lisensi
@@ -264,7 +268,7 @@ Terukur pada set buatan pengembang (validasi 2.100 pesan): pesan alat yang terba
   non-komersial; ringkasan dan alasan di [`licenses/LISENSI.txt`](licenses/LISENSI.txt), sumber data di paket (`NOTICE.md`).
 - Data latih tidak ada di repositori dan tunduk pada lisensi sumbernya. Ini bukan nasihat hukum.
 
-Membuat paket rilis: `python tools/package_release.py --version 1.1126.10` (keluaran di `dist/`, tidak masuk git).
+Membuat paket rilis: `python tools/package_release.py --version 1.1126.11` (keluaran di `dist/`, tidak masuk git).
 
 ---
 
