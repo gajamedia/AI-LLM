@@ -475,6 +475,57 @@ def decide(question, reads, entity_guard=True, relevance_guard=True, threshold=0
             "source": {"id": best["id"], "text": best["note"]}, "conflicts": conflicts, "guesses": [], "repaired": repaired}
 
 
+# ---------- cadangan deterministik: pertanyaan 'KATEGORI mana/apa ...' (mis. 'tim mana yang rapat di ruang anggrek') ----------
+# Model 100M tidak bisa menjawab pertanyaan jenis ini (menjawab nama ruangnya, bukan nama tim); alat ini hanya berjalan bila hasilnya 'unknown',
+# jadi tidak pernah menimpa jawaban model, dan hanya mengambil kata persis di catatan: kata yang mengikuti kategori ('tim produk' -> 'produk').
+_CAT_RE = re.compile(r"\b([a-z]{3,})\s+(?:mana|apa)\b")
+_CAT_BLOCK = {"yang", "itu", "ini", "untuk", "dengan", "pada", "dari", "oleh", "akan", "sudah", "bukan", "dalam", "adalah", "antara", "dimana", "siapa", "berapa",
+              "kapan", "bagaimana", "kenapa", "mengapa", "hal", "sesuatu", "nama", "saya", "kami", "kita", "anda", "ada", "apakah", "tolong", "coba", "jam", "tanggal"}
+_AFTER_SKIP = {"yang", "di", "ke", "dari", "pada", "untuk", "dan", "atau", "dengan", "adalah", "akan", "sudah", "sedang", "itu", "ini", "juga", "masih", "telah"}
+_VERBISH = ("meng", "meny", "mem", "men", "di", "ber", "ter")
+
+
+def _after_category(note, cat):
+    """Kata (atau rangkaian kata berhuruf kapital) yang mengikuti kategori di catatan; None bila tidak ada atau berbeda-beda."""
+    found = {}
+    for m in re.finditer(r"\b(?i:" + re.escape(cat) + r")\s+([^\s,.;:!?()]+(?:\s+[A-Z][^\s,.;:!?()]*){0,2})", note):    # huruf besar-kecil diabaikan hanya untuk kategori
+        words = m.group(1).split()
+        if words[0].lower() in _AFTER_SKIP:
+            continue
+        span = [words[0]] + [w for w in words[1:] if w[:1].isupper()] if words[0][:1].isupper() else [words[0]]
+        found.setdefault(R.norm(" ".join(span)), " ".join(span))
+    return next(iter(found.values())) if len(found) == 1 else None
+
+
+def category_lookup(question, reads):
+    """reads: (id, catatan, jawaban_mentah) berurutan peringkat. Kembalikan {id, text, answer, category} atau None (tidak yakin: biarkan 'unknown')."""
+    cat = next((m.group(1) for m in _CAT_RE.finditer(question.lower()) if m.group(1) not in _CAT_BLOCK), None)
+    if not cat:
+        return None
+    anchors = [t for t in R.content_tokens(question) if t != cat and t not in ("mana", "apa") and t not in _COMMAND_WORDS and len(stem(t)) >= 4]
+    cands = []
+    for nid, note, _ in reads:
+        ans = _after_category(note, cat)
+        if ans and entity_ok(question, note):
+            nn = R.norm(note)
+            # kata acuan yang tidak ada di catatan hanya boleh kata kerja berimbuhan ('menggunakan', 'digunakan'); selain itu catatan ini membahas hal lain
+            if all(stem(t) in nn or (len(t) >= 6 and t.startswith(_VERBISH)) for t in anchors):
+                cands.append((nid, note, ans))
+    if not cands:
+        return None
+    norms = {nid: R.norm(note) for nid, note, _ in reads}
+    hit = {nid: {stem(t) for t in anchors if stem(t) in norms[nid]} for nid in norms}
+    common = set.intersection(*hit.values()) if len(hit) > 1 else set()
+    score = {nid: len(hit[nid] - common) for nid in norms}
+    best = max(score[c[0]] for c in cands)
+    top = [c for c in cands if score[c[0]] == best]
+    cand_ids = {c[0] for c in cands}
+    if len(top) != 1 or (len(reads) > 1 and best == 0) or any(score[nid] > best for nid in norms if nid not in cand_ids):
+        return None
+    nid, note, ans = top[0]
+    return {"id": nid, "text": note, "answer": ans, "category": cat}
+
+
 def related_unused(question, reads, used_ids, min_score=0.5):
     """Catatan top-K yang memuat semua entitas pertanyaan dan cukup cocok dengan kata intinya (>= min_score), tetapi tidak dipakai sebagai
     sumber. Syarat kecocokan mencegah catatan yang hanya kebetulan memuat satu kata sama ('mawar') tampil sebagai catatan terkait."""
@@ -512,6 +563,7 @@ class MemoryAgent:
         self.entity_guard, self.relevance_guard = entity_guard, relevance_guard
         self.relevance_threshold = relevance_threshold
         self.alternate_forms = True
+        self.category_fallback = True    # cadangan deterministik 'KATEGORI mana/apa ...' bila model tidak menjawab (category_lookup)
         self.echo_threshold = 1.0      # tolak jawaban yang hanya mengulang kata pertanyaan
         self.unread_margin = 0.2       # tolak jawaban dari catatan kurang cocok bila yang lebih cocok tidak terbaca
 
@@ -561,8 +613,13 @@ class MemoryAgent:
                 if form != question:
                     question, rewritten = form, True
                 break
+        if out["status"] == "unknown" and self.category_fallback:   # model tidak menjawab: coba cadangan deterministik 'KATEGORI mana/apa ...'
+            alt = category_lookup(question, reads)
+            if alt:
+                out = {"status": "ok", "answer": alt["answer"], "source": {"id": alt["id"], "text": alt["text"]}, "conflicts": [], "guesses": [],
+                       "repaired": None, "via": "category_lookup"}
         out["retrieved"] = [h["id"] for h in hits]
-        out["standalone"] = question                       # dipakai klien sebagai riwayat berikutnya
+        out["standalone"] = question                      # dipakai klien sebagai riwayat berikutnya
         out["rewritten"] = question if rewritten else None
         if out["source"] and out["source"]["id"] in doc_ids:
             src = next(h for h in hits if h["id"] == out["source"]["id"])

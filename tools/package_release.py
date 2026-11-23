@@ -266,6 +266,7 @@ def main():
         (pkg / "tools" / name).write_text(text, encoding="utf-8", newline="\n")
     shutil.copy2(PROJECT_ROOT / "tools" / "kamus_bawaan.txt", pkg / "tools" / "kamus_bawaan.txt")
     shutil.copy2(PROJECT_ROOT / "tools" / "router_weights.npz", pkg / "tools" / "router_weights.npz")  # classifier pemilih alat (bawaan nonaktif: MEMORI_ROUTER=on)
+    shutil.copy2(PROJECT_ROOT / "memori.env.example", pkg / "memori.env.example")  # contoh pengaturan; salin menjadi memori.env
     (pkg / "web" / "memory").mkdir(parents=True)
     shutil.copy2(PROJECT_ROOT / "web" / "memory" / "index.html", pkg / "web" / "memory" / "index.html")
     (pkg / "data" / "prod").mkdir(parents=True)

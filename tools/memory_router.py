@@ -112,6 +112,65 @@ MODE_ENV = "MEMORI_ROUTER"            # off (bawaan, perilaku lama) | shadow (ja
 SHADOW_LOG_ENV = "MEMORI_ROUTER_LOG"  # berkas log lokal; bawaan hanya berisi kelas dan panjang pesan, TIDAK menyimpan teks pesan
 SHADOW_TEXT_ENV = "MEMORI_ROUTER_LOG_TEXT"  # "1" = ikut simpan teks pesan di berkas lokal itu (untuk dilabeli pemilik); mati bila tidak diisi
 _ROUTER = None
+CONFIG_ENV = "MEMORI_CONFIG"          # jalur berkas konfigurasi; bila kosong dicari memori.env lalu .env di folder proyek, lalu di folder kerja
+_CONFIG_NAMES = ("memori.env", ".env")
+_CONFIG_CACHE = None
+
+
+def _config_paths():
+    explicit = os.environ.get(CONFIG_ENV)
+    if explicit:
+        return [Path(explicit)]
+    roots = [Path(__file__).resolve().parent.parent, Path.cwd()]
+    return [r / n for r in roots for n in _CONFIG_NAMES]
+
+
+def parse_config(text):
+    """Baris KEY=VALUE; '#' memulai komentar di awal baris; tanda kutip di sekeliling nilai dibuang; baris lain diabaikan."""
+    out = {}
+    for line in text.splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        k, v = k.strip(), v.strip()
+        if len(v) >= 2 and v[0] == v[-1] and v[0] in "'" + chr(34):
+            v = v[1:-1]
+        elif " #" in v:
+            v = v.split(" #", 1)[0].strip()
+        if k:
+            out[k] = v
+    return out
+
+
+def reload_config():
+    global _CONFIG_CACHE
+    _CONFIG_CACHE = None
+
+
+def setting(name, default=None):
+    """Urutan prioritas: variabel lingkungan sungguhan > berkas konfigurasi (memori.env atau .env) > bawaan."""
+    global _CONFIG_CACHE
+    if name in os.environ:
+        return os.environ[name]
+    if _CONFIG_CACHE is None:
+        _CONFIG_CACHE = {}
+        for path in _config_paths():
+            try:
+                if path.is_file():
+                    _CONFIG_CACHE = parse_config(path.read_text(encoding="utf-8-sig"))
+                    break
+            except OSError:
+                pass
+    return _CONFIG_CACHE.get(name, default)
+
+
+def _threshold(name, default):
+    try:
+        v = float(setting(name, default))
+        return v if 0.0 < v <= 1.0 else default
+    except (TypeError, ValueError):
+        return default
 
 
 def _router():
@@ -125,7 +184,7 @@ def _router():
 
 
 def get_mode(mode=None):
-    m = (mode or os.environ.get(MODE_ENV, "off")).strip().lower()
+    m = (mode or setting(MODE_ENV, "off") or "off").strip().lower()
     return m if m in ("off", "shadow", "on") else "off"
 
 
@@ -150,12 +209,12 @@ def _rule_label(result):
 
 
 def _shadow_log(rule_label, label, p, text):
-    path = os.environ.get(SHADOW_LOG_ENV)
+    path = setting(SHADOW_LOG_ENV)
     if not path:
         return
     try:
         rec = {"aturan": rule_label, "classifier": label, "p_max": round(float(max(p)), 3), "kata": len(text.split())}
-        if os.environ.get(SHADOW_TEXT_ENV, "").strip() == "1":
+        if (setting(SHADOW_TEXT_ENV, "") or "").strip() == "1":
             rec["teks"] = text.strip()
         with open(path, "a", encoding="utf-8") as f:
             f.write(_json.dumps(rec, ensure_ascii=False) + "\n")
@@ -185,7 +244,7 @@ def assisted_route(q, lex=None, notes=None, mode=None):
             r = T.route(q, lex, notes, hint=label)
             if r is not None and r.get("kind") != "task":
                 return r
-            if float(p[LABELS.index(label)]) >= HINT_MIN_P:
+            if float(p[LABELS.index(label)]) >= _threshold("MEMORI_ROUTER_HINT_MIN_P", HINT_MIN_P):
                 return {"kind": "task", "tool": None, "answer": _UNREADABLE[label], "detail": "", "hint": label}
         return rule
     if mode == "off" or rule is not None:
@@ -202,17 +261,38 @@ def assisted_route(q, lex=None, notes=None, mode=None):
         return rule
     if label in ("urut", "hitung", "tanggal"):
         r = T.route(q, lex, notes, hint=label)
-        if r is None and float(p[LABELS.index(label)]) >= HINT_MIN_P:   # yakin ini permintaan alat tetapi alat tak bisa membacanya: beri arahan, bukan 'belum tahu' dari catatan
+        if r is None and float(p[LABELS.index(label)]) >= _threshold("MEMORI_ROUTER_HINT_MIN_P", HINT_MIN_P):   # yakin ini permintaan alat tetapi alat tak bisa membacanya: beri arahan, bukan 'belum tahu' dari catatan
             return {"kind": "task", "tool": None, "answer": _UNREADABLE[label], "detail": "", "hint": label}
         return r
-    if label == "tolak" and len(q.split()) <= 12 and float(p[LABELS.index("tolak")]) >= REFUSE_MIN_P and not _MENTIONS_NOTES.search(q):
+    if label == "tolak" and len(q.split()) <= 12 and float(p[LABELS.index("tolak")]) >= _threshold("MEMORI_ROUTER_REFUSE_MIN_P", REFUSE_MIN_P) and not _MENTIONS_NOTES.search(q):
         return {"kind": "task", "tool": None, "answer": T.TASK_MESSAGE, "detail": ""}
     return None
 
 
+_GREET_STEMS = ("halo", "hai", "hi", "hei", "hello", "hallo", "selamat", "terima", "kasih", "makasih", "makasi", "mksh", "thanks",
+                "thank", "thx", "salam", "assalamualaikum", "wassalamualaikum", "waalaikumsalam", "permisi", "dadah", "bye", "sampai", "jumpa", "pamit", "kenal",
+                "datang", "kabar", "oke", "sip", "sob", "bro", "kak", "tim")
+_TIME_WORDS = {"pagi", "siang", "sore", "malam"}
+_REPEAT = re.compile(r"(.)\1+")
+
+
+def has_greeting_cue(q):
+    """Penjaga: classifier boleh mengusulkan 'sapaan' hanya bila ada kata yang mirip kosakata sapaan/terima kasih/pamit (toleran salah ketik dan huruf berulang).
+    Mencegah pesan pendek tak berkaitan (mis. 'pandora', 'bangunkan saya pukul tujuh') dibalas dengan sapaan."""
+    import difflib
+    for tok in re.findall(r"[a-z]+", q.lower()):
+        for form in {tok, _REPEAT.sub(r"\1", tok)}:
+            if form in _GREET_STEMS:
+                return True
+            close = difflib.get_close_matches(form, _GREET_STEMS, n=1, cutoff=0.79) if len(form) >= 4 else []
+            if close and close[0][0] == form[0]:         # huruf pertama harus sama: menolak 'alarm' ~ 'salam'
+                return True
+    return len(q.split()) <= 3 and any(w in _TIME_WORDS for w in re.findall(r"[a-z]+", q.lower()))   # 'sore pak'; tidak untuk kalimat panjang ('bangunkan saya pukul tujuh pagi')
+
+
 def assisted_greeting(q, mode=None):
-    """True bila classifier (mode 'on') yakin ini sapaan pendek yang lolos dari pola bawaan (mis. salah ketik 'selamt pagi')."""
-    if get_mode(mode) != "on" or len(q.split()) > 8 or any(ch.isdigit() for ch in q):
+    """True bila classifier (mode 'on') yakin ini sapaan pendek yang lolos dari pola bawaan (mis. salah ketik 'selamt pagi') DAN ada petunjuk kata sapaan."""
+    if get_mode(mode) != "on" or len(q.split()) > 8 or any(ch.isdigit() for ch in q) or not has_greeting_cue(q):
         return False
     label, _ = _decide(q)
     return label == "sapaan"

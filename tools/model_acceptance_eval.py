@@ -184,8 +184,13 @@ def run_router(backend, limit=None):
     return out
 
 
+APP_FALLBACKS = False      # True (--app-fallbacks): ukur APLIKASI utuh termasuk cadangan deterministik; bawaan False: ukur MODEL saja (cadangan tidak boleh menutupi kelemahan model)
+
+
 def _agent(store, reader):
-    return M.MemoryAgent(store, reader)
+    agent = M.MemoryAgent(store, reader)
+    agent.category_fallback = APP_FALLBACKS
+    return agent
 
 
 def run_qa_frozen(reader, limit=None):
@@ -347,7 +352,10 @@ def main(argv=None):
     ap.add_argument("--strict", action="store_true")
     ap.add_argument("--criteria", default=None, help="berkas JSON yang menimpa CRITERIA")
     ap.add_argument("--out", default=None)
+    ap.add_argument("--app-fallbacks", action="store_true", help="ikut hitung cadangan deterministik aplikasi (kategori mana/apa); bawaan: ukur model saja")
     args = ap.parse_args(argv)
+    global APP_FALLBACKS
+    APP_FALLBACKS = args.app_fallbacks
     criteria = load_criteria(args.criteria)
     if args.backend == "gpt100m":
         backend = Gpt100mBackend(args.model or str(PROJECT_ROOT / "reports/checkpoints_100m_sft_mem2/gpt_sft_best.pt"))

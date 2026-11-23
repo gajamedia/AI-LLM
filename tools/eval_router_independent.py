@@ -70,7 +70,7 @@ def main(argv=None):
     ap.add_argument("--file", default=str(PROJECT_ROOT / "evalsets" / "router_tulisan_anda.jsonl"))
     ap.add_argument("--out", default=str(PROJECT_ROOT / "reports" / "router_independen.json"))
     args = ap.parse_args(argv)
-    rows = [json.loads(l) for l in open(args.file, encoding="utf-8") if l.strip()]
+    rows = [{"text": d.get("message") or d.get("text"), "label": d["label"]} for d in map(json.loads, (l for l in open(args.file, encoding="utf-8") if l.strip()))]   # menerima 'message' (baku) dan 'text' (lama)
     res = {"file": Path(args.file).name, "n": len(rows), "sebaran": dict(Counter(r["label"] for r in rows)),
            "aturan lama": score(rows, rule_label), "classifier murni": score(rows, classifier_label), "alur aplikasi (MEMORI_ROUTER=on)": score(rows, app_label)}
     app = res["alur aplikasi (MEMORI_ROUTER=on)"]

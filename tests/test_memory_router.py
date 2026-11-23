@@ -211,7 +211,50 @@ def test_log_tools_roundtrip_without_leaking_the_classifier_guess(tmp_path):
     filled = md.read_text(encoding="utf-8").replace("| tolong urutin 3 1 2 | |", "| tolong urutin 3 1 2 | urut |").replace("| hai / min | |", "| hai / min | Sapaan |")
     md.write_text(filled, encoding="utf-8")
     rows, bad = LT.from_md(md, tmp_path / "o.jsonl")
-    assert rows == [{"text": "tolong urutin 3 1 2", "label": "urut"}, {"text": "hai / min", "label": "sapaan"}] and not bad
+    assert rows == [{"message": "tolong urutin 3 1 2", "label": "urut"}, {"message": "hai / min", "label": "sapaan"}] and not bad
+
+
+def _feeder(lines):
+    it = iter(lines)
+
+    def f(prompt=""):
+        try:
+            return next(it)
+        except StopIteration:
+            raise EOFError
+    return f
+
+
+def test_cli_tulis_saves_messages_with_their_class_and_resumes_without_duplicates(tmp_path):
+    LT = load_module("router_log_tools_under_test_tulis", "tools/router_log_tools.py")
+    out = tmp_path / "set.jsonl"
+    LT.cmd_tulis(out, input_fn=_feeder(["2", "hitung 3 + 4", "tambahin 5 sama 6", "", "5", "hai min", "selesai"]), print_fn=lambda *a: None)
+    rows = [json.loads(l) for l in out.read_text(encoding="utf-8").splitlines()]
+    assert rows == [{"message": "hitung 3 + 4", "label": "hitung"}, {"message": "tambahin 5 sama 6", "label": "hitung"}, {"message": "hai min", "label": "sapaan"}]
+    LT.cmd_tulis(out, input_fn=_feeder(["sapaan", "Hai Min", "/tolak", "bikinin pantun", "/9", "q"]), print_fn=lambda *a: None)   # 'Hai Min' duplikat; /nama ganti kelas; /9 tidak sah
+    assert [r["message"] for r in LT._load_set(out)] == ["hitung 3 + 4", "tambahin 5 sama 6", "hai min", "bikinin pantun"]
+
+
+def test_cli_label_goes_through_the_log_and_skips_discards_and_quits(tmp_path):
+    LT = load_module("router_log_tools_under_test_label", "tools/router_log_tools.py")
+    log, out = tmp_path / "log.jsonl", tmp_path / "set.jsonl"
+    log.write_text("\n".join(json.dumps({"teks": t}) for t in ["urutin 3 1 2", "pesan pribadi", "siapa ketua rt", "jam berapa sekarang"]), encoding="utf-8")
+    LT.cmd_label(log, out, input_fn=_feeder(["1", "h", "cari", "q"]), print_fn=lambda *a: None)
+    assert LT._load_set(out) == [{"message": "urutin 3 1 2", "label": "urut"}, {"message": "siapa ketua rt", "label": "cari"}]
+    LT.cmd_label(log, out, input_fn=_feeder(["s"]), print_fn=lambda *a: None)           # sisa hanya 'pesan pribadi' dan 'jam berapa': tidak dilabeli ulang yang sudah ada
+    assert len(LT._load_set(out)) == 2
+
+
+def test_cli_review_records_answers_saves_progress_and_resumes(tmp_path):
+    LT = load_module("router_log_tools_under_test_review", "tools/router_log_tools.py")
+    md = tmp_path / "u.md"
+    md.write_text("| No | Pesan | Label | Benar? |\n|---|---|---|---|\n| 1 | urutin 3 1 2 | urut | |\n| 2 | hai min | sapaan | |\n| 3 | bikin pantun | tolak | |\n", encoding="utf-8")
+    out = tmp_path / "hasil.md"
+    done = LT.cmd_review(md, out, input_fn=_feeder(["y", "x", "r", "q"]), print_fn=lambda *a: None)       # 'x' tidak sah: ditanya ulang
+    assert done == {"1": "ya", "2": "ragu"}
+    done = LT.cmd_review(md, out, input_fn=_feeder(["t"]), print_fn=lambda *a: None)                       # lanjut dari nomor 3
+    assert done == {"1": "ya", "2": "ragu", "3": "tidak"}
+    assert "ya 1, tidak 1, ragu 1" in out.read_text(encoding="utf-8")
 
 
 def test_independent_style_set_exists_and_is_wellformed_if_present():
@@ -220,3 +263,52 @@ def test_independent_style_set_exists_and_is_wellformed_if_present():
         pytest.skip("berkas pesan independen belum ada")
     rows = [json.loads(l) for l in open(path, encoding="utf-8") if l.strip()]
     assert len(rows) >= 100 and {r["label"] for r in rows} == set(MR.LABELS) and all(r["text"].strip() for r in rows)
+
+
+def test_all_router_sets_share_the_message_label_format_and_old_text_key_is_still_read(tmp_path):
+    LT = load_module("router_log_tools_under_test_fmt", "tools/router_log_tools.py")
+    old = tmp_path / "lama.jsonl"
+    old.write_text(json.dumps({"text": "hai min", "label": "sapaan"}) + "\n", encoding="utf-8")
+    assert LT._load_set(old) == [{"message": "hai min", "label": "sapaan"}]                       # berkas lama dengan kunci 'text' tetap terbaca
+    EV = load_module("eval_router_independent_under_test", "tools/eval_router_independent.py")
+    out = tmp_path / "r.json"
+    EV.main(["--file", str(old), "--out", str(out)])
+    assert json.loads(out.read_text(encoding="utf-8"))["n"] == 1
+    for f in (Path(__file__).resolve().parent.parent / "evalsets" / "router_pakai_nyata.jsonl",):
+        if f.exists():
+            assert all("message" in json.loads(l) and "text" not in json.loads(l) for l in open(f, encoding="utf-8") if l.strip())
+
+
+def test_penjaga_sapaan_menolak_pesan_tak_berkaitan():
+    import memory_router as MR
+    for q in ["pandora", "bangunkan saya pukul tujuh pagi", "rasanya harus", "cari film di dekat saya", "batas waktu", "hapus alarm saya"]:
+        assert not MR.has_greeting_cue(q), q
+        assert not MR.assisted_greeting(q, mode="on"), q
+
+
+def test_penjaga_sapaan_menerima_varian_salah_ketik():
+    import memory_router as MR
+    for q in ["saaaalam semua", "dadaaaah semua", "selamt pagi", "thankks a lot kak", "permiiiisi semua", "hlo sob"]:
+        assert MR.has_greeting_cue(q), q
+
+
+def test_berkas_konfigurasi_dan_prioritas(tmp_path, monkeypatch):
+    import memory_router as MR
+    cfg = tmp_path / "memori.env"
+    cfg.write_text('# komentar\nMEMORI_ROUTER=shadow\nMEMORI_ROUTER_LOG_TEXT="1"\nMEMORI_ROUTER_HINT_MIN_P=0.8 # catatan\nrusak tanpa sama dengan\n', encoding="utf-8")
+    monkeypatch.setenv("MEMORI_CONFIG", str(cfg))
+    monkeypatch.delenv("MEMORI_ROUTER", raising=False)
+    MR.reload_config()
+    assert MR.get_mode() == "shadow"
+    assert MR.setting("MEMORI_ROUTER_LOG_TEXT") == "1"
+    assert MR._threshold("MEMORI_ROUTER_HINT_MIN_P", 0.6) == 0.8
+    monkeypatch.setenv("MEMORI_ROUTER", "on")                  # variabel lingkungan mengalahkan berkas
+    assert MR.get_mode() == "on"
+    monkeypatch.delenv("MEMORI_ROUTER")
+    cfg.write_text("MEMORI_ROUTER=ngawur\nMEMORI_ROUTER_HINT_MIN_P=abc\n", encoding="utf-8")
+    MR.reload_config()
+    assert MR.get_mode() == "off"                              # nilai tidak dikenal -> aman (mati)
+    assert MR._threshold("MEMORI_ROUTER_HINT_MIN_P", 0.6) == 0.6
+    monkeypatch.setenv("MEMORI_CONFIG", str(tmp_path / "tidak_ada.env"))
+    MR.reload_config()
+    assert MR.get_mode() == "off"                              # tanpa berkas -> bawaan lama

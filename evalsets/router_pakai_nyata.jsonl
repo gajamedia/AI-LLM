@@ -1,0 +1,25 @@
+{"message": "hai", "label": "sapaan"}
+{"message": "halo", "label": "sapaan"}
+{"message": "selamat siang", "label": "sapaan"}
+{"message": "apa kabar", "label": "sapaan"}
+{"message": "selamat malam", "label": "sapaan"}
+{"message": "selamat sore", "label": "sapaan"}
+{"message": "halo, apa kabar?", "label": "sapaan"}
+{"message": "assalamualaikum", "label": "sapaan"}
+{"message": "helo", "label": "sapaan"}
+{"message": "hai, gimana kabarnya?", "label": "sapaan"}
+{"message": "halo pak", "label": "sapaan"}
+{"message": "halo bu", "label": "sapaan"}
+{"message": "halo kak", "label": "sapaan"}
+{"message": "halo bang", "label": "sapaan"}
+{"message": "halo tante", "label": "sapaan"}
+{"message": "sore pak", "label": "sapaan"}
+{"message": "sore bu", "label": "sapaan"}
+{"message": "sore kak", "label": "sapaan"}
+{"message": "sore om", "label": "sapaan"}
+{"message": "halo om", "label": "sapaan"}
+{"message": "tim mana yang menggunakan ruangan mawar?", "label": "cari"}
+{"message": "ruangan anggrek digunakan oleh tim apa?", "label": "cari"}
+{"message": "ruangan mawar digunakan tim apa", "label": "cari"}
+{"message": "yang rapatnya jam 09.30 itu tim mana ya", "label": "cari"}
+{"message": "apakah tim finance yang menggunakan ruangan mawar untuk rapat", "label": "cari"}

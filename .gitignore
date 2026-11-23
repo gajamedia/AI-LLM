@@ -56,3 +56,10 @@ kaggle/hai07-acceptance.zip
 kaggle/hai07-bench.zip
 kaggle/hai07-sft6.zip
 kaggle/hai07-sft7.zip
+
+# --- Pengaturan lokal (berisi pilihan pribadi) ---
+memori.env
+.env
+
+# --- Keluaran builder dataset daring (16 MB, bisa dibuat ulang) ---
+tools/router_online_dataset_builder/generated_online/

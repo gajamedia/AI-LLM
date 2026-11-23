@@ -58,3 +58,14 @@ def train_module():
 @pytest.fixture(scope="session")
 def generate_module():
     return load_module("generate_gpt_under_test", "tools/generate_gpt.py")
+
+
+@pytest.fixture(autouse=True)
+def _tanpa_berkas_konfigurasi(monkeypatch, tmp_path):
+    """Tes tidak boleh terpengaruh memori.env milik pengguna."""
+    monkeypatch.setenv("MEMORI_CONFIG", str(tmp_path / "tidak_ada.env"))
+    try:
+        import memory_router
+        memory_router.reload_config()
+    except ImportError:
+        pass

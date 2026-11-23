@@ -801,6 +801,7 @@ def test_alternate_form_only_reads_notes_that_contain_the_dropped_qualifier():
     assert out2["status"] == "unknown" and out2["rewritten"] is None
     assert not any(q == "Di mana Bu Rina tinggal?" for q in rd.asked)
     agent.alternate_forms = False
+    agent.category_fallback = False                          # yang diuji di sini hanya bentuk alternatif, bukan cadangan kategori
     assert agent.ask("di asia mana indonesia berada")["status"] == "unknown"
 
 
@@ -942,7 +943,11 @@ def test_agent_enables_both_guards_by_default():
     store.teach(R21)
     agent = M.MemoryAgent(store, Misreads())
     assert agent.echo_threshold == 1.0 and agent.unread_margin == 0.2
+    assert agent.category_fallback is True
+    agent.category_fallback = False                          # penjaga model diuji tanpa cadangan deterministik
     assert agent.ask("rapat di ruang mawar diadakan oleh tim mana")["status"] == "unknown"
+    agent.category_fallback = True
+    assert agent.ask("rapat di ruang mawar diadakan oleh tim mana")["answer"] == "finance"      # cadangan menjawab dari kata persis di catatan
     out = agent.ask("jam berapa rapat dimulai di ruang mawar")
     assert out["status"] == "ok" and out["answer"] == "11.30" and out["repaired"]["model"] == "11.00" and out["conflicts"] == []
     assert agent.ask("jam berapa rapat dimulai di ruang anggrek")["answer"] == "09.30"

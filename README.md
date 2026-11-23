@@ -250,7 +250,7 @@ dataset terjemahan CC-BY-SA, dan Alpaca-GPT4 (jawaban dibuat model OpenAI): peri
 ### Pemilih alat buatan sendiri (opsional, bawaan MATI)
 `tools/memory_router.py` + `tools/router_weights.npz` (0,5 MB, numpy saja, berjalan di CPU): classifier kecil yang **mengusulkan** alat (urut, hitung, tanggal, tolak, sapaan)
 untuk pesan yang lolos dari aturan ketat; alat deterministik tetap harus berhasil membaca angka/tanggalnya, jika tidak pesan jatuh ke pencarian catatan.
-Nyalakan dengan variabel lingkungan `MEMORI_ROUTER=on` (`shadow` = jalan paralel tanpa mengubah hasil; `MEMORI_ROUTER_LOG=berkas` mencatat hanya kelas dan jumlah kata, tidak menyimpan teks pesan).
+Pengaturan lewat berkas: salin `memori.env.example` menjadi `memori.env` (di folder utama), ubah nilainya, lalu mulai ulang aplikasi; variabel lingkungan sungguhan selalu mengalahkan berkas. Atau nyalakan dengan variabel lingkungan `MEMORI_ROUTER=on` (`shadow` = jalan paralel tanpa mengubah hasil; `MEMORI_ROUTER_LOG=berkas` mencatat hanya kelas dan jumlah kata, tidak menyimpan teks pesan).
 Terukur pada set buatan pengembang (validasi 2.100 pesan): pesan alat yang terbaca naik dari 169 ke 293 dari 300 (urut), 78 ke 254 (hitung), 203 ke 294 (tanggal), pertanyaan catatan dibajak 0 dari 600.
 **Belum diuji pada gaya tulisan pemilik lain**, karena itu bawaannya mati. Juga ada perbaikan jawaban yang terpotong di tengah kata ("Parangtriti" menjadi "Parangtritis"; tidak mengubah hasil model sekarang pada set uji beku).
 
