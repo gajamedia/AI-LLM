@@ -21,7 +21,7 @@ Kecepatan (diukur di komputer 8 inti): model dimuat dalam 5–10 detik, jawaban 
 1. Unduh `hai07-memori-v….zip` dari halaman Releases di GitHub.
 2. Periksa keutuhan. Di PowerShell:
    ```powershell
-   Get-FileHash .\hai07-memori-v1.1126.12.zip -Algorithm SHA256
+   Get-FileHash .\hai07-memori-v1.1126.13.zip -Algorithm SHA256
    ```
    Bandingkan dengan nilai SHA-256 yang tertulis di catatan rilis. Jika berbeda, unduh ulang (unduhan terputus atau rusak).
 
@@ -39,7 +39,7 @@ Jika perintah itu tidak dikenali, atau yang muncul adalah jendela Microsoft Stor
 
 1. Klik kanan zip, pilih **Extract All…**, dan simpan di folder yang Anda miliki, misalnya `C:\Memori` atau `Documents`.
    Jangan jalankan dari dalam zip, dan hindari `C:\Program Files` (butuh izin khusus untuk menulis).
-2. Hasilnya folder `hai07-memori-v1.1126.12` berisi `jalankan.bat`, `model`, `tools`, dll.
+2. Hasilnya folder `hai07-memori-v1.1126.13` berisi `jalankan.bat`, `model`, `tools`, dll.
 
 ## 5. Jalankan pertama kali
 
@@ -88,7 +88,7 @@ Skrip `jalankan.sh` disertakan tetapi **belum pernah dijalankan** karena pembuat
 ```bash
 # Debian/Ubuntu: pastikan Python dan venv tersedia
 sudo apt install python3 python3-venv
-cd hai07-memori-v1.1126.12
+cd hai07-memori-v1.1126.13
 bash jalankan.sh
 ```
 
