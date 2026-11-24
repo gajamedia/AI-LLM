@@ -254,6 +254,23 @@ Pengaturan lewat berkas: salin `memori.env.example` menjadi `memori.env` (di fol
 Terukur pada set buatan pengembang (validasi 2.100 pesan): pesan alat yang terbaca naik dari 169 ke 293 dari 300 (urut), 78 ke 254 (hitung), 203 ke 294 (tanggal), pertanyaan catatan dibajak 0 dari 600.
 **Belum diuji pada gaya tulisan pemilik lain**, karena itu bawaannya mati. Juga ada perbaikan jawaban yang terpotong di tengah kata ("Parangtriti" menjadi "Parangtritis"; tidak mengubah hasil model sekarang pada set uji beku).
 
+### Pencarian hibrida BM25 + vektor (opsional, bawaan MATI)
+`tools/hybrid_search.py` menggabungkan pencarian BM25 dengan pencarian vektor memakai Reciprocal Rank Fusion. Aktifkan lewat `memori.env` (`MEMORI_HYBRID=on`); bila embedder tidak bisa dimuat, aplikasi diam-diam kembali ke BM25. Vektor catatan disimpan di tabel `note_vec` (SQLite yang sama) dan hanya catatan baru yang dikodekan.
+Embedder bawaan: `intfloat/multilingual-e5-small` (model orang lain; butuh `pip install torch transformers` dan unduhan ±470 MB sekali). Ini BUKAN model buatan sendiri dan menambah dependensi besar, karena itu tidak diaktifkan otomatis.
+Terukur dengan `tools/hybrid_eval.py` (paragraf Wikipedia dari soal TyDi QA / IDK-MRC tahan uji di antara 3.761 paragraf; soal asli, tanpa data karangan; hasil di `reports/eval_hybrid_search.json`):
+
+| Metode (284 soal) | hit@1 | hit@3 | hit@10 |
+|---|---|---|---|
+| BM25 (yang dipakai sekarang) | 68,3 | 81,3 | 89,4 |
+| Vektor n-gram buatan numpy (tanpa model) | 47,5 | 66,9 | 83,1 |
+| Hibrida BM25 + n-gram | 57,7 | 75,0 | 88,7 |
+| Embedding E5-small saja | **83,1** | **92,3** | **95,1** |
+| Hibrida BM25 + E5-small | 77,5 | 89,4 | 94,0 |
+
+Batas kemiripan: vektor selalu mengembalikan "yang terdekat" walau tak relevan, sehingga bagian dokumen tak berhubungan ikut tampil. Karena itu hasil vektor hanya dipakai bila kemiripannya >= `MEMORI_HYBRID_MIN_SIM` (bawaan 0,86). Ukur: kemiripan E5 sangat rapat (paragraf benar median 0,887; "terdekat tapi salah" median 0,839; pertanyaan di luar topik 0,82-0,85), jadi pada 0,86 pertanyaan di luar topik 0/8 lolos tetapi hanya 77,8% paragraf benar yang lolos; sinonim yang lemah (mis. "minuman ... pantry" untuk catatan kopi di dapur) bisa tidak ditemukan. Turunkan nilainya untuk lebih banyak hasil dengan risiko bagian tak relevan.
+
+Catatan pendek (85 catatan, 124 soal): BM25 sudah 96,0% hit@1; E5 98,4%; hibrida 99,2% (selisih 1-3 soal, bukan bukti). Kesimpulan jujur: vektor n-gram tanpa model terlatih **tidak membantu** (tidak diaktifkan); embedding terlatih membantu jelas pada paragraf panjang; pada set ini E5 saja lebih baik daripada hibrida RRF berbobot sama (RRF menarik hasil bagus ke bawah), tetapi hibrida lebih aman bila pertanyaan memuat nama/angka persis. Ukuran ini hanya menilai PENCARIAN; mutu jawaban model 100M tidak otomatis ikut naik. Set uji sama dipakai memilih RRF vs bobot, jadi angka tidak independen.
+
 ### Cadangan untuk pertanyaan "KATEGORI mana/apa ..." (aktif otomatis)
 Model 100M sering menjawab "belum tahu" untuk pertanyaan seperti "tim mana yang rapat di ruang Anggrek?" (ia menjawab nama ruangnya, bukan nama tim, lalu ditolak penjaga). Hanya bila model tidak menjawab, `category_lookup` mengambil kata PERSIS yang mengikuti kategori di catatan ("Rapat tim produk ... di ruang Anggrek" -> "produk"). Alat berhenti dan tetap "belum tahu" bila ruang/entitas yang ditanya tidak ada di catatan, ada dua jawaban berbeda, atau tidak ada kata pembeda antar catatan; jawaban model tidak pernah ditimpa.
 Terukur dengan model asli pada aplikasi utuh: kasus bertema 20 -> 23 dari 26 lolos, nama tim 0 -> 3 dari 3, jawaban salah dan mengarang tidak bertambah. Ini kemampuan APLIKASI, bukan model: uji kelulusan model mematikannya secara bawaan (`--app-fallbacks` untuk mengukur aplikasi utuh). Hanya menutup pola "kategori mana/apa"; pola lain (mis. "siapa yang ...") belum.

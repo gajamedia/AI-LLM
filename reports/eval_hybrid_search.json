@@ -1,0 +1,93 @@
+{
+ "wiki": {
+  "bm25": {
+   "n": 284,
+   "hit@1": 68.3,
+   "hit@3": 81.3,
+   "hit@10": 89.4,
+   "mrr": 0.76
+  },
+  "vektor n-gram": {
+   "n": 284,
+   "hit@1": 47.5,
+   "hit@3": 66.9,
+   "hit@10": 83.1,
+   "mrr": 0.591
+  },
+  "hibrida n-gram": {
+   "n": 284,
+   "hit@1": 57.7,
+   "hit@3": 75.0,
+   "hit@10": 88.7,
+   "mrr": 0.685,
+   "dtk_bangun+cari": 6.5
+  },
+  "vektor LSA256": {
+   "n": 284,
+   "hit@1": 27.5,
+   "hit@3": 42.6,
+   "hit@10": 60.9,
+   "mrr": 0.381
+  },
+  "hibrida LSA256": {
+   "n": 284,
+   "hit@1": 43.3,
+   "hit@3": 62.0,
+   "hit@10": 78.9,
+   "mrr": 0.553,
+   "dtk_bangun+cari": 14.2
+  },
+  "vektor multilingual-e5-small": {
+   "n": 284,
+   "hit@1": 83.1,
+   "hit@3": 92.3,
+   "hit@10": 95.1,
+   "mrr": 0.881
+  },
+  "hibrida multilingual-e5-small": {
+   "n": 284,
+   "hit@1": 77.5,
+   "hit@3": 89.4,
+   "hit@10": 94.0,
+   "mrr": 0.841
+  }
+ },
+ "catatan": {
+  "bm25": {
+   "n": 124,
+   "hit@1": 96.0,
+   "hit@3": 99.2,
+   "hit@10": 99.2,
+   "mrr": 0.974
+  },
+  "vektor n-gram": {
+   "n": 124,
+   "hit@1": 98.4,
+   "hit@3": 100.0,
+   "hit@10": 100.0,
+   "mrr": 0.992
+  },
+  "hibrida n-gram": {
+   "n": 124,
+   "hit@1": 98.4,
+   "hit@3": 100.0,
+   "hit@10": 100.0,
+   "mrr": 0.992,
+   "dtk_bangun+cari": 0.1
+  },
+  "vektor multilingual-e5-small": {
+   "n": 124,
+   "hit@1": 98.4,
+   "hit@3": 100.0,
+   "hit@10": 100.0,
+   "mrr": 0.989
+  },
+  "hibrida multilingual-e5-small": {
+   "n": 124,
+   "hit@1": 99.2,
+   "hit@3": 100.0,
+   "hit@10": 100.0,
+   "mrr": 0.996
+  }
+ }
+}

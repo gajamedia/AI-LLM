@@ -1,0 +1,2138 @@
+{
+ "per-kasus | BM25 | cadangan OFF": {
+  "n": 35,
+  "benar": 18,
+  "salah": 4,
+  "belum_tahu": 13,
+  "probe": {
+   "q": "Tim mana yang menggunakan ruangan anggrek",
+   "gold": "produk",
+   "hasil": "belum_tahu",
+   "jawaban": null,
+   "via": null
+  },
+  "detail": [
+   {
+    "q": "jam berapa rapat dimulai di ruang mawar",
+    "gold": "11.30",
+    "hasil": "benar",
+    "jawaban": "11.30",
+    "via": null
+   },
+   {
+    "q": "jam berapa rapat dimulai di ruang anggrek",
+    "gold": "09.30",
+    "hasil": "benar",
+    "jawaban": "09.30",
+    "via": null
+   },
+   {
+    "q": "tim apa yang rapat di ruang mawar",
+    "gold": "finance",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "tim mana yang rapat di ruang anggrek",
+    "gold": "produk",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "apa itu gravitasi",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "gravitasi adalah",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "sebutkan lambang negara indonesia",
+    "gold": "Burung Garuda",
+    "hasil": "benar",
+    "jawaban": "Burung Garuda",
+    "via": null
+   },
+   {
+    "q": "bentuk negara indonesia itu apa",
+    "gold": "Republik",
+    "hasil": "benar",
+    "jawaban": "Republik Indonesia",
+    "via": null
+   },
+   {
+    "q": "di asia mana indonesia berada",
+    "gold": "asia tenggara",
+    "hasil": "benar",
+    "jawaban": "asia tenggara",
+    "via": null
+   },
+   {
+    "q": "Di mana Bu Rina tinggal?",
+    "gold": "Melati",
+    "hasil": "benar",
+    "jawaban": "Jalan Melati nomor 9",
+    "via": null
+   },
+   {
+    "q": "Apa pekerjaannya?",
+    "gold": "guru",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Berapa luas wilayah Indonesia?",
+    "gold": "1.904.569",
+    "hasil": "benar",
+    "jawaban": "1.904.569 km persegi",
+    "via": null
+   },
+   {
+    "q": "rapat di ruang mawar diadakan oleh tim mana",
+    "gold": "finance",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Sejak kapan Bu Wati membuka warung?",
+    "gold": "2010",
+    "hasil": "benar",
+    "jawaban": "2010",
+    "via": null
+   },
+   {
+    "q": "Di mana kunci gudang disimpan?",
+    "gold": "laci meja Pak Anto",
+    "hasil": "salah",
+    "jawaban": "laci meja",
+    "via": null
+   },
+   {
+    "q": "Siapa yang mengajar biologi?",
+    "gold": "Bu Sari",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Pak Budi mengajar di mana?",
+    "gold": "SMP 3 Bogor",
+    "hasil": "benar",
+    "jawaban": "SMP 3 Bogor",
+    "via": null
+   },
+   {
+    "q": "Hari apa rapat RT dilaksanakan?",
+    "gold": "Jumat",
+    "hasil": "benar",
+    "jawaban": "Jumat",
+    "via": null
+   },
+   {
+    "q": "Jam berapa toko buku Cahaya tutup?",
+    "gold": "20.00",
+    "hasil": "salah",
+    "jawaban": "08.00",
+    "via": null
+   },
+   {
+    "q": "Apa warna sepeda motor Pak Anto?",
+    "gold": "merah",
+    "hasil": "benar",
+    "jawaban": "merah",
+    "via": null
+   },
+   {
+    "q": "Hari apa dokter Lina praktik?",
+    "gold": "Senin",
+    "hasil": "benar",
+    "jawaban": "Senin dan Rabu",
+    "via": null
+   },
+   {
+    "q": "tim apa yang pelatihan di ruang seruni",
+    "gold": "marketing",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "pelatihan di ruang cempaka diikuti tim mana",
+    "gold": "audit",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "jam berapa tim marketing mulai",
+    "gold": "13.00",
+    "hasil": "benar",
+    "jawaban": "13.00",
+    "via": null
+   },
+   {
+    "q": "tim mana yang tiba pukul 14.30",
+    "gold": "riset",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "siapa yang mengajar sejarah",
+    "gold": "Hasan",
+    "hasil": "salah",
+    "jawaban": "Bu Ratna",
+    "via": null
+   },
+   {
+    "q": "bu ratna mengajar apa",
+    "gold": "kimia",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana surat undangan diterima",
+    "gold": "Sukamaju",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana karnaval berakhir",
+    "gold": "Tanjung Mas",
+    "hasil": "benar",
+    "jawaban": "pelabuhan Tanjung Mas",
+    "via": null
+   },
+   {
+    "q": "karnaval berangkat dari mana",
+    "gold": "Merdeka",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "berapa harga roti keju",
+    "gold": "tiga puluh lima ribu",
+    "hasil": "salah",
+    "jawaban": "dua belas ribu",
+    "via": null
+   },
+   {
+    "q": "apa yang harganya dua belas ribu",
+    "gold": "kopi hitam",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "pendaftaran beasiswa ditutup kapan",
+    "gold": "dua puluh Mei",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "kapan pendaftaran beasiswa dibuka",
+    "gold": "tiga Maret",
+    "hasil": "benar",
+    "jawaban": "tiga Maret sampai dengan tanggal dua puluh Mei",
+    "via": null
+   },
+   {
+    "q": "kantin sekolah tutup jam berapa",
+    "gold": "15.00",
+    "hasil": "benar",
+    "jawaban": "15.00",
+    "via": null
+   },
+   {
+    "q": "Tim mana yang menggunakan ruangan anggrek",
+    "gold": "produk",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   }
+  ]
+ },
+ "per-kasus | BM25 | cadangan ON": {
+  "n": 35,
+  "benar": 23,
+  "salah": 4,
+  "belum_tahu": 8,
+  "probe": {
+   "q": "Tim mana yang menggunakan ruangan anggrek",
+   "gold": "produk",
+   "hasil": "benar",
+   "jawaban": "produk",
+   "via": "category_lookup"
+  },
+  "detail": [
+   {
+    "q": "jam berapa rapat dimulai di ruang mawar",
+    "gold": "11.30",
+    "hasil": "benar",
+    "jawaban": "11.30",
+    "via": null
+   },
+   {
+    "q": "jam berapa rapat dimulai di ruang anggrek",
+    "gold": "09.30",
+    "hasil": "benar",
+    "jawaban": "09.30",
+    "via": null
+   },
+   {
+    "q": "tim apa yang rapat di ruang mawar",
+    "gold": "finance",
+    "hasil": "benar",
+    "jawaban": "finance",
+    "via": "category_lookup"
+   },
+   {
+    "q": "tim mana yang rapat di ruang anggrek",
+    "gold": "produk",
+    "hasil": "benar",
+    "jawaban": "produk",
+    "via": "category_lookup"
+   },
+   {
+    "q": "apa itu gravitasi",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "gravitasi adalah",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "sebutkan lambang negara indonesia",
+    "gold": "Burung Garuda",
+    "hasil": "benar",
+    "jawaban": "Burung Garuda",
+    "via": null
+   },
+   {
+    "q": "bentuk negara indonesia itu apa",
+    "gold": "Republik",
+    "hasil": "benar",
+    "jawaban": "Republik Indonesia",
+    "via": null
+   },
+   {
+    "q": "di asia mana indonesia berada",
+    "gold": "asia tenggara",
+    "hasil": "benar",
+    "jawaban": "asia tenggara",
+    "via": null
+   },
+   {
+    "q": "Di mana Bu Rina tinggal?",
+    "gold": "Melati",
+    "hasil": "benar",
+    "jawaban": "Jalan Melati nomor 9",
+    "via": null
+   },
+   {
+    "q": "Apa pekerjaannya?",
+    "gold": "guru",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Berapa luas wilayah Indonesia?",
+    "gold": "1.904.569",
+    "hasil": "benar",
+    "jawaban": "1.904.569 km persegi",
+    "via": null
+   },
+   {
+    "q": "rapat di ruang mawar diadakan oleh tim mana",
+    "gold": "finance",
+    "hasil": "benar",
+    "jawaban": "finance",
+    "via": "category_lookup"
+   },
+   {
+    "q": "Sejak kapan Bu Wati membuka warung?",
+    "gold": "2010",
+    "hasil": "benar",
+    "jawaban": "2010",
+    "via": null
+   },
+   {
+    "q": "Di mana kunci gudang disimpan?",
+    "gold": "laci meja Pak Anto",
+    "hasil": "salah",
+    "jawaban": "laci meja",
+    "via": null
+   },
+   {
+    "q": "Siapa yang mengajar biologi?",
+    "gold": "Bu Sari",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Pak Budi mengajar di mana?",
+    "gold": "SMP 3 Bogor",
+    "hasil": "benar",
+    "jawaban": "SMP 3 Bogor",
+    "via": null
+   },
+   {
+    "q": "Hari apa rapat RT dilaksanakan?",
+    "gold": "Jumat",
+    "hasil": "benar",
+    "jawaban": "Jumat",
+    "via": null
+   },
+   {
+    "q": "Jam berapa toko buku Cahaya tutup?",
+    "gold": "20.00",
+    "hasil": "salah",
+    "jawaban": "08.00",
+    "via": null
+   },
+   {
+    "q": "Apa warna sepeda motor Pak Anto?",
+    "gold": "merah",
+    "hasil": "benar",
+    "jawaban": "merah",
+    "via": null
+   },
+   {
+    "q": "Hari apa dokter Lina praktik?",
+    "gold": "Senin",
+    "hasil": "benar",
+    "jawaban": "Senin dan Rabu",
+    "via": null
+   },
+   {
+    "q": "tim apa yang pelatihan di ruang seruni",
+    "gold": "marketing",
+    "hasil": "benar",
+    "jawaban": "marketing",
+    "via": "category_lookup"
+   },
+   {
+    "q": "pelatihan di ruang cempaka diikuti tim mana",
+    "gold": "audit",
+    "hasil": "benar",
+    "jawaban": "audit",
+    "via": "category_lookup"
+   },
+   {
+    "q": "jam berapa tim marketing mulai",
+    "gold": "13.00",
+    "hasil": "benar",
+    "jawaban": "13.00",
+    "via": null
+   },
+   {
+    "q": "tim mana yang tiba pukul 14.30",
+    "gold": "riset",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "siapa yang mengajar sejarah",
+    "gold": "Hasan",
+    "hasil": "salah",
+    "jawaban": "Bu Ratna",
+    "via": null
+   },
+   {
+    "q": "bu ratna mengajar apa",
+    "gold": "kimia",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana surat undangan diterima",
+    "gold": "Sukamaju",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana karnaval berakhir",
+    "gold": "Tanjung Mas",
+    "hasil": "benar",
+    "jawaban": "pelabuhan Tanjung Mas",
+    "via": null
+   },
+   {
+    "q": "karnaval berangkat dari mana",
+    "gold": "Merdeka",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "berapa harga roti keju",
+    "gold": "tiga puluh lima ribu",
+    "hasil": "salah",
+    "jawaban": "dua belas ribu",
+    "via": null
+   },
+   {
+    "q": "apa yang harganya dua belas ribu",
+    "gold": "kopi hitam",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "pendaftaran beasiswa ditutup kapan",
+    "gold": "dua puluh Mei",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "kapan pendaftaran beasiswa dibuka",
+    "gold": "tiga Maret",
+    "hasil": "benar",
+    "jawaban": "tiga Maret sampai dengan tanggal dua puluh Mei",
+    "via": null
+   },
+   {
+    "q": "kantin sekolah tutup jam berapa",
+    "gold": "15.00",
+    "hasil": "benar",
+    "jawaban": "15.00",
+    "via": null
+   },
+   {
+    "q": "Tim mana yang menggunakan ruangan anggrek",
+    "gold": "produk",
+    "hasil": "benar",
+    "jawaban": "produk",
+    "via": "category_lookup"
+   }
+  ]
+ },
+ "per-kasus | hibrida | cadangan OFF": {
+  "n": 35,
+  "benar": 18,
+  "salah": 4,
+  "belum_tahu": 13,
+  "probe": {
+   "q": "Tim mana yang menggunakan ruangan anggrek",
+   "gold": "produk",
+   "hasil": "belum_tahu",
+   "jawaban": null,
+   "via": null
+  },
+  "detail": [
+   {
+    "q": "jam berapa rapat dimulai di ruang mawar",
+    "gold": "11.30",
+    "hasil": "benar",
+    "jawaban": "11.30",
+    "via": null
+   },
+   {
+    "q": "jam berapa rapat dimulai di ruang anggrek",
+    "gold": "09.30",
+    "hasil": "benar",
+    "jawaban": "09.30",
+    "via": null
+   },
+   {
+    "q": "tim apa yang rapat di ruang mawar",
+    "gold": "finance",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "tim mana yang rapat di ruang anggrek",
+    "gold": "produk",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "apa itu gravitasi",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "gravitasi adalah",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "sebutkan lambang negara indonesia",
+    "gold": "Burung Garuda",
+    "hasil": "benar",
+    "jawaban": "Burung Garuda",
+    "via": null
+   },
+   {
+    "q": "bentuk negara indonesia itu apa",
+    "gold": "Republik",
+    "hasil": "benar",
+    "jawaban": "Republik Indonesia",
+    "via": null
+   },
+   {
+    "q": "di asia mana indonesia berada",
+    "gold": "asia tenggara",
+    "hasil": "benar",
+    "jawaban": "asia tenggara",
+    "via": null
+   },
+   {
+    "q": "Di mana Bu Rina tinggal?",
+    "gold": "Melati",
+    "hasil": "benar",
+    "jawaban": "Jalan Melati nomor 9",
+    "via": null
+   },
+   {
+    "q": "Apa pekerjaannya?",
+    "gold": "guru",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Berapa luas wilayah Indonesia?",
+    "gold": "1.904.569",
+    "hasil": "benar",
+    "jawaban": "1.904.569 km persegi",
+    "via": null
+   },
+   {
+    "q": "rapat di ruang mawar diadakan oleh tim mana",
+    "gold": "finance",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Sejak kapan Bu Wati membuka warung?",
+    "gold": "2010",
+    "hasil": "benar",
+    "jawaban": "2010",
+    "via": null
+   },
+   {
+    "q": "Di mana kunci gudang disimpan?",
+    "gold": "laci meja Pak Anto",
+    "hasil": "salah",
+    "jawaban": "laci meja",
+    "via": null
+   },
+   {
+    "q": "Siapa yang mengajar biologi?",
+    "gold": "Bu Sari",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Pak Budi mengajar di mana?",
+    "gold": "SMP 3 Bogor",
+    "hasil": "benar",
+    "jawaban": "SMP 3 Bogor",
+    "via": null
+   },
+   {
+    "q": "Hari apa rapat RT dilaksanakan?",
+    "gold": "Jumat",
+    "hasil": "benar",
+    "jawaban": "Jumat",
+    "via": null
+   },
+   {
+    "q": "Jam berapa toko buku Cahaya tutup?",
+    "gold": "20.00",
+    "hasil": "salah",
+    "jawaban": "08.00",
+    "via": null
+   },
+   {
+    "q": "Apa warna sepeda motor Pak Anto?",
+    "gold": "merah",
+    "hasil": "benar",
+    "jawaban": "merah",
+    "via": null
+   },
+   {
+    "q": "Hari apa dokter Lina praktik?",
+    "gold": "Senin",
+    "hasil": "benar",
+    "jawaban": "Senin dan Rabu",
+    "via": null
+   },
+   {
+    "q": "tim apa yang pelatihan di ruang seruni",
+    "gold": "marketing",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "pelatihan di ruang cempaka diikuti tim mana",
+    "gold": "audit",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "jam berapa tim marketing mulai",
+    "gold": "13.00",
+    "hasil": "benar",
+    "jawaban": "13.00",
+    "via": null
+   },
+   {
+    "q": "tim mana yang tiba pukul 14.30",
+    "gold": "riset",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "siapa yang mengajar sejarah",
+    "gold": "Hasan",
+    "hasil": "salah",
+    "jawaban": "Bu Ratna",
+    "via": null
+   },
+   {
+    "q": "bu ratna mengajar apa",
+    "gold": "kimia",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana surat undangan diterima",
+    "gold": "Sukamaju",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana karnaval berakhir",
+    "gold": "Tanjung Mas",
+    "hasil": "benar",
+    "jawaban": "pelabuhan Tanjung Mas",
+    "via": null
+   },
+   {
+    "q": "karnaval berangkat dari mana",
+    "gold": "Merdeka",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "berapa harga roti keju",
+    "gold": "tiga puluh lima ribu",
+    "hasil": "salah",
+    "jawaban": "dua belas ribu",
+    "via": null
+   },
+   {
+    "q": "apa yang harganya dua belas ribu",
+    "gold": "kopi hitam",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "pendaftaran beasiswa ditutup kapan",
+    "gold": "dua puluh Mei",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "kapan pendaftaran beasiswa dibuka",
+    "gold": "tiga Maret",
+    "hasil": "benar",
+    "jawaban": "tiga Maret sampai dengan tanggal dua puluh Mei",
+    "via": null
+   },
+   {
+    "q": "kantin sekolah tutup jam berapa",
+    "gold": "15.00",
+    "hasil": "benar",
+    "jawaban": "15.00",
+    "via": null
+   },
+   {
+    "q": "Tim mana yang menggunakan ruangan anggrek",
+    "gold": "produk",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   }
+  ]
+ },
+ "per-kasus | hibrida | cadangan ON": {
+  "n": 35,
+  "benar": 23,
+  "salah": 4,
+  "belum_tahu": 8,
+  "probe": {
+   "q": "Tim mana yang menggunakan ruangan anggrek",
+   "gold": "produk",
+   "hasil": "benar",
+   "jawaban": "produk",
+   "via": "category_lookup"
+  },
+  "detail": [
+   {
+    "q": "jam berapa rapat dimulai di ruang mawar",
+    "gold": "11.30",
+    "hasil": "benar",
+    "jawaban": "11.30",
+    "via": null
+   },
+   {
+    "q": "jam berapa rapat dimulai di ruang anggrek",
+    "gold": "09.30",
+    "hasil": "benar",
+    "jawaban": "09.30",
+    "via": null
+   },
+   {
+    "q": "tim apa yang rapat di ruang mawar",
+    "gold": "finance",
+    "hasil": "benar",
+    "jawaban": "finance",
+    "via": "category_lookup"
+   },
+   {
+    "q": "tim mana yang rapat di ruang anggrek",
+    "gold": "produk",
+    "hasil": "benar",
+    "jawaban": "produk",
+    "via": "category_lookup"
+   },
+   {
+    "q": "apa itu gravitasi",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "gravitasi adalah",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "sebutkan lambang negara indonesia",
+    "gold": "Burung Garuda",
+    "hasil": "benar",
+    "jawaban": "Burung Garuda",
+    "via": null
+   },
+   {
+    "q": "bentuk negara indonesia itu apa",
+    "gold": "Republik",
+    "hasil": "benar",
+    "jawaban": "Republik Indonesia",
+    "via": null
+   },
+   {
+    "q": "di asia mana indonesia berada",
+    "gold": "asia tenggara",
+    "hasil": "benar",
+    "jawaban": "asia tenggara",
+    "via": null
+   },
+   {
+    "q": "Di mana Bu Rina tinggal?",
+    "gold": "Melati",
+    "hasil": "benar",
+    "jawaban": "Jalan Melati nomor 9",
+    "via": null
+   },
+   {
+    "q": "Apa pekerjaannya?",
+    "gold": "guru",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Berapa luas wilayah Indonesia?",
+    "gold": "1.904.569",
+    "hasil": "benar",
+    "jawaban": "1.904.569 km persegi",
+    "via": null
+   },
+   {
+    "q": "rapat di ruang mawar diadakan oleh tim mana",
+    "gold": "finance",
+    "hasil": "benar",
+    "jawaban": "finance",
+    "via": "category_lookup"
+   },
+   {
+    "q": "Sejak kapan Bu Wati membuka warung?",
+    "gold": "2010",
+    "hasil": "benar",
+    "jawaban": "2010",
+    "via": null
+   },
+   {
+    "q": "Di mana kunci gudang disimpan?",
+    "gold": "laci meja Pak Anto",
+    "hasil": "salah",
+    "jawaban": "laci meja",
+    "via": null
+   },
+   {
+    "q": "Siapa yang mengajar biologi?",
+    "gold": "Bu Sari",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Pak Budi mengajar di mana?",
+    "gold": "SMP 3 Bogor",
+    "hasil": "benar",
+    "jawaban": "SMP 3 Bogor",
+    "via": null
+   },
+   {
+    "q": "Hari apa rapat RT dilaksanakan?",
+    "gold": "Jumat",
+    "hasil": "benar",
+    "jawaban": "Jumat",
+    "via": null
+   },
+   {
+    "q": "Jam berapa toko buku Cahaya tutup?",
+    "gold": "20.00",
+    "hasil": "salah",
+    "jawaban": "08.00",
+    "via": null
+   },
+   {
+    "q": "Apa warna sepeda motor Pak Anto?",
+    "gold": "merah",
+    "hasil": "benar",
+    "jawaban": "merah",
+    "via": null
+   },
+   {
+    "q": "Hari apa dokter Lina praktik?",
+    "gold": "Senin",
+    "hasil": "benar",
+    "jawaban": "Senin dan Rabu",
+    "via": null
+   },
+   {
+    "q": "tim apa yang pelatihan di ruang seruni",
+    "gold": "marketing",
+    "hasil": "benar",
+    "jawaban": "marketing",
+    "via": "category_lookup"
+   },
+   {
+    "q": "pelatihan di ruang cempaka diikuti tim mana",
+    "gold": "audit",
+    "hasil": "benar",
+    "jawaban": "audit",
+    "via": "category_lookup"
+   },
+   {
+    "q": "jam berapa tim marketing mulai",
+    "gold": "13.00",
+    "hasil": "benar",
+    "jawaban": "13.00",
+    "via": null
+   },
+   {
+    "q": "tim mana yang tiba pukul 14.30",
+    "gold": "riset",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "siapa yang mengajar sejarah",
+    "gold": "Hasan",
+    "hasil": "salah",
+    "jawaban": "Bu Ratna",
+    "via": null
+   },
+   {
+    "q": "bu ratna mengajar apa",
+    "gold": "kimia",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana surat undangan diterima",
+    "gold": "Sukamaju",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana karnaval berakhir",
+    "gold": "Tanjung Mas",
+    "hasil": "benar",
+    "jawaban": "pelabuhan Tanjung Mas",
+    "via": null
+   },
+   {
+    "q": "karnaval berangkat dari mana",
+    "gold": "Merdeka",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "berapa harga roti keju",
+    "gold": "tiga puluh lima ribu",
+    "hasil": "salah",
+    "jawaban": "dua belas ribu",
+    "via": null
+   },
+   {
+    "q": "apa yang harganya dua belas ribu",
+    "gold": "kopi hitam",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "pendaftaran beasiswa ditutup kapan",
+    "gold": "dua puluh Mei",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "kapan pendaftaran beasiswa dibuka",
+    "gold": "tiga Maret",
+    "hasil": "benar",
+    "jawaban": "tiga Maret sampai dengan tanggal dua puluh Mei",
+    "via": null
+   },
+   {
+    "q": "kantin sekolah tutup jam berapa",
+    "gold": "15.00",
+    "hasil": "benar",
+    "jawaban": "15.00",
+    "via": null
+   },
+   {
+    "q": "Tim mana yang menggunakan ruangan anggrek",
+    "gold": "produk",
+    "hasil": "benar",
+    "jawaban": "produk",
+    "via": "category_lookup"
+   }
+  ]
+ },
+ "gabungan | BM25 | cadangan OFF": {
+  "n": 35,
+  "benar": 18,
+  "salah": 4,
+  "belum_tahu": 13,
+  "probe": {
+   "q": "Tim mana yang menggunakan ruangan anggrek",
+   "gold": "produk",
+   "hasil": "belum_tahu",
+   "jawaban": null,
+   "via": null
+  },
+  "detail": [
+   {
+    "q": "jam berapa rapat dimulai di ruang mawar",
+    "gold": "11.30",
+    "hasil": "benar",
+    "jawaban": "11.30",
+    "via": null
+   },
+   {
+    "q": "jam berapa rapat dimulai di ruang anggrek",
+    "gold": "09.30",
+    "hasil": "benar",
+    "jawaban": "09.30",
+    "via": null
+   },
+   {
+    "q": "tim apa yang rapat di ruang mawar",
+    "gold": "finance",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "tim mana yang rapat di ruang anggrek",
+    "gold": "produk",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "apa itu gravitasi",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "gravitasi adalah",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "sebutkan lambang negara indonesia",
+    "gold": "Burung Garuda",
+    "hasil": "benar",
+    "jawaban": "Burung Garuda",
+    "via": null
+   },
+   {
+    "q": "bentuk negara indonesia itu apa",
+    "gold": "Republik",
+    "hasil": "benar",
+    "jawaban": "Republik Indonesia",
+    "via": null
+   },
+   {
+    "q": "di asia mana indonesia berada",
+    "gold": "asia tenggara",
+    "hasil": "benar",
+    "jawaban": "asia tenggara",
+    "via": null
+   },
+   {
+    "q": "Di mana Bu Rina tinggal?",
+    "gold": "Melati",
+    "hasil": "benar",
+    "jawaban": "Jalan Melati nomor 9",
+    "via": null
+   },
+   {
+    "q": "Apa pekerjaannya?",
+    "gold": "guru",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Berapa luas wilayah Indonesia?",
+    "gold": "1.904.569",
+    "hasil": "benar",
+    "jawaban": "1.904.569 km persegi",
+    "via": null
+   },
+   {
+    "q": "rapat di ruang mawar diadakan oleh tim mana",
+    "gold": "finance",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Sejak kapan Bu Wati membuka warung?",
+    "gold": "2010",
+    "hasil": "benar",
+    "jawaban": "2010",
+    "via": null
+   },
+   {
+    "q": "Di mana kunci gudang disimpan?",
+    "gold": "laci meja Pak Anto",
+    "hasil": "salah",
+    "jawaban": "laci meja",
+    "via": null
+   },
+   {
+    "q": "Siapa yang mengajar biologi?",
+    "gold": "Bu Sari",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Pak Budi mengajar di mana?",
+    "gold": "SMP 3 Bogor",
+    "hasil": "benar",
+    "jawaban": "SMP 3 Bogor",
+    "via": null
+   },
+   {
+    "q": "Hari apa rapat RT dilaksanakan?",
+    "gold": "Jumat",
+    "hasil": "benar",
+    "jawaban": "Jumat",
+    "via": null
+   },
+   {
+    "q": "Jam berapa toko buku Cahaya tutup?",
+    "gold": "20.00",
+    "hasil": "salah",
+    "jawaban": "08.00",
+    "via": null
+   },
+   {
+    "q": "Apa warna sepeda motor Pak Anto?",
+    "gold": "merah",
+    "hasil": "benar",
+    "jawaban": "merah",
+    "via": null
+   },
+   {
+    "q": "Hari apa dokter Lina praktik?",
+    "gold": "Senin",
+    "hasil": "benar",
+    "jawaban": "Senin dan Rabu",
+    "via": null
+   },
+   {
+    "q": "tim apa yang pelatihan di ruang seruni",
+    "gold": "marketing",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "pelatihan di ruang cempaka diikuti tim mana",
+    "gold": "audit",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "jam berapa tim marketing mulai",
+    "gold": "13.00",
+    "hasil": "benar",
+    "jawaban": "13.00",
+    "via": null
+   },
+   {
+    "q": "tim mana yang tiba pukul 14.30",
+    "gold": "riset",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "siapa yang mengajar sejarah",
+    "gold": "Hasan",
+    "hasil": "salah",
+    "jawaban": "Bu Ratna",
+    "via": null
+   },
+   {
+    "q": "bu ratna mengajar apa",
+    "gold": "kimia",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana surat undangan diterima",
+    "gold": "Sukamaju",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana karnaval berakhir",
+    "gold": "Tanjung Mas",
+    "hasil": "benar",
+    "jawaban": "pelabuhan Tanjung Mas",
+    "via": null
+   },
+   {
+    "q": "karnaval berangkat dari mana",
+    "gold": "Merdeka",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "berapa harga roti keju",
+    "gold": "tiga puluh lima ribu",
+    "hasil": "salah",
+    "jawaban": "dua belas ribu",
+    "via": null
+   },
+   {
+    "q": "apa yang harganya dua belas ribu",
+    "gold": "kopi hitam",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "pendaftaran beasiswa ditutup kapan",
+    "gold": "dua puluh Mei",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "kapan pendaftaran beasiswa dibuka",
+    "gold": "tiga Maret",
+    "hasil": "benar",
+    "jawaban": "tiga Maret sampai dengan tanggal dua puluh Mei",
+    "via": null
+   },
+   {
+    "q": "kantin sekolah tutup jam berapa",
+    "gold": "15.00",
+    "hasil": "benar",
+    "jawaban": "15.00",
+    "via": null
+   },
+   {
+    "q": "Tim mana yang menggunakan ruangan anggrek",
+    "gold": "produk",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   }
+  ]
+ },
+ "gabungan | BM25 | cadangan ON": {
+  "n": 35,
+  "benar": 24,
+  "salah": 4,
+  "belum_tahu": 7,
+  "probe": {
+   "q": "Tim mana yang menggunakan ruangan anggrek",
+   "gold": "produk",
+   "hasil": "benar",
+   "jawaban": "produk",
+   "via": "category_lookup"
+  },
+  "detail": [
+   {
+    "q": "jam berapa rapat dimulai di ruang mawar",
+    "gold": "11.30",
+    "hasil": "benar",
+    "jawaban": "11.30",
+    "via": null
+   },
+   {
+    "q": "jam berapa rapat dimulai di ruang anggrek",
+    "gold": "09.30",
+    "hasil": "benar",
+    "jawaban": "09.30",
+    "via": null
+   },
+   {
+    "q": "tim apa yang rapat di ruang mawar",
+    "gold": "finance",
+    "hasil": "benar",
+    "jawaban": "finance",
+    "via": "category_lookup"
+   },
+   {
+    "q": "tim mana yang rapat di ruang anggrek",
+    "gold": "produk",
+    "hasil": "benar",
+    "jawaban": "produk",
+    "via": "category_lookup"
+   },
+   {
+    "q": "apa itu gravitasi",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "gravitasi adalah",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "sebutkan lambang negara indonesia",
+    "gold": "Burung Garuda",
+    "hasil": "benar",
+    "jawaban": "Burung Garuda",
+    "via": null
+   },
+   {
+    "q": "bentuk negara indonesia itu apa",
+    "gold": "Republik",
+    "hasil": "benar",
+    "jawaban": "Republik Indonesia",
+    "via": null
+   },
+   {
+    "q": "di asia mana indonesia berada",
+    "gold": "asia tenggara",
+    "hasil": "benar",
+    "jawaban": "asia tenggara",
+    "via": null
+   },
+   {
+    "q": "Di mana Bu Rina tinggal?",
+    "gold": "Melati",
+    "hasil": "benar",
+    "jawaban": "Jalan Melati nomor 9",
+    "via": null
+   },
+   {
+    "q": "Apa pekerjaannya?",
+    "gold": "guru",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Berapa luas wilayah Indonesia?",
+    "gold": "1.904.569",
+    "hasil": "benar",
+    "jawaban": "1.904.569 km persegi",
+    "via": null
+   },
+   {
+    "q": "rapat di ruang mawar diadakan oleh tim mana",
+    "gold": "finance",
+    "hasil": "benar",
+    "jawaban": "finance",
+    "via": "category_lookup"
+   },
+   {
+    "q": "Sejak kapan Bu Wati membuka warung?",
+    "gold": "2010",
+    "hasil": "benar",
+    "jawaban": "2010",
+    "via": null
+   },
+   {
+    "q": "Di mana kunci gudang disimpan?",
+    "gold": "laci meja Pak Anto",
+    "hasil": "salah",
+    "jawaban": "laci meja",
+    "via": null
+   },
+   {
+    "q": "Siapa yang mengajar biologi?",
+    "gold": "Bu Sari",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Pak Budi mengajar di mana?",
+    "gold": "SMP 3 Bogor",
+    "hasil": "benar",
+    "jawaban": "SMP 3 Bogor",
+    "via": null
+   },
+   {
+    "q": "Hari apa rapat RT dilaksanakan?",
+    "gold": "Jumat",
+    "hasil": "benar",
+    "jawaban": "Jumat",
+    "via": null
+   },
+   {
+    "q": "Jam berapa toko buku Cahaya tutup?",
+    "gold": "20.00",
+    "hasil": "salah",
+    "jawaban": "08.00",
+    "via": null
+   },
+   {
+    "q": "Apa warna sepeda motor Pak Anto?",
+    "gold": "merah",
+    "hasil": "benar",
+    "jawaban": "merah",
+    "via": null
+   },
+   {
+    "q": "Hari apa dokter Lina praktik?",
+    "gold": "Senin",
+    "hasil": "benar",
+    "jawaban": "Senin dan Rabu",
+    "via": null
+   },
+   {
+    "q": "tim apa yang pelatihan di ruang seruni",
+    "gold": "marketing",
+    "hasil": "benar",
+    "jawaban": "marketing",
+    "via": "category_lookup"
+   },
+   {
+    "q": "pelatihan di ruang cempaka diikuti tim mana",
+    "gold": "audit",
+    "hasil": "benar",
+    "jawaban": "audit",
+    "via": "category_lookup"
+   },
+   {
+    "q": "jam berapa tim marketing mulai",
+    "gold": "13.00",
+    "hasil": "benar",
+    "jawaban": "13.00",
+    "via": null
+   },
+   {
+    "q": "tim mana yang tiba pukul 14.30",
+    "gold": "riset",
+    "hasil": "benar",
+    "jawaban": "riset",
+    "via": "category_lookup"
+   },
+   {
+    "q": "siapa yang mengajar sejarah",
+    "gold": "Hasan",
+    "hasil": "salah",
+    "jawaban": "Bu Ratna",
+    "via": null
+   },
+   {
+    "q": "bu ratna mengajar apa",
+    "gold": "kimia",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana surat undangan diterima",
+    "gold": "Sukamaju",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana karnaval berakhir",
+    "gold": "Tanjung Mas",
+    "hasil": "benar",
+    "jawaban": "pelabuhan Tanjung Mas",
+    "via": null
+   },
+   {
+    "q": "karnaval berangkat dari mana",
+    "gold": "Merdeka",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "berapa harga roti keju",
+    "gold": "tiga puluh lima ribu",
+    "hasil": "salah",
+    "jawaban": "dua belas ribu",
+    "via": null
+   },
+   {
+    "q": "apa yang harganya dua belas ribu",
+    "gold": "kopi hitam",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "pendaftaran beasiswa ditutup kapan",
+    "gold": "dua puluh Mei",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "kapan pendaftaran beasiswa dibuka",
+    "gold": "tiga Maret",
+    "hasil": "benar",
+    "jawaban": "tiga Maret sampai dengan tanggal dua puluh Mei",
+    "via": null
+   },
+   {
+    "q": "kantin sekolah tutup jam berapa",
+    "gold": "15.00",
+    "hasil": "benar",
+    "jawaban": "15.00",
+    "via": null
+   },
+   {
+    "q": "Tim mana yang menggunakan ruangan anggrek",
+    "gold": "produk",
+    "hasil": "benar",
+    "jawaban": "produk",
+    "via": "category_lookup"
+   }
+  ]
+ },
+ "gabungan | hibrida | cadangan OFF": {
+  "n": 35,
+  "benar": 18,
+  "salah": 4,
+  "belum_tahu": 13,
+  "probe": {
+   "q": "Tim mana yang menggunakan ruangan anggrek",
+   "gold": "produk",
+   "hasil": "belum_tahu",
+   "jawaban": null,
+   "via": null
+  },
+  "detail": [
+   {
+    "q": "jam berapa rapat dimulai di ruang mawar",
+    "gold": "11.30",
+    "hasil": "benar",
+    "jawaban": "11.30",
+    "via": null
+   },
+   {
+    "q": "jam berapa rapat dimulai di ruang anggrek",
+    "gold": "09.30",
+    "hasil": "benar",
+    "jawaban": "09.30",
+    "via": null
+   },
+   {
+    "q": "tim apa yang rapat di ruang mawar",
+    "gold": "finance",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "tim mana yang rapat di ruang anggrek",
+    "gold": "produk",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "apa itu gravitasi",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "gravitasi adalah",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "sebutkan lambang negara indonesia",
+    "gold": "Burung Garuda",
+    "hasil": "benar",
+    "jawaban": "Burung Garuda",
+    "via": null
+   },
+   {
+    "q": "bentuk negara indonesia itu apa",
+    "gold": "Republik",
+    "hasil": "benar",
+    "jawaban": "Republik Indonesia",
+    "via": null
+   },
+   {
+    "q": "di asia mana indonesia berada",
+    "gold": "asia tenggara",
+    "hasil": "benar",
+    "jawaban": "asia tenggara",
+    "via": null
+   },
+   {
+    "q": "Di mana Bu Rina tinggal?",
+    "gold": "Melati",
+    "hasil": "benar",
+    "jawaban": "Jalan Melati nomor 9",
+    "via": null
+   },
+   {
+    "q": "Apa pekerjaannya?",
+    "gold": "guru",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Berapa luas wilayah Indonesia?",
+    "gold": "1.904.569",
+    "hasil": "benar",
+    "jawaban": "1.904.569 km persegi",
+    "via": null
+   },
+   {
+    "q": "rapat di ruang mawar diadakan oleh tim mana",
+    "gold": "finance",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Sejak kapan Bu Wati membuka warung?",
+    "gold": "2010",
+    "hasil": "benar",
+    "jawaban": "2010",
+    "via": null
+   },
+   {
+    "q": "Di mana kunci gudang disimpan?",
+    "gold": "laci meja Pak Anto",
+    "hasil": "salah",
+    "jawaban": "laci meja",
+    "via": null
+   },
+   {
+    "q": "Siapa yang mengajar biologi?",
+    "gold": "Bu Sari",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Pak Budi mengajar di mana?",
+    "gold": "SMP 3 Bogor",
+    "hasil": "benar",
+    "jawaban": "SMP 3 Bogor",
+    "via": null
+   },
+   {
+    "q": "Hari apa rapat RT dilaksanakan?",
+    "gold": "Jumat",
+    "hasil": "benar",
+    "jawaban": "Jumat",
+    "via": null
+   },
+   {
+    "q": "Jam berapa toko buku Cahaya tutup?",
+    "gold": "20.00",
+    "hasil": "salah",
+    "jawaban": "08.00",
+    "via": null
+   },
+   {
+    "q": "Apa warna sepeda motor Pak Anto?",
+    "gold": "merah",
+    "hasil": "benar",
+    "jawaban": "merah",
+    "via": null
+   },
+   {
+    "q": "Hari apa dokter Lina praktik?",
+    "gold": "Senin",
+    "hasil": "benar",
+    "jawaban": "Senin dan Rabu",
+    "via": null
+   },
+   {
+    "q": "tim apa yang pelatihan di ruang seruni",
+    "gold": "marketing",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "pelatihan di ruang cempaka diikuti tim mana",
+    "gold": "audit",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "jam berapa tim marketing mulai",
+    "gold": "13.00",
+    "hasil": "benar",
+    "jawaban": "13.00",
+    "via": null
+   },
+   {
+    "q": "tim mana yang tiba pukul 14.30",
+    "gold": "riset",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "siapa yang mengajar sejarah",
+    "gold": "Hasan",
+    "hasil": "salah",
+    "jawaban": "Bu Ratna",
+    "via": null
+   },
+   {
+    "q": "bu ratna mengajar apa",
+    "gold": "kimia",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana surat undangan diterima",
+    "gold": "Sukamaju",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana karnaval berakhir",
+    "gold": "Tanjung Mas",
+    "hasil": "benar",
+    "jawaban": "pelabuhan Tanjung Mas",
+    "via": null
+   },
+   {
+    "q": "karnaval berangkat dari mana",
+    "gold": "Merdeka",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "berapa harga roti keju",
+    "gold": "tiga puluh lima ribu",
+    "hasil": "salah",
+    "jawaban": "dua belas ribu",
+    "via": null
+   },
+   {
+    "q": "apa yang harganya dua belas ribu",
+    "gold": "kopi hitam",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "pendaftaran beasiswa ditutup kapan",
+    "gold": "dua puluh Mei",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "kapan pendaftaran beasiswa dibuka",
+    "gold": "tiga Maret",
+    "hasil": "benar",
+    "jawaban": "tiga Maret sampai dengan tanggal dua puluh Mei",
+    "via": null
+   },
+   {
+    "q": "kantin sekolah tutup jam berapa",
+    "gold": "15.00",
+    "hasil": "benar",
+    "jawaban": "15.00",
+    "via": null
+   },
+   {
+    "q": "Tim mana yang menggunakan ruangan anggrek",
+    "gold": "produk",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   }
+  ]
+ },
+ "gabungan | hibrida | cadangan ON": {
+  "n": 35,
+  "benar": 24,
+  "salah": 4,
+  "belum_tahu": 7,
+  "probe": {
+   "q": "Tim mana yang menggunakan ruangan anggrek",
+   "gold": "produk",
+   "hasil": "benar",
+   "jawaban": "produk",
+   "via": "category_lookup"
+  },
+  "detail": [
+   {
+    "q": "jam berapa rapat dimulai di ruang mawar",
+    "gold": "11.30",
+    "hasil": "benar",
+    "jawaban": "11.30",
+    "via": null
+   },
+   {
+    "q": "jam berapa rapat dimulai di ruang anggrek",
+    "gold": "09.30",
+    "hasil": "benar",
+    "jawaban": "09.30",
+    "via": null
+   },
+   {
+    "q": "tim apa yang rapat di ruang mawar",
+    "gold": "finance",
+    "hasil": "benar",
+    "jawaban": "finance",
+    "via": "category_lookup"
+   },
+   {
+    "q": "tim mana yang rapat di ruang anggrek",
+    "gold": "produk",
+    "hasil": "benar",
+    "jawaban": "produk",
+    "via": "category_lookup"
+   },
+   {
+    "q": "apa itu gravitasi",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "gravitasi adalah",
+    "gold": "gaya tarik-menarik",
+    "hasil": "benar",
+    "jawaban": "gaya tarik-menarik antar benda bermassa berbanding lurus dengan perkalian massanya dan berbanding terbalik dengan kuadrat jaraknya",
+    "via": null
+   },
+   {
+    "q": "sebutkan lambang negara indonesia",
+    "gold": "Burung Garuda",
+    "hasil": "benar",
+    "jawaban": "Burung Garuda",
+    "via": null
+   },
+   {
+    "q": "bentuk negara indonesia itu apa",
+    "gold": "Republik",
+    "hasil": "benar",
+    "jawaban": "Republik Indonesia",
+    "via": null
+   },
+   {
+    "q": "di asia mana indonesia berada",
+    "gold": "asia tenggara",
+    "hasil": "benar",
+    "jawaban": "asia tenggara",
+    "via": null
+   },
+   {
+    "q": "Di mana Bu Rina tinggal?",
+    "gold": "Melati",
+    "hasil": "benar",
+    "jawaban": "Jalan Melati nomor 9",
+    "via": null
+   },
+   {
+    "q": "Apa pekerjaannya?",
+    "gold": "guru",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Berapa luas wilayah Indonesia?",
+    "gold": "1.904.569",
+    "hasil": "benar",
+    "jawaban": "1.904.569 km persegi",
+    "via": null
+   },
+   {
+    "q": "rapat di ruang mawar diadakan oleh tim mana",
+    "gold": "finance",
+    "hasil": "benar",
+    "jawaban": "finance",
+    "via": "category_lookup"
+   },
+   {
+    "q": "Sejak kapan Bu Wati membuka warung?",
+    "gold": "2010",
+    "hasil": "benar",
+    "jawaban": "2010",
+    "via": null
+   },
+   {
+    "q": "Di mana kunci gudang disimpan?",
+    "gold": "laci meja Pak Anto",
+    "hasil": "salah",
+    "jawaban": "laci meja",
+    "via": null
+   },
+   {
+    "q": "Siapa yang mengajar biologi?",
+    "gold": "Bu Sari",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "Pak Budi mengajar di mana?",
+    "gold": "SMP 3 Bogor",
+    "hasil": "benar",
+    "jawaban": "SMP 3 Bogor",
+    "via": null
+   },
+   {
+    "q": "Hari apa rapat RT dilaksanakan?",
+    "gold": "Jumat",
+    "hasil": "benar",
+    "jawaban": "Jumat",
+    "via": null
+   },
+   {
+    "q": "Jam berapa toko buku Cahaya tutup?",
+    "gold": "20.00",
+    "hasil": "salah",
+    "jawaban": "08.00",
+    "via": null
+   },
+   {
+    "q": "Apa warna sepeda motor Pak Anto?",
+    "gold": "merah",
+    "hasil": "benar",
+    "jawaban": "merah",
+    "via": null
+   },
+   {
+    "q": "Hari apa dokter Lina praktik?",
+    "gold": "Senin",
+    "hasil": "benar",
+    "jawaban": "Senin dan Rabu",
+    "via": null
+   },
+   {
+    "q": "tim apa yang pelatihan di ruang seruni",
+    "gold": "marketing",
+    "hasil": "benar",
+    "jawaban": "marketing",
+    "via": "category_lookup"
+   },
+   {
+    "q": "pelatihan di ruang cempaka diikuti tim mana",
+    "gold": "audit",
+    "hasil": "benar",
+    "jawaban": "audit",
+    "via": "category_lookup"
+   },
+   {
+    "q": "jam berapa tim marketing mulai",
+    "gold": "13.00",
+    "hasil": "benar",
+    "jawaban": "13.00",
+    "via": null
+   },
+   {
+    "q": "tim mana yang tiba pukul 14.30",
+    "gold": "riset",
+    "hasil": "benar",
+    "jawaban": "riset",
+    "via": "category_lookup"
+   },
+   {
+    "q": "siapa yang mengajar sejarah",
+    "gold": "Hasan",
+    "hasil": "salah",
+    "jawaban": "Bu Ratna",
+    "via": null
+   },
+   {
+    "q": "bu ratna mengajar apa",
+    "gold": "kimia",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana surat undangan diterima",
+    "gold": "Sukamaju",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "di mana karnaval berakhir",
+    "gold": "Tanjung Mas",
+    "hasil": "benar",
+    "jawaban": "pelabuhan Tanjung Mas",
+    "via": null
+   },
+   {
+    "q": "karnaval berangkat dari mana",
+    "gold": "Merdeka",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "berapa harga roti keju",
+    "gold": "tiga puluh lima ribu",
+    "hasil": "salah",
+    "jawaban": "dua belas ribu",
+    "via": null
+   },
+   {
+    "q": "apa yang harganya dua belas ribu",
+    "gold": "kopi hitam",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "pendaftaran beasiswa ditutup kapan",
+    "gold": "dua puluh Mei",
+    "hasil": "belum_tahu",
+    "jawaban": null,
+    "via": null
+   },
+   {
+    "q": "kapan pendaftaran beasiswa dibuka",
+    "gold": "tiga Maret",
+    "hasil": "benar",
+    "jawaban": "tiga Maret sampai dengan tanggal dua puluh Mei",
+    "via": null
+   },
+   {
+    "q": "kantin sekolah tutup jam berapa",
+    "gold": "15.00",
+    "hasil": "benar",
+    "jawaban": "15.00",
+    "via": null
+   },
+   {
+    "q": "Tim mana yang menggunakan ruangan anggrek",
+    "gold": "produk",
+    "hasil": "benar",
+    "jawaban": "produk",
+    "via": "category_lookup"
+   }
+  ]
+ }
+}

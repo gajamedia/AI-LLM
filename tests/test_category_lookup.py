@@ -51,3 +51,15 @@ def test_agent_hanya_memakai_cadangan_saat_model_tidak_menjawab():
     b = M.MemoryAgent(store, Right())
     ob = b.ask("tim mana yang rapat di ruang anggrek")
     assert ob["answer"] == "produk" and "via" not in ob                              # jawaban model dipakai; cadangan tidak berjalan
+
+
+def test_dua_catatan_menyatakan_fakta_sama_tetap_dijawab():
+    # kasus pemakai: #20 dan #28 berbeda kalimat tetapi sama-sama 'tim produk' di ruang Anggrek (tak ada kata pembeda antar keduanya)
+    n28 = "ruang anggrek pada jam 09.30 dipakai oleh tim produk"
+    r = _lk("Tim mana yang menggunakan ruangan anggrek", [N1, n28])
+    assert r and r["answer"] == "produk" and r["id"] == 2                                # yang terbaru dari catatan yang sepakat
+
+
+def test_dua_catatan_berbeda_jawaban_tetap_menyerah():
+    n_fin = "Rapat tim finance dimulai pukul 13.00 di ruang Anggrek."
+    assert _lk("Tim mana yang menggunakan ruangan anggrek", [N1, n_fin]) is None        # dua tim berbeda di ruang yang sama: jangan memilih

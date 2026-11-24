@@ -326,16 +326,63 @@ class MemoryStore:
                 self.con.execute("SELECT id, name, parts FROM documents WHERE active=1 ORDER BY id").fetchall()]
 
     # ---------- pencarian ----------
-    def search(self, question, k=3, docs_only=False):
+    def _bm25_rows(self, question, n, docs_only=False):
         q = R.build_query(question)
         if not q:
             return []
         extra = "AND n.doc_id IS NOT NULL " if docs_only else ""
-        rows = self.con.execute(
+        return self.con.execute(
             "SELECT n.id, n.text, n.doc_id, n.doc_part, d.name FROM notes_fts f JOIN notes n ON n.id=f.rowid "
             "LEFT JOIN documents d ON d.id=n.doc_id "
-            "WHERE notes_fts MATCH ? AND n.active=1 " + extra + "ORDER BY bm25(notes_fts) LIMIT ?", (q, k)).fetchall()
-        return [{"id": i, "text": t, "doc_id": did, "part": part, "doc": name} for i, t, did, part, name in rows]
+            "WHERE notes_fts MATCH ? AND n.active=1 " + extra + "ORDER BY bm25(notes_fts) LIMIT ?", (q, n)).fetchall()
+
+    @staticmethod
+    def _row(r):
+        i, t, did, part, name = r
+        return {"id": i, "text": t, "doc_id": did, "part": part, "doc": name}
+
+    def _hybrid_vectors(self):
+        """NoteVectors bila MEMORI_HYBRID=on dan embedder bisa dimuat; selain itu None (BM25 murni, perilaku lama)."""
+        if getattr(self, "_hv_tried", False):
+            return getattr(self, "_hv", None)
+        self._hv_tried, self._hv = True, None
+        if str(memory_router.setting("MEMORI_HYBRID", "off")).strip().lower() in ("on", "1", "true", "ya"):
+            try:
+                import hybrid_search
+                emb = hybrid_search.E5Embedder(memory_router.setting("MEMORI_EMBED_MODEL", hybrid_search.DEFAULT_EMBED_MODEL))
+                self._hv = hybrid_search.NoteVectors(self.con, emb)
+            except Exception as e:   # tanpa torch/transformers/model: tetap BM25
+                print("[hybrid] embedder tidak tersedia, memakai BM25 saja: %s" % e, file=sys.stderr)
+        return self._hv
+
+    def search(self, question, k=3, docs_only=False):
+        hv = self._hybrid_vectors()
+        if hv is not None:
+            try:
+                import hybrid_search
+                n = max(30, k * 5)
+                bm_rows = self._bm25_rows(question, n, docs_only)
+                allowed = None
+                if docs_only:
+                    allowed = {r[0] for r in self.con.execute("SELECT id FROM notes WHERE active=1 AND doc_id IS NOT NULL")}
+                try:
+                    min_sim = float(memory_router.setting("MEMORI_HYBRID_MIN_SIM", hybrid_search.DEFAULT_MIN_SIM))
+                except (TypeError, ValueError):
+                    min_sim = hybrid_search.DEFAULT_MIN_SIM
+                dense_ids = hv.search(question, n, allowed, min_sim)
+                ids = hybrid_search.fuse([r[0] for r in bm_rows], dense_ids, k)
+                by_id = {r[0]: r for r in bm_rows}
+                missing = [i for i in ids if i not in by_id]
+                if missing:
+                    qm = ",".join("?" * len(missing))
+                    for r in self.con.execute(
+                            "SELECT n.id, n.text, n.doc_id, n.doc_part, d.name FROM notes n LEFT JOIN documents d ON d.id=n.doc_id "
+                            "WHERE n.active=1 AND n.id IN (%s)" % qm, missing):
+                        by_id[r[0]] = r
+                return [self._row(by_id[i]) for i in ids if i in by_id]
+            except Exception as e:
+                print("[hybrid] gagal, kembali ke BM25: %s" % e, file=sys.stderr)
+        return [self._row(r) for r in self._bm25_rows(question, k, docs_only)]
 
 
 class Reader:
@@ -520,9 +567,16 @@ def category_lookup(question, reads):
     best = max(score[c[0]] for c in cands)
     top = [c for c in cands if score[c[0]] == best]
     cand_ids = {c[0] for c in cands}
-    if len(top) != 1 or (len(reads) > 1 and best == 0) or any(score[nid] > best for nid in norms if nid not in cand_ids):
+    if any(score[nid] > best for nid in norms if nid not in cand_ids):
         return None
-    nid, note, ans = top[0]
+    # Beberapa catatan yang sama-sama cocok TETAPI semuanya menjawab sama (mis. dua catatan berbeda kalimat tentang 'tim produk' di ruang yang sama):
+    # tidak ambigu, ambil yang terbaru. Bila jawabannya berbeda, atau tak ada kata pembeda sama sekali antar catatan, tetap menyerah.
+    if len({R.norm(c[2]) for c in cands}) == 1:
+        nid, note, ans = max(top, key=lambda c: c[0])
+    elif len(top) != 1 or (len(reads) > 1 and best == 0):
+        return None
+    else:
+        nid, note, ans = top[0]
     return {"id": nid, "text": note, "answer": ans, "category": cat}
 
 

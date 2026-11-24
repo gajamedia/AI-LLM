@@ -20,7 +20,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "apps"))
 sys.path.insert(0, str(PROJECT_ROOT / "tools"))
 
-RUNTIME_TOOLS = ["memory_web.py", "memory_agent.py", "memory_chat.py", "memory_tools.py", "memory_router.py", "memory_docs.py", "rag_lib.py", "generate_gpt.py"]
+RUNTIME_TOOLS = ["memory_web.py", "memory_agent.py", "memory_chat.py", "memory_tools.py", "memory_router.py", "memory_docs.py", "hybrid_search.py", "rag_lib.py", "generate_gpt.py"]
 VOCAB_FILES = ["vocab_prod.json", "token2id_prod.json", "id2token_prod.json"]
 DEFAULT_CKPT_REPO = "reports/checkpoints_100m_sft_mem2/gpt_sft_best.pt"
 MODEL_FILE = "model/hai07-100m-v{v}.pt"
