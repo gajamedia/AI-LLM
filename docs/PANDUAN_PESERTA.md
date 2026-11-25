@@ -1,11 +1,11 @@
-# Memori: panduan singkat peserta uji
+# Notis: panduan singkat peserta uji
 
-Memori adalah buku catatan pribadi yang bisa Anda tanya. Semua berjalan **di komputer Anda, tanpa internet** (internet hanya untuk pemasangan pertama).
+Notis adalah buku catatan pribadi yang bisa Anda tanya. Semua berjalan **di komputer Anda, tanpa internet** (internet hanya untuk pemasangan pertama).
 Ini versi uji **non-komersial**. Modelnya kecil: ia lebih memilih menjawab "belum tahu" daripada menebak. Itu normal.
 
 ## Memasang (sekali, sekitar 10 menit)
 1. Pasang **Python 3.12** dari https://www.python.org/downloads/release/python-3120/ dan **centang "Add python.exe to PATH"**.
-2. Ekstrak zip Memori ke folder Anda sendiri (mis. `Documents`), jangan dijalankan dari dalam zip.
+2. Ekstrak zip Notis ke folder Anda sendiri (mis. `Documents`), jangan dijalankan dari dalam zip.
 3. Klik ganda **`jalankan.bat`**. Pertama kali memakan 6 sampai 7 menit (mengunduh ±250 MB). Tunggu sampai browser terbuka.
 4. Jika gagal atau macet, catat di langkah mana dan teks yang muncul, lalu kirim ke pewawancara. Itu justru informasi yang kami butuhkan.
 

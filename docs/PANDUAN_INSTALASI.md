@@ -1,6 +1,6 @@
-# Panduan Instalasi dan Pemakaian: Memori
+# Panduan Instalasi dan Pemakaian: Notis
 
-Panduan langkah demi langkah untuk memasang dan menjalankan **Memori** di komputer Anda. Tidak perlu kemampuan pemrograman.
+Panduan langkah demi langkah untuk memasang dan menjalankan **Notis** di komputer Anda. Tidak perlu kemampuan pemrograman.
 Setelah terpasang, aplikasi berjalan **sepenuhnya offline**. Cara mengajar AI ada di `PANDUAN_MENGAJAR.md`.
 
 ## 1. Yang Anda butuhkan
@@ -18,10 +18,10 @@ Kecepatan (diukur di komputer 8 inti): model dimuat dalam 5–10 detik, jawaban 
 
 ## 2. Unduh dan periksa berkas (opsional tetapi disarankan)
 
-1. Unduh `hai07-memori-v….zip` dari halaman Releases di GitHub.
+1. Unduh `hai07-notis-v….zip` dari halaman Releases di GitHub.
 2. Periksa keutuhan. Di PowerShell:
    ```powershell
-   Get-FileHash .\hai07-memori-v1.1126.13.zip -Algorithm SHA256
+   Get-FileHash .\hai07-notis-v1.1126.14.zip -Algorithm SHA256
    ```
    Bandingkan dengan nilai SHA-256 yang tertulis di catatan rilis. Jika berbeda, unduh ulang (unduhan terputus atau rusak).
 
@@ -37,9 +37,9 @@ Jika perintah itu tidak dikenali, atau yang muncul adalah jendela Microsoft Stor
 
 ## 4. Ekstrak paket
 
-1. Klik kanan zip, pilih **Extract All…**, dan simpan di folder yang Anda miliki, misalnya `C:\Memori` atau `Documents`.
+1. Klik kanan zip, pilih **Extract All…**, dan simpan di folder yang Anda miliki, misalnya `C:\Notis` atau `Documents`.
    Jangan jalankan dari dalam zip, dan hindari `C:\Program Files` (butuh izin khusus untuk menulis).
-2. Hasilnya folder `hai07-memori-v1.1126.13` berisi `jalankan.bat`, `model`, `tools`, dll.
+2. Hasilnya folder `hai07-notis-v1.1126.14` berisi `jalankan.bat`, `model`, `tools`, dll.
 
 ## 5. Jalankan pertama kali
 
@@ -68,10 +68,10 @@ Tips utama: **satu fakta per kalimat, sebut nama lengkap, tulis tanggal yang pas
 
 - **Menjalankan lagi:** klik ganda `jalankan.bat`. Berikutnya hanya butuh 10–20 detik (tanpa unduhan).
 - **Menghentikan:** tekan `Ctrl+C` di jendela hitam atau tutup jendelanya. Catatan Anda tetap tersimpan.
-- **Port 8765 sudah dipakai** (misalnya Memori sudah berjalan di jendela lain, atau program lain): aplikasi langsung berhenti dengan pesan
+- **Port 8765 sudah dipakai** (misalnya Notis sudah berjalan di jendela lain, atau program lain): aplikasi langsung berhenti dengan pesan
   "Port 8765 sudah dipakai program lain". Tutup yang lama, atau jalankan lewat Command Prompt di folder paket:
   `jalankan.bat --port 8800`, lalu buka `http://127.0.0.1:8800`.
-  Jangan menjalankan dua salinan Memori sekaligus dengan memori yang sama.
+  Jangan menjalankan dua salinan Notis sekaligus dengan memori yang sama.
 
 ## 8. Cadangan, pembaruan, dan mencopot
 
@@ -88,7 +88,7 @@ Skrip `jalankan.sh` disertakan tetapi **belum pernah dijalankan** karena pembuat
 ```bash
 # Debian/Ubuntu: pastikan Python dan venv tersedia
 sudo apt install python3 python3-venv
-cd hai07-memori-v1.1126.13
+cd hai07-notis-v1.1126.14
 bash jalankan.sh
 ```
 
@@ -104,11 +104,11 @@ Di macOS pasang Python 3.10+ dari python.org atau Homebrew, lalu jalankan `bash 
 | Jendela hitam langsung tertutup | Jalankan dari Command Prompt agar pesan galat terbaca: buka `cmd`, `cd` ke folder paket, ketik `jalankan.bat`. |
 | Model gagal dimuat | Ukuran `model\hai07-100m-v….pt` harus ±404 MB. Jika lebih kecil, unduhan rusak: unduh ulang dan periksa checksum. |
 | Halaman tidak terbuka | Pastikan jendela hitam masih berjalan dan buka `http://127.0.0.1:8765/` (bukan alamat jaringan). |
-| "Port 8765 sudah dipakai program lain" | Memori mungkin sudah berjalan di jendela lain: tutup yang lama, atau pakai port lain (bagian 7). |
+| "Port 8765 sudah dipakai program lain" | Notis mungkin sudah berjalan di jendela lain: tutup yang lama, atau pakai port lain (bagian 7). |
 | Meminta AI menghitung, mengurutkan, atau menulis | AI hanya membaca catatan. Hanya alat kecil yang tersedia: urutkan angka, hitung (+ - x / ^), hari dan selisih tanggal. Lihat `PANDUAN_MENGAJAR.md`. |
 | AI sering menjawab "belum tahu" | Tulis catatan lebih sederhana, samakan nama dengan di catatan, atau pilih **Longgar**. Ini batas model kecil, bukan kerusakan. |
 | Komputer terasa berat saat menjawab | Tutup program lain; model memakai ±1 GB RAM dan prosesor saat menjawab. |
-| Catatan hilang | Periksa `data\memory\memory.db` di folder yang Anda jalankan. Memori ikut folder paketnya. Jika Anda membuka folder paket yang berbeda, memorinya juga berbeda. |
+| Catatan hilang | Periksa `data\memory\memory.db` di folder yang Anda jalankan. Catatan ikut folder paketnya. Jika Anda membuka folder paket yang berbeda, memorinya juga berbeda. |
 
 Jika masalah tetap ada, laporkan di https://github.com/gajamedia/AI-LLM/issues dengan menyertakan sistem operasi, versi Python (`python --version`), dan teks pesan galat dari jendela hitam.
 

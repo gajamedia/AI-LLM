@@ -1,9 +1,9 @@
 """
 Membuat paket rilis yang bisa didistribusikan: bobot saja + kode jalan minimal + antarmuka web + dokumen.
 
-  python tools/package_release.py --version 1.1126.13
+  python tools/package_release.py --version 1.1126.14
 
-Keluaran: dist/hai07-memori-v<versi>/ dan dist/hai07-memori-v<versi>.zip (+ SHA256SUMS.txt di dalamnya).
+Keluaran: dist/hai07-notis-v<versi>/ dan dist/hai07-notis-v<versi>.zip (+ SHA256SUMS.txt di dalamnya).
 Paket tidak berisi optimizer, data latih, atau catatan pengguna. Berkas lisensi diambil dari licenses/
 (kode MIT, bobot CC BY-NC-SA 4.0); bila folder itu tidak ada, paket memuat pernyataan 'belum ditetapkan'.
 """
@@ -112,7 +112,7 @@ def unique_param_count(state_dict):
 def model_card(v, n_params, step, size_mb):
     return f"""# Kartu Model: hai07-100m v{v}
 
-Model bahasa Indonesia kecil (decoder-only, {n_params/1e6:.1f} juta parameter) dengan pembaca catatan untuk aplikasi **Memori**
+Model bahasa Indonesia kecil (decoder-only, {n_params/1e6:.1f} juta parameter) dengan pembaca catatan untuk aplikasi **Notis**
 (AI yang bisa diajari pemiliknya, jawaban selalu disertai sumber). Dilatih dari nol di kuota GPU gratis.
 
 ## Ringkasan
@@ -154,7 +154,7 @@ Skrip dan data uji ada di repositori sumber (`tools/*eval*.py`, `evalsets/`).
 - Pada kalimat rumit hanya sekitar separuh jawaban benar, bahkan saat diberi catatan yang tepat. Kalimat sederhana (satu fakta per kalimat) jauh lebih akurat.
 - Lebih sering menjawab "belum tahu" daripada salah (disengaja); sebagian pertanyaan yang sebenarnya terjawab akan ditolak.
 - Konteks hanya 256 token; catatan panjang tidak muat.
-- Tidak ada pelatihan keselamatan atau penyelarasan. Data pretraining berasal dari web terbuka, sehingga model **dapat menghasilkan teks bias, keliru, atau tidak pantas** bila dipakai sebagai generator bebas. Pakailah lewat aplikasi Memori.
+- Tidak ada pelatihan keselamatan atau penyelarasan. Data pretraining berasal dari web terbuka, sehingga model **dapat menghasilkan teks bias, keliru, atau tidak pantas** bila dipakai sebagai generator bebas. Pakailah lewat aplikasi Notis.
 - Hanya bahasa Indonesia; kemampuan bahasa lain tidak diuji.
 - Sebagian data SFT adalah terjemahan mesin dan/atau berasal dari keluaran model bahasa lain; kualitas dan kesalahan terjemahan dapat terbawa.
 
@@ -201,7 +201,7 @@ Kode: MIT. Bobot model: CC BY-NC-SA 4.0 (lihat `LISENSI.txt`). Data latih tidak 
 
 
 def package_readme(v):
-    return f"""# Memori v{v}: AI kecil yang bisa Anda ajari (offline)
+    return f"""# Notis v{v}: AI kecil yang bisa Anda ajari (offline)
 
 Paket ini menjalankan model bahasa Indonesia 100 juta parameter di komputer Anda sendiri. Anda mengajarinya fakta dengan kalimat
 biasa, lalu menanyakannya kembali; jawaban selalu disertai catatan sumber, dan jika tidak yakin ia menjawab "belum tahu".
@@ -241,7 +241,7 @@ def main():
     args = ap.parse_args()
     v = args.version
     out_root = PROJECT_ROOT / args.out
-    pkg = out_root / f"hai07-memori-v{v}"
+    pkg = out_root / f"hai07-notis-v{v}"
     if pkg.exists():
         shutil.rmtree(pkg)
     (pkg / "model").mkdir(parents=True)
@@ -307,13 +307,13 @@ def main():
         if p.is_file() and p.name != "SHA256SUMS.txt":
             lines.append(f"{sha256(p)}  {p.relative_to(pkg).as_posix()}")
     (pkg / "SHA256SUMS.txt").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
-    zip_path = out_root / f"hai07-memori-v{v}.zip"
+    zip_path = out_root / f"hai07-notis-v{v}.zip"
     if zip_path.exists():
         zip_path.unlink()
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as z:
         for p in sorted(pkg.rglob("*")):
             if p.is_file():
-                z.write(p, f"hai07-memori-v{v}/" + p.relative_to(pkg).as_posix())
+                z.write(p, f"hai07-notis-v{v}/" + p.relative_to(pkg).as_posix())
     print(f"[paket] {pkg}  ({len(lines)} berkas)")
     print(f"[paket] {zip_path}  ({zip_path.stat().st_size/1e6:.0f} MB)  sha256={sha256(zip_path)}")
 

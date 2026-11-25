@@ -270,7 +270,7 @@ def main():
     ap.add_argument("--open", action="store_true", help="Buka peramban otomatis.")
     args = ap.parse_args()
 
-    port_error = (f"[web] Port {args.port} sudah dipakai program lain (mungkin Memori yang sudah berjalan).\n"
+    port_error = (f"[web] Port {args.port} sudah dipakai program lain (mungkin Notis yang sudah berjalan).\n"
                   f"[web] Tutup yang lama, atau jalankan dengan port lain, mis.:  --port {args.port + 35}")
     try:  # periksa port SEBELUM memuat model (hemat waktu) dan agar kegagalan cepat terlihat
         probe = ExclusiveServer(("127.0.0.1", args.port), BaseHTTPRequestHandler)

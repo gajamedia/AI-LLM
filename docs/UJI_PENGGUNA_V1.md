@@ -1,4 +1,4 @@
-# Uji pengguna hai07-memori v1 (jalur C: gratis, non-komersial)
+# Uji pengguna Notis (hai07) v1 (jalur C: gratis, non-komersial)
 
 Tujuan: mengukur apakah aplikasi memori lokal berguna bagi orang selain pengembang, dengan catatan mereka sendiri.
 Tanggal mulai: 2026-11-25. Evaluasi keputusan: 2027-01-05 (6 minggu).
@@ -10,7 +10,7 @@ Tanggal mulai: 2026-11-25. Evaluasi keputusan: 2027-01-05 (6 minggu).
 ## Lembar persetujuan (dibaca dan disetujui peserta)
 
 Saya memahami bahwa:
-1. Ini versi uji **non-komersial** dari aplikasi hai07-memori. Model dan aplikasi diberikan apa adanya, tanpa jaminan.
+1. Ini versi uji **non-komersial** dari aplikasi Notis (hai07). Model dan aplikasi diberikan apa adanya, tanpa jaminan.
 2. Model kecil dan bisa salah atau menjawab "belum tahu". Saya tidak akan menyimpan hal penting (kata sandi, data keuangan, data kesehatan) sebagai satu-satunya salinan.
 3. Catatan saya disimpan **hanya di perangkat saya**. Pengembang tidak menerima catatan saya kecuali saya sendiri mengirimkannya.
 4. Pencatatan penggunaan (opsional, pilih satu):

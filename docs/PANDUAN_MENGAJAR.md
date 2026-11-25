@@ -1,6 +1,6 @@
-# Panduan Mengajar Memori
+# Panduan Mengajar Notis
 
-Aplikasi **Memori** memungkinkan pemilik komputer mengajari AI-nya fakta baru dengan kalimat biasa, lalu menanyakannya
+Aplikasi **Notis** memungkinkan pemilik komputer mengajari AI-nya fakta baru dengan kalimat biasa, lalu menanyakannya
 kembali. Setiap jawaban disertai **catatan sumber**; jika tidak ada catatan yang meyakinkan, AI berkata
 "belum tahu" dan tidak menebak.
 
